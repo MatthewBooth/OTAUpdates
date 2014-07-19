@@ -66,7 +66,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			SAXParser saxParser = factory.newSAXParser();
 			saxParser.parse(xmlFile, this);
 
-			checkUpdateAvailability();
+			setUpdateAvailability();
 
 		} catch (ParserConfigurationException ex) {
 			Log.e(TAG, "", ex);
@@ -75,42 +75,40 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		}
 	}
 
-	private void checkUpdateAvailability() {
-		
+	private boolean versionBiggerThan(String current, String manifest) {
+		// returns true if current > manifest, false otherwise
+		if (current.length() > manifest.length()) {
+			for (int i = 0; i < current.length() - manifest.length(); i++) {
+				manifest+="0";
+			}
+		} else if (manifest.length() > current.length()) {
+			for (int i = 0; i < manifest.length() - current.length(); i++) {
+				current+="0";
+			}
+		}
+
+		for (int i = 0; i <= current.length(); i++) {
+			if (current.charAt(i) > manifest.charAt(i)){
+				return true; // definitely true
+			} else if (manifest.charAt(i) > current.charAt(i)) {
+				return false; // definitely false
+			} else {
+				//else still undecided
+			}
+		}
+		return false;
+	}
+
+	private void setUpdateAvailability() {
 		// Grab the data from the device and manifest
-		String currentVersion = Utils.getProp("ro.ota.version");
-		currentVersion = currentVersion.replaceAll("[^0-9]", ""); // Strip anything not a number
+		String currentVer = Utils.getProp("ro.ota.version");
 		String manifestVer = RomUpdate.getVersion(mContext);
-		manifestVer = manifestVer.replaceAll("[^0-9]", "");
 
-		// Parse ints
-		int manifestNumber = Integer.parseInt(manifestVer);
-		int currentNumber = Integer.parseInt(currentVersion);
-		
-		// Pad out to be at least 5 digits long
-		// That way, 1.2 shows bigger than 1.1.1
-		// Because 12000 > 11100
-		// Without this it would show 12 > 111
-		if(manifestVer.length() <= 2){
-			manifestNumber *= 1000;
-		} else if(manifestVer.length() <= 3) {
-			manifestNumber *= 100;
-		} else if(manifestVer.length() <= 4) {
-			manifestNumber *= 10;
-		}
-		
-		// Same again
-		if(currentVersion.length() <= 2){
-			currentNumber *= 1000;
-		} else if(currentVersion.length() <= 3) {
-			currentNumber *= 100;
-		} else if(currentVersion.length() <= 4) {
-			currentNumber *= 10;
-		}
+		boolean available = versionBiggerThan(currentVer, manifestVer);
 
-		RomUpdate.setUpdateAvailable(mContext, manifestNumber > currentNumber);
+		RomUpdate.setUpdateAvailable(mContext, available);
 		if(DEBUGGING)
-			Log.d(TAG, "Update Availability is " + (manifestNumber > currentNumber));
+			Log.d(TAG, "Update Availability is " + available);
 	}
 
 	@Override
@@ -144,7 +142,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (qName.equalsIgnoreCase("directurl")) {
 			tagDirectUrl = true;
 		}
-		
+
 		if (qName.equalsIgnoreCase("httpurl")) {
 			tagHttpUrl = true;
 		}
@@ -160,15 +158,15 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (qName.equalsIgnoreCase("android")){
 			tagAndroid = true;
 		}
-		
+
 		if (qName.equalsIgnoreCase("website")){
 			tagWebsite = true;
 		}
-		
+
 		if (qName.equalsIgnoreCase("developer")){
 			tagDeveloper = true;
 		}
-		
+
 		if (qName.equalsIgnoreCase("donateurl")){
 			tagDonateUrl = true;
 		}
@@ -221,7 +219,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (tagHttpUrl) {
 			RomUpdate.setHttpUrl(mContext, value);
 			tagHttpUrl = false;
@@ -248,14 +246,14 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if(DEBUGGING)
 				Log.d(TAG, "Android Version = " + value);
 		}
-		
+
 		if (tagWebsite){
 			RomUpdate.setWebsite(mContext, value);
 			tagWebsite = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Website = " + value);
 		}
-		
+
 		if(tagDeveloper){
 			RomUpdate.setDeveloper(mContext, value);
 			tagDeveloper = false;
