@@ -22,16 +22,17 @@ A useful tool to help ROM developers provide OTA updates to their users. It's fr
 
 ## Include this in your build.prop
 
-3. Edit your build.prop to include these values
+3. Edit your build.prop
 
-    
+Include these values:
+
     ro.ota.romname=UltimaROM
     ro.ota.version=1.0
     ro.ota.codename=Diablos
     ro.ota.device=i9300
     ro.ota.manifest=http://www.ultimarom.com/rom/update/example/update_manifest.xml
 
-  Codename is not essential and can be put as "null" without the quotation marks if you don't use them. I like to give my ROMs a name, but you could also use this to place "Stable" or "Beta" instead.
+Codename is not essential and can be put as "null" without the quotation marks if you don't use them. I like to give my ROMs a name, but you could also use this to place "Stable" or "Beta" instead.
 
   You can use a Dropbox link for the manifest.
   
