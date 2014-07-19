@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+     Copyright (C) 2014 Matt Booth (Kryten2k35)
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.RagnarLight" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_ragnarlight</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.RagnarLight</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.RagnarLight</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.RagnarLight</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.RagnarLight</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_ragnarlight</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_ragnarlight</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.RagnarLight</item>
+        
+        <!-- Styleables -->
+		<item name="colorHoloRed">@color/holo_red_dark</item>
+		<item name="colorHoloGreen">@color/holo_green_dark</item>
+		<item name="colorHoloBlue">@color/holo_blue_dark</item>
+
+		<item name="alertIcon">@drawable/ic_alert_light</item>
+		<item name="helpIcon">@drawable/ic_about_light</item>
+		<item name="settingsIcon">@drawable/ic_settings_light</item>		
+		<item name="downloadIcon">@drawable/ic_download_light</item>
+		<item name="browserIcon">@drawable/ic_web_site_light</item>
+		<item name="donateIcon">@drawable/ic_donate_light</item>
+		<item name="separator">@color/separator_light</item>
+		<item name="backgroundSelector">@drawable/list_selector_holo_light</item>
+    </style>
+
+    <style name="ActionBar.Solid.RagnarLight" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid_ragnarlight</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_ragnarlight</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_ragnarlight</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.RagnarLight</item>
+    </style>
+
+    <style name="ActionBar.Transparent.RagnarLight" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_ragnarlight</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.RagnarLight</item>
+    </style>
+
+    <style name="PopupMenu.RagnarLight" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlight</item>	
+    </style>
+
+    <style name="DropDownListView.RagnarLight" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_ragnarlight</item>
+    </style>
+
+    <style name="ActionBarTabStyle.RagnarLight" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_ragnarlight</item>
+    </style>
+
+    <style name="DropDownNav.RagnarLight" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_ragnarlight</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlight</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_ragnarlight</item>
+    </style>
+    
+    <style name="ProgressBar.RagnarLight" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_ragnarlight</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.RagnarLight" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_ragnarlight</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.RagnarLight.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.RagnarLight</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight</item>
+    </style>
+
+</resources>

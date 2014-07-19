@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+	<string name="available_update_name">Update name and file info here</string>
+    <string name="available_progress_counter">0MB / 0MB</string>
+    <string name="available_changelog_title">Changelog</string>
+    <string name="available_changelog_content">Your Changelog goes here</string>
+    <string name="available_md5">MD5:</string>
+    <string name="available_check_md5">Check MD5</string>
+    <string name="available_ready_to_install">Ready to install</string>
+    <string name="available_md5_ok">MD5 Passed</string>
+    <string name="available_md5_failed">MD5 Failed</string>
+    <string name="available_checking_md5">Checking MD5&#8230;</string>
+    <string name="available_downloading">Downloading&#8230;</string>
+    
+    <string name="are_you_sure">Are you sure?</string>
+    
+    <string name="available_delete_confirm_message">Are you sure you want to delete the downloaded file?</string>
+    <string name="available_reboot_confirm">Would you like to reboot now?</string>
+    <string name="available_url_error">URL Error: Please see your ROM developer</string>
+    
+    <string name="available_wrong_network_title">Wrong network selected</string>
+    <string name="available_wrong_network_message">You are trying to download over your mobile network, and the settings only allow Wi-Fi. Please change the settings accordingly.</string>
+</resources>

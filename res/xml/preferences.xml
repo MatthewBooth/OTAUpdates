@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- Open Recovery Script -->
+    <PreferenceCategory
+        android:title="@string/twrp_ors_cat"
+        android:key="updater_ors_screen_title" />
+	    <CheckBoxPreference 
+	        android:title="@string/twrp_ors_title"
+	        android:key="updater_twrp_ors"
+	        android:summary="@string/twrp_ors_summary"
+	        android:defaultValue="false" />
+	    <Preference 
+	        android:title="@string/twrp_ors_install_prefs"
+	        android:key="install_prefs"
+	        android:summary="@string/twrp_ors_install_prefs_summary"
+	        android:dependency="updater_twrp_ors" />
+	    <Preference 
+	        android:title="@string/information"
+	        android:key="updater_twrp_ors_information"
+	        android:summary="@string/twrp_ors_information"
+	        android:selectable="false" />
+	
+    <!-- Background update service -->
+	<PreferenceCategory
+        android:title="@string/background_service_title"
+        android:key="updater_ors_screen_title" />
+	    <CheckBoxPreference 
+	        android:title="@string/background_service_title"
+	        android:key="background_service"
+	        android:summary="@string/background_service_summary"
+	        android:defaultValue="true" />
+	    <ListPreference
+	        android:title="@string/background_frequency"
+	        android:key="background_frequency"
+	        android:summary="@string/list_summary"
+	        android:entries="@array/updater_background_frequency_entries"
+	        android:entryValues="@array/updater_background_frequency_values"
+	        android:dependency="background_service"
+	        android:defaultValue="259200" />
+	 
+	 <!-- Network Settings -->
+	 <PreferenceCategory 
+	    android:title="@string/mobile_wifi_network"
+	    android:key="updater_updater_mobile_wifi_network_cat"/>
+		<ListPreference 
+	    	android:title="@string/mobile_wifi_title"
+	    	android:key="network_type"
+	    	android:summary="@string/list_summary"
+	    	android:entries="@array/updater_network_entries"
+	        android:entryValues="@array/updater_network_values"
+	        android:defaultValue="2"/>
+	
+	<!-- Download Location -->
+	<PreferenceCategory 
+	    android:title="@string/download_location"
+	    android:key="updater_download_location_cat"/>
+		<Preference 
+		    android:title="@string/download_location"
+		    android:key="download_location"
+		    android:summary="@string/download_folder"/>
+	
+	<!-- App Theme -->
+	<PreferenceCategory 
+	    android:title="@string/theme"
+	    android:key="updater_theme_cat"/>
+	<ListPreference 
+	    android:title="@string/theme"
+	    android:key="current_theme"
+	    android:summary="@string/list_summary"
+	    android:entries="@array/theme_entries"
+	    android:entryValues="@array/theme_values"
+		android:defaultValue="2"/>
+
+</PreferenceScreen>

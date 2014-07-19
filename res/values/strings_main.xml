@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="main_update_available">Update Available!</string>
+    <string name="main_no_update_available">No Update Available</string>
+    <string name="main_update_filename">Filename</string>
+    <string name="main_update_progress">Update Progress</string>
+    <string name="main_website">Website</string>
+    <string name="main_donate">Donate</string>
+    <string name="main_donate_summary">Donate to the ROM developer</string>
+    <string name="main_tap_to_download">Tap to download</string>
+     <string name="main_download_completed_details">Download Complete. Tap for details</string>
+    <string name="main_last_checked">Last checked for an update at</string>
+    
+    <!-- ROM Information -->
+    <string name="main_rom_information">ROM information</string>
+    <string name="main_rom_name">ROM name:</string>
+    <string name="main_rom_version">ROM version:</string>
+    <string name="main_rom_codename">ROM codename:</string>
+    <string name="main_rom_build_date">ROM date:</string>
+    <string name="main_android_verison">Android version:</string>
+    <string name="main_rom_developer">Developer(s):</string>
+    
+    <!-- Dialogs -->
+    <string name="main_not_compatible_title">Not compatible</string>
+    <string name="main_not_compatible_message">This ROM is not compatible with OTA Updates. Please contact your developer for more information</string>
+    <string name="main_not_connected_title">Not connected</string>
+    <string name="main_not_connected_message">You are not connected to any network. Please enable your network or WiFi and try again.</string>
+    
+    
+    <!-- Content Descriptions -->
+    <string name="main_button_icon">Button icon</string>
+    <string name="main_dev_website_icon">Developer Website Icon</string>
+    <string name="main_actionbar_button">Actionbar Buttons</string>
+</resources>
