@@ -14,7 +14,7 @@ A useful tool to help ROM developers provide OTA updates to their users. It's fr
 
 ## To use this in your ROM:
 
-1. Download the APK from [here](https://raw.githubusercontent.com/Kryten2k35/OTAUpdates/master/dist/OTAUpdates_1.0.apk]) OR compile this project using Eclipse. 
+1. Download the APK from [here](https://github.com/Kryten2k35/OTAUpdates/blob/master/dist/OTAUpdates_1.0.apk?raw=true) OR compile this project using Eclipse. 
 
   You can also use this in your AOSP ROM. You should know how to add this to your build, if so. A makefile is included.
   
