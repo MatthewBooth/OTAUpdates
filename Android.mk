@@ -16,6 +16,5 @@ include $(CLEAR_VARS)
 
 LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := \
 libs/RootTools.jar \
-libs/android-support-v4.jar
 
 include $(BUILD_MULTI_PREBUILT)
