@@ -1,5 +1,6 @@
 package com.ota.updates.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,17 +12,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toolbar;
 import com.ota.updates.R;
 import com.ota.updates.utils.Preferences;
+import com.ota.updates.utils.Utils;
 
 public class AboutActivity extends Activity implements OnClickListener{
-	@Override
+	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Context context = this;
 		setTheme(Preferences.getTheme(context));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ota_about);
+		
+
+		if(Utils.isLollipop()){
+			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
+			setActionBar(toolbar);
+			toolbar.setTitle(getResources().getString(R.string.app_name));
+		}
 		
 		Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Thin.ttf");
 		
@@ -35,7 +44,12 @@ public class AboutActivity extends Activity implements OnClickListener{
 		donateTitle.setTypeface(typeFace);
 		creditsTitle.setTypeface(typeFace);
 		
-		String openHTML = "<font color='#33b5e5'>";
+		String openHTML = "";
+		if(Utils.isLollipop()){
+			openHTML = "<font color='#009688'>";
+		} else {
+			openHTML = "<font color='#33b5e5'>";
+		}
         String closeHTML = "</font>";
         String newLine = "<br />";
         String creditsText =

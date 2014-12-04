@@ -93,4 +93,5 @@
         <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight.DarkActionBar</item>
     </style>
 
+    <style name="Theme.RagnarLight.DarkActionBar.Settings" parent="Theme.RagnarLight.DarkActionBar" />
 </resources>

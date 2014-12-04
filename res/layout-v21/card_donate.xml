@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_main_dev_donate_link"
+        card_view:cardCornerRadius="0dp"
+        style="?attr/cardStyle">
+		
+		<LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        style="@style/MainListElement"
+		        android:onClick="openDonationPage">
+		
+		        <ImageView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginEnd="16dp"
+		                android:contentDescription="@string/main_dev_website_icon"
+		                android:src="?attr/donateIcon" />
+		
+		        <LinearLayout
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content"
+		                android:orientation="vertical" >
+		
+		                <TextView
+		                        android:layout_width="wrap_content"
+		                        android:layout_height="wrap_content"
+		                        android:text="@string/main_donate"
+		                        android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+		                <TextView
+		                        android:layout_width="wrap_content"
+		                        android:layout_height="wrap_content"
+		                        android:text="@string/main_donate_summary"
+		                        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        </LinearLayout>           
+		</LinearLayout>
+</android.support.v7.widget.CardView>

@@ -28,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/available_update_name"
-        android:textColor="@color/holo_blue_light"
         android:textSize="28sp" />
 
     <ProgressBar

@@ -35,14 +35,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
@@ -59,6 +63,8 @@ public class MainActivity extends Activity implements Constants{
 
 	private Builder mCompatibilityDialog;
 
+	private boolean isLollipop;
+	
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -74,26 +80,34 @@ public class MainActivity extends Activity implements Constants{
 		}
 	};
 
-	@SuppressLint("InflateParams")
+	@SuppressLint({ "InflateParams", "NewApi" })
 	@Override
 	public void onCreate(Bundle savedInstanceState) {         
 
 		mContext = this;
 		setTheme(Preferences.getTheme(mContext));
+		isLollipop = Utils.isLollipop();
+		
 		super.onCreate(savedInstanceState);              
 		setContentView(R.layout.ota_main);
 
-		// Custom ActionBar view
-		ActionBar actionBar = getActionBar();
-		actionBar.setTitle(R.string.app_name);
-		LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, 
-				LayoutParams.WRAP_CONTENT, 
-				Gravity.RIGHT | 
-				Gravity.CENTER_VERTICAL);
-		View actionbarView = LayoutInflater.from(this).inflate(R.layout.ota_main_actionbar_top, null);
-		actionBar.setCustomView(actionbarView, layoutParams);
-		actionBar.setDisplayShowCustomEnabled(true);
-
+		if(isLollipop){
+			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+			setActionBar(toolbar);
+			toolbar.setTitle(getResources().getString(R.string.app_name));
+		} else {		
+			// Custom ActionBar view
+			ActionBar actionBar = getActionBar();
+			actionBar.setTitle(R.string.app_name);
+			LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, 
+					LayoutParams.WRAP_CONTENT, 
+					Gravity.RIGHT | 
+					Gravity.CENTER_VERTICAL);
+			View actionbarView = LayoutInflater.from(this).inflate(R.layout.ota_main_actionbar_top, null);
+			actionBar.setCustomView(actionbarView, layoutParams);
+			actionBar.setDisplayShowCustomEnabled(true);
+		}
+		
 		createDialogs();
 
 		// Check the correct build prop values are installed
@@ -137,6 +151,29 @@ public class MainActivity extends Activity implements Constants{
 		super.onStop();
 		this.unregisterReceiver(mReceiver);
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		if(isLollipop)
+			getMenuInflater().inflate(R.menu.ota_menu_main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		if(isLollipop)
+			switch (item.getItemId()) {
+			case R.id.menu_info:
+				openHelp(null);
+				return true;
+			case R.id.menu_settings:
+				openSettings(null);
+				return true;
+			}
+			return false;
+	}
 
 	private void createDialogs(){
 		// Compatibility Dialog
@@ -155,9 +192,15 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateRomUpdateLayouts(){
-
-		LinearLayout updateAvailable = (LinearLayout) findViewById(R.id.layout_main_update_available);
-		LinearLayout updateNotAvailable = (LinearLayout) findViewById(R.id.layout_main_no_update_available);
+		View updateAvailable;
+		View updateNotAvailable;
+		if(isLollipop){
+			updateAvailable = (CardView) findViewById(R.id.layout_main_update_available);
+			updateNotAvailable = (CardView) findViewById(R.id.layout_main_no_update_available);
+		} else {
+			updateAvailable = (LinearLayout) findViewById(R.id.layout_main_update_available);
+			updateNotAvailable = (LinearLayout) findViewById(R.id.layout_main_no_update_available);
+		}
 
 		updateAvailable.setVisibility(View.GONE);
 		updateNotAvailable.setVisibility(View.GONE);
@@ -170,7 +213,12 @@ public class MainActivity extends Activity implements Constants{
 			updateAvailable.setVisibility(View.VISIBLE);
 			
 			if(Preferences.getDownloadFinished(mContext)){ //  Update already finished?
-				String htmlColorOpen = "<font color='#33b5e5'>";
+				String htmlColorOpen = "";
+				if(isLollipop){
+					htmlColorOpen = "<font color='#009688'>";
+				} else {
+					htmlColorOpen = "<font color='#33b5e5'>";
+				}	
 				String htmlColorClose = "</font>";
 				String updateSummary = RomUpdate.getFilename(mContext)
 						+ "<br />"
@@ -179,7 +227,12 @@ public class MainActivity extends Activity implements Constants{
 						+ htmlColorClose;
 				updateAvailableSummary.setText(Html.fromHtml(updateSummary));
 			} else {
-				String htmlColorOpen = "<font color='#33b5e5'>";
+				String htmlColorOpen = "";
+				if(isLollipop){
+					htmlColorOpen = "<font color='#009688'>";
+				} else {
+					htmlColorOpen = "<font color='#33b5e5'>";
+				}
 				String htmlColorClose = "</font>";
 				String updateSummary = RomUpdate.getFilename(mContext)
 						+ "<br />"
@@ -210,33 +263,42 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateDonateLinkLayout() {
-		LinearLayout donateLink = (LinearLayout) findViewById(R.id.layout_main_dev_donate_link);
-		View donateLinkSeparator = (View) findViewById(R.id.view_main_donate_separator);
+		View donateLink;
+		if(isLollipop){
+			donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
+		} else {
+			donateLink = (LinearLayout) findViewById(R.id.layout_main_dev_donate_link);			
+		}		
 		donateLink.setVisibility(View.GONE);
-		donateLinkSeparator.setVisibility(View.GONE);
 
 		if(!RomUpdate.getDonateLink(mContext).trim().equals("null")){
 			donateLink.setVisibility(View.VISIBLE);
-			donateLinkSeparator.setVisibility(View.VISIBLE);
 		}
 	}
 
 	private void updateWebsiteLayout() {
-		LinearLayout webLink = (LinearLayout) findViewById(R.id.layout_main_dev_website);
-		View webLinkSeparator = (View) findViewById(R.id.view_main_website_separator);
+		View webLink;
+		if(isLollipop){
+			webLink = (CardView) findViewById(R.id.layout_main_dev_website);
+		} else {
+			webLink = (LinearLayout) findViewById(R.id.layout_main_dev_website);
+		}
 		TextView webLinkSummary = (TextView) findViewById(R.id.tv_main_dev_link_summary);
 		webLink.setVisibility(View.GONE);
-		webLinkSeparator.setVisibility(View.GONE);
 
 		if(!RomUpdate.getWebsite(mContext).trim().equals("null")){
 			webLink.setVisibility(View.VISIBLE);
-			webLinkSeparator.setVisibility(View.VISIBLE);
 			webLinkSummary.setText(RomUpdate.getWebsite(mContext));
 		}
 	}
 
 	private void updateRomInformation(){
-		String htmlColorOpen = "<font color='#33b5e5'>";
+		String htmlColorOpen = "";
+		if(isLollipop){
+			htmlColorOpen = "<font color='#009688'>";
+		} else {
+			htmlColorOpen = "<font color='#33b5e5'>";
+		}
 		String htmlColorClose = "</font>";
 
 		//ROM name
@@ -312,7 +374,7 @@ public class MainActivity extends Activity implements Constants{
 		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
 	}
-
+	
 	public class CompatibilityTask extends AsyncTask<Void, Boolean, Boolean> implements Constants{
 
 		public final String TAG = this.getClass().getSimpleName();

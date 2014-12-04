@@ -115,6 +115,21 @@ public class Preferences implements Constants{
             return R.style.Theme_RagnarDark;
         }
     }
+	
+	public static int getSettingsTheme(Context context)
+    {       
+        switch(getCurrentTheme(context))
+        {
+        case 0:
+            return R.style.Theme_RagnarLight;
+        case 1:
+            return R.style.Theme_RagnarLight_DarkActionBar;
+        case 2:
+            return R.style.Theme_RagnarDark_Settings;
+        default:
+            return R.style.Theme_RagnarDark_Settings;
+        }
+    }
 
 	public static void setUpdateLastChecked(Context context, String time){
 	    SharedPreferences.Editor editor = getPrefs(context).edit();

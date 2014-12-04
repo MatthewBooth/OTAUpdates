@@ -16,6 +16,7 @@
 
 package com.ota.updates.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -35,7 +36,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.Toolbar;
 import com.ota.updates.DownloadRomUpdate;
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
@@ -59,12 +60,18 @@ public class AvailableActivity extends Activity implements Constants {
 	private Builder mNetworkDialog;
 
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		mContext = this;
 		setTheme(Preferences.getTheme(mContext));
 		super.onCreate(savedInstanceState);          
 		setContentView(R.layout.ota_available);
+		
+		if(Utils.isLollipop()){
+			Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_available_bottom);
+			toolbarBottom.setTitle("");
+			setActionBar(toolbarBottom);
+		}
 
 		mProgressBar = (ProgressBar) findViewById(R.id.bar_available_progress_bar);
 		mProgressCounterText = (TextView) findViewById(R.id.tv_available_progress_counter);
@@ -221,6 +228,12 @@ public class AvailableActivity extends Activity implements Constants {
 		String downloading = getResources().getString(R.string.available_downloading);
 		String filename = RomUpdate.getFilename(mContext);
 
+		if(Utils.isLollipop()){
+			updateNameInfoText.setTextColor(getResources().getColor(R.color.material_teal_500));
+		} else {
+			updateNameInfoText.setTextColor(getResources().getColor(R.color.holo_blue_light));
+		}
+		
 		if(isDownloadOnGoing){
 			updateNameInfoText.setText(downloading); 	
 		} else {			
@@ -246,9 +259,7 @@ public class AvailableActivity extends Activity implements Constants {
 		
 		boolean isMobile = Utils.isMobileNetwork(mContext);
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
-		
-		
-		
+			
 		if(isMobile && isSettingWiFiOnly){
 			mNetworkDialog = new Builder(mContext);
 			mNetworkDialog.setIconAttribute(R.attr.alertIcon)
@@ -339,7 +350,7 @@ public class AvailableActivity extends Activity implements Constants {
 		@Override
 		protected Boolean doInBackground(Object... params) {
 			String file = RomUpdate.getFullFile(mContext).toString(); // Full file, with path
-			String md5Remote = RomUpdate.getMd5(mContext); // REmote MD5 form the manifest. This is waht we expect it to be
+			String md5Remote = RomUpdate.getMd5(mContext); // Remote MD5 form the manifest. This is what we expect it to be
 			String md5Local = Tools.noneRootShell("md5sum " + file + " | cut -d ' ' -f 1"); // Run the check on our local file
 			md5Local = md5Local.trim(); // Trim both to remove any whitespace
 			md5Remote = md5Remote.trim();			

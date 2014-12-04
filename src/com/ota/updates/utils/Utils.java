@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
@@ -188,5 +189,9 @@ public class Utils implements Constants{
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		
 		return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+	}
+	
+	public static boolean isLollipop(){	
+		return Build.VERSION.SDK_INT >= 21;
 	}
 }

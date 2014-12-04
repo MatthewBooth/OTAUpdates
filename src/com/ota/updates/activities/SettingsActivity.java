@@ -54,7 +54,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		mContext = this;
-		setTheme(Preferences.getTheme(mContext));
+		setTheme(Preferences.getSettingsTheme(mContext));
 		super.onCreate(savedInstanceState);
 
 		getPreferenceManager().setSharedPreferencesName(Preferences.PREF_NAME);
