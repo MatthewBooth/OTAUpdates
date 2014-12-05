@@ -38,6 +38,7 @@ public interface Constants {
 	public static final String UPDATER_BACK_SERVICE = "background_service";
 	public static final String UPDATER_BACK_FREQ = "background_frequency";
 	public static final String UPDATER_ENABLE_ORS = "updater_twrp_ors";
+	public static final String MOVE_TO_EXT_SD = "move_to_ext_sd";
 	
 	// Broadcast intents
 	public static String MANIFEST_LOADED = "com.ota.update.MANIFEST_LOADED";

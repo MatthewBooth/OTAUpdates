@@ -129,14 +129,7 @@ public class Utils implements Constants{
 	}
 
 	public static void deleteFile(File file) {
-		if(file.exists()){
-			if (file.isDirectory()){
-				for (File sub : file.listFiles()){
-					deleteFile(sub);
-				}
-			}
-			file.delete();
-		}
+		Tools.noneRootShell("rm -f " + file.getAbsolutePath());
 	}
 	
 	public static void setHasFileDownloaded(Context context) {
@@ -144,6 +137,10 @@ public class Utils implements Constants{
 		int filesize = RomUpdate.getFileSize(context);
 		
 		boolean status = false;
+		if(DEBUGGING)
+			Log.d(TAG, "Local file " + file.getAbsolutePath());
+			Log.d(TAG, "Local filesize " + file.length());
+			Log.d(TAG, "Remote filesize " + filesize);
 		if(file.length() != 0 && file.length() == filesize){
 			status = true;
 		}		

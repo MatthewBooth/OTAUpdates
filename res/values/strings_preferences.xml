@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preferences_name">Settings</string>
-    <string name="download_folder">/sdcard/Download/</string>
+    <string name="download_folder">/storage/emulated/0/Download/</string>
     <string name="list_summary">%s</string>
     
     <string name="twrp_ors_cat">OpenRecoveryScript</string>

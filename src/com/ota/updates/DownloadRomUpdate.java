@@ -41,6 +41,7 @@ public class DownloadRomUpdate implements Constants{
 		String fileName = RomUpdate.getFilename(context) + ".zip";
 		String description = context.getResources().getString(R.string.downloading);
 		File file = RomUpdate.getFullFile(context);
+		String downloadLocation = Preferences.getDownloadLocation(context).replace("/sdcard", "");
 		
 		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
@@ -55,7 +56,7 @@ public class DownloadRomUpdate implements Constants{
 
 		request.setVisibleInDownloadsUi(true);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+		request.setDestinationInExternalPublicDir(downloadLocation, fileName);
 		
 		// Delete any existing files
 		Utils.deleteFile(file);

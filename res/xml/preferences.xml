@@ -57,18 +57,19 @@
 		<Preference 
 		    android:title="@string/download_location"
 		    android:key="download_location"
-		    android:summary="@string/download_folder"/>
+		    android:summary="@string/download_folder"/>		
 	
 	<!-- App Theme -->
 	<PreferenceCategory 
 	    android:title="@string/theme"
 	    android:key="updater_theme_cat"/>
+	
 	<ListPreference 
 	    android:title="@string/theme"
 	    android:key="current_theme"
 	    android:summary="@string/list_summary"
 	    android:entries="@array/theme_entries"
 	    android:entryValues="@array/theme_values"
-		android:defaultValue="2"/>
+		android:defaultValue="2" />
 
 </PreferenceScreen>

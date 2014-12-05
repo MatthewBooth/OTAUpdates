@@ -98,7 +98,11 @@ public class Preferences implements Constants{
 	}
 	
 	public static int getCurrentTheme(Context context){
-		return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "2")); // #2 is the Dark Theme
+		if(Utils.isLollipop()) {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "1")); // #2 is the Dark Theme
+		} else {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "2")); // #2 is the Dark Theme
+		}
 	}
 	
 	public static int getTheme(Context context)

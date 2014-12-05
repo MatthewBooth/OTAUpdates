@@ -16,6 +16,8 @@
 
 package com.ota.updates.activities;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -25,6 +27,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -150,7 +154,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	private void showChooser() {
 		Intent intent = new Intent(this, DirectoryPicker.class);
-		intent.putExtra(DirectoryPicker.START_DIR, "/storage");
+		intent.putExtra(DirectoryPicker.START_DIR, "/storage/emulated/0/");
 		startActivityForResult(intent, DirectoryPicker.PICK_DIRECTORY);
 	}
 
@@ -161,16 +165,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			Bundle extras = data.getExtras();
 			String path = (String) extras.get(DirectoryPicker.CHOSEN_DIRECTORY);
 
-			// Make the path recovery clean
-			if(path.contains("/storage/emulated/0")){
-				path = path.replaceAll("/storage/emulated/0", "/sdcard");
-			} else if(path.contains("/storage/sdcard0")){
-				path = path.replaceAll("/storage/sdcard0", "/sdcard");
-			} else if(path.contains("/storage/emulated/legacy")){
-				path = path.replaceAll("/storage/emulated/legacy", "/sdcard");
-			} else{
-				path = path.replaceAll("/storage/sdcard1", "/extSdCard");
-			}
 			Preferences.setDownloadLocation(mContext, path);
 			mDownloadLocation.setSummary(path);
 		}   

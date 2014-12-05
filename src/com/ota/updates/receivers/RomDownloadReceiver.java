@@ -16,17 +16,17 @@
 
 package com.ota.updates.receivers;
 
-import com.ota.updates.activities.AvailableActivity;
-import com.ota.updates.activities.MainActivity;
-import com.ota.updates.utils.Constants;
-import com.ota.updates.utils.Preferences;
-
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
+
+import com.ota.updates.activities.AvailableActivity;
+import com.ota.updates.activities.MainActivity;
+import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.Preferences;
 
 public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
 
