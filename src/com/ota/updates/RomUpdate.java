@@ -207,6 +207,6 @@ public class RomUpdate implements Constants{
     }
     
     public static File getFullFile(Context context){
-    	return new File(Environment.DIRECTORY_DOWNLOADS + "/" + RomUpdate.getFilename(context) + ".zip");
+    	return new File("storage/emulated/0/" + Environment.DIRECTORY_DOWNLOADS + "/" + RomUpdate.getFilename(context) + ".zip");
     }
 }
