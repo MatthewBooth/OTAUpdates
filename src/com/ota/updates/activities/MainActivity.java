@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements Constants{
 			actionBar.setTitle(R.string.app_name);
 			LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, 
 					LayoutParams.WRAP_CONTENT, 
-					Gravity.RIGHT | 
+					Gravity.END | 
 					Gravity.CENTER_VERTICAL);
 			View actionbarView = LayoutInflater.from(this).inflate(R.layout.ota_main_actionbar_top, null);
 			actionBar.setCustomView(actionbarView, layoutParams);

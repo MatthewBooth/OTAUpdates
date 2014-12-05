@@ -19,14 +19,12 @@ package com.ota.updates;
 
 import java.io.File;
 
-import com.ota.updates.R;
-import com.ota.updates.utils.Constants;
-import com.ota.updates.utils.Preferences;
-import com.ota.updates.utils.Utils;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+
+import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.Utils;
 
 public class RomUpdate implements Constants{
     
