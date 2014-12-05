@@ -36,7 +36,7 @@
 	        android:entries="@array/updater_background_frequency_entries"
 	        android:entryValues="@array/updater_background_frequency_values"
 	        android:dependency="background_service"
-	        android:defaultValue="259200" />
+	        android:defaultValue="43200" />
 	 
 	 <!-- Network Settings -->
 	 <PreferenceCategory 

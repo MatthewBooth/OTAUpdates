@@ -89,7 +89,7 @@ public class Preferences implements Constants{
 	}
 	
 	public static int getBackgroundFrequency(Context context){
-	    return Integer.parseInt(getPrefs(context).getString(UPDATER_BACK_FREQ, "259200"));
+	    return Integer.parseInt(getPrefs(context).getString(UPDATER_BACK_FREQ, "43200"));
 	}
 	
 	public static boolean getORSEnabled(Context context){
