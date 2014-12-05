@@ -71,7 +71,7 @@ public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
 				if(DEBUGGING)
 					Log.v(TAG, "Download Succeeded");
 				Preferences.setDownloadFinished(context, true);
-				AvailableActivity.setupProgress();
+				AvailableActivity.setupProgress(context.getResources());
 				AvailableActivity.invalidateMenu();
 				return;
 			}
