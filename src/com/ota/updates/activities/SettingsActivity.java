@@ -31,6 +31,8 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.SparseBooleanArray;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Toolbar;
 
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
@@ -50,7 +52,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
 		mContext = this;
 		setTheme(Preferences.getSettingsTheme(mContext));
