@@ -12,7 +12,7 @@
 			    android:layout_height="match_parent"
 			    android:orientation="horizontal"
 			    style="@style/MainListElement"
-			    android:onClick="openDownload">
+			    android:onClick="openCheckForUpdates">
 				
 				<ImageView
 			            android:layout_width="wrap_content"

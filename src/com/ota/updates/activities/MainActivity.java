@@ -343,7 +343,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	public void openCheckForUpdates(View v){
-
+		this.recreate();
 	}
 
 	public void openDownload(View v){
