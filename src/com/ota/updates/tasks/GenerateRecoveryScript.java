@@ -19,6 +19,7 @@ package com.ota.updates.tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,7 +56,7 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> {
         mLoadingDialog.setMessage(mContext.getString(R.string.rebooting));
         mLoadingDialog.show();
         
-        String mDownloadLocation = Preferences.getDownloadLocation(mContext);
+        String mDownloadLocation = Environment.DIRECTORY_DOWNLOADS;
         
         // Replace extSdCard for external_sd on TWRP recoveries
         mDownloadLocation = mDownloadLocation.replaceAll("extSdCard", "external_sd");
@@ -82,7 +83,7 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> {
     protected Boolean doInBackground(Void... params) {
         FileWriter fstream;
         BufferedWriter out;
-        String tempFile = Preferences.getDownloadLocation(mContext) + "openrecoveryscript";
+        String tempFile = Environment.DIRECTORY_DOWNLOADS + "openrecoveryscript";
         try {
             File file = new File(tempFile);
             if(!file.exists()){

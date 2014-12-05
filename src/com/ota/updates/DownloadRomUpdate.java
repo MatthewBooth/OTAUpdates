@@ -22,6 +22,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import com.ota.updates.tasks.UpdateProgress;
 import com.ota.updates.utils.Constants;
@@ -30,7 +31,7 @@ import com.ota.updates.utils.Utils;
 
 public class DownloadRomUpdate implements Constants{
 	
-	public final String TAG = this.getClass().getSimpleName();
+	public final static String TAG = "DownloadRomUpdate";
 
 	public DownloadRomUpdate(){
 		
@@ -41,8 +42,7 @@ public class DownloadRomUpdate implements Constants{
 		String fileName = RomUpdate.getFilename(context) + ".zip";
 		String description = context.getResources().getString(R.string.downloading);
 		File file = RomUpdate.getFullFile(context);
-		String downloadLocation = Preferences.getDownloadLocation(context).replace("/sdcard", "");
-		
+
 		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
 		if(Preferences.getNetworkType(context).equals("2")){
@@ -56,7 +56,7 @@ public class DownloadRomUpdate implements Constants{
 
 		request.setVisibleInDownloadsUi(true);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-		request.setDestinationInExternalPublicDir(downloadLocation, fileName);
+		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 		
 		// Delete any existing files
 		Utils.deleteFile(file);

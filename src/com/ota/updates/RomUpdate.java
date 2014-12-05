@@ -26,6 +26,7 @@ import com.ota.updates.utils.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 
 public class RomUpdate implements Constants{
     
@@ -206,6 +207,6 @@ public class RomUpdate implements Constants{
     }
     
     public static File getFullFile(Context context){
-    	return new File(Preferences.getDownloadLocation(context) + "/" + RomUpdate.getFilename(context) + ".zip");
+    	return new File(Environment.DIRECTORY_DOWNLOADS + "/" + RomUpdate.getFilename(context) + ".zip");
     }
 }

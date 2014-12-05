@@ -24,7 +24,6 @@ public interface Constants {
 	public static final String CURRENT_THEME = "current_theme";
 	public static final String LAST_CHECKED = "updater_last_update_check";
 	public static final String IS_DOWNLOAD_FINISHED = "is_download_finished";
-	public static final String DOWNLOAD_LOC = "download_location";
 	public static final String DELETE_AFTER_INSTALL = "delete_after_install";
 	public static final String INSTALL_PREFS = "install_prefs";
 	public static final String WIPE_DATA = "wipe_data";

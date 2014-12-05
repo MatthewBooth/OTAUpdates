@@ -42,12 +42,7 @@ public class Preferences implements Constants{
 	public static boolean getDownloadFinished(Context context){
 		return getPrefs(context).getBoolean(IS_DOWNLOAD_FINISHED, false);
 	}
-	
-	public static String getDownloadLocation(Context context){
-		String defLocation = context.getResources().getString(R.string.download_folder);
-	    return getPrefs(context).getString(DOWNLOAD_LOC, defLocation);
-	}
-	
+
 	public static boolean getDeleteAfterInstall(Context context){
 		return getPrefs(context).getBoolean(DELETE_AFTER_INSTALL, false);
 	}
@@ -152,12 +147,6 @@ public class Preferences implements Constants{
 	public static void setDownloadFinished(Context context, boolean value){
 	    SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(IS_DOWNLOAD_FINISHED, value);
-        editor.commit();
-	}
-	
-	public static void setDownloadLocation(Context context,String path){
-	    SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(DOWNLOAD_LOC, path);
         editor.commit();
 	}
 	

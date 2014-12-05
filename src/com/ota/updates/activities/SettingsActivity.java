@@ -34,7 +34,6 @@ import android.util.SparseBooleanArray;
 
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
-import com.ota.updates.utils.DirectoryPicker;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 
@@ -60,10 +59,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		getPreferenceManager().setSharedPreferencesName(Preferences.PREF_NAME);
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		addPreferencesFromResource(R.xml.preferences);
-
-		mDownloadLocation = (Preference) findPreference(DOWNLOAD_LOC);
-		mDownloadLocation.setOnPreferenceClickListener(this);
-		mDownloadLocation.setSummary(Preferences.getDownloadLocation(mContext));
 
 		mInstallPrefs = (Preference) findPreference(INSTALL_PREFS);
 		mInstallPrefs.setOnPreferenceClickListener(this);
@@ -100,9 +95,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		if(preference == mDownloadLocation){
-			showChooser();
-		} else if(preference == mInstallPrefs){
+		if(preference == mInstallPrefs){
 			showInstallPrefs();
 		}
 		return false;
@@ -146,23 +139,5 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			}
 		});
 		mInstallPrefsDialog.show();
-	}
-
-	private void showChooser() {
-		Intent intent = new Intent(this, DirectoryPicker.class);
-		intent.putExtra(DirectoryPicker.START_DIR, "/storage/emulated/0/");
-		startActivityForResult(intent, DirectoryPicker.PICK_DIRECTORY);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode == DirectoryPicker.PICK_DIRECTORY && resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
-			String path = (String) extras.get(DirectoryPicker.CHOSEN_DIRECTORY);
-
-			Preferences.setDownloadLocation(mContext, path);
-			mDownloadLocation.setSummary(path);
-		}   
 	}
 }
