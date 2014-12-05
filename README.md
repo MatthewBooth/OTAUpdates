@@ -102,6 +102,12 @@ This is why, alternatively, you can use HTTP links. In this case, the user's web
 
 Anyone is free to use this project in their ROM. I only request that you keep the about page in-tact leaving my credits in there. You don't have to, but it'd be nice if you did.
 
+# Building
+
+To build from source via Eclipse, you need to include the android-support-v7-cardview project from the Android-SDK. Add it as a project. Mark it as a library, then edit the build path of this project to include the cardview library.
+
+For grade simply add "compile 'com.android.support:cardview-v7:+'" to your properties.
+
 # Contributions
 
 If you feel like you can contribute to this project, don't hesitate to fork and send me some pull requests.
