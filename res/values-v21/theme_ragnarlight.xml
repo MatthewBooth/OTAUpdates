@@ -34,7 +34,7 @@
 		<item name="browserIcon">@drawable/ic_web_site_light</item>
 		<item name="donateIcon">@drawable/ic_donate_light</item>
 		<item name="separator">@color/separator_light</item>
-		<item name="backgroundSelector">@drawable/list_selector_holo_light</item>
+		<item name="backgroundRippleSelector">@drawable/ripple_selector_light</item>
 		
 		<!-- Main theme colors -->
 	    <!--   your app branding color for the app bar -->
