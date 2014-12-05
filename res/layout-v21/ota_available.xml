@@ -29,6 +29,12 @@
         android:title="@string/app_name"
         android:background="?attr/colorPrimary"
         android:theme="@style/Theme.RagnarDark" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/toolbar_available_top"
+        android:background="@drawable/toolbar_dropshadow" />
     
 	    <LinearLayout android:layout_width="match_parent"
 		    android:layout_height="wrap_content"

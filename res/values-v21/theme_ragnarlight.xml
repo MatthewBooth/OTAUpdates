@@ -51,8 +51,9 @@
     	<item name="android:windowActionBar">false</item>
     </style>
 
-    <style name="Theme.RagnarLight.Settings" parent="Theme.RagnarLight">
+    <style name="Theme.RagnarLight.Settings" parent="@android:Theme.Material.Settings">
         <item name="android:windowNoTitle">false</item>
     	<item name="android:windowActionBar">true</item>       
     </style>
+
 </resources>
