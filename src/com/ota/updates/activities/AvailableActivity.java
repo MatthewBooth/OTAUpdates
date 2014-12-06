@@ -16,6 +16,7 @@
 
 package com.ota.updates.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -23,9 +24,9 @@ import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
-import android.content.res.TypedArray;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.ota.updates.DownloadRomUpdate;
 import com.ota.updates.R;
@@ -59,18 +61,24 @@ public class AvailableActivity extends Activity implements Constants {
 	private Builder mNetworkDialog;
 
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		mContext = this;
 		setTheme(Preferences.getTheme(mContext));
 		super.onCreate(savedInstanceState);          
 		setContentView(R.layout.ota_available);
+		
+		if(Utils.isLollipop()){
+			Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_available_bottom);
+			toolbarBottom.setTitle("");
+			setActionBar(toolbarBottom);
+		}
 
 		mProgressBar = (ProgressBar) findViewById(R.id.bar_available_progress_bar);
 		mProgressCounterText = (TextView) findViewById(R.id.tv_available_progress_counter);
 
 		setupUpdateNameInfo();
-		setupProgress();
+		setupProgress(getResources());
 		setupMd5Info();
 		setupChangeLog();
 
@@ -114,7 +122,7 @@ public class AvailableActivity extends Activity implements Constants {
 					Preferences.setHasMD5Run(mContext, false); // MD5 check hasn't been run
 					Preferences.setDownloadFinished(mContext, false);
 					setupUpdateNameInfo(); // Update name info
-					setupProgress(); // Progress goes back to 0
+					setupProgress(getResources()); // Progress goes back to 0
 					setupMd5Info(); // MD5 goes back to default
 					invalidateOptionsMenu(); // Reset options menu				
 				}
@@ -128,7 +136,7 @@ public class AvailableActivity extends Activity implements Constants {
 		case R.id.menu_available_cancel:
 			DownloadRomUpdate.cancelDownload(mContext);
 			setupUpdateNameInfo();
-			setupProgress();
+			setupProgress(getResources());
 			invalidateOptionsMenu();
 			return true;
 		case R.id.menu_available_install:
@@ -221,6 +229,12 @@ public class AvailableActivity extends Activity implements Constants {
 		String downloading = getResources().getString(R.string.available_downloading);
 		String filename = RomUpdate.getFilename(mContext);
 
+		if(Utils.isLollipop()){
+			updateNameInfoText.setTextColor(getResources().getColor(R.color.material_teal_500));
+		} else {
+			updateNameInfoText.setTextColor(getResources().getColor(R.color.holo_blue_light));
+		}
+		
 		if(isDownloadOnGoing){
 			updateNameInfoText.setText(downloading); 	
 		} else {			
@@ -246,9 +260,7 @@ public class AvailableActivity extends Activity implements Constants {
 		
 		boolean isMobile = Utils.isMobileNetwork(mContext);
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
-		
-		
-		
+			
 		if(isMobile && isSettingWiFiOnly){
 			mNetworkDialog = new Builder(mContext);
 			mNetworkDialog.setIconAttribute(R.attr.alertIcon)
@@ -278,7 +290,7 @@ public class AvailableActivity extends Activity implements Constants {
 		}
 	}
 
-	public static void setupProgress(){
+	public static void setupProgress(Resources res){
 		if(DEBUGGING)
 			Log.d(TAG, "Setting up Progress Bars");
 		boolean downloadFinished = Preferences.getDownloadFinished(mContext);
@@ -287,10 +299,12 @@ public class AvailableActivity extends Activity implements Constants {
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
 			String ready = mContext.getResources().getString(R.string.available_ready_to_install);
 
-			int[] attr = new int[] { R.attr.colorHoloBlue };
-			TypedArray ta = mContext.obtainStyledAttributes(attr);
-			mProgressCounterText.setTextColor(ta.getColor(0, R.color.holo_blue_light));
-			ta.recycle();
+			if(Utils.isLollipop()){
+				
+				mProgressCounterText.setTextColor(res.getColor(R.color.material_teal_500));
+			} else {
+				mProgressCounterText.setTextColor(res.getColor(R.color.holo_blue_light));
+			}
 			mProgressCounterText.setText(ready);
 			mProgressBar.setProgress(100);
 		} else {
@@ -338,8 +352,8 @@ public class AvailableActivity extends Activity implements Constants {
 
 		@Override
 		protected Boolean doInBackground(Object... params) {
-			String file = RomUpdate.getFullFile(mContext).toString(); // Full file, with path
-			String md5Remote = RomUpdate.getMd5(mContext); // REmote MD5 form the manifest. This is waht we expect it to be
+			String file = RomUpdate.getFullFile(mContext).getAbsolutePath(); // Full file, with path
+			String md5Remote = RomUpdate.getMd5(mContext); // Remote MD5 form the manifest. This is what we expect it to be
 			String md5Local = Tools.noneRootShell("md5sum " + file + " | cut -d ' ' -f 1"); // Run the check on our local file
 			md5Local = md5Local.trim(); // Trim both to remove any whitespace
 			md5Remote = md5Remote.trim();			

@@ -42,12 +42,7 @@ public class Preferences implements Constants{
 	public static boolean getDownloadFinished(Context context){
 		return getPrefs(context).getBoolean(IS_DOWNLOAD_FINISHED, false);
 	}
-	
-	public static String getDownloadLocation(Context context){
-		String defLocation = context.getResources().getString(R.string.download_folder);
-	    return getPrefs(context).getString(DOWNLOAD_LOC, defLocation);
-	}
-	
+
 	public static boolean getDeleteAfterInstall(Context context){
 		return getPrefs(context).getBoolean(DELETE_AFTER_INSTALL, false);
 	}
@@ -89,7 +84,7 @@ public class Preferences implements Constants{
 	}
 	
 	public static int getBackgroundFrequency(Context context){
-	    return Integer.parseInt(getPrefs(context).getString(UPDATER_BACK_FREQ, "259200"));
+	    return Integer.parseInt(getPrefs(context).getString(UPDATER_BACK_FREQ, "43200"));
 	}
 	
 	public static boolean getORSEnabled(Context context){
@@ -98,7 +93,11 @@ public class Preferences implements Constants{
 	}
 	
 	public static int getCurrentTheme(Context context){
-		return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "2")); // #2 is the Dark Theme
+		if(Utils.isLollipop()) {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "0")); // #0 is the Light Theme
+		} else {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "2")); // #2 is the Dark Theme
+		}
 	}
 	
 	public static int getTheme(Context context)
@@ -112,7 +111,30 @@ public class Preferences implements Constants{
         case 2:
             return R.style.Theme_RagnarDark;
         default:
-            return R.style.Theme_RagnarDark;
+        	if(Utils.isLollipop()) {
+        		return R.style.Theme_RagnarLight;
+        	} else {
+        		return R.style.Theme_RagnarDark;
+        	}
+        }
+    }
+	
+	public static int getSettingsTheme(Context context)
+    {       
+        switch(getCurrentTheme(context))
+        {
+        case 0:
+            return R.style.Theme_RagnarLight_Settings;
+        case 1:
+            return R.style.Theme_RagnarLight_DarkActionBar_Settings;
+        case 2:
+            return R.style.Theme_RagnarDark_Settings;
+        default:
+        	if(Utils.isLollipop()) {
+        		return R.style.Theme_RagnarLight_Settings;
+        	} else {
+        		return R.style.Theme_RagnarDark_Settings;
+        	}
         }
     }
 
@@ -125,12 +147,6 @@ public class Preferences implements Constants{
 	public static void setDownloadFinished(Context context, boolean value){
 	    SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(IS_DOWNLOAD_FINISHED, value);
-        editor.commit();
-	}
-	
-	public static void setDownloadLocation(Context context,String path){
-	    SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(DOWNLOAD_LOC, path);
         editor.commit();
 	}
 	

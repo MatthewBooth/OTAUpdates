@@ -16,17 +16,19 @@
  * limitations under the License.
  */
 -->
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-  
-    <item android:icon="?attr/helpIcon" 
-        android:id="@+id/menu_info" 
-        android:orderInCategory="99" 
-        android:title="@string/menu_info" />
+<resources>
+    <!-- Palette colors for Material UI -->
+    <color name="material_primary">#ff263238</color>
+    <color name="material_primary_dark">#ff21272b</color>
+    <color name="material_accent">#ff009688</color>
     
-    <item android:icon="?attr/settingsIcon" 
-        android:id="@+id/menu_settings" 
-        android:orderInCategory="100" 
-        android:title="@string/menu_settings" />
+    <color name="material_cyan_500">#00BCD4</color>
+    <color name="material_teal_500">#009688</color>
+    <color name="material_red_500">#F44336</color>
     
-</menu>
+    <color name="material_background_dark">#1f292f</color>
+    <color name="material_background_light">@color/white</color>
+    
+    <color name="material_card_background_dark">#37474f</color>
+    <color name="material_card_background_light">@color/white</color>
+</resources>

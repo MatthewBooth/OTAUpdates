@@ -36,7 +36,7 @@
 	        android:entries="@array/updater_background_frequency_entries"
 	        android:entryValues="@array/updater_background_frequency_values"
 	        android:dependency="background_service"
-	        android:defaultValue="259200" />
+	        android:defaultValue="43200" />
 	 
 	 <!-- Network Settings -->
 	 <PreferenceCategory 
@@ -49,26 +49,18 @@
 	    	android:entries="@array/updater_network_entries"
 	        android:entryValues="@array/updater_network_values"
 	        android:defaultValue="2"/>
-	
-	<!-- Download Location -->
-	<PreferenceCategory 
-	    android:title="@string/download_location"
-	    android:key="updater_download_location_cat"/>
-		<Preference 
-		    android:title="@string/download_location"
-		    android:key="download_location"
-		    android:summary="@string/download_folder"/>
-	
+
 	<!-- App Theme -->
 	<PreferenceCategory 
 	    android:title="@string/theme"
 	    android:key="updater_theme_cat"/>
+	
 	<ListPreference 
 	    android:title="@string/theme"
 	    android:key="current_theme"
 	    android:summary="@string/list_summary"
 	    android:entries="@array/theme_entries"
 	    android:entryValues="@array/theme_values"
-		android:defaultValue="2"/>
+		android:defaultValue="2" />
 
 </PreferenceScreen>

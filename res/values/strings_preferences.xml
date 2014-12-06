@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preferences_name">Settings</string>
-    <string name="download_folder">/sdcard/Download/</string>
+    <string name="download_folder">/storage/emulated/0/Download</string>
     <string name="list_summary">%s</string>
     
     <string name="twrp_ors_cat">OpenRecoveryScript</string>
@@ -30,9 +30,7 @@
 	<string name="background_2days">2 days</string>
 	<string name="background_3days">3 days</string>
 	<string name="background_7days">Weekly</string>
-	
-	<string name="download_location">Download location</string>
-	
+
 	<string name="theme_title">App Theme</string>
 	
 	<string name="mobile_wifi_network">Network</string>

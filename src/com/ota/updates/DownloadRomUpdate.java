@@ -30,7 +30,7 @@ import com.ota.updates.utils.Utils;
 
 public class DownloadRomUpdate implements Constants{
 	
-	public final String TAG = this.getClass().getSimpleName();
+	public final static String TAG = "DownloadRomUpdate";
 
 	public DownloadRomUpdate(){
 		
@@ -41,7 +41,7 @@ public class DownloadRomUpdate implements Constants{
 		String fileName = RomUpdate.getFilename(context) + ".zip";
 		String description = context.getResources().getString(R.string.downloading);
 		File file = RomUpdate.getFullFile(context);
-		
+
 		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
 		if(Preferences.getNetworkType(context).equals("2")){

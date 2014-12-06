@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:src="?attr/downloadIcon"
             android:contentDescription="@string/main_button_icon" />
 
@@ -68,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:src="?attr/downloadIcon"
             android:contentDescription="@string/main_button_icon" />
 
@@ -109,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/main_dev_website_icon"
             android:src="?attr/browserIcon" />
 
@@ -148,6 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/main_dev_website_icon"
             android:src="?attr/donateIcon" />
 

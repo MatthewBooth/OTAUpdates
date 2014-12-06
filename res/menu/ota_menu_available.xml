@@ -51,7 +51,5 @@
         android:title="@string/install" 
         android:showAsAction="always"
         android:visible="false" />
-   
-    
-    
+
 </menu>

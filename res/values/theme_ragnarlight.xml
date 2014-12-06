@@ -89,5 +89,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.RagnarLight</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight</item>
     </style>
+    
+    <style name="Theme.RagnarLight.Settings" parent="Theme.RagnarLight" />
 
 </resources>

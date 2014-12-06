@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
@@ -128,14 +129,7 @@ public class Utils implements Constants{
 	}
 
 	public static void deleteFile(File file) {
-		if(file.exists()){
-			if (file.isDirectory()){
-				for (File sub : file.listFiles()){
-					deleteFile(sub);
-				}
-			}
-			file.delete();
-		}
+		Tools.noneRootShell("rm -f " + file.getAbsolutePath());
 	}
 	
 	public static void setHasFileDownloaded(Context context) {
@@ -143,6 +137,10 @@ public class Utils implements Constants{
 		int filesize = RomUpdate.getFileSize(context);
 		
 		boolean status = false;
+		if(DEBUGGING)
+			Log.d(TAG, "Local file " + file.getAbsolutePath());
+			Log.d(TAG, "Local filesize " + file.length());
+			Log.d(TAG, "Remote filesize " + filesize);
 		if(file.length() != 0 && file.length() == filesize){
 			status = true;
 		}		
@@ -188,5 +186,9 @@ public class Utils implements Constants{
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		
 		return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+	}
+	
+	public static boolean isLollipop(){	
+		return Build.VERSION.SDK_INT >= 21;
 	}
 }

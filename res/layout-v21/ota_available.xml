@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <Toolbar
+        android:id="@+id/toolbar_available_top"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:title="@string/app_name"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/Theme.RagnarDark" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/toolbar_available_top"
+        android:background="@drawable/toolbar_dropshadow" />
+    
+	    <LinearLayout android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:padding="16dp"
+		    android:layout_marginTop="56dp">
+	
+	    <TextView
+	        android:id="@+id/tv_available_update_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/available_update_name"
+	        android:textSize="28sp" />
+	
+	    <ProgressBar
+	        android:id="@+id/bar_available_progress_bar"
+	        style="?android:attr/progressBarStyleHorizontal"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginTop="10dp" />
+	
+	    <TextView
+	        android:id="@+id/tv_available_progress_counter"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="end"
+	        android:text="@string/available_progress_counter"
+	        android:textSize="10sp"
+	        tools:ignore="SmallSp" />
+	
+	    <TextView
+	        android:id="@+id/tv_available_md5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="end"
+	        android:text="@string/available_md5"
+	        android:textSize="10sp"
+	        tools:ignore="SmallSp" />
+	    
+	    <View
+			style="@style/HorizontalSeparator"
+			android:layout_marginTop="8dp" 
+			android:layout_marginBottom="8dp" /> 
+	
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/available_changelog_title"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <ScrollView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="56dp">
+	
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+	
+	            <TextView
+	                android:id="@+id/tv_available_changelog_content"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:singleLine="false"
+	                android:text="@string/available_changelog_content"
+	                android:textAppearance="?android:attr/textAppearanceSmall" />
+	        </LinearLayout>
+	    </ScrollView>
+	</LinearLayout>
+	<Toolbar
+			android:id="@+id/toolbar_available_bottom"
+	        android:layout_width="match_parent"
+	        android:layout_height="56dp"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentStart="true"
+	        android:background="?attr/colorPrimary"
+	        android:theme="@style/Theme.RagnarDark" >
+	</Toolbar>
+</RelativeLayout>
