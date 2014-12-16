@@ -201,7 +201,7 @@ public class RomUpdate implements Constants{
     			+ filenameSeparator
     			+ codenameDevice;
     	
-    	return result;
+    	return result.replace(" ","");
     }
     
     public static File getFullFile(Context context){

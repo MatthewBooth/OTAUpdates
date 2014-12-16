@@ -104,7 +104,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		String currentVer = Utils.getProp("ro.ota.version");
 		String manifestVer = RomUpdate.getVersion(mContext);
 
-		boolean available = versionBiggerThan(currentVer, manifestVer);
+		boolean available = !versionBiggerThan(currentVer, manifestVer);
 
 		RomUpdate.setUpdateAvailable(mContext, available);
 		if(DEBUGGING)
