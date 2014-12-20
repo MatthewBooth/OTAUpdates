@@ -263,12 +263,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateDonateLinkLayout() {
-		View donateLink;
-		if(isLollipop){
-			donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
-		} else {
-			donateLink = (LinearLayout) findViewById(R.id.layout_main_dev_donate_link);			
-		}		
+		View donateLink = (LinearLayout) findViewById(R.id.layout_main_dev_donate_link);				
 		donateLink.setVisibility(View.GONE);
 
 		if(!RomUpdate.getDonateLink(mContext).trim().equals("null")){
@@ -277,12 +272,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateWebsiteLayout() {
-		View webLink;
-		if(isLollipop){
-			webLink = (CardView) findViewById(R.id.layout_main_dev_website);
-		} else {
-			webLink = (LinearLayout) findViewById(R.id.layout_main_dev_website);
-		}
+		View webLink = (LinearLayout) findViewById(R.id.layout_main_dev_website);
 		TextView webLinkSummary = (TextView) findViewById(R.id.tv_main_dev_link_summary);
 		webLink.setVisibility(View.GONE);
 
