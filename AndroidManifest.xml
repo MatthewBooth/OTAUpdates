@@ -19,7 +19,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ota.updates"
     android:versionCode="4"
-    android:versionName="2.0.2" xmlns:tools="http://schemas.android.com/tools">
+    android:versionName="2.0.2"
+    android:sharedUserId="android.uid.system"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk android:minSdkVersion="14"
         android:targetSdkVersion="21"
@@ -89,7 +91,7 @@
 		
         <receiver android:name=".receivers.BackgroundReceiver" android:enabled="true" />
         
-        <receiver android:name=".receivers.UpdateReceiver" android:enabled="true">
+        <receiver android:name=".receivers.UpdateReceiver" android:enabled="true" android:exported="false">
 		    <intent-filter>
 		        <action android:name="com.ota.update.MANIFEST_CHECK_BACKGROUND" />
 		    </intent-filter>
