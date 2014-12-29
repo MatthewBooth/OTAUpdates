@@ -37,17 +37,11 @@
 		<item name="backgroundRippleSelector">@drawable/ripple_selector_light</item>
 		
 		<!-- Main theme colors -->
-	    <!--   your app branding color for the app bar -->
 	    <item name="android:colorPrimary">@color/material_primary</item>
-	    <!--   darker variant for the status bar and contextual app bars -->
 	    <item name="android:colorPrimaryDark">@color/material_primary_dark</item>
-	    <!--   theme UI controls like checkboxes and text fields -->
-	    <item name="android:colorAccent">@color/material_accent</item>
-	    
-	    <item name="cardStyle">@style/CardStyle.Light</item>
-	    
+	    <item name="android:colorAccent">@color/material_accent</item>  
+	    <item name="cardStyle">@style/CardStyle.Light</item>    
 	    <item name="android:windowNoTitle">true</item>
-    	<!--We will be using the toolbar so no need to show ActionBar-->
     	<item name="android:windowActionBar">false</item>
     </style>
 
