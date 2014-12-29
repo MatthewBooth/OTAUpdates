@@ -61,6 +61,6 @@
 	    android:summary="@string/list_summary"
 	    android:entries="@array/theme_entries"
 	    android:entryValues="@array/theme_values"
-		android:defaultValue="2" />
+		android:defaultValue="0" />
 
 </PreferenceScreen>
