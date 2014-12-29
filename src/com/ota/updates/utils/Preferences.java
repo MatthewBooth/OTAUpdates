@@ -80,6 +80,8 @@ public class Preferences implements Constants{
 	}
 	
 	public static boolean getBackgroundService(Context context){
+		if(DEBUGGING)
+			Log.d(TAG, "Background Service set to " + getPrefs(context).getBoolean(UPDATER_BACK_SERVICE, true));
 	    return getPrefs(context).getBoolean(UPDATER_BACK_SERVICE, true);
 	}
 	

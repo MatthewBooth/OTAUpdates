@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -87,10 +88,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 				Preferences.setTheme(mContext, listPref.getValue());
 				Intent intent = new Intent(mContext, MainActivity.class);
 				startActivity(intent);
-			} else if(key.equals(UPDATER_BACK_FREQ) || key.equals(UPDATER_BACK_SERVICE)){
+			} else if(key.equals(UPDATER_BACK_FREQ)){
 	            Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 	        }
-		}	
+		} else if(pref instanceof CheckBoxPreference){
+			if(key.equals(UPDATER_BACK_SERVICE)){
+	            Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
+	        }
+		}
 	}
 
 	@Override
