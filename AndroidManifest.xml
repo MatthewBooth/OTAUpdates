@@ -79,22 +79,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="com.ota.update.MANIFEST_CHECK_BACKGROUND" />
+                <action android:name="com.ota.update.START_UPDATE_CHECK" />
             </intent-filter>
         </receiver>
-        
-        <receiver android:name=".receivers.BootReceiver" android:enabled="true">
-		    <intent-filter>
-		        <action android:name="android.intent.action.BOOT_COMPLETED" />
-		    </intent-filter>
-		</receiver>
-		
-        <receiver android:name=".receivers.BackgroundReceiver" android:enabled="true" />
-        
-        <receiver android:name=".receivers.UpdateReceiver" android:enabled="true" android:exported="false">
-		    <intent-filter>
-		        <action android:name="com.ota.update.MANIFEST_CHECK_BACKGROUND" />
-		    </intent-filter>
-		</receiver>
         
     </application>
 

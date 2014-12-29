@@ -37,7 +37,7 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import com.ota.updates.RomUpdate;
-import com.ota.updates.receivers.BackgroundReceiver;
+import com.ota.updates.receivers.RomDownloadReceiver;
 
 public class Utils implements Constants{
 
@@ -148,12 +148,13 @@ public class Utils implements Constants{
 	}
 	
 	public static void setBackgroundCheck(Context context, boolean set){
-        int requestedInteval = Preferences.getBackgroundFrequency(context);
+		int requestedInteval = Preferences.getBackgroundFrequency(context);
 
         if(DEBUGGING)
 			Log.d(TAG, "" + requestedInteval);
         
-        Intent intent = new Intent(context, BackgroundReceiver.class);
+        Intent intent = new Intent(context, RomDownloadReceiver.class);
+        intent.setAction(START_UPDATE_CHECK);
         
         Calendar calendar = Calendar.getInstance();
         long time = calendar.getTimeInMillis() + requestedInteval * 1000;

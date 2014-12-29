@@ -17,16 +17,25 @@
 package com.ota.updates.receivers;
 
 import android.app.DownloadManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.ota.updates.R;
+import com.ota.updates.RomUpdate;
 import com.ota.updates.activities.AvailableActivity;
 import com.ota.updates.activities.MainActivity;
+import com.ota.updates.tasks.LoadUpdateManifest;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
+import com.ota.updates.utils.Utils;
 
 public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
 
@@ -76,7 +85,7 @@ public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
 				return;
 			}
 		}
-		
+
 		if(action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)){
 			long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0L);
 			if (id != mDownloadID) {
@@ -85,10 +94,62 @@ public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
 				return;
 			} else {
 				Intent i = new Intent(context, MainActivity.class);
-	            context.startActivity(i);
+				context.startActivity(i);
 			}
 		}
-	}           
+
+		if(action.equals(MANIFEST_CHECK_BACKGROUND)){
+			if(DEBUGGING)
+				Log.d(TAG, "Receiving background check confirmation");
+
+			boolean updateAvailable = RomUpdate.getUpdateAvailability(context);
+			String filename = RomUpdate.getFilename(context);
+
+			if(updateAvailable){
+				setupNotification(context, filename);
+			}
+		}
+
+		if(action.equals(START_UPDATE_CHECK)) {
+			if (DEBUGGING)
+				Log.d(TAG, "Update check started");
+			new LoadUpdateManifest(context, false).execute();
+		}
+
+		if(action.equals(Intent.ACTION_BOOT_COMPLETED)){
+			if(DEBUGGING) {
+				Toast.makeText(context, "Boot Received", Toast.LENGTH_LONG).show();
+				Log.d(TAG, "Boot received");
+			}
+			boolean backgroundCheck = Preferences.getBackgroundService(context);
+			if(backgroundCheck){
+				if(DEBUGGING)
+					Log.d(TAG, "Starting background check alarm");
+				Utils.setBackgroundCheck(context, true);
+			}
+		}
+	}
+
+	private void setupNotification(Context context, String filename){
+		if(DEBUGGING)
+			Log.d(TAG, "Showing notification");
+		NotificationManager mNotifyManager =
+				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		Intent notificationIntent = new Intent(context, MainActivity.class);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		PendingIntent intent = PendingIntent.getActivity(context, 0,
+				notificationIntent, 0);
+		Builder mBuilder = new NotificationCompat.Builder(context);
+		mBuilder.setContentTitle(context.getString(R.string.update_available))
+		.setContentText(filename)
+		.setSmallIcon(R.drawable.ic_notif)
+		.setContentIntent(intent)
+		.setAutoCancel(true)
+		.setPriority(NotificationCompat.PRIORITY_HIGH)
+		.setDefaults(NotificationCompat.DEFAULT_ALL);
+		mNotifyManager.notify(0, mBuilder.build());
+	}
 }
 
 

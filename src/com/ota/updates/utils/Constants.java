@@ -18,7 +18,7 @@ package com.ota.updates.utils;
 
 public interface Constants {
 	// Developer
-	public static final boolean DEBUGGING = false;
+	public static final boolean DEBUGGING = true;
 	
 	// Settings
 	public static final String CURRENT_THEME = "current_theme";
@@ -42,4 +42,5 @@ public interface Constants {
 	// Broadcast intents
 	public static String MANIFEST_LOADED = "com.ota.update.MANIFEST_LOADED";
 	public static String MANIFEST_CHECK_BACKGROUND = "com.ota.update.MANIFEST_CHECK_BACKGROUND";
+	public static String START_UPDATE_CHECK = "com.ota.update.START_UPDATE_CHECK";
 }
