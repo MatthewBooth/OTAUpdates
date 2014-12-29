@@ -37,7 +37,7 @@ import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 
-public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
+public class AppReceiver extends BroadcastReceiver implements Constants{
 
 	public final String TAG = this.getClass().getSimpleName();
 
@@ -118,9 +118,9 @@ public class RomDownloadReceiver extends BroadcastReceiver implements Constants{
 
 		if(action.equals(Intent.ACTION_BOOT_COMPLETED)){
 			if(DEBUGGING) {
-				Toast.makeText(context, "Boot Received", Toast.LENGTH_LONG).show();
 				Log.d(TAG, "Boot received");
 			}
+			new LoadUpdateManifest(context, false).execute();
 			boolean backgroundCheck = Preferences.getBackgroundService(context);
 			if(backgroundCheck){
 				if(DEBUGGING)

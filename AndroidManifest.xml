@@ -75,7 +75,7 @@
             android:label="@string/directory_picker_name"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         
-        <receiver android:name="com.ota.updates.receivers.RomDownloadReceiver" android:enabled="true">
+        <receiver android:name="com.ota.updates.receivers.AppReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
