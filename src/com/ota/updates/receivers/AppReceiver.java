@@ -120,7 +120,6 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			if(DEBUGGING) {
 				Log.d(TAG, "Boot received");
 			}
-			new LoadUpdateManifest(context, false).execute();
 			boolean backgroundCheck = Preferences.getBackgroundService(context);
 			if(backgroundCheck){
 				if(DEBUGGING)
