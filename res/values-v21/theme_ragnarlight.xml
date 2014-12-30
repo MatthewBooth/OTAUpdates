@@ -27,12 +27,12 @@
 		<item name="colorHoloGreen">@color/holo_green_dark</item>
 		<item name="colorHoloBlue">@color/holo_blue_dark</item>
 
-		<item name="alertIcon">@drawable/ic_alert_light</item>
-		<item name="helpIcon">@drawable/ic_about_light</item>
-		<item name="settingsIcon">@drawable/ic_settings_light</item>		
-		<item name="downloadIcon">@drawable/ic_download_light</item>
-		<item name="browserIcon">@drawable/ic_web_site_light</item>
-		<item name="donateIcon">@drawable/ic_donate_light</item>
+		<item name="alertIcon">@drawable/ic_alert_dark</item>
+		<item name="helpIcon">@drawable/ic_about_dark</item>
+		<item name="settingsIcon">@drawable/ic_settings_dark</item>		
+		<item name="downloadIcon">@drawable/ic_download_dark</item>
+		<item name="browserIcon">@drawable/ic_web_site_dark</item>
+		<item name="donateIcon">@drawable/ic_donate_dark</item>
 		<item name="separator">@color/separator_light</item>
 		<item name="backgroundRippleSelector">@drawable/ripple_selector_light</item>
 		
