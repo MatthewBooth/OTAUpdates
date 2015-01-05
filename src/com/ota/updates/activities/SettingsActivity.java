@@ -17,20 +17,29 @@
 package com.ota.updates.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.preference.RingtonePreference;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import com.ota.updates.R;
@@ -40,7 +49,7 @@ import com.ota.updates.utils.Utils;
 
 @SuppressLint("SdCardPath")
 @SuppressWarnings("deprecation")
-public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, OnSharedPreferenceChangeListener, Constants{
+public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener, OnSharedPreferenceChangeListener, Constants{
 
 	public final String TAG = this.getClass().getSimpleName();
 
@@ -48,6 +57,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	Preference mDownloadLocation;
 	Builder mInstallPrefsDialog;
 	Preference mInstallPrefs;
+	RingtonePreference mRingtonePreference;
 
 	SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
 
@@ -63,12 +73,19 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 		mInstallPrefs = (Preference) findPreference(INSTALL_PREFS);
 		mInstallPrefs.setOnPreferenceClickListener(this);
+
+		mRingtonePreference = (RingtonePreference) findPreference(NOTIFICATIONS_SOUND);
+		
+		String defValue = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString();
+		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
+		setRingtoneSummary(soundValue);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+		mRingtonePreference.setOnPreferenceChangeListener(this);
 	}
 
 	@Override
@@ -89,12 +106,12 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 				Intent intent = new Intent(mContext, MainActivity.class);
 				startActivity(intent);
 			} else if(key.equals(UPDATER_BACK_FREQ)){
-	            Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
-	        }
+				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
+			}
 		} else if(pref instanceof CheckBoxPreference){
 			if(key.equals(UPDATER_BACK_SERVICE)){
-	            Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
-	        }
+				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
+			}
 		}
 	}
 
@@ -102,8 +119,18 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	public boolean onPreferenceClick(Preference preference) {
 		if(preference == mInstallPrefs){
 			showInstallPrefs();
-		}
+		} 
 		return false;
+	}
+
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		boolean result = false;
+		if (preference == mRingtonePreference) {
+			setRingtoneSummary((String)newValue);
+			result = true;
+		} 
+		return result;
 	}
 
 	private void showInstallPrefs(){
@@ -145,4 +172,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		});
 		mInstallPrefsDialog.show();
 	}
+
+	private void setRingtoneSummary(String soundValue) {
+        Uri soundUri = TextUtils.isEmpty(soundValue) ? null : Uri.parse(soundValue);
+        Ringtone tone = soundUri != null ? RingtoneManager.getRingtone(this, soundUri) : null;
+        mRingtonePreference.setSummary(tone != null ? tone.getTitle(this)
+                : getResources().getString(R.string.silent_ringtone));
+    }
 }

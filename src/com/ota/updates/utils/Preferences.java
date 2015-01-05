@@ -20,6 +20,8 @@ import com.ota.updates.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.util.Log;
 
 public class Preferences implements Constants{
@@ -78,6 +80,15 @@ public class Preferences implements Constants{
 	public static long getDownloadID(Context context){
 		return getPrefs(context).getLong(DOWNLOAD_ID, 0L);
 	}
+	
+	public static String getNotificationSound(Context context){
+		String defValue = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString();
+        return getPrefs(context).getString(NOTIFICATIONS_SOUND, defValue);
+    }
+	
+	public static Boolean getNotificationVibrate(Context context){
+        return getPrefs(context).getBoolean(NOTIFICATIONS_VIBRATE, true);
+    }
 	
 	public static boolean getBackgroundService(Context context){
 		if(DEBUGGING)

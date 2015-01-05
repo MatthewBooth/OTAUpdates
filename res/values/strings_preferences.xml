@@ -17,7 +17,7 @@
     <string name="twrp_ors_wipe_cache">Wipe Cache</string>
     <string name="twrp_ors_wipe_dalvik">Wipe Dalvik</string>
     
-	<string name="background_service_title">Background service</string>
+    <string name="notifications_title">Notifications</string>
 	<string name="background_service_summary">Automatically check for updates and show a notification if one is available</string>
 	<string name="background_frequency">Update check frequency</string>
 	<string name="background_30mins">30 Mins</string>
@@ -42,4 +42,8 @@
 	<string name="theme_dark">Dark</string>
 	<string name="theme_light">Light</string>
 	<string name="theme_light_dark">Light, Dark ActionBar</string>
+	
+	<string name="notifications_sound">Sound</string>
+	<string name="notifications_vibrate">Vibrate</string>
+	<string name="silent_ringtone">Silent</string>
 </resources>

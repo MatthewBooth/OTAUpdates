@@ -23,6 +23,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
@@ -132,6 +133,8 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 	private void setupNotification(Context context, String filename){
 		if(DEBUGGING)
 			Log.d(TAG, "Showing notification");
+		
+		
 		NotificationManager mNotifyManager =
 				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -145,9 +148,15 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		.setSmallIcon(R.drawable.ic_notif)
 		.setContentIntent(intent)
 		.setAutoCancel(true)
-		.setPriority(NotificationCompat.PRIORITY_MAX)
-		.setDefaults(NotificationCompat.DEFAULT_ALL)
-		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+		.setPriority(NotificationCompat.PRIORITY_HIGH)
+		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
+		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+		.setSound(Uri.parse(Preferences.getNotificationSound(context)));
+
+		if(Preferences.getNotificationVibrate(context)) {
+			mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
+		}
+
 		mNotifyManager.notify(0, mBuilder.build());
 	}
 }

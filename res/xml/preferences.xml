@@ -22,10 +22,10 @@
 	
     <!-- Background update service -->
 	<PreferenceCategory
-        android:title="@string/background_service_title"
+        android:title="@string/notifications_title"
         android:key="updater_ors_screen_title" />
 	    <CheckBoxPreference 
-	        android:title="@string/background_service_title"
+	        android:title="@string/notifications_title"
 	        android:key="background_service"
 	        android:summary="@string/background_service_summary"
 	        android:defaultValue="true" />
@@ -37,6 +37,18 @@
 	        android:entryValues="@array/updater_background_frequency_values"
 	        android:dependency="background_service"
 	        android:defaultValue="43200" />
+	    <RingtonePreference 
+	        android:title="@string/notifications_sound"
+	        android:key="notifications_sound"
+	        android:ringtoneType="notification"
+	        android:dependency="background_service"
+            android:defaultValue="content://settings/system/notification_sound" />
+	    
+	    <CheckBoxPreference 
+	        android:title="@string/notifications_vibrate"
+	        android:key="notifications_vibrate"
+	        android:dependency="background_service"
+	        android:defaultValue="true" />
 	 
 	 <!-- Network Settings -->
 	 <PreferenceCategory 
