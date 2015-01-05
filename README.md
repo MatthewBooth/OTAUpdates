@@ -8,7 +8,7 @@ A useful tool to help ROM developers provide OTA updates to their users. It's fr
 
 1. Root - not essential, but you will most likely have this anyway
 2. A place to store a static manifest xml. Dropbox will work fine, and any webserver.
-3. Some build.prop extries
+3. Some build.prop entries
 
 # How-to
 
@@ -104,9 +104,11 @@ Anyone is free to use this project in their ROM. I only request that you keep th
 
 # Building
 
-To build from source via Eclipse, you need to include the android-support-v7-cardview project from the Android-SDK. Add it as a project. Mark it as a library, then edit the build path of this project to include the cardview library.
+To build from source via Eclipse, you need to include the folliowing libraries:- 
 
-For grade simply add "compile 'com.android.support:cardview-v7:+'" to your properties.
+1. android-support-v7-cardview project from the Android-SDK. Add it as a project. Mark it as a library, then edit the build path of this project to include the cardview library.
+2. [Bypass](https://github.com/Kryten2k35/bypass) - Follow the instructions on this project to get this up and running correctly.
+
 
 # Contributions
 
