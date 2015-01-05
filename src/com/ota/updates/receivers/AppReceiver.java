@@ -146,7 +146,8 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		.setContentIntent(intent)
 		.setAutoCancel(true)
 		.setPriority(NotificationCompat.PRIORITY_HIGH)
-		.setDefaults(NotificationCompat.DEFAULT_ALL);
+		.setDefaults(NotificationCompat.DEFAULT_ALL)
+		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 		mNotifyManager.notify(0, mBuilder.build());
 	}
 }
