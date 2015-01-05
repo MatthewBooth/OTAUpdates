@@ -16,6 +16,7 @@
 
 package com.ota.updates.activities;
 
+import in.uncod.android.bypass.Bypass;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,6 +31,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -218,9 +220,11 @@ public class AvailableActivity extends Activity implements Constants {
 
 	private void setupChangeLog(){
 		TextView changelogView = (TextView) findViewById(R.id.tv_available_changelog_content);
-		String[] changeLogStr = RomUpdate.getChangelog(mContext).split(";");
-		changelogView.setText(Utils.getBulletList(
-				RomUpdate.getCodename(mContext) + " " + RomUpdate.getVersion(mContext), changeLogStr));
+		Bypass byPass = new Bypass();
+		String changeLogStr = RomUpdate.getChangelog(mContext);
+		CharSequence string = byPass.markdownToSpannable(changeLogStr);
+		changelogView.setText(string);
+		changelogView.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 	private void setupUpdateNameInfo(){

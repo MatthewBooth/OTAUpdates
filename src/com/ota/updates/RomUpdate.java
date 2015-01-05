@@ -44,6 +44,7 @@ public class RomUpdate implements Constants{
     private static String DEVELOPER = "rom_developer";
     private static String DONATE_LINK = "rom_donate_link";
     private static String FILESIZE = "rom_filesize";
+    private static String OTA_VERSION = "rom_ota_version";
     private static String AVAILABILITY = "update_availability";
     
     private static String DEF_VALUE = "null";
@@ -101,6 +102,10 @@ public class RomUpdate implements Constants{
     
     public static int getFileSize(Context context){
     	return getPrefs(context).getInt(FILESIZE, 0);
+    }
+    
+    public static int getOtaVersion(Context context){
+    	return getPrefs(context).getInt(OTA_VERSION, 0);
     }
     
     public static boolean getUpdateAvailability(Context context){
@@ -179,6 +184,12 @@ public class RomUpdate implements Constants{
         editor.commit();
     }
     
+    public static void setOtaVersion(Context context, int version){
+    	SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putInt(OTA_VERSION, version);
+        editor.commit();
+    }
+    
     public static void setUpdateAvailable(Context context, boolean availability){
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(AVAILABILITY, availability);
@@ -187,19 +198,10 @@ public class RomUpdate implements Constants{
     
     public static String getFilename(Context context){
     	String filenameSeparator = context.getResources().getString(R.string.filename_separator);
-		boolean isCodenameUsed = !RomUpdate.getCodename(context).equals("null");
-		
-		String codenameDevice = (isCodenameUsed ? 
-				RomUpdate.getCodename(context) 
-				+ filenameSeparator 
-				+ Utils.getProp("ro.ota.device") 
-				: Utils.getProp("ro.ota.device"));
 		
     	String result = getName(context) 
     			+ filenameSeparator 
-    			+ getVersion(context)
-    			+ filenameSeparator
-    			+ codenameDevice;
+    			+ getVersion(context);
     	
     	return result.replace(" ","");
     }

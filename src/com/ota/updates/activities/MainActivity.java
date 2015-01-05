@@ -303,12 +303,6 @@ public class MainActivity extends Activity implements Constants{
 		String romVersionActual = Utils.getProp("ro.ota.version");        
 		romVersion.setText(Html.fromHtml(romVersionTitle + htmlColorOpen + romVersionActual + htmlColorClose));
 
-		//ROM codename
-		TextView romCodeName = (TextView) findViewById(R.id.tv_main_rom_codename);        
-		String romCodeNameTitle = getApplicationContext().getResources().getString(R.string.main_rom_codename) + " ";
-		String romCodeNameActual = Utils.getProp("ro.ota.codename");       
-		romCodeName.setText(Html.fromHtml(romCodeNameTitle + htmlColorOpen + romCodeNameActual + htmlColorClose));
-
 		//ROM date
 		TextView romDate = (TextView) findViewById(R.id.tv_main_rom_date);        
 		String romDateTitle = getApplicationContext().getResources().getString(R.string.main_rom_build_date) + " ";

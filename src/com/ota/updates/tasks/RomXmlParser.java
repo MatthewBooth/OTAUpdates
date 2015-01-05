@@ -41,7 +41,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 
 	public final String TAG = this.getClass().getSimpleName();
 
-	String value = null;
+	StringBuffer value = new StringBuffer();;
 	Context mContext;
 
 	int filesize;
@@ -49,7 +49,6 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 
 	boolean tagName = false;
 	boolean tagVersion = false;
-	boolean tagCode = false;
 	boolean tagDirectUrl = false;
 	boolean tagHttpUrl = false;
 	boolean tagMD5 = false;
@@ -58,6 +57,8 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 	boolean tagDeveloper = false;
 	boolean tagWebsite = false;
 	boolean tagDonateUrl = false;
+	boolean tagFileSize = false;
+	boolean tagOtaVersion = false;
 
 	public void parse(File xmlFile, Context context) throws IOException {
 		mContext = context;
@@ -101,8 +102,9 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 
 	private void setUpdateAvailability() {
 		// Grab the data from the device and manifest
+		int otaVersion = RomUpdate.getOtaVersion(mContext);
 		String currentVer = Utils.getProp("ro.ota.version");
-		String manifestVer = RomUpdate.getVersion(mContext);
+		String manifestVer = Integer.toString(otaVersion);
 
 		boolean available = !versionBiggerThan(currentVer, manifestVer);
 
@@ -114,6 +116,8 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
+		
+		value.setLength(0);
 
 		if (attributes.getLength() > 0) {
 
@@ -133,10 +137,6 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 
 		if (qName.equalsIgnoreCase("version")) {
 			tagVersion = true;
-		}
-
-		if (qName.equalsIgnoreCase("code")) {
-			tagCode = true;
 		}
 
 		if (qName.equalsIgnoreCase("directurl")) {
@@ -171,100 +171,119 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			tagDonateUrl = true;
 		}
 
+		if (qName.equalsIgnoreCase("filesize")){
+			tagFileSize = true;
+		}
+
+		if (qName.equalsIgnoreCase("ota-version")){
+			tagOtaVersion = true;
+		}
+
 	}
 
 	@Override
-	public void characters(char ch[], int start, int length)
+	public void characters(char[] buffer, int start, int length) 
+			throws SAXException{
+		value.append(buffer, start, length);;
+		
+	}    
+
+	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		value = new String(ch, start, length);
+		
 		if (tagName) {
-			RomUpdate.setName(mContext, value);
+			RomUpdate.setName(mContext, value.toString());
 			tagName = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Name = " + value);
+				Log.d(TAG, "Name = " + value.toString());
 		}
 
 		if (tagVersion) {
-			RomUpdate.setVersion(mContext, value);
+			RomUpdate.setVersion(mContext, value.toString());
 			tagVersion = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Version = " + value);
-		}
-
-		if (tagCode) {
-			RomUpdate.setCodename(mContext, value);
-			tagCode = false;
-			if(DEBUGGING)
-				Log.d(TAG, "Codename = " + value);
+				Log.d(TAG, "Version = " + value.toString());
 		}
 
 		if (tagDirectUrl) {
-			RomUpdate.setDirectUrl(mContext, value);
+			RomUpdate.setDirectUrl(mContext, value.toString());
 			tagDirectUrl = false;
 			if(DEBUGGING)
-				Log.d(TAG, "URL = " + value);
+				Log.d(TAG, "URL = " + value.toString());
 			URL url;
 			try {
-				url = new URL(value);
+				url = new URL(value.toString());
 				URLConnection connection = url.openConnection();
 				connection.connect();
-				RomUpdate.setFileSize(mContext, connection.getContentLength());
 				if(DEBUGGING)
 					Log.d(TAG, "Remote Filesize = " + RomUpdate.getFileSize(mContext));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
 		if (tagHttpUrl) {
-			RomUpdate.setHttpUrl(mContext, value);
+			RomUpdate.setHttpUrl(mContext, value.toString());
 			tagHttpUrl = false;
 			if(DEBUGGING)
-				Log.d(TAG, "tagHttpUrl = " + value);
+				Log.d(TAG, "tagHttpUrl = " + value.toString());
 		}
 
 		if (tagMD5) {
-			RomUpdate.setMd5(mContext, value);
+			RomUpdate.setMd5(mContext, value.toString());
 			tagMD5 = false;
 			if(DEBUGGING)
-				Log.d(TAG, "MD5 = " + value);
+				Log.d(TAG, "MD5 = " + value.toString());
 		}
 
 		if (tagLog) {
-			RomUpdate.setChangelog(mContext, value);
+			RomUpdate.setChangelog(mContext, value.toString());
 			tagLog = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Changelog = " + value);
+				Log.d(TAG, "Changelog = " + value.toString());
 		}
 		if (tagAndroid) {
-			RomUpdate.setAndroidVersion(mContext, value);
+			RomUpdate.setAndroidVersion(mContext, value.toString());
 			tagAndroid = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Android Version = " + value);
+				Log.d(TAG, "Android Version = " + value.toString());
 		}
 
 		if (tagWebsite){
-			RomUpdate.setWebsite(mContext, value);
+			RomUpdate.setWebsite(mContext, value.toString());
 			tagWebsite = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Website = " + value);
+				Log.d(TAG, "Website = " + value.toString());
 		}
 
 		if(tagDeveloper){
-			RomUpdate.setDeveloper(mContext, value);
+			RomUpdate.setDeveloper(mContext, value.toString());
 			tagDeveloper = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Developer = " + value);
+				Log.d(TAG, "Developer = " + value.toString());
 		}
 		if (tagDonateUrl){
-			RomUpdate.setDonateLink(mContext, value);
+			RomUpdate.setDonateLink(mContext, value.toString());
 			tagDonateUrl = false;
 			if(DEBUGGING)
-				Log.d(TAG, "Donate URL = " + value);
+				Log.d(TAG, "Donate URL = " + value.toString());
 		}
-	}    
+		if (tagFileSize){
+			RomUpdate.setFileSize(mContext, Integer.parseInt(value.toString()));
+			tagFileSize = false;
+			if(DEBUGGING)
+				Log.d(TAG, "Filesize = " + value);
+		}
+		if (tagOtaVersion){
+			RomUpdate.setOtaVersion(mContext, Integer.parseInt(value.toString()));
+			tagOtaVersion = false;
+			if(DEBUGGING)
+				Log.d(TAG, "OTA Version = " + value.toString());
+		}
+
+	}
+
 }
+
