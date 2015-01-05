@@ -145,7 +145,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		.setSmallIcon(R.drawable.ic_notif)
 		.setContentIntent(intent)
 		.setAutoCancel(true)
-		.setPriority(NotificationCompat.PRIORITY_HIGH)
+		.setPriority(NotificationCompat.PRIORITY_MAX)
 		.setDefaults(NotificationCompat.DEFAULT_ALL)
 		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 		mNotifyManager.notify(0, mBuilder.build());
