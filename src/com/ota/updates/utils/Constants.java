@@ -18,7 +18,7 @@ package com.ota.updates.utils;
 
 public interface Constants {
 	// Developer
-	public static final boolean DEBUGGING = false;
+	public static final boolean DEBUGGING = true;
 	
 	// Settings
 	public static final String CURRENT_THEME = "current_theme";

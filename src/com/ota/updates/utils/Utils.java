@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -192,5 +191,42 @@ public class Utils implements Constants{
 	
 	public static boolean isLollipop(){	
 		return Build.VERSION.SDK_INT >= 21;
+	}
+	
+	private static boolean versionBiggerThan(String current, String manifest) {
+		// returns true if current > manifest, false otherwise
+		if (current.length() > manifest.length()) {
+			for (int i = 0; i < current.length() - manifest.length(); i++) {
+				manifest+="0";
+			}
+		} else if (manifest.length() > current.length()) {
+			for (int i = 0; i < manifest.length() - current.length(); i++) {
+				current+="0";
+			}
+		}
+
+		for (int i = 0; i <= current.length(); i++) {
+			if (current.charAt(i) > manifest.charAt(i)){
+				return true; // definitely true
+			} else if (manifest.charAt(i) > current.charAt(i)) {
+				return false; // definitely false
+			} else {
+				//else still undecided
+			}
+		}
+		return false;
+	}
+
+	public static void setUpdateAvailability(Context context) {
+		// Grab the data from the device and manifest
+		int otaVersion = RomUpdate.getVersionNumber(context);
+		String currentVer = Utils.getProp("ro.ota.version");
+		String manifestVer = Integer.toString(otaVersion);
+
+		boolean available = !versionBiggerThan(currentVer, manifestVer);
+
+		RomUpdate.setUpdateAvailable(context, available);
+		if(DEBUGGING)
+			Log.d(TAG, "Update Availability is " + available);
 	}
 }

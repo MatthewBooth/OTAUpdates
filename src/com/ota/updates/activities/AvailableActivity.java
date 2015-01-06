@@ -82,6 +82,7 @@ public class AvailableActivity extends Activity implements Constants {
 		setupUpdateNameInfo();
 		setupProgress(getResources());
 		setupMd5Info();
+		setupRomHut();
 		setupChangeLog();
 
 		if(Preferences.getIsDownloadOnGoing(mContext)){
@@ -226,6 +227,20 @@ public class AvailableActivity extends Activity implements Constants {
 		changelogView.setText(string);
 		changelogView.setMovementMethod(LinkMovementMethod.getInstance());
 	}
+	
+	private void setupRomHut(){
+		String romHutText = RomUpdate.getRomHut(mContext);
+		boolean isRomHut = romHutText != null;
+		if(isRomHut) {
+			TextView sponsoredBy = (TextView) findViewById(R.id.tv_available_romhut);
+			sponsoredBy.setText(romHutText);
+			if(Utils.isLollipop()){			
+				sponsoredBy.setTextColor(getResources().getColor(R.color.material_teal_500));
+			} else {
+				sponsoredBy.setTextColor(getResources().getColor(R.color.holo_blue_light));
+			}
+		}
+	}
 
 	private void setupUpdateNameInfo(){
 		boolean isDownloadOnGoing = Preferences.getIsDownloadOnGoing(mContext);
@@ -303,8 +318,7 @@ public class AvailableActivity extends Activity implements Constants {
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
 			String ready = mContext.getResources().getString(R.string.available_ready_to_install);
 
-			if(Utils.isLollipop()){
-				
+			if(Utils.isLollipop()){			
 				mProgressCounterText.setTextColor(res.getColor(R.color.material_teal_500));
 			} else {
 				mProgressCounterText.setTextColor(res.getColor(R.color.holo_blue_light));
