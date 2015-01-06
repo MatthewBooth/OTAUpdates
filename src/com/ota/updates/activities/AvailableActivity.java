@@ -16,6 +16,7 @@
 
 package com.ota.updates.activities;
 
+import in.uncod.android.bypass.Bypass;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,6 +31,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,6 +82,7 @@ public class AvailableActivity extends Activity implements Constants {
 		setupUpdateNameInfo();
 		setupProgress(getResources());
 		setupMd5Info();
+		setupRomHut();
 		setupChangeLog();
 
 		if(Preferences.getIsDownloadOnGoing(mContext)){
@@ -218,9 +221,25 @@ public class AvailableActivity extends Activity implements Constants {
 
 	private void setupChangeLog(){
 		TextView changelogView = (TextView) findViewById(R.id.tv_available_changelog_content);
-		String[] changeLogStr = RomUpdate.getChangelog(mContext).split(";");
-		changelogView.setText(Utils.getBulletList(
-				RomUpdate.getCodename(mContext) + " " + RomUpdate.getVersion(mContext), changeLogStr));
+		Bypass byPass = new Bypass();
+		String changeLogStr = RomUpdate.getChangelog(mContext);
+		CharSequence string = byPass.markdownToSpannable(changeLogStr);
+		changelogView.setText(string);
+		changelogView.setMovementMethod(LinkMovementMethod.getInstance());
+	}
+	
+	private void setupRomHut(){
+		String romHutText = RomUpdate.getRomHut(mContext);
+		boolean isRomHut = romHutText != null;
+		if(isRomHut) {
+			TextView sponsoredBy = (TextView) findViewById(R.id.tv_available_romhut);
+			sponsoredBy.setText(romHutText);
+			if(Utils.isLollipop()){			
+				sponsoredBy.setTextColor(getResources().getColor(R.color.material_teal_500));
+			} else {
+				sponsoredBy.setTextColor(getResources().getColor(R.color.holo_blue_light));
+			}
+		}
 	}
 
 	private void setupUpdateNameInfo(){
@@ -299,8 +318,7 @@ public class AvailableActivity extends Activity implements Constants {
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
 			String ready = mContext.getResources().getString(R.string.available_ready_to_install);
 
-			if(Utils.isLollipop()){
-				
+			if(Utils.isLollipop()){			
 				mProgressCounterText.setTextColor(res.getColor(R.color.material_teal_500));
 			} else {
 				mProgressCounterText.setTextColor(res.getColor(R.color.holo_blue_light));

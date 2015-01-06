@@ -56,10 +56,7 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> {
         mLoadingDialog.setMessage(mContext.getString(R.string.rebooting));
         mLoadingDialog.show();
         
-        String mDownloadLocation = Environment.DIRECTORY_DOWNLOADS;
-        
-        // Replace extSdCard for external_sd on TWRP recoveries
-        mDownloadLocation = mDownloadLocation.replaceAll("extSdCard", "external_sd");
+        String mDownloadLocation = "/sdcard/Download/";
         
         if(Preferences.getWipeData(mContext)){
         	mScript.append("wipe data" + NEW_LINE);
@@ -81,25 +78,9 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> {
     
     @Override
     protected Boolean doInBackground(Void... params) {
-        FileWriter fstream;
-        BufferedWriter out;
-        String tempFile = Environment.DIRECTORY_DOWNLOADS + "openrecoveryscript";
-        try {
-            File file = new File(tempFile);
-            if(!file.exists()){
-                file.createNewFile();
-            }
-            fstream = new FileWriter(tempFile);
-            out = new BufferedWriter(fstream);
-            out.append(mScriptOutput);
-            out.close();
-            
-            Tools.shell("cp " + tempFile + " " + mScriptFile + " && rm -rf " + tempFile);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+
+        Tools.shell("echo \"" + mScriptOutput + "\" > " + mScriptFile);
+		return true;
         
     }
     @Override

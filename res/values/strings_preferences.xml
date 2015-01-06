@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
 <resources>
     <string name="preferences_name">Settings</string>
     <string name="download_folder">/storage/emulated/0/Download</string>
@@ -17,7 +34,7 @@
     <string name="twrp_ors_wipe_cache">Wipe Cache</string>
     <string name="twrp_ors_wipe_dalvik">Wipe Dalvik</string>
     
-	<string name="background_service_title">Background service</string>
+    <string name="notifications_title">Notifications</string>
 	<string name="background_service_summary">Automatically check for updates and show a notification if one is available</string>
 	<string name="background_frequency">Update check frequency</string>
 	<string name="background_30mins">30 Mins</string>
@@ -42,4 +59,8 @@
 	<string name="theme_dark">Dark</string>
 	<string name="theme_light">Light</string>
 	<string name="theme_light_dark">Light, Dark ActionBar</string>
+	
+	<string name="notifications_sound">Sound</string>
+	<string name="notifications_vibrate">Vibrate</string>
+	<string name="silent_ringtone">Silent</string>
 </resources>

@@ -21,12 +21,14 @@
   
     <item android:icon="?attr/helpIcon" 
         android:id="@+id/menu_info" 
-        android:orderInCategory="99" 
+        android:orderInCategory="99"
+        android:showAsAction="ifRoom" 
         android:title="@string/menu_info" />
     
     <item android:icon="?attr/settingsIcon" 
         android:id="@+id/menu_settings" 
         android:orderInCategory="100" 
+        android:showAsAction="ifRoom"
         android:title="@string/menu_settings" />
     
 </menu>

@@ -18,7 +18,7 @@ package com.ota.updates.utils;
 
 public interface Constants {
 	// Developer
-	public static final boolean DEBUGGING = false;
+	public static final boolean DEBUGGING = true;
 	
 	// Settings
 	public static final String CURRENT_THEME = "current_theme";
@@ -38,8 +38,11 @@ public interface Constants {
 	public static final String UPDATER_BACK_FREQ = "background_frequency";
 	public static final String UPDATER_ENABLE_ORS = "updater_twrp_ors";
 	public static final String MOVE_TO_EXT_SD = "move_to_ext_sd";
+	public static final String NOTIFICATIONS_SOUND = "notifications_sound";
+	public static final String NOTIFICATIONS_VIBRATE = "notifications_vibrate";
 	
 	// Broadcast intents
 	public static String MANIFEST_LOADED = "com.ota.update.MANIFEST_LOADED";
 	public static String MANIFEST_CHECK_BACKGROUND = "com.ota.update.MANIFEST_CHECK_BACKGROUND";
+	public static String START_UPDATE_CHECK = "com.ota.update.START_UPDATE_CHECK";
 }

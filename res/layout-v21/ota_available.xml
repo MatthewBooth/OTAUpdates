@@ -75,16 +75,18 @@
 	        android:textSize="10sp"
 	        tools:ignore="SmallSp" />
 	    
+	    <TextView
+	        android:id="@+id/tv_available_romhut"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="end"
+	        android:textSize="10sp"
+	        tools:ignore="SmallSp" />
+	    
 	    <View
 			style="@style/HorizontalSeparator"
 			android:layout_marginTop="8dp" 
 			android:layout_marginBottom="8dp" /> 
-	
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/available_changelog_title"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	    <ScrollView
 	        android:layout_width="match_parent"

@@ -18,12 +18,18 @@ package com.ota.updates.utils;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
@@ -36,8 +42,10 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
-import com.ota.updates.receivers.BackgroundReceiver;
+import com.ota.updates.activities.MainActivity;
+import com.ota.updates.receivers.AppReceiver;
 
 public class Utils implements Constants{
 
@@ -131,64 +139,154 @@ public class Utils implements Constants{
 	public static void deleteFile(File file) {
 		Tools.noneRootShell("rm -f " + file.getAbsolutePath());
 	}
-	
+
 	public static void setHasFileDownloaded(Context context) {
 		File file = RomUpdate.getFullFile(context);
 		int filesize = RomUpdate.getFileSize(context);
-		
+
 		boolean status = false;
 		if(DEBUGGING)
 			Log.d(TAG, "Local file " + file.getAbsolutePath());
-			Log.d(TAG, "Local filesize " + file.length());
-			Log.d(TAG, "Remote filesize " + filesize);
+		Log.d(TAG, "Local filesize " + file.length());
+		Log.d(TAG, "Remote filesize " + filesize);
 		if(file.length() != 0 && file.length() == filesize){
 			status = true;
 		}		
 		Preferences.setDownloadFinished(context, status);
 	}
-	
+
 	public static void setBackgroundCheck(Context context, boolean set){
-        int requestedInteval = Preferences.getBackgroundFrequency(context);
-
-        if(DEBUGGING)
-			Log.d(TAG, "" + requestedInteval);
-        
-        Intent intent = new Intent(context, BackgroundReceiver.class);
-        
-        Calendar calendar = Calendar.getInstance();
-        long time = calendar.getTimeInMillis() + requestedInteval * 1000;
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        if(set){
-        	if(DEBUGGING)
-				Log.d(TAG, "Alarm set for " + requestedInteval + " seconds");
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, requestedInteval*1000, PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        } else {
-        	if(DEBUGGING)
-				Log.d(TAG, "Cancelling alarm");
-            alarmManager.cancel(PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        }
-    }
+		scheduleNotification(context, !set);
+	}
 	
+	public static void scheduleNotification(Context context, boolean cancel){
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		Intent intent = new Intent(context, AppReceiver.class);
+		intent.setAction(START_UPDATE_CHECK);
+		int intentId = 1673;
+		int intentFlag = PendingIntent.FLAG_UPDATE_CURRENT;
+		
+		if(cancel){
+			if(alarmManager != null){
+				if(DEBUGGING)
+					Log.d(TAG, "Cancelling alarm");
+				alarmManager.cancel(PendingIntent.getBroadcast(
+						context, 
+						intentId, 
+						intent, 
+						intentFlag));
+			}
+		} else {
+			//int requestedInteval = Preferences.getBackgroundFrequency(context);
+			int requestedInteval = 30;
+
+			if(DEBUGGING)
+				Log.d(TAG, "Setting alarm for " + requestedInteval + " seconds");
+			Calendar calendar = Calendar.getInstance();
+			long time = calendar.getTimeInMillis() + requestedInteval * 1000;
+			alarmManager.set(
+					AlarmManager.RTC_WAKEUP, 
+					time, 
+					PendingIntent.getBroadcast(
+							context, 
+							intentId, 
+							intent, 
+							intentFlag));
+		}
+	}
+
+
 	public static boolean isConnected(Context context){
 		ConnectivityManager cm =
-		        (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		 
+				(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		return activeNetwork != null &&
-		                      activeNetwork.isConnectedOrConnecting();
+				activeNetwork.isConnectedOrConnecting();
 	}
-	
+
 	public static boolean isMobileNetwork(Context context){
 		ConnectivityManager cm =
-		        (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		 
+				(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		
+
 		return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
 	}
-	
+
 	public static boolean isLollipop(){	
 		return Build.VERSION.SDK_INT >= 21;
+	}
+
+	private static boolean versionBiggerThan(String current, String manifest) {
+		// returns true if current > manifest, false otherwise
+		if (current.length() > manifest.length()) {
+			for (int i = 0; i < current.length() - manifest.length(); i++) {
+				manifest+="0";
+			}
+		} else if (manifest.length() > current.length()) {
+			for (int i = 0; i < manifest.length() - current.length(); i++) {
+				current+="0";
+			}
+		}
+
+		for (int i = 0; i <= current.length(); i++) {
+			if (current.charAt(i) > manifest.charAt(i)){
+				return true; // definitely true
+			} else if (manifest.charAt(i) > current.charAt(i)) {
+				return false; // definitely false
+			} else {
+				//else still undecided
+			}
+		}
+		return false;
+	}
+
+	public static void setUpdateAvailability(Context context) {
+		// Grab the data from the device and manifest
+		int otaVersion = RomUpdate.getVersionNumber(context);
+		String currentVer = Utils.getProp("ro.ota.version");
+		String manifestVer = Integer.toString(otaVersion);
+
+		boolean available = !versionBiggerThan(currentVer, manifestVer);
+
+		RomUpdate.setUpdateAvailable(context, available);
+		if(DEBUGGING)
+			Log.d(TAG, "Update Availability is " + available);
+	}
+	
+	public static void setupNotification(Context context, String filename){
+		if(DEBUGGING)
+			Log.d(TAG, "Showing notification");	
+		
+		NotificationManager mNotifyManager =
+				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		
+		
+		Builder mBuilder = new NotificationCompat.Builder(context);
+		Intent resultIntent = new Intent(context, MainActivity.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		stackBuilder.addParentStack(MainActivity.class);
+		stackBuilder.addNextIntent(resultIntent);
+		PendingIntent resultPendingIntent =
+		        stackBuilder.getPendingIntent(
+		            0,
+		            PendingIntent.FLAG_UPDATE_CURRENT
+		        );
+		mBuilder.setContentTitle(context.getString(R.string.update_available))
+		.setContentText(filename)
+		.setSmallIcon(R.drawable.ic_notif)
+		.setContentIntent(resultPendingIntent)
+		.setAutoCancel(true)
+		.setPriority(NotificationCompat.PRIORITY_HIGH)
+		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
+		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+		.setSound(Uri.parse(Preferences.getNotificationSound(context)));
+
+		if(Preferences.getNotificationVibrate(context)) {
+			mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
+		}
+
+		mNotifyManager.notify(0, mBuilder.build());
 	}
 }

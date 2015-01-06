@@ -194,14 +194,8 @@ public class MainActivity extends Activity implements Constants{
 	private void updateRomUpdateLayouts(){
 		View updateAvailable;
 		View updateNotAvailable;
-		if(isLollipop){
-			updateAvailable = (CardView) findViewById(R.id.layout_main_update_available);
-			updateNotAvailable = (CardView) findViewById(R.id.layout_main_no_update_available);
-		} else {
-			updateAvailable = (LinearLayout) findViewById(R.id.layout_main_update_available);
-			updateNotAvailable = (LinearLayout) findViewById(R.id.layout_main_no_update_available);
-		}
-
+		updateAvailable = (CardView) findViewById(R.id.layout_main_update_available);
+		updateNotAvailable = (CardView) findViewById(R.id.layout_main_no_update_available);
 		updateAvailable.setVisibility(View.GONE);
 		updateNotAvailable.setVisibility(View.GONE);
 
@@ -263,12 +257,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateDonateLinkLayout() {
-		View donateLink;
-		if(isLollipop){
-			donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
-		} else {
-			donateLink = (LinearLayout) findViewById(R.id.layout_main_dev_donate_link);			
-		}		
+		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);				
 		donateLink.setVisibility(View.GONE);
 
 		if(!RomUpdate.getDonateLink(mContext).trim().equals("null")){
@@ -277,12 +266,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateWebsiteLayout() {
-		View webLink;
-		if(isLollipop){
-			webLink = (CardView) findViewById(R.id.layout_main_dev_website);
-		} else {
-			webLink = (LinearLayout) findViewById(R.id.layout_main_dev_website);
-		}
+		CardView webLink = (CardView) findViewById(R.id.layout_main_dev_website);
 		TextView webLinkSummary = (TextView) findViewById(R.id.tv_main_dev_link_summary);
 		webLink.setVisibility(View.GONE);
 
@@ -312,12 +296,6 @@ public class MainActivity extends Activity implements Constants{
 		String romVersionTitle = getApplicationContext().getResources().getString(R.string.main_rom_version) + " ";
 		String romVersionActual = Utils.getProp("ro.ota.version");        
 		romVersion.setText(Html.fromHtml(romVersionTitle + htmlColorOpen + romVersionActual + htmlColorClose));
-
-		//ROM codename
-		TextView romCodeName = (TextView) findViewById(R.id.tv_main_rom_codename);        
-		String romCodeNameTitle = getApplicationContext().getResources().getString(R.string.main_rom_codename) + " ";
-		String romCodeNameActual = Utils.getProp("ro.ota.codename");       
-		romCodeName.setText(Html.fromHtml(romCodeNameTitle + htmlColorOpen + romCodeNameActual + htmlColorClose));
 
 		//ROM date
 		TextView romDate = (TextView) findViewById(R.id.tv_main_rom_date);        

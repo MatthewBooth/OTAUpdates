@@ -20,8 +20,6 @@
 	<declare-styleable name="Theme.Ragnar">
 	    <attr name="colorPrimary" format="color" />
 		<attr name="colorPrimaryDark" format="color" />
-		<attr name="cardBackground" format="color" />
-		<attr name="cardStyle" format="reference" />
 		<attr name="menuTheme" format="reference" />
 		<attr name="backgroundRippleSelector" format="reference" />
 	</declare-styleable>

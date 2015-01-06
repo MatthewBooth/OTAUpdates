@@ -24,7 +24,6 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.ota.updates.utils.Constants;
-import com.ota.updates.utils.Utils;
 
 public class RomUpdate implements Constants{
     
@@ -33,8 +32,8 @@ public class RomUpdate implements Constants{
     private static final String PREF_NAME = "ROMUpdate";
 
     private static String NAME = "rom_name";
-    private static String VERSION = "rom_version";
-    private static String CODENAME = "rom_codename";
+    private static String VERSION_NAME = "rom_version_name";
+    private static String VERSION_NUMBER = "rom_version_number";
     private static String DIRECT_URL = "rom_direct_url";
     private static String HTTP_URL = "rom_http_url";
     private static String MD5 = "rom_md5";
@@ -45,6 +44,7 @@ public class RomUpdate implements Constants{
     private static String DONATE_LINK = "rom_donate_link";
     private static String FILESIZE = "rom_filesize";
     private static String AVAILABILITY = "update_availability";
+    private static String SPONSORED_ROMHUT = "rom_sponsored_romhut";
     
     private static String DEF_VALUE = "null";
 
@@ -55,16 +55,16 @@ public class RomUpdate implements Constants{
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public static String getName(Context context){
+    public static String getRomName(Context context){
         return getPrefs(context).getString(NAME, DEF_VALUE);
     }
     
-    public static String getVersion(Context context){
-        return getPrefs(context).getString(VERSION, DEF_VALUE);
+    public static String getVersionName(Context context){
+    	return getPrefs(context).getString(VERSION_NAME, DEF_VALUE);
     }
     
-    public static String getCodename(Context context){
-    	return getPrefs(context).getString(CODENAME, DEF_VALUE);
+    public static int getVersionNumber(Context context){
+    	return getPrefs(context).getInt(VERSION_NUMBER, 0);
     }
     
     public static String getDirectUrl(Context context){
@@ -103,25 +103,29 @@ public class RomUpdate implements Constants{
     	return getPrefs(context).getInt(FILESIZE, 0);
     }
     
+    public static String getRomHut(Context context){
+    	return getPrefs(context).getString(SPONSORED_ROMHUT, DEF_VALUE);
+    }
+        
     public static boolean getUpdateAvailability(Context context){
     	return getPrefs(context).getBoolean(AVAILABILITY, false);
     }
     
-    public static void setName(Context context, String name){
+    public static void setRomName(Context context, String name){
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(NAME, name);
         editor.commit();
     }
     
-    public static void setVersion(Context context, String version){
+    public static void setVersionName(Context context, String version){
     	SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(VERSION, version);
+        editor.putString(VERSION_NAME, version);
         editor.commit();
     }
     
-    public static void setCodename(Context context, String codename){
+    public static void setVersionNumber(Context context, int version){
     	SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(CODENAME, codename);
+        editor.putInt(VERSION_NUMBER, version);
         editor.commit();
     }
     
@@ -179,6 +183,13 @@ public class RomUpdate implements Constants{
         editor.commit();
     }
     
+    public static void setRomHut(Context context, String romhut_text){
+    	SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString(SPONSORED_ROMHUT, romhut_text);
+        editor.commit();
+    }
+
+    
     public static void setUpdateAvailable(Context context, boolean availability){
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(AVAILABILITY, availability);
@@ -186,22 +197,10 @@ public class RomUpdate implements Constants{
     }
     
     public static String getFilename(Context context){
-    	String filenameSeparator = context.getResources().getString(R.string.filename_separator);
-		boolean isCodenameUsed = !RomUpdate.getCodename(context).equals("null");
 		
-		String codenameDevice = (isCodenameUsed ? 
-				RomUpdate.getCodename(context) 
-				+ filenameSeparator 
-				+ Utils.getProp("ro.ota.device") 
-				: Utils.getProp("ro.ota.device"));
-		
-    	String result = getName(context) 
-    			+ filenameSeparator 
-    			+ getVersion(context)
-    			+ filenameSeparator
-    			+ codenameDevice;
+    	String result = getVersionName(context);
     	
-    	return result;
+    	return result.replace(" ","");
     }
     
     public static File getFullFile(Context context){

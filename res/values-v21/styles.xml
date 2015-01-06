@@ -17,8 +17,7 @@
  */
 -->
 <resources 
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    
+    xmlns:android="http://schemas.android.com/apk/res/android">    
     <style name="MainListElement">
 	    <item name="android:clickable">true</item>
 	    <item name="android:background">?attr/backgroundRippleSelector</item>
@@ -27,21 +26,4 @@
 	    <item name="android:paddingLeft">16dp</item>
 	    <item name="android:paddingRight">16dp</item>
 	</style>
-    
-    <style name="CardStyle.Light" parent="@style/CardView.Light">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-    </style>
-    
-    <style name="CardStyle.Dark" parent="@style/CardView.Dark">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="cardBackgroundColor">@color/material_card_background_dark</item>
-    </style>
 </resources>

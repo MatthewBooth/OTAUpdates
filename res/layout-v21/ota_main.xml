@@ -30,32 +30,13 @@
         android:theme="@style/Theme.RagnarDark" />
 
     <include layout="@layout/card_update" />
-    <View
-    	android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/toolbar_dropshadow" />
-    
+  
     <include layout="@layout/card_no_update" />
-    <View
-    	android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/toolbar_dropshadow" />
     
 	<include layout="@layout/card_website" />
-	<View
-    	android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/toolbar_dropshadow" />
 
     <include layout="@layout/card_donate" />
-    <View
-    	android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/toolbar_dropshadow" />
-    
+        
 	<include layout="@layout/card_rom_info" />
-	<View
-    	android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/toolbar_dropshadow" />
+
 </LinearLayout>
