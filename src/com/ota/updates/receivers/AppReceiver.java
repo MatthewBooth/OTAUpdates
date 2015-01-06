@@ -26,8 +26,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
@@ -137,16 +137,22 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		
 		NotificationManager mNotifyManager =
 				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		Intent notificationIntent = new Intent(context, MainActivity.class);
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent intent = PendingIntent.getActivity(context, 0,
-				notificationIntent, 0);
+		
+		
 		Builder mBuilder = new NotificationCompat.Builder(context);
+		Intent resultIntent = new Intent(context, MainActivity.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		stackBuilder.addParentStack(MainActivity.class);
+		stackBuilder.addNextIntent(resultIntent);
+		PendingIntent resultPendingIntent =
+		        stackBuilder.getPendingIntent(
+		            0,
+		            PendingIntent.FLAG_UPDATE_CURRENT
+		        );
 		mBuilder.setContentTitle(context.getString(R.string.update_available))
 		.setContentText(filename)
 		.setSmallIcon(R.drawable.ic_notif)
-		.setContentIntent(intent)
+		.setContentIntent(resultPendingIntent)
 		.setAutoCancel(true)
 		.setPriority(NotificationCompat.PRIORITY_HIGH)
 		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
@@ -158,6 +164,9 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		}
 
 		mNotifyManager.notify(0, mBuilder.build());
+		
+		
+
 	}
 }
 
