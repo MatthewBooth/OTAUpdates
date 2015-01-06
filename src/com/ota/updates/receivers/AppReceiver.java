@@ -107,7 +107,8 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			String filename = RomUpdate.getFilename(context);
 
 			if(updateAvailable){
-				setupNotification(context, filename);
+				Utils.setupNotification(context, filename);
+				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
 		}
 
@@ -125,48 +126,9 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			if(backgroundCheck){
 				if(DEBUGGING)
 					Log.d(TAG, "Starting background check alarm");
-				Utils.setBackgroundCheck(context, true);
+				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
 		}
-	}
-
-	private void setupNotification(Context context, String filename){
-		if(DEBUGGING)
-			Log.d(TAG, "Showing notification");
-		
-		
-		NotificationManager mNotifyManager =
-				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		
-		
-		Builder mBuilder = new NotificationCompat.Builder(context);
-		Intent resultIntent = new Intent(context, MainActivity.class);
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		stackBuilder.addParentStack(MainActivity.class);
-		stackBuilder.addNextIntent(resultIntent);
-		PendingIntent resultPendingIntent =
-		        stackBuilder.getPendingIntent(
-		            0,
-		            PendingIntent.FLAG_UPDATE_CURRENT
-		        );
-		mBuilder.setContentTitle(context.getString(R.string.update_available))
-		.setContentText(filename)
-		.setSmallIcon(R.drawable.ic_notif)
-		.setContentIntent(resultPendingIntent)
-		.setAutoCancel(true)
-		.setPriority(NotificationCompat.PRIORITY_HIGH)
-		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
-		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-		.setSound(Uri.parse(Preferences.getNotificationSound(context)));
-
-		if(Preferences.getNotificationVibrate(context)) {
-			mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
-		}
-
-		mNotifyManager.notify(0, mBuilder.build());
-		
-		
-
 	}
 }
 
