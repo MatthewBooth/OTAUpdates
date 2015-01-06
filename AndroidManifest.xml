@@ -69,12 +69,7 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/preferences_name"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
-        
-        <activity
-            android:name=".utils.DirectoryPicker" 
-            android:label="@string/directory_picker_name"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
-        
+
         <receiver android:name="com.ota.updates.receivers.AppReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
