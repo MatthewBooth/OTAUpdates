@@ -42,4 +42,10 @@
     <color name="holo_orange_dark">#ffff8800</color>
     <!-- A really bright Holo shade of blue -->
     <color name="holo_blue_bright">#ff00ddff</color>
+    
+    <color name="card_background_holo_dark">#80000000</color>
+    <color name="card_background_holo_light">@color/white</color>
+    
+    <color name="card_background_material_dark">#37474f</color>
+    <color name="card_background_material_light">@color/white</color>
 </resources>

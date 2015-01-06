@@ -39,7 +39,8 @@
 		<!-- Main theme colors -->
 	    <item name="android:colorPrimary">@color/material_primary</item>
 	    <item name="android:colorPrimaryDark">@color/material_primary_dark</item>
-	    <item name="android:colorAccent">@color/material_accent</item>  
+	    <item name="android:colorAccent">@color/material_accent</item>
+	    <item name="cardBackground">@color/card_background_material_light</item>  
 	    <item name="cardStyle">@style/CardStyle.Light</item>    
 	    <item name="android:windowNoTitle">true</item>
     	<item name="android:windowActionBar">false</item>

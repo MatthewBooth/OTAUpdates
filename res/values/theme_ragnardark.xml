@@ -18,9 +18,10 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.RagnarDark" parent="@android:style/Theme.Holo">
+        <item name="android:windowBackground">@drawable/holo_background_dark</item>
         <item name="android:actionBarItemBackground">@drawable/selectable_background_ragnardark</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.RagnarDark</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarDark</item>
@@ -44,6 +45,10 @@
 		<item name="donateIcon">@drawable/ic_donate_dark</item>
 		<item name="separator">@color/separator_dark</item>
 		<item name="backgroundSelector">@drawable/list_selector_holo_dark</item>
+		
+		<item name="cardBackground">@color/card_background_holo_dark</item>
+	    
+	    <item name="cardStyle">@style/CardStyle.Dark</item>
     </style>
 
     <style name="ActionBar.Solid.RagnarDark" parent="@android:style/Widget.Holo.ActionBar.Solid">

@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 -->
-<ripple android:color="#ff263238" xmlns:android="http://schemas.android.com/apk/res/android">
- <item android:drawable="@drawable/material_background_dark"></item>
-</ripple>
+<resources>
+	<dimen name="shadow_height">3dp</dimen>
+	<dimen name="card_view_radius">4dp</dimen>
+</resources>

@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 -->
-<ripple android:color="#ff263238" xmlns:android="http://schemas.android.com/apk/res/android">
- <item android:drawable="@drawable/material_background_dark"></item>
-</ripple>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+<gradient
+    android:startColor="@android:color/transparent"
+    android:endColor="#40333333"
+    android:angle="90"/>
+</shape>

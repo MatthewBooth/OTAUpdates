@@ -21,6 +21,7 @@
 <resources>
 
     <style name="Theme.RagnarLight.DarkActionBar" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/holo_background_light</item>
         <item name="android:actionBarItemBackground">@drawable/selectable_background_ragnarlightdarkaction</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.RagnarLight.DarkActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight.DarkActionBar</item>
@@ -47,6 +48,8 @@
 		<item name="donateIcon">@drawable/ic_donate_light</item>
 		<item name="separator">@color/separator_light</item>
 		<item name="backgroundSelector">@drawable/list_selector_holo_light</item>
+		<item name="cardBackground">@color/card_background_holo_light</item>
+		<item name="cardStyle">@style/CardStyle.Light</item>    
     </style>
 
     <style name="ActionBar.Solid.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">

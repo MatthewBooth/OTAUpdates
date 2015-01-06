@@ -28,7 +28,4 @@
     
     <color name="material_background_dark">#1f292f</color>
     <color name="material_background_light">@color/white</color>
-    
-    <color name="material_card_background_dark">#37474f</color>
-    <color name="material_card_background_light">@color/white</color>
 </resources>

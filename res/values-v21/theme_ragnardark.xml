@@ -43,7 +43,7 @@
 	    <item name="colorPrimaryDark">@color/material_primary_dark</item>
 	    <item name="android:colorAccent">@color/material_accent</item>	    
 	    <item name="android:windowBackground">@drawable/material_background_dark</item>
-	    <item name="cardBackground">@color/material_card_background_dark</item>
+	    <item name="cardBackground">@color/card_background_material_dark</item>
 	    
 	    <item name="cardStyle">@style/CardStyle.Dark</item>
 	    
