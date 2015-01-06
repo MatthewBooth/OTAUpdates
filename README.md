@@ -13,8 +13,8 @@ A useful tool to help ROM developers provide OTA updates to their users. It's fr
 
 # How-to
 
-There are two ways you can use this in your ROM. Manually, or automatically with [ROMHut.com](https://www.romhut.com). ROMHut is highly recommended, as it will host your files for you, automate the process somewhat and it's free for users and developers.
-- [Using with ROMHut](ROMHut.md)
+There are two ways you can use this in your ROM. Manually, or automatically with [romhut.com](https://www.romhut.com). Romhut is highly recommended, as it will host your files for you, automate the process somewhat and it's free for users and developers.
+- [Using with romhut.com](ROMHut.md)
 - [Using manually](Manually.md)
 
 # Usage
