@@ -79,7 +79,7 @@
 	        android:id="@+id/tv_available_romhut"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="right"
+	        android:layout_gravity="end"
 	        android:textSize="10sp"
 	        tools:ignore="SmallSp" />
 	    
