@@ -4,17 +4,17 @@ Romhut will handle most of the work for you. You can use it to host your files a
 
 #### Include this in your ROM:
 
-- Download the APK from [here](http://ultimarom.com/downloads/ota-updates/) OR compile this project using Eclipse ([Check the build instructions](Building.md)). 
+- Download the APK from [here](http://ultimarom.com/downloads/ota-updates/) OR compile this project using Eclipse ([Check the build instructions](Building.md)).
 
   You can also use this in your AOSP ROM. You should know how to add this to your build, if so. A makefile is included.
-  
+
 - Unpack the zip from the above link into your system folder. There is one for Lollipop and greater devices and one for KitKat and earlier
 
 #### Head over to Romhut
 
-- Head over to Romhut.com and [apply for a developer account](https://Romhut.com/developers/new). It's free for all
+- Head over to Romhut.com and [apply for a developer account](https://romhut.com/developers/new). It's free for all
 
-- Create a new ROM by going [here](https://Romhut.com/dashboard/roms/new)
+- Create a new ROM by going [here](https://romhut.com/dashboard/roms/new)
 
 - Now, on your ROM Page, click "OTA" on the left-hand side bar. At the bottom of that page are some values for your build.prop
 
@@ -28,7 +28,7 @@ ro.ota.romname=JFLTE-GPE
 ro.ota.version=20150105
 ro.ota.manifest=https://romhut.com/roms/danvdh-googleedition/ota.xml
 ```
-  
+
 Please pay CLOSE attention to the ro.ota.version entry. This is not your particular ROM version (v6.5 or v1.2.5, for example) this is a value for the OTA app to determine if an update is available. Your NEXT version should be numerically higher than this. You may use value you like, so long as it is an integer and successive updates are larger.
 
 This example is using Universal Standard time, which is YYYYMMDD. It is a good version scheme to use for the OTA app if you do not plan on release more than one version per ROM per day
@@ -48,11 +48,11 @@ Ok, now the above is done, releasing an update is very easy!
 ```
   # Before
   ro.ota.version=20150105
-  
+
   # After
-  ro.ota.version=20150108 
+  ro.ota.version=20150108
 ```
-  
+
 - Zip your ROM
 
 - Create a new version on Romhut (make sure you use the same version number)
