@@ -20,12 +20,12 @@ The XML should look like this:-
 <?xml version="1.0" encoding="UTF-8"?>
 <ROM>
   <!-- Your ROM Name -->
-  <Name>NAME OF THE ROM</Name>
-  <Version>ROM VERSION</Version>
+  <RomName>NAME OF THE ROM</RomName>
+  <VersionName>ROM VERSION</VersionName>
   <!-- Your ROM version. MUST be incrementally larger than previous versions -->
   <!-- Do NOT use letters in your version number. Integers only -->
   <!-- Previous version will be read from the build.prop -->
-  <OTA-Version type="integer">20150105</OTA-Version>
+  <VersionNumber type="integer">20150105</VersionNumber>
   <!-- Linking to your files -->
     <!-- <DirectUrl><![CDATA[http://www.example.com?file=file.zip?somethingelse&anotherthing]]></DirectUrl> -->
     <!-- Use the above format if your URL has special characters in then, like an (&) ampersand -->
@@ -47,7 +47,7 @@ The XML should look like this:-
   <Developer>DEVELOPER NAMES HERE</Developer>
   <!-- Your ROM or Developer Website. Can be a personal site or your XDA/forum thread -->
   <!-- OPTIONAL: Enter <Website nil="true" /> to hide this -->
-  <Website>WEBSITE LINK HERE</Website>
+  <WebsiteURL>WEBSITE LINK HERE</WebsiteURL>
   <!-- Your Donate URL -->
   <!-- OPTIONAL: Enter <DonateURL nil="true" /> to hide this -->
   <DonateURL>DONATE URL HERE</DonateURL>
