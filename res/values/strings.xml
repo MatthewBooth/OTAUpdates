@@ -30,9 +30,6 @@
     <string name="help">Help</string>
     <string name="loading">Loading&#8230;</string>
     <string name="filename_separator">-</string>
-    <string name="directory_picker_name">Choose a directory</string>
-    <string name="could_not_read_folder">Could not read folder contents</string>
-    <string name="choose">Choose</string>
     <string name="download">Download</string>
     <string name="install">Install</string>
     <string name="downloading">Downloading&#8230;</string>
