@@ -16,9 +16,14 @@
 
 package com.ota.updates.utils;
 
+import android.os.Environment;
+
 public interface Constants {
 	// Developer
 	public static final boolean DEBUGGING = true;
+	
+	// Storage
+	public static final String SD_CARD = Environment.getExternalStorageDirectory().getPath();
 	
 	// Settings
 	public static final String CURRENT_THEME = "current_theme";
