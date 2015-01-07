@@ -221,7 +221,7 @@ public class AvailableActivity extends Activity implements Constants {
 
 	private void setupChangeLog(){
 		TextView changelogView = (TextView) findViewById(R.id.tv_available_changelog_content);
-		Bypass byPass = new Bypass();
+		Bypass byPass = new Bypass(this);
 		String changeLogStr = RomUpdate.getChangelog(mContext);
 		CharSequence string = byPass.markdownToSpannable(changeLogStr);
 		changelogView.setText(string);
