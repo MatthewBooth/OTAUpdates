@@ -17,19 +17,12 @@
 package com.ota.updates.receivers;
 
 import android.app.DownloadManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.Builder;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
 import com.ota.updates.activities.AvailableActivity;
 import com.ota.updates.activities.MainActivity;

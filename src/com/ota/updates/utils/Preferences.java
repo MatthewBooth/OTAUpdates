@@ -16,13 +16,11 @@
 
 package com.ota.updates.utils;
 
-import com.ota.updates.R;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.util.Log;
+
+import com.ota.updates.R;
 
 public class Preferences implements Constants{
     

@@ -19,12 +19,6 @@ package com.ota.updates.tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Environment;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
