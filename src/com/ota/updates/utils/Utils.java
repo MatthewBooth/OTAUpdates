@@ -136,7 +136,7 @@ public class Utils implements Constants{
 	}
 
 	public static void deleteFile(File file) {
-		Tools.noneRootShell("rm -f " + file.getAbsolutePath());
+		Tools.shell("rm -f " + file.getAbsolutePath(), false);
 	}
 
 	public static void setHasFileDownloaded(Context context) {

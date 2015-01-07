@@ -73,7 +73,7 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
 
-        Tools.shell("echo \"" + mScriptOutput + "\" > " + mScriptFile);
+        Tools.shell("echo \"" + mScriptOutput + "\" > " + mScriptFile, true);
 		return true;
         
     }

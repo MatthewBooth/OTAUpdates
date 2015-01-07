@@ -372,7 +372,7 @@ public class AvailableActivity extends Activity implements Constants {
 		protected Boolean doInBackground(Object... params) {
 			String file = RomUpdate.getFullFile(mContext).getAbsolutePath(); // Full file, with path
 			String md5Remote = RomUpdate.getMd5(mContext); // Remote MD5 form the manifest. This is what we expect it to be
-			String md5Local = Tools.noneRootShell("md5sum " + file + " | cut -d ' ' -f 1"); // Run the check on our local file
+			String md5Local = Tools.shell("md5sum " + file + " | cut -d ' ' -f 1", true); // Run the check on our local file
 			md5Local = md5Local.trim(); // Trim both to remove any whitespace
 			md5Remote = md5Remote.trim();			
 			return md5Local.equals(md5Remote); // Return the comparison
