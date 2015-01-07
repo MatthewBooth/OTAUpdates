@@ -116,5 +116,6 @@
 	        android:layout_alignParentStart="true"
 	        android:background="?attr/colorPrimary"
 	        android:theme="@style/Theme.RagnarDark" >
+	        <include layout="@layout/ota_available_menu"/>
 	</Toolbar>
 </RelativeLayout>

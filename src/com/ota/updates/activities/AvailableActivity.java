@@ -35,6 +35,8 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +52,7 @@ import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Tools;
 import com.ota.updates.utils.Utils;
 
-public class AvailableActivity extends Activity implements Constants {
+public class AvailableActivity extends Activity implements Constants, android.view.View.OnClickListener {
 
 	private static Context mContext;
 	public final static String TAG = "AvailableActivity";
@@ -61,6 +63,12 @@ public class AvailableActivity extends Activity implements Constants {
 	private Builder mDeleteDialog;
 	private Builder mRebootDialog;
 	private Builder mNetworkDialog;
+	
+	private static Button mCheckMD5Button;
+	private static Button mDeleteButton;
+	private static Button mInstallButton;
+	private static Button mDownloadButton;
+	private static Button mCancelButton;
 
 
 	@SuppressLint("NewApi") @Override
@@ -73,17 +81,34 @@ public class AvailableActivity extends Activity implements Constants {
 		if(Utils.isLollipop()){
 			Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_available_bottom);
 			toolbarBottom.setTitle("");
-			setActionBar(toolbarBottom);
 		}
 
 		mProgressBar = (ProgressBar) findViewById(R.id.bar_available_progress_bar);
 		mProgressCounterText = (TextView) findViewById(R.id.tv_available_progress_counter);
+		
+		if(Utils.isLollipop()) {
+			mCheckMD5Button = (Button) findViewById(R.id.menu_available_check_md5);
+			mDeleteButton = (Button) findViewById(R.id.menu_available_delete);
+			mInstallButton = (Button) findViewById(R.id.menu_available_install);
+			mDownloadButton = (Button) findViewById(R.id.menu_available_download);
+			mCancelButton = (Button) findViewById(R.id.menu_available_cancel);
+	
+			mCheckMD5Button.setOnClickListener(this);
+			mDeleteButton.setOnClickListener(this);
+			mInstallButton.setOnClickListener(this);
+			mDownloadButton.setOnClickListener(this);
+			mCancelButton.setOnClickListener(this);
+		}
 
+		setupDialogs();
 		setupUpdateNameInfo();
 		setupProgress(getResources());
 		setupMd5Info();
 		setupRomHut();
 		setupChangeLog();
+		if(Utils.isLollipop()) {
+			setupMenuToolbar();
+		}
 
 		if(Preferences.getIsDownloadOnGoing(mContext)){
 			// If the activity has already been run, and the download started 
@@ -111,26 +136,6 @@ public class AvailableActivity extends Activity implements Constants {
 			Preferences.setHasMD5Run(mContext, true);
 			return true;
 		case R.id.menu_available_delete:
-			mDeleteDialog = new AlertDialog.Builder(mContext);
-			mDeleteDialog.setIconAttribute(R.attr.alertIcon)
-			.setTitle(R.string.are_you_sure)
-			.setMessage(R.string.available_delete_confirm_message)
-			.setPositiveButton(R.string.ok, new OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// Proceed to delete the file, and reset most variables and layouts
-
-					Utils.deleteFile(RomUpdate.getFullFile(mContext)); // Delete the file
-					Preferences.setHasMD5Run(mContext, false); // MD5 check hasn't been run
-					Preferences.setDownloadFinished(mContext, false);
-					setupUpdateNameInfo(); // Update name info
-					setupProgress(getResources()); // Progress goes back to 0
-					setupMd5Info(); // MD5 goes back to default
-					invalidateOptionsMenu(); // Reset options menu				
-				}
-			})
-			.setNegativeButton(R.string.cancel, null);
 			mDeleteDialog.show();
 			return true;
 		case R.id.menu_available_download:
@@ -143,25 +148,6 @@ public class AvailableActivity extends Activity implements Constants {
 			invalidateOptionsMenu();
 			return true;
 		case R.id.menu_available_install:
-			mRebootDialog = new AlertDialog.Builder(mContext);
-			mRebootDialog.setIconAttribute(R.attr.alertIcon)
-			.setTitle(R.string.are_you_sure)
-			.setMessage(R.string.available_reboot_confirm)
-			.setPositiveButton(R.string.ok, new OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					if(DEBUGGING)
-						Log.d(TAG, "ORS is " + Preferences.getORSEnabled(mContext));
-					
-					if(Preferences.getORSEnabled(mContext)){
-						new GenerateRecoveryScript(mContext).execute();
-					} else {
-						Tools.recovery();
-					}
-				}
-			})
-			.setNegativeButton(R.string.cancel, null);
 			mRebootDialog.show();     
 			return true;
 		default:
@@ -217,6 +203,131 @@ public class AvailableActivity extends Activity implements Constants {
 		}
 		super.onPrepareOptionsMenu(menu);
 		return true;
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+
+		case R.id.menu_available_check_md5:
+			new MD5Check(mContext).execute();
+			Preferences.setHasMD5Run(mContext, true);
+			break;
+		case R.id.menu_available_delete:
+			mDeleteDialog.show();
+			break;
+		case R.id.menu_available_install:
+			mRebootDialog.show();
+			break;
+		case R.id.menu_available_download:
+			download();
+			break;
+		case R.id.menu_available_cancel:
+			DownloadRomUpdate.cancelDownload(mContext);
+			setupUpdateNameInfo();
+			setupProgress(getResources());
+			setupMenuToolbar();
+			break;
+		}
+	}
+	
+	private void setupDialogs() {
+		mDeleteDialog = new AlertDialog.Builder(mContext);
+		mDeleteDialog.setIconAttribute(R.attr.alertIcon)
+		.setTitle(R.string.are_you_sure)
+		.setMessage(R.string.available_delete_confirm_message)
+		.setPositiveButton(R.string.ok, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// Proceed to delete the file, and reset most variables
+				// and layouts
+
+				Utils.deleteFile(RomUpdate.getFullFile(mContext)); // Delete the file
+				Preferences.setHasMD5Run(mContext, false); // MD5 check hasn't been run
+				Preferences.setDownloadFinished(mContext, false);
+				setupUpdateNameInfo(); // Update name info
+				setupProgress(getResources()); // Progress goes back to 0
+				setupMd5Info(); // MD5 goes back to default
+				if(Utils.isLollipop()){
+					setupMenuToolbar(); // Reset options menu
+				} else {
+					invalidateMenu();
+				}
+			}
+		}).setNegativeButton(R.string.cancel, null);
+
+		mRebootDialog = new AlertDialog.Builder(mContext);
+		mRebootDialog.setIconAttribute(R.attr.alertIcon)
+		.setTitle(R.string.are_you_sure)
+		.setMessage(R.string.available_reboot_confirm)
+		.setPositiveButton(R.string.ok, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (DEBUGGING)
+					Log.d(TAG,
+							"ORS is "
+									+ Preferences
+									.getORSEnabled(mContext));
+
+				if (Preferences.getORSEnabled(mContext)) {
+					new GenerateRecoveryScript(mContext).execute();
+				} else {
+					Tools.recovery();
+				}
+			}
+		}).setNegativeButton(R.string.cancel, null);
+
+		mNetworkDialog = new Builder(mContext);
+		mNetworkDialog.setIconAttribute(R.attr.alertIcon)
+		.setTitle(R.string.available_wrong_network_title)
+		.setMessage(R.string.available_wrong_network_message)
+		.setPositiveButton(R.string.ok, null);
+	}
+	
+	public static void setupMenuToolbar() {
+		boolean downloadFinished = Preferences.getDownloadFinished(mContext);
+		boolean downloadIsRunning = Preferences.getIsDownloadOnGoing(mContext);
+		boolean md5HasRun = Preferences.getHasMD5Run(mContext);
+		boolean md5Passed = Preferences.getMD5Passed(mContext);
+
+		mDeleteButton.setEnabled(false);
+		mCheckMD5Button.setEnabled(false);
+
+		if (!downloadFinished) { // Download hasn't finished
+			if (downloadIsRunning) {
+				// Download is still running
+				mDownloadButton.setVisibility(View.GONE);
+				mCancelButton.setVisibility(View.VISIBLE);
+				mInstallButton.setVisibility(View.GONE);
+			} else {
+				// Download is not running and hasn't finished
+				mDownloadButton.setVisibility(View.VISIBLE);
+				mCancelButton.setVisibility(View.GONE);
+				mInstallButton.setVisibility(View.GONE);
+			}
+		} else { // Download has finished
+			String md5 = RomUpdate.getMd5(mContext);
+			if (!md5.equals("null")) {
+				// Is MD5 being used?
+				if (md5HasRun && md5Passed) {
+					mCheckMD5Button.setEnabled(false);
+					mCheckMD5Button.setText(R.string.available_md5_ok);
+				} else if (md5HasRun && !md5Passed) {
+					mCheckMD5Button.setEnabled(false);
+					mCheckMD5Button.setText(R.string.available_md5_failed);
+				} else if (!md5HasRun) {
+					mCheckMD5Button.setEnabled(true);
+				}
+			} else {
+				mCheckMD5Button.setClickable(false);
+			}
+			mDeleteButton.setEnabled(true);
+			mDownloadButton.setVisibility(View.GONE);
+			mCancelButton.setVisibility(View.GONE);
+			mInstallButton.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void setupChangeLog(){
@@ -281,12 +392,7 @@ public class AvailableActivity extends Activity implements Constants {
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
 			
 		if(isMobile && isSettingWiFiOnly){
-			mNetworkDialog = new Builder(mContext);
-			mNetworkDialog.setIconAttribute(R.attr.alertIcon)
-			.setTitle(R.string.available_wrong_network_title)
-			.setMessage(R.string.available_wrong_network_message)
-			.setPositiveButton(R.string.ok, null)
-			.show();
+			mNetworkDialog.show();
 		} else {
 			// We're good, open links or start downloads
 			if(directUrl.equals("null") && !httpUrl.equals("null")){
@@ -304,7 +410,11 @@ public class AvailableActivity extends Activity implements Constants {
 					Log.d(TAG, "Downloading via DownloadManager");
 				DownloadRomUpdate.startDownload(mContext);
 				setupUpdateNameInfo();
-				invalidateOptionsMenu();
+				if(Utils.isLollipop()){
+					setupMenuToolbar(); // Reset options menu
+				} else {
+					invalidateMenu();
+				}
 			}
 		}
 	}
@@ -390,7 +500,11 @@ public class AvailableActivity extends Activity implements Constants {
 			}
 
 			Preferences.setMD5Passed(mContext, result); // Set value for other persistent settings
-			invalidateOptionsMenu(); // Reset options menu
+			if(Utils.isLollipop()){
+				setupMenuToolbar(); // Reset options menu
+			} else {
+				invalidateMenu();
+			}
 			super.onPostExecute(result);
 		}
 	}
