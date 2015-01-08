@@ -176,13 +176,19 @@ public class Utils implements Constants{
 						intentFlag));
 			}
 		} else {
-			//int requestedInteval = Preferences.getBackgroundFrequency(context);
-			int requestedInteval = 30;
+			int requestedInterval;
+			
+			if(DEBUGGING) {
+				requestedInterval = 30;
+			} else {
+				requestedInterval = Preferences.getBackgroundFrequency(context);
+			}
+			
 
 			if(DEBUGGING)
-				Log.d(TAG, "Setting alarm for " + requestedInteval + " seconds");
+				Log.d(TAG, "Setting alarm for " + requestedInterval + " seconds");
 			Calendar calendar = Calendar.getInstance();
-			long time = calendar.getTimeInMillis() + requestedInteval * 1000;
+			long time = calendar.getTimeInMillis() + requestedInterval * 1000;
 			alarmManager.set(
 					AlarmManager.RTC_WAKEUP, 
 					time, 
