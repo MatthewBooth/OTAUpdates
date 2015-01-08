@@ -17,14 +17,12 @@
 package com.ota.updates.activities;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -39,12 +37,12 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
+import com.ota.updates.utils.Tools;
 import com.ota.updates.utils.Utils;
 
 @SuppressLint("SdCardPath")
@@ -79,6 +77,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		String defValue = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString();
 		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
 		setRingtoneSummary(soundValue);
+		
+		if(!Tools.isRootAvailable()){
+			CheckBoxPreference ors = (CheckBoxPreference) findPreference("updater_twrp_ors");
+			ors.setEnabled(false);
+		}
 	}
 
 	@Override

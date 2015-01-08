@@ -17,6 +17,12 @@ There are two ways you can use this in your ROM. Manually, or automatically with
 - [Using with romhut.com](Romhut.md)
 - [Using manually](Manually.md)
 
+# Installing
+
+Be aware, this application is meant for ROM developers. If you are a user wishing to use this application, get in touch with your developer and point them towards this page!
+
+For ROM developers, [see here for installing instructions](Installing.md)
+
 # Usage
 
 Anyone is free to use this project in their ROM. I only request that you keep the about page in-tact leaving my credits in there. You don't have to, but it'd be nice if you did.

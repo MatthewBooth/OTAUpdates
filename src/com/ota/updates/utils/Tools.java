@@ -24,10 +24,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.PowerManager;
 import android.util.Log;
 
 import com.stericson.RootTools.BuildConfig;
@@ -41,45 +39,27 @@ public class Tools implements Constants{
 		rebootPhone("recovery");
 	}
 
-	public static void recovery(Context context){
-		rebootPhone(context ,"recovery");
-	}
-	
-	public static String shell(String cmd) {
+	public static String shell(String cmd, boolean root) {
     	String out = "";
-    	ArrayList<String> r = system(getSuBin(),cmd).getStringArrayList("out");
+    	ArrayList<String> r = system(root ? getSuBin() : "sh",cmd).getStringArrayList("out");
     	for(String l: r){
     		out += l+"\n";
     	}
     	return out;
 	}
-	
-	public static String noneRootShell(String cmd) {
-    	String out = "";
-    	ArrayList<String> r = system("sh",cmd).getStringArrayList("out");
-    	for(String l: r){
-    		out += l+"\n";
-    	}
-    	return out;
-	}
-	
+
 	public static void getRoot(){
 			RootTools.isAccessGiven();
 	}
 	
+	public static boolean isRootAvailable() {
+		return RootTools.isRootAvailable();
+	}
+	
 	private static void rebootPhone(String type){
-		shell("reboot "+type);
+		shell("reboot "+type, true);
 	}
 
-	public static void rebootPhone(Context context, String type) {
-		try {
-			((PowerManager) context.getSystemService(Context.POWER_SERVICE)).reboot(type);
-		} catch (Exception e) {
-			Log.e("Tools", "reboot '"+type+"' error: "+e.getMessage());
-			shell("reboot "+type);
-		}
-	}
-		
 	private static boolean isUiThread(){
     	return (Looper.myLooper() == Looper.getMainLooper());
     }

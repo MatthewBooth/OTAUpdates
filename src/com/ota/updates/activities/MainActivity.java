@@ -29,9 +29,9 @@ import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,7 +44,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -114,8 +113,7 @@ public class MainActivity extends Activity implements Constants{
 		// Also executes the manifest/update check
 		if(!Utils.isConnected(mContext)){
 			Builder notConnectedDialog = new Builder(mContext);
-			notConnectedDialog.setIconAttribute(R.attr.alertIcon)
-			.setTitle(R.string.main_not_connected_title)
+			notConnectedDialog.setTitle(R.string.main_not_connected_title)
 			.setMessage(R.string.main_not_connected_message)
 			.setPositiveButton(R.string.ok, new OnClickListener() {
 				
@@ -179,7 +177,6 @@ public class MainActivity extends Activity implements Constants{
 		// Compatibility Dialog
 		mCompatibilityDialog = new AlertDialog.Builder(mContext);
 		mCompatibilityDialog.setCancelable(false);
-		mCompatibilityDialog.setIconAttribute(R.attr.alertIcon);
 		mCompatibilityDialog.setTitle(R.string.main_not_compatible_title);
 		mCompatibilityDialog.setMessage(R.string.main_not_compatible_message);
 		mCompatibilityDialog.setPositiveButton(R.string.ok, new OnClickListener() {
