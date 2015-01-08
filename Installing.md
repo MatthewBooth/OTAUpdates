@@ -2,7 +2,7 @@
 
 Placing this in your ROM is actually quite easy.
 
-Firstly, either compile yourself using the instructions, or head over to [UltimaROM.com](http://ultimarom.com/downloads/ota-updates/) and get a recompiled APK. The pre-compiled version is much quicker.
+Firstly, either compile yourself using the instructions, or head over to [UltimaROM.com](http://ultimarom.com/downloads/ota-updates/) and get a pre-compiled APK. The pre-compiled version is much quicker.
 
 ### Which version of the file do I need?
 
