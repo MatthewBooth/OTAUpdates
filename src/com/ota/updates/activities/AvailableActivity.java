@@ -62,6 +62,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 
 	private Builder mDeleteDialog;
 	private Builder mRebootDialog;
+	private Builder mRebootManualDialog;
 	private Builder mNetworkDialog;
 	
 	private static Button mCheckMD5Button;
@@ -148,7 +149,11 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			invalidateOptionsMenu();
 			return true;
 		case R.id.menu_available_install:
-			mRebootDialog.show();     
+			if(!Tools.isRootAvailable()){
+				mRebootManualDialog.show();
+			} else {
+				mRebootDialog.show();
+			}    
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);           
@@ -217,7 +222,11 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			mDeleteDialog.show();
 			break;
 		case R.id.menu_available_install:
-			mRebootDialog.show();
+			if(!Tools.isRootAvailable()){
+				mRebootManualDialog.show();
+			} else {
+				mRebootDialog.show();
+			}		
 			break;
 		case R.id.menu_available_download:
 			download();
@@ -281,6 +290,11 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		mNetworkDialog.setTitle(R.string.available_wrong_network_title)
 		.setMessage(R.string.available_wrong_network_message)
 		.setPositiveButton(R.string.ok, null);
+		
+		mRebootManualDialog = new AlertDialog.Builder(mContext);
+		mRebootManualDialog.setTitle(R.string.available_reboot_manual_title)
+		.setMessage(R.string.available_reboot_manual_message)
+		.setPositiveButton(R.string.cancel, null);
 	}
 	
 	public static void setupMenuToolbar() {
