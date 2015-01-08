@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="preferences_name">Configurações</string>
+
+    <string name="twrp_ors_title">Habilitar OpenRecoveryScript</string>
+    <string name="twrp_ors_summary">Funciona no TWRP e em alguns CWM personalizados (não oficiais)</string>
+    <string name="twrp_ors_information">Permite esse app instalar o arquivo via recuperação sem necessidade de interação do usuário. Simplesmente toque em instalar e espere acabar.</string>
+    <string name="twrp_ors_delete_after">Apagar depois da instalação</string>
+    <string name="twrp_ors_delete_after_summary">O ORS deve apagar o arquivo de atualização após a instalação?</string>
+
+    <string name="twrp_ors_install_prefs">Configurações de Instalação</string>
+    <string name="twrp_ors_install_prefs_summary">Escolha algumas configurações de instalação ao usar o ORS</string>
+    <string name="twrp_ors_wipe_data">Apagar Dados</string>
+    <string name="twrp_ors_wipe_cache">Apagar Cache</string>
+    <string name="twrp_ors_wipe_dalvik">Apagar Cache Dalvik</string>
+
+    <string name="notifications_title">Notificações</string>
+    <string name="background_service_summary">Verifica por atualizações automaticamente e mostra uma notificação se estiver disponível</string>
+    <string name="background_frequency">Frequência de verificação</string>
+    <string name="background_30mins">30 Minutos</string>
+    <string name="background_60mins">60 Minutos</string>
+    <string name="background_2hours">2 Horas</string>
+    <string name="background_3hours">3 Horas</string>
+    <string name="background_6hours">6 Horas</string>
+    <string name="background_12hours">12 Horas</string>
+    <string name="background_24hours">Diariamente</string>
+    <string name="background_2days">2 Dias</string>
+    <string name="background_3days">3 Dias</string>
+    <string name="background_7days">Semanalmente</string>
+
+    <string name="theme_title">Tema do App</string>
+
+    <string name="mobile_wifi_network">Rede</string>
+    <string name="mobile_wifi_title">Atualização pela rede</string>
+    <string name="wifi_network_only">Somente Wi-Fi</string>
+    <string name="mobile_or_wifi">Wi-Fi ou Móvel</string>
+
+    <string name="theme">Tema</string>
+    <string name="theme_dark">Escuro</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_light_dark">Claro, Barra de Ação Escura</string>
+
+    <string name="notifications_sound">Som</string>
+    <string name="notifications_vibrate">Vibrar</string>
+    <string name="silent_ringtone">Silencioso</string>
+</resources>

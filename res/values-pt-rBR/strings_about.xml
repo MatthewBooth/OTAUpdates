@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="about_about_title">Sobre</string>
+    <string name="about_about_summary">Este app nasceu da minha frustação usando outros apps que não funcionavam como eu gostaria que funcionassem. Eu o desenvolvi para minha ROM, mas rapidamente percebi que outros desenvolvedores poderiam achá-lo útil também. Como resultado, eu o generalizei e escrevi alguns guias de implementação para outros desenvolvedores usarem.</string>
+    <string name="about_credits_title">Créditos</string>
+    <string name="about_credits_summary">Resumo dos Créditos</string>
+    <string name="about_donate_title">Doar</string>
+    <string name="about_donate_summary">Se esse app tornou sua vida mais fácil, por favor considere fazer uma doação para o desenvolvedor (Kryten2k35)</string>
+    <string name="about_donate_button_summary">Me pague uma cerveja</string>
+</resources>
