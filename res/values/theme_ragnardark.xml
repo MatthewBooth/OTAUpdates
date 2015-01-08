@@ -36,8 +36,7 @@
 		<item name="colorHoloRed">@color/holo_red_light</item>
 		<item name="colorHoloGreen">@color/holo_green_light</item>
 		<item name="colorHoloBlue">@color/holo_blue_light</item>
-		
-		<item name="alertIcon">@drawable/ic_alert_dark</item>
+
 		<item name="helpIcon">@drawable/ic_about_dark</item>
 		<item name="settingsIcon">@drawable/ic_settings_dark</item>		
 		<item name="downloadIcon">@drawable/ic_download_dark</item>

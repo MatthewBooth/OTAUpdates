@@ -20,7 +20,6 @@
 	<declare-styleable name="Theme.Ragnar">
 	    <attr name="helpIcon" format="reference" />
 		<attr name="moreIconWidget" format="reference"/>
-		<attr name="alertIcon" format="reference"/>
 		<attr name="settingsIcon" format="reference"/>
 		<attr name="downloadIcon" format="reference" />
 		<attr name="downloadExtraIcon" format="reference" />

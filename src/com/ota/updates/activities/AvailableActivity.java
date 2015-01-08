@@ -233,8 +233,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 	
 	private void setupDialogs() {
 		mDeleteDialog = new AlertDialog.Builder(mContext);
-		mDeleteDialog.setIconAttribute(R.attr.alertIcon)
-		.setTitle(R.string.are_you_sure)
+		mDeleteDialog.setTitle(R.string.are_you_sure)
 		.setMessage(R.string.available_delete_confirm_message)
 		.setPositiveButton(R.string.ok, new OnClickListener() {
 
@@ -258,8 +257,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}).setNegativeButton(R.string.cancel, null);
 
 		mRebootDialog = new AlertDialog.Builder(mContext);
-		mRebootDialog.setIconAttribute(R.attr.alertIcon)
-		.setTitle(R.string.are_you_sure)
+		mRebootDialog.setTitle(R.string.are_you_sure)
 		.setMessage(R.string.available_reboot_confirm)
 		.setPositiveButton(R.string.ok, new OnClickListener() {
 
@@ -280,8 +278,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}).setNegativeButton(R.string.cancel, null);
 
 		mNetworkDialog = new Builder(mContext);
-		mNetworkDialog.setIconAttribute(R.attr.alertIcon)
-		.setTitle(R.string.available_wrong_network_title)
+		mNetworkDialog.setTitle(R.string.available_wrong_network_title)
 		.setMessage(R.string.available_wrong_network_message)
 		.setPositiveButton(R.string.ok, null);
 	}

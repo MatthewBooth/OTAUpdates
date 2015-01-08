@@ -113,8 +113,7 @@ public class MainActivity extends Activity implements Constants{
 		// Also executes the manifest/update check
 		if(!Utils.isConnected(mContext)){
 			Builder notConnectedDialog = new Builder(mContext);
-			notConnectedDialog.setIconAttribute(R.attr.alertIcon)
-			.setTitle(R.string.main_not_connected_title)
+			notConnectedDialog.setTitle(R.string.main_not_connected_title)
 			.setMessage(R.string.main_not_connected_message)
 			.setPositiveButton(R.string.ok, new OnClickListener() {
 				
@@ -178,7 +177,6 @@ public class MainActivity extends Activity implements Constants{
 		// Compatibility Dialog
 		mCompatibilityDialog = new AlertDialog.Builder(mContext);
 		mCompatibilityDialog.setCancelable(false);
-		mCompatibilityDialog.setIconAttribute(R.attr.alertIcon);
 		mCompatibilityDialog.setTitle(R.string.main_not_compatible_title);
 		mCompatibilityDialog.setMessage(R.string.main_not_compatible_message);
 		mCompatibilityDialog.setPositiveButton(R.string.ok, new OnClickListener() {
