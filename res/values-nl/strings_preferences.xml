@@ -18,10 +18,7 @@
 -->
 <resources>
     <string name="preferences_name">Instellingen</string>
-    <string name="download_folder">/storage/emulated/0/Download</string>
-    <string name="list_summary">%s</string>
     
-    <string name="twrp_ors_cat">OpenRecoveryScript</string>
     <string name="twrp_ors_title">Activeer OpenRecoveryScript</string>
     <string name="twrp_ors_summary">Werkt voor TWRP en sommige \'custom\' CWM (niet officiele) recoveries.</string>
     <string name="twrp_ors_information">Activeert deze app zodat de file zonder interactie met de gebruiker wordt geinstalleerd. Klik op installeren en wacht to de installatie klaar is.</string>

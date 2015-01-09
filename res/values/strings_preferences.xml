@@ -18,10 +18,10 @@
 -->
 <resources>
     <string name="preferences_name">Settings</string>
-    <string name="download_folder">/storage/emulated/0/Download</string>
-    <string name="list_summary">%s</string>
+    <string name="download_folder" translatable="false">/storage/emulated/0/Download</string>
+    <string name="list_summary" translatable="false">%s</string>
     
-    <string name="twrp_ors_cat">OpenRecoveryScript</string>
+    <string name="twrp_ors_cat"  translatable="false">OpenRecoveryScript</string>
     <string name="twrp_ors_title">Enable OpenRecoveryScript</string>
     <string name="twrp_ors_summary">Works for TWRP and some custom CWM (not official) recoveries</string>
     <string name="twrp_ors_information">Enables this app to flash the file via recovery without any interaction needed from the user. Just hit install and wait for it to finish.</string>

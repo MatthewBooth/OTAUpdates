@@ -21,7 +21,6 @@
     <string name="available_progress_counter">0MB / 0MB</string>
     <string name="available_changelog_title">Changelog</string>
     <string name="available_changelog_content">Your Changelog goes here</string>
-    <string name="available_md5">MD5:</string>
     <string name="available_check_md5">Comprobar MD5</string>
     <string name="available_ready_to_install">Listo para instalar</string>
     <string name="available_md5_ok">MD5 Correcto</string>

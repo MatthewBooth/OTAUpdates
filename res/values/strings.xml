@@ -19,8 +19,8 @@
 <resources>
 
     <!-- App Strings -->
-    <string name="app_name">OTA Updates</string>
-    <string name="prop_name">ro.ota.romname</string>
+    <string name="app_name" translatable="false">OTA Updates</string>
+    <string name="prop_name" translatable="false">ro.ota.romname</string>
     
     <!--  Generic strings -->
     <string name="cancel">Cancel</string>  

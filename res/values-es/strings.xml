@@ -18,13 +18,8 @@
 -->
 <resources>
 
-    <!-- App Strings -->
-    <string name="app_name">OTA Updates</string>
-    <string name="prop_name">ro.ota.romname</string>
-    
     <!--  Generic strings -->
     <string name="cancel">Cancelar</string>
-    <string name="ok">OK</string>
     <string name="delete">Borrar</string>
     <string name="back">Atrás</string>
     <string name="help">Ayuda</string>

@@ -19,7 +19,6 @@
 <resources>
 	<string name="available_update_name">Update naam en file-informatie hier</string>
     <string name="available_progress_counter">0MB / 0MB</string>
-    <string name="available_changelog_title">Changelog</string>
     <string name="available_changelog_content">De Changelog komt hier</string>
     <string name="available_md5">MD5:</string>
     <string name="available_check_md5">Controleer MD5</string>
