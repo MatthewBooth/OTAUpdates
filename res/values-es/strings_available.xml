@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+	<string name="available_update_name">Actualice el nombre y la información del archivo aquí</string>
+    <string name="available_progress_counter">0MB / 0MB</string>
+    <string name="available_changelog_title">Changelog</string>
+    <string name="available_changelog_content">Your Changelog goes here</string>
+    <string name="available_md5">MD5:</string>
+    <string name="available_check_md5">Comprobar MD5</string>
+    <string name="available_ready_to_install">Listo para instalar</string>
+    <string name="available_md5_ok">MD5 Correcto</string>
+    <string name="available_md5_failed">MD5 Erróneo</string>
+    <string name="available_checking_md5">Comprobando MD5&#8230;</string>
+    <string name="available_downloading">Descargando&#8230;</string>
+    
+    <string name="are_you_sure">¿Está seguro?</string>
+    
+    <string name="available_delete_confirm_message">¿Está seguro de que quiere borrar el archivo descargado?</string>
+    <string name="available_reboot_confirm">¿Desea reiniciar ahora?</string>
+    <string name="available_url_error">Error en URL: por favor, contacte con el desarrollador de su ROM</string>
+    <string name="available_reboot_manual_title">Por favor, reinicie ahora</string>
+     <string name="available_reboot_manual_message">Por favor reinicie en recovery y flashee su ROM.\n\nPuede encontrarla en /sdcard/Downloads</string>
+    
+    <string name="available_wrong_network_title">Red seleccionada no válida</string>
+    <string name="available_wrong_network_message">Está intentando la descarga usando su red móvil, pero los ajustes permiten sólo Wi-Fi. Por favor modifique los ajustes en consecuencia.</string>
+</resources>

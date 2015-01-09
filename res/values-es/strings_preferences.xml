@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="preferences_name">Ajustes</string>
+    <string name="download_folder">/storage/emulated/0/Download</string>
+    <string name="list_summary">%s</string>
+    
+    <string name="twrp_ors_cat">OpenRecoveryScript</string>
+    <string name="twrp_ors_title">Habilitar OpenRecoveryScript</string>
+    <string name="twrp_ors_summary">Funciona con TWRP y algunos recoveries CWM custom (no oficiales)</string>
+    <string name="twrp_ors_information">ORS permite a esta app flashear el archivo vía recovery sin necesidad de interacción del usuario. Simplemente pulse instalar y espere a que finalice.</string>
+	<string name="twrp_ors_delete_after">Borrar después de instalar</string>
+    <string name="twrp_ors_delete_after_summary">¿Desea que open recovery script borre la actualización después de instalarla?</string>
+
+    <string name="twrp_ors_install_prefs">Preferencias de instalación</string>
+    <string name="twrp_ors_install_prefs_summary">Indique las preferencias de instalación si utiliza el script ORS</string>
+    <string name="twrp_ors_wipe_data">Borrar Data</string>
+    <string name="twrp_ors_wipe_cache">Borrar Cache</string>
+    <string name="twrp_ors_wipe_dalvik">Borrar Dalvik</string>
+    
+    <string name="notifications_title">Notificaciones</string>
+	<string name="background_service_summary">Comprobar automáticamente las actualizaciones y mostrar una notificación si hay alguna disponible</string>
+	<string name="background_frequency">Frecuencia de comprobación</string>
+	<string name="background_30mins">30 mins</string>
+	<string name="background_60mins">60 mins</string>
+	<string name="background_2hours">2 horas</string>
+	<string name="background_3hours">3 horas</string>
+	<string name="background_6hours">6 horas</string>
+	<string name="background_12hours">12 horas</string>
+	<string name="background_24hours">Diaria</string>
+	<string name="background_2days">2 días</string>
+	<string name="background_3days">3 días</string>
+	<string name="background_7days">Semanal</string>
+
+	<string name="theme_title">Tema de la app</string>
+	
+	<string name="mobile_wifi_network">Red</string>
+	<string name="mobile_wifi_title">Actualizar sobre red</string>
+	<string name="wifi_network_only">Sólo Wi-Fi</string>
+	<string name="mobile_or_wifi">Móvil o Wi-Fi</string>
+	
+	<string name="theme">Tema</string>
+	<string name="theme_dark">Oscuro</string>
+	<string name="theme_light">Claro</string>
+	<string name="theme_light_dark">Claro, barra de acción oscura</string>
+	
+	<string name="notifications_sound">Sonido</string>
+	<string name="notifications_vibrate">Vibrar</string>
+	<string name="silent_ringtone">Silencio</string>
+</resources>
