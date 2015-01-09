@@ -496,7 +496,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			String md5Local = Tools.shell("md5sum " + file + " | cut -d ' ' -f 1", false); // Run the check on our local file
 			md5Local = md5Local.trim(); // Trim both to remove any whitespace
 			md5Remote = md5Remote.trim();			
-			return md5Local.equals(md5Remote); // Return the comparison
+			return md5Local.equalsIgnoreCase(md5Remote); // Return the comparison
 		}
 
 		@Override
