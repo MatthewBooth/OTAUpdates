@@ -30,9 +30,6 @@
     
     <!-- ROM Information -->
     <string name="main_rom_information">ROM-Informationen</string>
-    <string name="main_rom_name">Name:</string>
-    <string name="main_rom_version">Version:</string>
-    <string name="main_rom_codename">Codename:</string>
     <string name="main_rom_build_date">Datum:</string>
     <string name="main_android_verison">Android-Version:</string>
     <string name="main_rom_developer">Entwickler:</string>

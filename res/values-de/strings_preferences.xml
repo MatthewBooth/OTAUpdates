@@ -18,10 +18,7 @@
 -->
 <resources>
     <string name="preferences_name">Einstellungen</string>
-    <string name="download_folder">/storage/emulated/0/Download</string>
-    <string name="list_summary">%s</string>
-    
-    <string name="twrp_ors_cat">OpenRecoveryScript</string>
+
     <string name="twrp_ors_title">OpenRecoveryScript verwenden</string>
     <string name="twrp_ors_summary">Kann mit TWRP und einigen inoffiziellen Versionen von CWM verwendet werden</string>
     <string name="twrp_ors_information">Damit kann diese App ein Update im Recovery-Modus eigenständig installieren. Drücken Sie nur auf "Installieren" und warten Sie, bis es fertig ist.</string>
