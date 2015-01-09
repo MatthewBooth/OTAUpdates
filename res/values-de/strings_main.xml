@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="main_update_available">Aktualisierung verfügbar!</string>
+    <string name="main_no_update_available">Keine Aktualisierung verfügbar</string>
+    <string name="main_update_filename">Dateiname</string>
+    <string name="main_update_progress">Aktualisierungsfortschritt</string>
+    <string name="main_website">Website</string>
+    <string name="main_donate">Spenden</string>
+    <string name="main_donate_summary">Spende an den ROM Entwickler</string>
+    <string name="main_tap_to_download">Antippen um Download zu starten</string>
+     <string name="main_download_completed_details">Download abgeschlossen. Antippen für weitere Details</string>
+    <string name="main_last_checked">Letzte Überprüfung am</string>
+    
+    <!-- ROM Information -->
+    <string name="main_rom_information">ROM-Informationen</string>
+    <string name="main_rom_name">Name:</string>
+    <string name="main_rom_version">Version:</string>
+    <string name="main_rom_codename">Codename:</string>
+    <string name="main_rom_build_date">Datum:</string>
+    <string name="main_android_verison">Android-Version:</string>
+    <string name="main_rom_developer">Entwickler:</string>
+    
+    <!-- Dialogs -->
+    <string name="main_not_compatible_title">Nicht kompatibel</string>
+    <string name="main_not_compatible_message">Diese ROM unterstützt keine OTA Updates. Bitte kontaktieren Sie deren Entwickler für weitere Informationen.</string>
+    <string name="main_not_connected_title">Nicht verbunden</string>
+    <string name="main_not_connected_message">Sie sind mit keinem Netzwerk verbunden. Bitte aktivieren Sie die mobilen Daten oder Ihr WLAN und versuchen es erneut.</string>
+    
+    
+    <!-- Content Descriptions -->
+    <string name="main_button_icon">Symbol eines Buttons</string>
+    <string name="main_dev_website_icon">Symbol der Entwicklerwebsite</string>
+    <string name="main_actionbar_button">Symbole der Aktionsleiste</string>
+</resources>
