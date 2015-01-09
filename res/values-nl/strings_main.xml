@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="main_update_available">Update Beschikbaar!</string>
+    <string name="main_no_update_available">Geen Update Beschikbaar</string>
+    <string name="main_update_filename">Filenaam</string>
+    <string name="main_update_progress">Update Voortgang</string>
+    <string name="main_website">Website</string>
+    <string name="main_donate">Doneer</string>
+    <string name="main_donate_summary">Doneer aan de ROM ontwikkelaar</string>
+    <string name="main_tap_to_download">Selecteer om te downloaden</string>
+     <string name="main_download_completed_details">Download compleet. Selecteer voor details</string>
+    <string name="main_last_checked">Laatst gecontroleerd op update</string>
+    
+    <!-- ROM Information -->
+    <string name="main_rom_information">ROM informatie</string>
+    <string name="main_rom_name">ROM naam:</string>
+    <string name="main_rom_version">ROM versie:</string>
+    <string name="main_rom_codename">ROM codenaam:</string>
+    <string name="main_rom_build_date">ROM datum:</string>
+    <string name="main_android_verison">Android versie:</string>
+    <string name="main_rom_developer">Ontwikkelaar(s):</string>
+    
+    <!-- Dialogs -->
+    <string name="main_not_compatible_title">Niet compatibel</string>
+    <string name="main_not_compatible_message">Deze ROM werkt niet met OTA Updates. Neem contact op met je ontwikkelaar voor meer informatie</string>
+    <string name="main_not_connected_title">Geen verbinding</string>
+    <string name="main_not_connected_message">Je hebt geen verbinding met een netwerk. Zet je netwerk of Wi-Fi aan en probeer opnieuw.</string>
+    
+    
+    <!-- Content Descriptions -->
+    <string name="main_button_icon">Knop icoon</string>
+    <string name="main_dev_website_icon">Ontwikkelaar Website Icoon</string>
+    <string name="main_actionbar_button">Actionbar Knoppen</string>
+</resources>
