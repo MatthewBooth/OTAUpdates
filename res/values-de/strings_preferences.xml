@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /*
+ * Copyright (C) 2014 Matt Booth (Kryten2k35).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<resources>
+    <string name="preferences_name">Einstellungen</string>
+    <string name="download_folder">/storage/emulated/0/Download</string>
+    <string name="list_summary">%s</string>
+    
+    <string name="twrp_ors_cat">OpenRecoveryScript</string>
+    <string name="twrp_ors_title">OpenRecoveryScript verwenden</string>
+    <string name="twrp_ors_summary">Kann mit TWRP und einigen inoffiziellen Versionen von CWM verwendet werden</string>
+    <string name="twrp_ors_information">Damit kann diese App ein Update im Recovery-Modus eigenständig installieren. Drücken Sie nur auf "Installieren" und warten Sie, bis es fertig ist.</string>
+	<string name="twrp_ors_delete_after">Nach Installation entfernen</string>
+    <string name="twrp_ors_delete_after_summary">Update-Datei nach ihrer Installation entfernen</string>
+    
+    <string name="twrp_ors_install_prefs">Installationseinstellungen</string>
+    <string name="twrp_ors_install_prefs_summary">Verwendung des OpenRecoveryScripts anpassen</string>
+    <string name="twrp_ors_wipe_data">Data-Verzeichnis bereinigen</string>
+    <string name="twrp_ors_wipe_cache">Cache bereinigen</string>
+    <string name="twrp_ors_wipe_dalvik">Dalvik bereinigen</string>
+    
+    <string name="notifications_title">Benachrichtigungen</string>
+	<string name="background_service_summary">Automatisch auf Updates prüfen und bei neuen Updates benachrichtigen</string>
+	<string name="background_frequency">Häufigkeit der Überprüfung</string>
+	<string name="background_30mins">30 Minuten</string>
+	<string name="background_60mins">60 Minuten</string>
+	<string name="background_2hours">2 Stunden</string>
+	<string name="background_3hours">3 Stunden</string>
+	<string name="background_6hours">6 Stunden</string>
+	<string name="background_12hours">12 Stunden</string>
+	<string name="background_24hours">Täglich</string>
+	<string name="background_2days">2 Tage</string>
+	<string name="background_3days">3 Tage</string>
+	<string name="background_7days">Wöchentlich</string>
+
+	<string name="theme_title">Thema</string>
+	
+	<string name="mobile_wifi_network">Netzwerk</string>
+	<string name="mobile_wifi_title">Bevorzugtes Netzwerk</string>
+	<string name="wifi_network_only">Nur WLAN</string>
+	<string name="mobile_or_wifi">Mobile Daten oder WLAN</string>
+	
+	<string name="theme">Thema</string>
+	<string name="theme_dark">Dunkel</string>
+	<string name="theme_light">Hell</string>
+	<string name="theme_light_dark">Hell mit dunkler Aktionsleiste</string>
+	
+	<string name="notifications_sound">Ton</string>
+	<string name="notifications_vibrate">Vibration</string>
+	<string name="silent_ringtone">Stumm</string>
+</resources>
