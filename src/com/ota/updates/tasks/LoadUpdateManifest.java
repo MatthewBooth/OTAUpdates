@@ -60,6 +60,10 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
 	    	mLoadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
 	    	mLoadingDialog.show();
     	}
+    	
+    	File manifest = new File(mContext.getFilesDir().getPath(), MANIFEST);
+    	if(manifest.exists())
+    		manifest.delete();
     }
 
     @Override
