@@ -62,8 +62,9 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
     	}
     	
     	File manifest = new File(mContext.getFilesDir().getPath(), MANIFEST);
-    	if(manifest.exists())
+    	if(manifest.exists()) {
     		manifest.delete();
+    	}
     }
 
     @Override

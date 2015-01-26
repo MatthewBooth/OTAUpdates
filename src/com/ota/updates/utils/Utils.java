@@ -184,7 +184,6 @@ public class Utils implements Constants{
 				requestedInterval = Preferences.getBackgroundFrequency(context);
 			}
 			
-
 			if(DEBUGGING)
 				Log.d(TAG, "Setting alarm for " + requestedInterval + " seconds");
 			Calendar calendar = Calendar.getInstance();
