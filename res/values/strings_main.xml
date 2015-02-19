@@ -14,7 +14,9 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation" >
     <string name="main_update_available">Update Available!</string>
     <string name="main_no_update_available">No Update Available</string>
     <string name="main_update_filename">Filename</string>
@@ -46,4 +48,7 @@
     <string name="main_button_icon">Button icon</string>
     <string name="main_dev_website_icon">Developer Website Icon</string>
     <string name="main_actionbar_button">Actionbar Buttons</string>
+
+    <!-- Toast -->
+    <string name="main_release_ignored">Release ignored</string>
 </resources>

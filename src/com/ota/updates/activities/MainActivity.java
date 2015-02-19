@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements Constants{
 	private Builder mCompatibilityDialog;
 
 	private boolean isLollipop;
-	
+
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -75,38 +75,38 @@ public class MainActivity extends Activity implements Constants{
 				updateRomInformation();
 				updateRomUpdateLayouts();
 				updateWebsiteLayout();
-			} 
+			}
 		}
 	};
 
 	@SuppressLint({ "InflateParams", "NewApi" })
 	@Override
-	public void onCreate(Bundle savedInstanceState) {         
+	public void onCreate(Bundle savedInstanceState) {
 
 		mContext = this;
 		setTheme(Preferences.getTheme(mContext));
 		isLollipop = Utils.isLollipop();
-		
-		super.onCreate(savedInstanceState);              
+
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ota_main);
 
 		if(isLollipop){
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
 			setActionBar(toolbar);
 			toolbar.setTitle(getResources().getString(R.string.app_name));
-		} else {		
+		} else {
 			// Custom ActionBar view
 			ActionBar actionBar = getActionBar();
 			actionBar.setTitle(R.string.app_name);
-			LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, 
-					LayoutParams.WRAP_CONTENT, 
-					Gravity.END | 
+			LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT,
+					Gravity.END |
 					Gravity.CENTER_VERTICAL);
 			View actionbarView = LayoutInflater.from(this).inflate(R.layout.ota_main_actionbar_top, null);
 			actionBar.setCustomView(actionbarView, layoutParams);
 			actionBar.setDisplayShowCustomEnabled(true);
 		}
-		
+
 		createDialogs();
 
 		// Check the correct build prop values are installed
@@ -116,10 +116,10 @@ public class MainActivity extends Activity implements Constants{
 			notConnectedDialog.setTitle(R.string.main_not_connected_title)
 			.setMessage(R.string.main_not_connected_message)
 			.setPositiveButton(R.string.ok, new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					((Activity) mContext).finish();					
+					((Activity) mContext).finish();
 				}
 			})
 			.show();
@@ -135,7 +135,7 @@ public class MainActivity extends Activity implements Constants{
 		updateRomInformation();
 		updateRomUpdateLayouts();
 		updateWebsiteLayout();
-		
+
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class MainActivity extends Activity implements Constants{
 		super.onStop();
 		this.unregisterReceiver(mReceiver);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -157,7 +157,7 @@ public class MainActivity extends Activity implements Constants{
 			getMenuInflater().inflate(R.menu.ota_menu_main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -183,7 +183,7 @@ public class MainActivity extends Activity implements Constants{
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				MainActivity.this.finish();				
+				MainActivity.this.finish();
 			}
 		});
 	}
@@ -200,16 +200,17 @@ public class MainActivity extends Activity implements Constants{
 		TextView updateNotAvailableSummary = (TextView) findViewById(R.id.main_tv_no_update_available_summary);
 
 		// Update is available
-		if(RomUpdate.getUpdateAvailability(mContext)){
+		if(RomUpdate.getUpdateAvailability(mContext) ||
+                (!RomUpdate.getUpdateAvailability(mContext)) && Utils.isUpdateIgnored(mContext)){
 			updateAvailable.setVisibility(View.VISIBLE);
-			
+
 			if(Preferences.getDownloadFinished(mContext)){ //  Update already finished?
 				String htmlColorOpen = "";
 				if(isLollipop){
 					htmlColorOpen = "<font color='#009688'>";
 				} else {
 					htmlColorOpen = "<font color='#33b5e5'>";
-				}	
+				}
 				String htmlColorClose = "</font>";
 				String updateSummary = RomUpdate.getFilename(mContext)
 						+ "<br />"
@@ -231,7 +232,7 @@ public class MainActivity extends Activity implements Constants{
 						+ getResources().getString(R.string.main_tap_to_download)
 						+ htmlColorClose;
 				updateAvailableSummary.setText(Html.fromHtml(updateSummary));
-				
+
 			}
 		} else {
 			updateNotAvailable.setVisibility(View.VISIBLE);
@@ -245,7 +246,7 @@ public class MainActivity extends Activity implements Constants{
 				time = new SimpleDateFormat("d, MMMM HH:mm", locale).format(now);
 			} else {
 				time = new SimpleDateFormat("d, MMMM hh:mm a", locale).format(now);
-			}    
+			}
 
 			Preferences.setUpdateLastChecked(this, time);
 			String lastChecked = getString(R.string.main_last_checked);
@@ -254,7 +255,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	private void updateDonateLinkLayout() {
-		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);				
+		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
 		donateLink.setVisibility(View.GONE);
 
 		if(!RomUpdate.getDonateLink(mContext).trim().equals("null")){
@@ -283,27 +284,27 @@ public class MainActivity extends Activity implements Constants{
 		String htmlColorClose = "</font>";
 
 		//ROM name
-		TextView romName = (TextView) findViewById(R.id.tv_main_rom_name);        
+		TextView romName = (TextView) findViewById(R.id.tv_main_rom_name);
 		String romNameTitle = getApplicationContext().getResources().getString(R.string.main_rom_name) + " ";
-		String romNameActual = Utils.getProp("ro.ota.romname");        
+		String romNameActual = Utils.getProp("ro.ota.romname");
 		romName.setText(Html.fromHtml(romNameTitle + htmlColorOpen + romNameActual + htmlColorClose));
 
 		//ROM version
-		TextView romVersion = (TextView) findViewById(R.id.tv_main_rom_version);        
+		TextView romVersion = (TextView) findViewById(R.id.tv_main_rom_version);
 		String romVersionTitle = getApplicationContext().getResources().getString(R.string.main_rom_version) + " ";
-		String romVersionActual = Utils.getProp("ro.ota.version");        
+		String romVersionActual = Utils.getProp("ro.ota.version");
 		romVersion.setText(Html.fromHtml(romVersionTitle + htmlColorOpen + romVersionActual + htmlColorClose));
 
 		//ROM date
-		TextView romDate = (TextView) findViewById(R.id.tv_main_rom_date);        
+		TextView romDate = (TextView) findViewById(R.id.tv_main_rom_date);
 		String romDateTitle = getApplicationContext().getResources().getString(R.string.main_rom_build_date) + " ";
 		String romDateActual = Utils.getProp("ro.build.date");
 		romDate.setText(Html.fromHtml(romDateTitle + htmlColorOpen + romDateActual + htmlColorClose));
 
 		//ROM android version
-		TextView romAndroid = (TextView) findViewById(R.id.tv_main_android_version);        
+		TextView romAndroid = (TextView) findViewById(R.id.tv_main_android_version);
 		String romAndroidTitle = getApplicationContext().getResources().getString(R.string.main_android_verison) + " ";
-		String romAndroidActual = Utils.getProp("ro.build.version.release");       
+		String romAndroidActual = Utils.getProp("ro.build.version.release");
 		romAndroid.setText(Html.fromHtml(romAndroidTitle + htmlColorOpen + romAndroidActual + htmlColorClose));
 
 		//ROM developer
@@ -312,7 +313,7 @@ public class MainActivity extends Activity implements Constants{
 		romDeveloper.setVisibility(showDevName? View.VISIBLE : View.GONE);
 
 		String romDeveloperTitle = getApplicationContext().getResources().getString(R.string.main_rom_developer) + " ";
-		String romDeveloperActual = RomUpdate.getDeveloper(this);       
+		String romDeveloperActual = RomUpdate.getDeveloper(this);
 		romDeveloper.setText(Html.fromHtml(romDeveloperTitle + htmlColorOpen + romDeveloperActual + htmlColorClose));
 
 	}
@@ -342,14 +343,14 @@ public class MainActivity extends Activity implements Constants{
 
 	public void openSettings(View v){
 		Intent intent = new Intent(mContext, SettingsActivity.class);
-		startActivity(intent);		
+		startActivity(intent);
 	}
 
 	public void openHelp (View v){
 		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public class CompatibilityTask extends AsyncTask<Void, Boolean, Boolean> implements Constants{
 
 		public final String TAG = this.getClass().getSimpleName();
@@ -381,5 +382,5 @@ public class MainActivity extends Activity implements Constants{
 			}
 			super.onPostExecute(result);
 		}
-	} 
+	}
 }

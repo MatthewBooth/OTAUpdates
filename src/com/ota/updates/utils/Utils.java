@@ -246,13 +246,24 @@ public class Utils implements Constants{
 		return false;
 	}
 
+    public static boolean isUpdateIgnored(Context context){
+        String manifestVer = Integer.toString(RomUpdate.getVersionNumber(context));
+        return Preferences.getIgnoredRelease(context).matches(manifestVer);
+    }
+
 	public static void setUpdateAvailability(Context context) {
 		// Grab the data from the device and manifest
 		int otaVersion = RomUpdate.getVersionNumber(context);
 		String currentVer = Utils.getProp("ro.ota.version");
 		String manifestVer = Integer.toString(otaVersion);
 
-		boolean available = !versionBiggerThan(currentVer, manifestVer);
+        boolean available;
+
+        if (Preferences.getIgnoredRelease(context).matches(manifestVer)){
+            available = false;
+        } else {
+            available = !versionBiggerThan(currentVer, manifestVer);
+        }
 
 		RomUpdate.setUpdateAvailable(context, available);
 		if(DEBUGGING)
@@ -277,7 +288,10 @@ public class Utils implements Constants{
 		            0,
 		            PendingIntent.FLAG_UPDATE_CURRENT
 		        );
-		mBuilder.setContentTitle(context.getString(R.string.update_available))
+        Intent skipIntent = new Intent();
+        skipIntent.setAction(Constants.IGNORE_RELEASE);
+        PendingIntent skipPendingIntent = PendingIntent.getBroadcast(context, 0, skipIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentTitle(context.getString(R.string.update_available))
 		.setContentText(filename)
 		.setSmallIcon(R.drawable.ic_notif)
 		.setContentIntent(resultPendingIntent)
@@ -285,12 +299,13 @@ public class Utils implements Constants{
 		.setPriority(NotificationCompat.PRIORITY_HIGH)
 		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
 		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-		.setSound(Uri.parse(Preferences.getNotificationSound(context)));
+		.setSound(Uri.parse(Preferences.getNotificationSound(context)))
+        .addAction(android.R.drawable.ic_menu_close_clear_cancel, context.getString(R.string.ignore_release), skipPendingIntent);
 
 		if(Preferences.getNotificationVibrate(context)) {
 			mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
 		}
 
-		mNotifyManager.notify(0, mBuilder.build());
+		mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}
 }

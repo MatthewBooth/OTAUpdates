@@ -17,12 +17,18 @@
 package com.ota.updates.receivers;
 
 import android.app.DownloadManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
 
+import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
 import com.ota.updates.activities.AvailableActivity;
 import com.ota.updates.activities.MainActivity;
@@ -130,6 +136,28 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
 		}
+
+        if(action.equals(IGNORE_RELEASE)){
+            if(DEBUGGING) {
+                Log.d(TAG, "Ignore release");
+            }
+            Preferences.setIgnoredRelease(context, Integer.toString(RomUpdate.getVersionNumber(context)));
+            final NotificationManager mNotifyManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            Builder mBuilder = new NotificationCompat.Builder(context);
+            mBuilder.setContentTitle(context.getString(R.string.main_release_ignored))
+                    .setSmallIcon(R.drawable.ic_notif)
+                    .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));
+            mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+            Handler h = new Handler();
+            long delayInMilliseconds = 1500;
+            h.postDelayed(new Runnable() {
+
+                public void run() {
+                    mNotifyManager.cancel(NOTIFICATION_ID);
+                }}, delayInMilliseconds);
+        }
 	}
 }
 

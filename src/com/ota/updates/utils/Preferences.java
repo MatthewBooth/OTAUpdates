@@ -149,6 +149,10 @@ public class Preferences implements Constants{
         }
     }
 
+    public static String getIgnoredRelease(Context context){
+        return getPrefs(context).getString(IGNORE_RELEASE_VERSION, "0");
+    }
+
 	public static void setUpdateLastChecked(Context context, String time){
 	    SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(LAST_CHECKED, time);
@@ -226,4 +230,10 @@ public class Preferences implements Constants{
         editor.putString(UPDATER_BACK_FREQ, value);
         editor.commit();
 	}
+
+    public static void setIgnoredRelease(Context context, String value){
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString(IGNORE_RELEASE_VERSION, value);
+        editor.commit();
+    }
 }

@@ -14,7 +14,9 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation" >
 
     <!-- App Strings -->
     <string name="app_name" translatable="false">OTA Updates</string>
@@ -33,5 +35,6 @@
     <string name="downloading">Downloading&#8230;</string>
     <string name="rebooting">Rebooting&#8230;</string>
     <string name="information">Information</string>
-    <string name="update_available">ROM update Available</string>
+    <string name="update_available">ROM update available</string>
+    <string name="ignore_release">Ignore this release</string>
 </resources>
