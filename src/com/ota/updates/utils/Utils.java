@@ -287,8 +287,8 @@ public class Utils implements Constants{
 		            0,
 		            PendingIntent.FLAG_UPDATE_CURRENT
 		        );
-        Intent skipIntent = new Intent();
-        skipIntent.setAction(Constants.IGNORE_RELEASE);
+        Intent skipIntent = new Intent(context, AppReceiver.class);
+        skipIntent.setAction(IGNORE_RELEASE);
         PendingIntent skipPendingIntent = PendingIntent.getBroadcast(context, 0, skipIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentTitle(context.getString(R.string.update_available))
 		.setContentText(filename)
