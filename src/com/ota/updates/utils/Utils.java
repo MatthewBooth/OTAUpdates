@@ -299,7 +299,7 @@ public class Utils implements Constants{
 		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
 		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 		.setSound(Uri.parse(Preferences.getNotificationSound(context)))
-        .addAction(android.R.drawable.ic_menu_close_clear_cancel, context.getString(R.string.ignore_release), skipPendingIntent);
+        .addAction(R.drawable.ic_action_close, context.getString(R.string.ignore_release), skipPendingIntent);
 
 		if(Preferences.getNotificationVibrate(context)) {
 			mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
