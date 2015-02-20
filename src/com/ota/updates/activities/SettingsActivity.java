@@ -90,7 +90,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		mIgnoredRelease = (CheckBoxPreference) findPreference(NOTIFICATIONS_IGNORED_RELEASE);
 		mIgnoredRelease.setOnPreferenceChangeListener(this);
 		String ignoredRelease = Preferences.getIgnoredRelease(mContext);
-		if(!ignoredRelease.equalsIgnoreCase("0")) {
+		boolean isIgnored = ignoredRelease.equalsIgnoreCase("0");
+		if(!isIgnored) {
 			mIgnoredRelease.setSummary(
 					getResources().getString(R.string.notification_ignoring_release) +
 					" " + 
@@ -98,10 +99,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			mIgnoredRelease.setChecked(true);
 			mIgnoredRelease.setEnabled(true);
 		} else {
-			mIgnoredRelease.setSummary(
-					getResources().getString(R.string.notification_not_ignoring_release));
-			mIgnoredRelease.setChecked(false);
-			mIgnoredRelease.setEnabled(false);
+			setNotIgnore(false);
 		}
 	}
 
@@ -158,14 +156,20 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 				if(DEBUGGING) {
 					Log.d(TAG, "Unignoring release");
 				}
-				Preferences.setIgnoredRelease(mContext, "0");
-				mIgnoredRelease.setSummary(
-						getResources().getString(R.string.notification_not_ignoring_release));
-				mIgnoredRelease.setChecked(false);
-				mIgnoredRelease.setEnabled(false);
+				setNotIgnore(true);
 			}
 		}
 		return result;
+	}
+
+	private void setNotIgnore(boolean set) {
+		if (set) {
+			Preferences.setIgnoredRelease(mContext, "0");
+		}
+		mIgnoredRelease.setSummary(
+				getResources().getString(R.string.notification_not_ignoring_release));
+		mIgnoredRelease.setChecked(false);
+		mIgnoredRelease.setEnabled(false);
 	}
 
 	private void showInstallPrefs(){
