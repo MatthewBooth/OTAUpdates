@@ -37,6 +37,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import com.ota.updates.R;
@@ -50,6 +51,7 @@ import com.ota.updates.utils.Utils;
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener, OnSharedPreferenceChangeListener, Constants{
 
 	public final String TAG = this.getClass().getSimpleName();
+	private static final String NOTIFICATIONS_IGNORED_RELEASE = "notifications_ignored_release";
 
 	Context mContext;
 	Preference mDownloadLocation;
@@ -58,6 +60,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	RingtonePreference mRingtonePreference;
 
 	SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
+	
+	CheckBoxPreference mIgnoredRelease;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,23 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		if(!Tools.isRootAvailable()){
 			CheckBoxPreference ors = (CheckBoxPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
+		}
+		
+		mIgnoredRelease = (CheckBoxPreference) findPreference(NOTIFICATIONS_IGNORED_RELEASE);
+		mIgnoredRelease.setOnPreferenceChangeListener(this);
+		String ignoredRelease = Preferences.getIgnoredRelease(mContext);
+		if(!ignoredRelease.equalsIgnoreCase("0")) {
+			mIgnoredRelease.setSummary(
+					getResources().getString(R.string.notification_ignoring_release) +
+					" " + 
+					ignoredRelease);
+			mIgnoredRelease.setChecked(true);
+			mIgnoredRelease.setEnabled(true);
+		} else {
+			mIgnoredRelease.setSummary(
+					getResources().getString(R.string.notification_not_ignoring_release));
+			mIgnoredRelease.setChecked(false);
+			mIgnoredRelease.setEnabled(false);
 		}
 	}
 
@@ -132,7 +153,18 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		if (preference == mRingtonePreference) {
 			setRingtoneSummary((String)newValue);
 			result = true;
-		} 
+		} else if (preference == mIgnoredRelease) {
+			if(!(Boolean) newValue) {
+				if(DEBUGGING) {
+					Log.d(TAG, "Unignoring release");
+				}
+				Preferences.setIgnoredRelease(mContext, "0");
+				mIgnoredRelease.setSummary(
+						getResources().getString(R.string.notification_not_ignoring_release));
+				mIgnoredRelease.setChecked(false);
+				mIgnoredRelease.setEnabled(false);
+			}
+		}
 		return result;
 	}
 

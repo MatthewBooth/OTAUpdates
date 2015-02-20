@@ -61,4 +61,8 @@
 	<string name="notifications_sound">Sound</string>
 	<string name="notifications_vibrate">Vibrate</string>
 	<string name="silent_ringtone">Silent</string>
+	
+	<string name="notification_ignore_release_title">Ignore release</string>
+	<string name="notification_ignoring_release">Currently ignoring version: </string>
+	<string name="notification_not_ignoring_release">You are not currently ignoring a release</string>
 </resources>

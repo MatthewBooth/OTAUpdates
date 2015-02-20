@@ -58,13 +58,17 @@
 	        android:key="notifications_sound"
 	        android:ringtoneType="notification"
 	        android:dependency="background_service"
-            android:defaultValue="content://settings/system/notification_sound" />
-	    
+            android:defaultValue="content://settings/system/notification_sound" />	    
 	    <CheckBoxPreference 
 	        android:title="@string/notifications_vibrate"
 	        android:key="notifications_vibrate"
 	        android:dependency="background_service"
 	        android:defaultValue="true" />
+	    <CheckBoxPreference 
+	        android:title="@string/notification_ignore_release_title"
+	        android:key="notifications_ignored_release"
+	        android:dependency="background_service"
+	        android:defaultValue="false" />
 	 
 	 <!-- Network Settings -->
 	 <PreferenceCategory 
