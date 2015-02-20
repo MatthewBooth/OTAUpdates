@@ -178,7 +178,7 @@ public class Utils implements Constants{
 		} else {
 			int requestedInterval;
 			
-			if(DEBUGGING) {
+			if(DEBUG_NOTIFICATIONS) {
 				requestedInterval = 30;
 			} else {
 				requestedInterval = Preferences.getBackgroundFrequency(context);
@@ -258,11 +258,10 @@ public class Utils implements Constants{
 		String manifestVer = Integer.toString(otaVersion);
 
         boolean available;
-
         if (Preferences.getIgnoredRelease(context).matches(manifestVer)){
             available = false;
         } else {
-            available = !versionBiggerThan(currentVer, manifestVer);
+            available = DEBUG_NOTIFICATIONS ? true : !versionBiggerThan(currentVer, manifestVer);
         }
 
 		RomUpdate.setUpdateAvailable(context, available);

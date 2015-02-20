@@ -20,7 +20,8 @@ import android.os.Environment;
 
 public interface Constants {
     // Developer
-    public static final boolean DEBUGGING = false;
+    public static final boolean DEBUGGING = true;
+    public static final boolean DEBUG_NOTIFICATIONS = true;
 
     // Storage
     public static final String SD_CARD = Environment.getExternalStorageDirectory().getPath();
