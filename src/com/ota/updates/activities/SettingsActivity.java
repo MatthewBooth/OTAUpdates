@@ -98,6 +98,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 					ignoredRelease);
 			mIgnoredRelease.setChecked(true);
 			mIgnoredRelease.setEnabled(true);
+			mIgnoredRelease.setSelectable(true);
 		} else {
 			setNotIgnore(false);
 		}
@@ -170,6 +171,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 				getResources().getString(R.string.notification_not_ignoring_release));
 		mIgnoredRelease.setChecked(false);
 		mIgnoredRelease.setEnabled(false);
+		mIgnoredRelease.setSelectable(false);
 	}
 
 	private void showInstallPrefs(){
