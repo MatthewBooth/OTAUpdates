@@ -48,7 +48,7 @@ public class AboutActivity extends Activity implements OnClickListener{
 			toolbar.setTitle(getResources().getString(R.string.app_name));
 		}
 		
-		Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Thin.ttf");
+		Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
 		
 		TextView aboutTitle = (TextView) findViewById(R.id.about_tv_about_title);
 		TextView donateTitle = (TextView) findViewById(R.id.about_tv_donate_title);
