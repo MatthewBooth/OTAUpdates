@@ -43,6 +43,7 @@ import android.util.Log;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
+import com.ota.updates.activities.AvailableActivity;
 import com.ota.updates.activities.MainActivity;
 import com.ota.updates.receivers.AppReceiver;
 
@@ -289,7 +290,10 @@ public class Utils implements Constants{
 		        );
         Intent skipIntent = new Intent(context, AppReceiver.class);
         skipIntent.setAction(IGNORE_RELEASE);
+        Intent downloadIntent = new Intent(context, AvailableActivity.class);
         PendingIntent skipPendingIntent = PendingIntent.getBroadcast(context, 0, skipIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent downloadPendingIntent = PendingIntent.getActivity(context, 0, downloadIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         mBuilder.setContentTitle(context.getString(R.string.update_available))
 		.setContentText(filename)
 		.setSmallIcon(R.drawable.ic_notif)
@@ -299,6 +303,7 @@ public class Utils implements Constants{
 		.setDefaults(NotificationCompat.DEFAULT_LIGHTS)
 		.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 		.setSound(Uri.parse(Preferences.getNotificationSound(context)))
+		.addAction(R.drawable.ic_action_download, context.getString(R.string.download), downloadPendingIntent)
         .addAction(R.drawable.ic_action_close, context.getString(R.string.ignore), skipPendingIntent);
 
 		if(Preferences.getNotificationVibrate(context)) {
