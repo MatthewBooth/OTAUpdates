@@ -36,5 +36,5 @@
     <string name="rebooting">Rebooting&#8230;</string>
     <string name="information">Information</string>
     <string name="update_available">ROM update available</string>
-    <string name="ignore_release">Ignore this release</string>
+    <string name="ignore">Ignore</string>
 </resources>
