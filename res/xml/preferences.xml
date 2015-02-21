@@ -19,7 +19,7 @@
     <PreferenceCategory
         android:title="@string/twrp_ors_cat"
         android:key="updater_ors_screen_title" />
-	    <CheckBoxPreference 
+	    <SwitchPreference 
 	        android:title="@string/twrp_ors_title"
 	        android:key="updater_twrp_ors"
 	        android:summary="@string/twrp_ors_summary"
@@ -40,7 +40,7 @@
 	<PreferenceCategory
         android:title="@string/notifications_title"
         android:key="updater_ors_screen_title" />
-	    <CheckBoxPreference 
+	    <SwitchPreference 
 	        android:title="@string/notifications_title"
 	        android:key="background_service"
 	        android:summary="@string/background_service_summary"
@@ -59,12 +59,12 @@
 	        android:ringtoneType="notification"
 	        android:dependency="background_service"
             android:defaultValue="content://settings/system/notification_sound" />	    
-	    <CheckBoxPreference 
+	    <SwitchPreference 
 	        android:title="@string/notifications_vibrate"
 	        android:key="notifications_vibrate"
 	        android:dependency="background_service"
 	        android:defaultValue="true" />
-	    <CheckBoxPreference 
+	    <SwitchPreference 
 	        android:title="@string/notification_ignore_release_title"
 	        android:key="notifications_ignored_release"
 	        android:dependency="background_service"

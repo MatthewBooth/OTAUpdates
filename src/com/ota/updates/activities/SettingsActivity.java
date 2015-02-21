@@ -28,7 +28,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
+import android.preference.SwitchPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -61,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
 	
-	CheckBoxPreference mIgnoredRelease;
+	SwitchPreference mIgnoredRelease;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -83,11 +83,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		setRingtoneSummary(soundValue);
 		
 		if(!Tools.isRootAvailable()){
-			CheckBoxPreference ors = (CheckBoxPreference) findPreference("updater_twrp_ors");
+			SwitchPreference ors = (SwitchPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
 		}
 		
-		mIgnoredRelease = (CheckBoxPreference) findPreference(NOTIFICATIONS_IGNORED_RELEASE);
+		mIgnoredRelease = (SwitchPreference) findPreference(NOTIFICATIONS_IGNORED_RELEASE);
 		mIgnoredRelease.setOnPreferenceChangeListener(this);
 		String ignoredRelease = Preferences.getIgnoredRelease(mContext);
 		boolean isIgnored = ignoredRelease.equalsIgnoreCase("0");
@@ -131,7 +131,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			} else if(key.equals(UPDATER_BACK_FREQ)){
 				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 			}
-		} else if(pref instanceof CheckBoxPreference){
+		} else if(pref instanceof SwitchPreference){
 			if(key.equals(UPDATER_BACK_SERVICE)){
 				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 			}
