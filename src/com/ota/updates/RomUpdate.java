@@ -41,7 +41,8 @@ public class RomUpdate implements Constants{
     private static String ANDROID = "rom_android_ver";
     private static String WEBSITE = "rom_website";
     private static String DEVELOPER = "rom_developer";
-    private static String DONATE_LINK = "rom_donate_link";
+    private static String PAYPAL_LINK = "rom_paypal_link";
+    private static String BTC_LINK = "rom_bitcoin_link";
     private static String FILESIZE = "rom_filesize";
     private static String AVAILABILITY = "update_availability";
     private static String SPONSORED_ROMHUT = "rom_sponsored_romhut";
@@ -95,8 +96,12 @@ public class RomUpdate implements Constants{
     	return getPrefs(context).getString(DEVELOPER, DEF_VALUE);
     }
     
-    public static String getDonateLink(Context context){
-    	return getPrefs(context).getString(DONATE_LINK, DEF_VALUE);
+    public static String getPayPalLink(Context context){
+    	return getPrefs(context).getString(PAYPAL_LINK, DEF_VALUE);
+    }
+    
+    public static String getBitCoinLink(Context context){
+    	return getPrefs(context).getString(BTC_LINK, DEF_VALUE);
     }
     
     public static int getFileSize(Context context){
@@ -171,9 +176,15 @@ public class RomUpdate implements Constants{
         editor.commit();
     }
     
-    public static void setDonateLink(Context context, String donateLink){
+    public static void setPayPalLink(Context context, String donateLink){
     	SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(DONATE_LINK, donateLink);
+        editor.putString(PAYPAL_LINK, donateLink);
+        editor.commit();
+    }
+    
+    public static void setBitCoinLink(Context context, String donateLink){
+    	SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString(BTC_LINK, donateLink);
         editor.commit();
     }
     

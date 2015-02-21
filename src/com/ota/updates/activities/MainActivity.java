@@ -61,6 +61,7 @@ public class MainActivity extends Activity implements Constants{
 	private Context mContext;
 
 	private Builder mCompatibilityDialog;
+	private Builder mDonateDialog;
 
 	private boolean isLollipop;
 
@@ -186,6 +187,34 @@ public class MainActivity extends Activity implements Constants{
 				MainActivity.this.finish();
 			}
 		});
+		
+		// Donate Dialog
+		mDonateDialog = new AlertDialog.Builder(this);
+		String[] donateItems = { "PayPal", "BitCoin" };
+		mDonateDialog.setTitle(getResources().getString(R.string.donate))		
+		.setSingleChoiceItems(donateItems, 0, null)
+		.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String url = "";
+				if (which == 0) {
+					url = RomUpdate.getPayPalLink(mContext);
+				} else {
+					url = RomUpdate.getBitCoinLink(mContext);
+				}
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(url));
+				startActivity(intent);
+			}
+		})
+		.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
 	}
 
 	private void updateRomUpdateLayouts(){
@@ -258,7 +287,8 @@ public class MainActivity extends Activity implements Constants{
 		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
 		donateLink.setVisibility(View.GONE);
 
-		if(!RomUpdate.getDonateLink(mContext).trim().equals("null")){
+		if(!RomUpdate.getPayPalLink(mContext).trim().equals("null") 
+				|| !RomUpdate.getBitCoinLink(mContext).trim().equals("null")){
 			donateLink.setVisibility(View.VISIBLE);
 		}
 	}
@@ -327,11 +357,25 @@ public class MainActivity extends Activity implements Constants{
 		startActivity(intent);
 	}
 
-	public void openDonationPage(View v){
-		String url = RomUpdate.getDonateLink(mContext);
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse(url));
-		startActivity(intent);
+	public void openDonationPage(View v) {
+		
+		boolean payPalLinkAvailable = RomUpdate.getPayPalLink(mContext).trim().equals("null");
+		boolean bitCoinLinkAvailable = RomUpdate.getBitCoinLink(mContext).trim().equals("null");
+		if(!payPalLinkAvailable && !bitCoinLinkAvailable) {
+			mDonateDialog.show();
+		} else if (!payPalLinkAvailable && bitCoinLinkAvailable) {
+			String url = RomUpdate.getPayPalLink(mContext);
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(url));
+			startActivity(intent);			
+		} else if (payPalLinkAvailable && !bitCoinLinkAvailable){
+			String url = RomUpdate.getBitCoinLink(mContext);
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(url));
+			startActivity(intent);			
+		} else {
+			// Shouldn't be here
+		}
 	}
 
 	public void openWebsitePage(View v){
