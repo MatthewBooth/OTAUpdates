@@ -227,24 +227,18 @@ public class Utils implements Constants{
 		// returns true if current > manifest, false otherwise
 		if (current.length() > manifest.length()) {
 			for (int i = 0; i < current.length() - manifest.length(); i++) {
-				manifest+="0";
+				manifest += "0";
 			}
 		} else if (manifest.length() > current.length()) {
 			for (int i = 0; i < manifest.length() - current.length(); i++) {
-				current+="0";
+				current += "0";
 			}
 		}
+		
+		if(DEBUGGING)
+			Log.d(TAG, "Current: " + current + " Manifest: " + manifest);
 
-		for (int i = 0; i <= current.length(); i++) {
-			if (current.charAt(i) > manifest.charAt(i)){
-				return true; // definitely true
-			} else if (manifest.charAt(i) > current.charAt(i)) {
-				return false; // definitely false
-			} else {
-				//else still undecided
-			}
-		}
-		return false;
+		return Integer.parseInt(current) < Integer.parseInt(manifest);
 	}
 
     public static boolean isUpdateIgnored(Context context){
@@ -262,7 +256,7 @@ public class Utils implements Constants{
         if (Preferences.getIgnoredRelease(context).matches(manifestVer)){
             available = false;
         } else {
-            available = DEBUG_NOTIFICATIONS ? true : !versionBiggerThan(currentVer, manifestVer);
+            available = DEBUG_NOTIFICATIONS ? true : versionBiggerThan(currentVer, manifestVer);
         }
 
 		RomUpdate.setUpdateAvailable(context, available);
