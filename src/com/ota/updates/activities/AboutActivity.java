@@ -72,7 +72,6 @@ public class AboutActivity extends Activity implements OnClickListener{
                 openHTML + "Matt Booth" + closeHTML + " - Anything not mentioned below" + newLine +
                 openHTML + "Roman Nurik" + closeHTML + " - Android Asset Studio Framework" + newLine +
                 openHTML + "Jeff Gilfelt"+ closeHTML + " - Android Action Bar Style Generator" + newLine + 
-                openHTML + "Brad Greco" + closeHTML + " - DirectoryPicker" + newLine +
                 openHTML + "Ficeto (AllianceROM)" + closeHTML + " - Shell tools" + newLine +
                 openHTML + "StackOverflow" + closeHTML + " - Many, many people";
         creditsSummary.setText(Html.fromHtml(creditsText));
