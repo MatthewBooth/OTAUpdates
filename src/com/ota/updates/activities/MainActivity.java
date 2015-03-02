@@ -295,12 +295,10 @@ public class MainActivity extends Activity implements Constants{
 
 	private void updateWebsiteLayout() {
 		CardView webLink = (CardView) findViewById(R.id.layout_main_dev_website);
-		TextView webLinkSummary = (TextView) findViewById(R.id.tv_main_dev_link_summary);
 		webLink.setVisibility(View.GONE);
 
 		if(!RomUpdate.getWebsite(mContext).trim().equals("null")){
 			webLink.setVisibility(View.VISIBLE);
-			webLinkSummary.setText(RomUpdate.getWebsite(mContext));
 		}
 	}
 
@@ -361,7 +359,7 @@ public class MainActivity extends Activity implements Constants{
 		
 		boolean payPalLinkAvailable = RomUpdate.getPayPalLink(mContext).trim().equals("null");
 		boolean bitCoinLinkAvailable = RomUpdate.getBitCoinLink(mContext).trim().equals("null");
-		if(!payPalLinkAvailable && !bitCoinLinkAvailable) {
+		if(payPalLinkAvailable && bitCoinLinkAvailable) {
 			mDonateDialog.show();
 		} else if (!payPalLinkAvailable && bitCoinLinkAvailable) {
 			String url = RomUpdate.getPayPalLink(mContext);
