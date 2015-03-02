@@ -46,13 +46,15 @@
 					                	android:layout_width="wrap_content"
 					                	android:layout_height="wrap_content"
 					                	android:text="@string/main_website"
-					                	android:textAppearance="?android:attr/textAppearanceMedium" />
+					                	android:textAppearance="?android:attr/textAppearanceMedium"
+					                	android:textColor="?attr/textColorPrimary" />
 					
 					            <TextView
 					                	android:id="@+id/tv_main_dev_link_summary"
 					                	android:layout_width="wrap_content"
 					                	android:layout_height="wrap_content"
-					                	android:textAppearance="?android:attr/textAppearanceSmall" />
+					                	android:textAppearance="?android:attr/textAppearanceSmall"
+					                	android:textColor="?attr/textColorSecondary" />
 					        </LinearLayout>
 	    	</LinearLayout>
 	</android.support.v7.widget.CardView>

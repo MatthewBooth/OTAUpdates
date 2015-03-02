@@ -33,5 +33,8 @@
 		
 		<attr name="cardStyle" format="reference" />
 		<attr name="cardBackground" format="color" />
+		
+		<attr name="textColorPrimary" format="color" />
+		<attr name="textColorSecondary" format="color" />
 	</declare-styleable>
 </resources>

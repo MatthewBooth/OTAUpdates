@@ -39,6 +39,8 @@
 	    <item name="android:colorAccent">@color/material_accent</item>	    
 	    <item name="android:windowBackground">@drawable/material_background_dark</item>
 	    <item name="cardBackground">@color/card_background_material_dark</item>
+	    <item name="textColorPrimary">@color/white</item>
+	    <item name="textColorSecondary">@color/grey</item>
 	    
 	    <item name="cardStyle">@style/CardStyle.Dark</item>
 	    

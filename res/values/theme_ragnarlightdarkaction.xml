@@ -45,7 +45,10 @@
 		<item name="separator">@color/separator_light</item>
 		<item name="backgroundSelector">@drawable/list_selector_holo_light</item>
 		<item name="cardBackground">@color/card_background_holo_light</item>
-		<item name="cardStyle">@style/CardStyle.Light</item>    
+		<item name="cardStyle">@style/CardStyle.Light</item>
+		
+		<item name="textColorPrimary">@color/black</item>
+	    <item name="textColorSecondary">@color/dark_grey</item>
     </style>
 
     <style name="ActionBar.Solid.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">

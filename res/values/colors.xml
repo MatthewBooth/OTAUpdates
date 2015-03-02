@@ -16,6 +16,8 @@
 -->
 <resources>
     <color name="white">#ffffffff</color>
+    <color name="grey">#ffcccccc</color>
+    <color name="dark_grey">#ff333333</color>
     <color name="black">#ff000000</color>
     <color name="separator_dark">#ff333333</color>
     <color name="separator_light">#ffdddddd</color>
@@ -43,7 +45,4 @@
     
     <color name="card_background_holo_dark">#80000000</color>
     <color name="card_background_holo_light">@color/white</color>
-    
-    <color name="card_background_material_dark">#37474f</color>
-    <color name="card_background_material_light">@color/white</color>
 </resources>

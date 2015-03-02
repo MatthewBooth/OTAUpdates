@@ -15,5 +15,5 @@
 	limitations under the License.
 -->
 <ripple android:color="#cccccc" xmlns:android="http://schemas.android.com/apk/res/android">
- <item android:drawable="@drawable/material_background_light"></item>
+ <item android:drawable="@drawable/card_material_background_light"></item>
 </ripple>

@@ -35,41 +35,47 @@
 			        	android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
 			        	android:text="@string/main_rom_information"
-			        	android:textAppearance="?android:attr/textAppearanceMedium" />
+			        	android:textAppearance="?android:attr/textAppearanceMedium"
+			        	android:textColor="?attr/textColorPrimary" />
 		    	
 		    	<TextView
 			    		android:id="@+id/tv_main_rom_name"
 			        	android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
 			        	android:text="@string/main_rom_name"
-			        	android:textAppearance="?android:attr/textAppearanceSmall" />
+			        	android:textAppearance="?android:attr/textAppearanceSmall"
+			        	android:textColor="?attr/textColorSecondary" />
 		    	
 		    	<TextView
 			    		android:id="@+id/tv_main_rom_version"
 			        	android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
 			        	android:text="@string/main_rom_version"
-			        	android:textAppearance="?android:attr/textAppearanceSmall" />
+			        	android:textAppearance="?android:attr/textAppearanceSmall"
+			        	android:textColor="?attr/textColorSecondary" />
 		
 		    	<TextView
 		    	    	android:id="@+id/tv_main_rom_date"
 		    	    	android:layout_width="wrap_content"
 		    	    	android:layout_height="wrap_content"
 		    	    	android:text="@string/main_rom_build_date"
-		    	    	android:textAppearance="?android:attr/textAppearanceSmall" />
+		    	    	android:textAppearance="?android:attr/textAppearanceSmall"
+		    	    	android:textColor="?attr/textColorSecondary" />
 		
 		    	<TextView
 		    	    	android:id="@+id/tv_main_android_version"
 		    	    	android:layout_width="wrap_content"
 		    	    	android:layout_height="wrap_content"
 		    	    	android:text="@string/main_android_verison"
-		    	    	android:textAppearance="?android:attr/textAppearanceSmall" />
+		    	    	android:textAppearance="?android:attr/textAppearanceSmall"
+		    	    	android:textColor="?attr/textColorSecondary" />
 		
 		    	<TextView
 		    	    	android:id="@+id/tv_main_rom_developer"
 		    	    	android:layout_width="wrap_content"
 		    	    	android:layout_height="wrap_content"
 		    	    	android:text="@string/main_rom_developer"
-		    	    	android:textAppearance="?android:attr/textAppearanceSmall" />
+		    	    	android:textAppearance="?android:attr/textAppearanceSmall"
+		    	    	android:textColor="?attr/textColorSecondary" />
     	</LinearLayout>
 </android.support.v7.widget.CardView>

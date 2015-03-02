@@ -45,6 +45,9 @@
 		<item name="cardBackground">@color/card_background_holo_dark</item>
 	    
 	    <item name="cardStyle">@style/CardStyle.Dark</item>
+	    
+	    <item name="textColorPrimary">@color/white</item>
+	    <item name="textColorSecondary">@color/grey</item>
     </style>
 
     <style name="ActionBar.Solid.RagnarDark" parent="@android:style/Widget.Holo.ActionBar.Solid">

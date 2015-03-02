@@ -43,6 +43,7 @@
         android:layout_gravity="right"
         android:text="@string/available_progress_counter"
         android:textSize="10sp"
+        android:textColor="?attr/textColorSecondary"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -52,6 +53,7 @@
         android:layout_gravity="right"
         android:text="@string/available_md5"
         android:textSize="10sp"
+        android:textColor="?attr/textColorSecondary"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -82,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="false"
                 android:text="@string/available_changelog_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?attr/textColorSecondary" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

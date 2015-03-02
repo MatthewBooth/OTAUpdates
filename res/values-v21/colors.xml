@@ -26,4 +26,7 @@
     
     <color name="material_background_dark">#1f292f</color>
     <color name="material_background_light">@color/white</color>
+          
+    <color name="card_background_material_dark">#37474f</color>
+    <color name="card_background_material_light">@color/white</color>
 </resources>
