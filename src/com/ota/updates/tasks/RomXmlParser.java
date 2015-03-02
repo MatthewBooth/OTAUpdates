@@ -57,7 +57,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 	boolean tagAndroid = false;
 	boolean tagDeveloper = false;
 	boolean tagWebsite = false;
-	boolean tagPayPalUrl = false;
+	boolean tagDonateUrl = false;
 	boolean tagBitCoinUrl = false;
 	boolean tagFileSize = false;
 	boolean tagRomHut = false;
@@ -136,8 +136,8 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			tagDeveloper = true;
 		}
 
-		if (qName.equalsIgnoreCase("paypalurl")){
-			tagPayPalUrl = true;
+		if (qName.equalsIgnoreCase("donateurl")){
+			tagDonateUrl = true;
 		}
 		
 		if (qName.equalsIgnoreCase("bitcoinurl")){
@@ -243,11 +243,11 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if(DEBUGGING)
 				Log.d(TAG, "Developer = " + input);
 		}
-		if (tagPayPalUrl){
-			RomUpdate.setPayPalLink(mContext, input);
-			tagPayPalUrl = false;
+		if (tagDonateUrl){
+			RomUpdate.setDonateLink(mContext, input);
+			tagDonateUrl = false;
 			if(DEBUGGING)
-				Log.d(TAG, "PayPal URL = " + input);
+				Log.d(TAG, "Donate URL = " + input);
 		}
 		if (tagBitCoinUrl){
 			RomUpdate.setBitCoinLink(mContext, input);

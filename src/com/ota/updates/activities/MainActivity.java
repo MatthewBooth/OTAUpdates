@@ -199,7 +199,7 @@ public class MainActivity extends Activity implements Constants{
 			public void onClick(DialogInterface dialog, int which) {
 				String url = "";
 				if (which == 0) {
-					url = RomUpdate.getPayPalLink(mContext);
+					url = RomUpdate.getDonateLink(mContext);
 				} else {
 					url = RomUpdate.getBitCoinLink(mContext);
 				}
@@ -286,9 +286,9 @@ public class MainActivity extends Activity implements Constants{
 	private void updateDonateLinkLayout() {
 		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
 		donateLink.setVisibility(View.GONE);
-
-		if(!RomUpdate.getPayPalLink(mContext).trim().equals("null") 
-				|| !RomUpdate.getBitCoinLink(mContext).trim().equals("null")){
+		
+		if(!(RomUpdate.getDonateLink(mContext).trim().equals("null")) 
+				|| !(RomUpdate.getBitCoinLink(mContext).trim().equals("null"))){
 			donateLink.setVisibility(View.VISIBLE);
 		}
 	}
@@ -357,12 +357,12 @@ public class MainActivity extends Activity implements Constants{
 
 	public void openDonationPage(View v) {
 		
-		boolean payPalLinkAvailable = RomUpdate.getPayPalLink(mContext).trim().equals("null");
+		boolean payPalLinkAvailable = RomUpdate.getDonateLink(mContext).trim().equals("null");
 		boolean bitCoinLinkAvailable = RomUpdate.getBitCoinLink(mContext).trim().equals("null");
 		if(payPalLinkAvailable && bitCoinLinkAvailable) {
 			mDonateDialog.show();
 		} else if (!payPalLinkAvailable && bitCoinLinkAvailable) {
-			String url = RomUpdate.getPayPalLink(mContext);
+			String url = RomUpdate.getDonateLink(mContext);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse(url));
 			startActivity(intent);			
