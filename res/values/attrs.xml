@@ -26,6 +26,7 @@
 		<attr name="separator" format="reference" />
 		<attr name="browserIcon" format="reference"/>
 		<attr name="donateIcon" format="reference"/>
+		<attr name="checkIcon" format="reference"/>
 		
 		<attr name="noUpdateAvailable" format="color" />
 		<attr name="updateAvailable" format="color" />

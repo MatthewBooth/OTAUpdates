@@ -39,6 +39,7 @@
 		<item name="downloadIcon">@drawable/ic_download_dark</item>
 		<item name="browserIcon">@drawable/ic_web_site_dark</item>
 		<item name="donateIcon">@drawable/ic_donate_dark</item>
+		<item name="checkIcon">@drawable/ic_check_dark</item>
 		<item name="separator">@color/separator_dark</item>
 		<item name="backgroundSelector">@drawable/list_selector_holo_dark</item>
 		

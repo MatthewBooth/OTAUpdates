@@ -35,7 +35,7 @@
 			            android:layout_height="wrap_content"
 			            android:layout_marginEnd="16dp"
 			            android:layout_marginRight="16dp"
-			            android:src="?attr/downloadIcon"
+			            android:src="?attr/checkIcon"
 			            android:contentDescription="@string/main_button_icon" />
 		
 		        <LinearLayout
