@@ -392,7 +392,7 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	public void openCheckForUpdates(View v){
-		this.recreate();
+		new LoadUpdateManifest(mContext, true).execute();
 	}
 
 	public void openDownload(View v){
