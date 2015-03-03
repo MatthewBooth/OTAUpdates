@@ -140,7 +140,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			tagDonateUrl = true;
 		}
 		
-		if (qName.equalsIgnoreCase("bitcoinurl")){
+		if (qName.equalsIgnoreCase("bitcoinaddress")){
 			tagBitCoinUrl = true;
 		}
 
@@ -250,7 +250,12 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 				Log.d(TAG, "Donate URL = " + input);
 		}
 		if (tagBitCoinUrl){
-			RomUpdate.setBitCoinLink(mContext, input);
+			if(input.contains("bitcoin:")) {
+				RomUpdate.setBitCoinLink(mContext, input);
+			} else {
+				RomUpdate.setBitCoinLink(mContext, "bitcoin:" + input);
+			}
+			
 			tagBitCoinUrl = false;
 			if(DEBUGGING)
 				Log.d(TAG, "BitCoin URL = " + input);

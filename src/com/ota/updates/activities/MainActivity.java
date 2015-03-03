@@ -26,6 +26,7 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -62,6 +63,7 @@ public class MainActivity extends Activity implements Constants{
 
 	private Builder mCompatibilityDialog;
 	private Builder mDonateDialog;
+	private Builder mPlayStoreDialog;
 
 	private boolean isLollipop;
 
@@ -205,10 +207,41 @@ public class MainActivity extends Activity implements Constants{
 				}
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse(url));
-				startActivity(intent);
+				
+				try {
+					startActivity(intent);
+				} catch(ActivityNotFoundException ex) {
+					// Nothing to handle BitCoin payments. Send to Play Store
+					if(DEBUGGING)
+						Log.d(TAG, ex.getMessage());
+					
+					mPlayStoreDialog.show();
+				}
 			}
 		})
 		.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		
+		mPlayStoreDialog = new AlertDialog.Builder(mContext);
+		mPlayStoreDialog.setCancelable(true);
+		mPlayStoreDialog.setTitle(R.string.main_playstore_title);
+		mPlayStoreDialog.setMessage(R.string.main_playstore_message);
+		mPlayStoreDialog.setPositiveButton(R.string.ok, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				String url = "https://play.google.com/store/search?q=bitcoin%20wallet&c=apps";
+				intent.setData(Uri.parse(url));
+				startActivity(intent);
+			}
+		});
+		mPlayStoreDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -359,7 +392,7 @@ public class MainActivity extends Activity implements Constants{
 		
 		boolean payPalLinkAvailable = RomUpdate.getDonateLink(mContext).trim().equals("null");
 		boolean bitCoinLinkAvailable = RomUpdate.getBitCoinLink(mContext).trim().equals("null");
-		if(payPalLinkAvailable && bitCoinLinkAvailable) {
+		if(!payPalLinkAvailable && !bitCoinLinkAvailable) {
 			mDonateDialog.show();
 		} else if (!payPalLinkAvailable && bitCoinLinkAvailable) {
 			String url = RomUpdate.getDonateLink(mContext);

@@ -33,7 +33,7 @@
     <string name="available_reboot_confirm">Would you like to reboot now?</string>
     <string name="available_url_error">URL Error: Please see your ROM developer</string>
     <string name="available_reboot_manual_title">Please reboot now</string>
-     <string name="available_reboot_manual_message">Please reboot to recovery and flash your ROM.\n\nYou can find it in /sdcard/Downloads</string>
+    <string name="available_reboot_manual_message">Please reboot to recovery and flash your ROM.\n\nYou can find it in /sdcard/Downloads</string>
     
     <string name="available_wrong_network_title">Wrong network selected</string>
     <string name="available_wrong_network_message">You are trying to download over your mobile network, and the settings only allow Wi-Fi. Please change the settings accordingly.</string>

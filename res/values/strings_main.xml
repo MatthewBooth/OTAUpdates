@@ -26,7 +26,7 @@
     <string name="main_donate">Donate</string>
     <string name="main_donate_summary">Donate to the ROM developer</string>
     <string name="main_tap_to_download">Tap to download</string>
-     <string name="main_download_completed_details">Download Complete. Tap for details</string>
+    <string name="main_download_completed_details">Download Complete. Tap for details</string>
     <string name="main_last_checked">Last checked for an update at</string>
     
     <!-- ROM Information -->
@@ -43,6 +43,8 @@
     <string name="main_not_compatible_message">This ROM is not compatible with OTA Updates. Please contact your developer for more information</string>
     <string name="main_not_connected_title">Not connected</string>
     <string name="main_not_connected_message">You are not connected to any network. Please enable your network or WiFi and try again.</string>
+    <string name="main_playstore_title">BitCoin</string>
+    <string name="main_playstore_message">You do not have any available apps to handle the \"bitcoin:\" mime-type.\n\nWould you like to search the Google dPlay Store to find one?</string>
     
     
     <!-- Content Descriptions -->
