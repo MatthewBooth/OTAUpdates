@@ -27,8 +27,8 @@
 		<attr name="browserIcon" format="reference"/>
 		<attr name="donateIcon" format="reference"/>
 		
-		<attr name="colorHoloRed" format="color" />
-		<attr name="colorHoloGreen" format="color" />
+		<attr name="noUpdateAvailable" format="color" />
+		<attr name="updateAvailable" format="color" />
 		<attr name="colorHoloBlue" format="color" />
 		
 		<attr name="cardStyle" format="reference" />

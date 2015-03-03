@@ -19,15 +19,14 @@
 
     <style name="Theme.RagnarDark" parent="@android:Theme.Material">
         <!-- Styleables -->
-		<item name="colorHoloRed">@color/material_red_500</item>
-		<item name="colorHoloGreen">@color/material_teal_500</item>
-		<item name="colorHoloBlue">@color/material_cyan_500</item>
+		<item name="noUpdateAvailable">@color/material_red_200</item>
+		<item name="updateAvailable">@color/material_light_green_500</item>
 		
 		<item name="helpIcon">@drawable/ic_about_dark</item>
 		<item name="settingsIcon">@drawable/ic_settings_dark</item>		
-		<item name="downloadIcon">@drawable/ic_download_dark</item>
-		<item name="browserIcon">@drawable/ic_web_site_dark</item>
-		<item name="donateIcon">@drawable/ic_donate_dark</item>
+		<item name="downloadIcon">@drawable/drawable_download</item>
+		<item name="browserIcon">@drawable/drawable_website</item>
+		<item name="donateIcon">@drawable/drawable_donate</item>
 		<item name="separator">@color/separator_dark</item>
 		<item name="backgroundRippleSelector">@drawable/ripple_selector_dark</item>
 		
@@ -36,11 +35,12 @@
 	    <item name="android:colorPrimaryDark">@color/material_primary_dark</item>
 	    <item name="colorPrimary">@color/material_primary</item>
 	    <item name="colorPrimaryDark">@color/material_primary_dark</item>
-	    <item name="android:colorAccent">@color/material_accent</item>	    
+	    <item name="android:colorAccent">@color/accent_material_dark</item>	    
 	    <item name="android:windowBackground">@drawable/material_background_dark</item>
 	    <item name="cardBackground">@color/card_background_material_dark</item>
-	    <item name="textColorPrimary">@color/white</item>
-	    <item name="textColorSecondary">@color/grey</item>
+	    <item name="textColorPrimary">@color/primary_text_material_dark</item>
+	    <item name="textColorSecondary">@color/secondary_text_material_dark</item>
+	    <item name="materialAccent">@color/accent_material_dark</item>
 	    
 	    <item name="cardStyle">@style/CardStyle.Dark</item>
 	    

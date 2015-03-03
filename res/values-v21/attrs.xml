@@ -20,5 +20,6 @@
 		<attr name="colorPrimaryDark" format="color" />
 		<attr name="menuTheme" format="reference" />
 		<attr name="backgroundRippleSelector" format="reference" />
+		<attr name="materialAccent" format="color" />
 	</declare-styleable>
 </resources>

@@ -30,8 +30,8 @@
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.RagnarDark</item>
         
         <!-- Styleables -->
-		<item name="colorHoloRed">@color/holo_red_light</item>
-		<item name="colorHoloGreen">@color/holo_green_light</item>
+		<item name="noUpdateAvailable">@color/holo_red_dark</item>
+		<item name="updateAvailable">@color/holo_green_dark</item>
 		<item name="colorHoloBlue">@color/holo_blue_light</item>
 
 		<item name="helpIcon">@drawable/ic_about_dark</item>

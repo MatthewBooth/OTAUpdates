@@ -48,7 +48,7 @@
 						        android:layout_height="wrap_content"
 						        android:text="@string/main_update_available"
 						        android:textAppearance="?android:attr/textAppearanceMedium"
-						        android:textColor="@color/holo_green_light" />
+						        android:textColor="?attr/updateAvailable" />
 						
 						<TextView
 						         android:id="@+id/main_tv_update_available_summary"

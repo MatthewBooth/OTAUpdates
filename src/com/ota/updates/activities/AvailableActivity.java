@@ -356,8 +356,14 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		if(isRomHut) {
 			TextView sponsoredBy = (TextView) findViewById(R.id.tv_available_romhut);
 			sponsoredBy.setText(romHutText);
-			if(Utils.isLollipop()){			
-				sponsoredBy.setTextColor(getResources().getColor(R.color.material_teal_500));
+			if(Utils.isLollipop()){	
+				int color;
+				if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+					color = getResources().getColor(R.color.material_deep_teal_500);
+				} else {
+					color = getResources().getColor(R.color.material_deep_teal_200);
+				}
+				sponsoredBy.setTextColor(color);
 			} else {
 				sponsoredBy.setTextColor(getResources().getColor(R.color.holo_blue_light));
 			}
@@ -371,7 +377,13 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		String filename = RomUpdate.getFilename(mContext);
 
 		if(Utils.isLollipop()){
-			updateNameInfoText.setTextColor(getResources().getColor(R.color.material_teal_500));
+			int color;
+			if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+				color = getResources().getColor(R.color.material_deep_teal_500);
+			} else {
+				color = getResources().getColor(R.color.material_deep_teal_200);
+			}
+			updateNameInfoText.setTextColor(color);
 		} else {
 			updateNameInfoText.setTextColor(getResources().getColor(R.color.holo_blue_light));
 		}
@@ -439,8 +451,14 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
 			String ready = mContext.getResources().getString(R.string.available_ready_to_install);
 
-			if(Utils.isLollipop()){			
-				mProgressCounterText.setTextColor(res.getColor(R.color.material_teal_500));
+			if(Utils.isLollipop()) {
+				int color;
+				if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+					color = mContext.getResources().getColor(R.color.material_deep_teal_500);
+				} else {
+					color = mContext.getResources().getColor(R.color.material_deep_teal_200);
+				}
+				mProgressCounterText.setTextColor(color);
 			} else {
 				mProgressCounterText.setTextColor(res.getColor(R.color.holo_blue_light));
 			}

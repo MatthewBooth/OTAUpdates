@@ -67,7 +67,11 @@ public class AboutActivity extends Activity {
 
 		String openHTML = "";
 		if(Utils.isLollipop()){
-			openHTML = "<font color='#009688'>";
+			if(Preferences.getCurrentTheme(this) == 0) { // Light
+				openHTML = "<font color='#009688'>";
+			} else {
+				openHTML = "<font color='#80cbc4'>";
+			}
 		} else {
 			openHTML = "<font color='#33b5e5'>";
 		}

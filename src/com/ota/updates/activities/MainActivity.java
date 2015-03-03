@@ -269,7 +269,11 @@ public class MainActivity extends Activity implements Constants{
 			if(Preferences.getDownloadFinished(mContext)){ //  Update already finished?
 				String htmlColorOpen = "";
 				if(isLollipop){
-					htmlColorOpen = "<font color='#009688'>";
+					if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+						htmlColorOpen = "<font color='#009688'>";
+					} else {
+						htmlColorOpen = "<font color='#80cbc4'>";
+					}
 				} else {
 					htmlColorOpen = "<font color='#33b5e5'>";
 				}
@@ -283,7 +287,11 @@ public class MainActivity extends Activity implements Constants{
 			} else {
 				String htmlColorOpen = "";
 				if(isLollipop){
-					htmlColorOpen = "<font color='#009688'>";
+					if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+						htmlColorOpen = "<font color='#009688'>";
+					} else {
+						htmlColorOpen = "<font color='#80cbc4'>";
+					}
 				} else {
 					htmlColorOpen = "<font color='#33b5e5'>";
 				}
@@ -338,7 +346,11 @@ public class MainActivity extends Activity implements Constants{
 	private void updateRomInformation(){
 		String htmlColorOpen = "";
 		if(isLollipop){
-			htmlColorOpen = "<font color='#009688'>";
+			if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+				htmlColorOpen = "<font color='#009688'>";
+			} else {
+				htmlColorOpen = "<font color='#80cbc4'>";
+			}
 		} else {
 			htmlColorOpen = "<font color='#33b5e5'>";
 		}
