@@ -34,20 +34,20 @@ public class Tools implements Constants{
     
     public final String TAG = this.getClass().getSimpleName();
 
-	public static void recovery(){
+	public static void recovery() {
 		rebootPhone("recovery");
 	}
 
 	public static String shell(String cmd, boolean root) {
     	String out = "";
     	ArrayList<String> r = system(root ? getSuBin() : "sh",cmd).getStringArrayList("out");
-    	for(String l: r){
+    	for(String l: r) {
     		out += l+"\n";
     	}
     	return out;
 	}
 
-	public static void getRoot(){
+	public static void getRoot() {
 			RootTools.isAccessGiven();
 	}
 	
@@ -55,19 +55,19 @@ public class Tools implements Constants{
 		return RootTools.isRootAvailable();
 	}
 	
-	private static void rebootPhone(String type){
+	private static void rebootPhone(String type) {
 		shell("reboot "+type, true);
 	}
 
-	private static boolean isUiThread(){
+	private static boolean isUiThread() {
     	return (Looper.myLooper() == Looper.getMainLooper());
     }
 	
-    private static String getSuBin(){
-    	if(new File("/system/xbin","su").exists()){
+    private static String getSuBin() {
+    	if(new File("/system/xbin","su").exists()) {
     		return "/system/xbin/su";
     	}
-    	if(RootTools.isRootAvailable()){
+    	if(RootTools.isRootAvailable()) {
     		return "su";
     	}
     	return "sh";
@@ -114,7 +114,7 @@ public class Tools implements Constants{
 			
 			process.destroy();
     		success = true;
-    		if(err.size() > 0){
+    		if(err.size() > 0) {
     			success = false;
     		}
 		} catch (IOException e) {

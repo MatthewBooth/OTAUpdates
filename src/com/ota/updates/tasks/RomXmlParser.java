@@ -41,11 +41,11 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 
 	public final String TAG = this.getClass().getSimpleName();
 
-	StringBuffer value = new StringBuffer();;
-	Context mContext;
+	private StringBuffer value = new StringBuffer();;
+	private Context mContext;
 
-	int filesize;
-	String filesizeStr;
+	private int filesize;
+	private String filesizeStr;
 
 	boolean tagRomName = false;
 	boolean tagVersionName = false;
@@ -104,7 +104,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			tagVersionName = true;
 		}
 		
-		if (qName.equalsIgnoreCase("versionnumber")){
+		if (qName.equalsIgnoreCase("versionnumber")) {
 			tagVersionNumber = true;
 		}
 
@@ -124,30 +124,30 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			tagLog = true;
 		}
 
-		if (qName.equalsIgnoreCase("android")){
+		if (qName.equalsIgnoreCase("android")) {
 			tagAndroid = true;
 		}
 
-		if (qName.equalsIgnoreCase("websiteurl")){
+		if (qName.equalsIgnoreCase("websiteurl")) {
 			tagWebsite = true;
 		}
 
-		if (qName.equalsIgnoreCase("developer")){
+		if (qName.equalsIgnoreCase("developer")) {
 			tagDeveloper = true;
 		}
 
-		if (qName.equalsIgnoreCase("donateurl")){
+		if (qName.equalsIgnoreCase("donateurl")) {
 			tagDonateUrl = true;
 		}
 		
-		if (qName.equalsIgnoreCase("bitcoinaddress")){
+		if (qName.equalsIgnoreCase("bitcoinaddress")) {
 			tagBitCoinUrl = true;
 		}
 
-		if (qName.equalsIgnoreCase("filesize")){
+		if (qName.equalsIgnoreCase("filesize")) {
 			tagFileSize = true;
 		}
-		if (qName.equalsIgnoreCase("romhut")){
+		if (qName.equalsIgnoreCase("romhut")) {
 			tagRomHut = true;
 		}
 
@@ -179,7 +179,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 				Log.d(TAG, "Version = " + input);
 		}
 		
-		if (tagVersionNumber){
+		if (tagVersionNumber) {
 			RomUpdate.setVersionNumber(mContext, Integer.parseInt(input));
 			tagVersionNumber = false;
 			if(DEBUGGING)
@@ -230,26 +230,26 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 				Log.d(TAG, "Android Version = " + input);
 		}
 
-		if (tagWebsite){
+		if (tagWebsite) {
 			RomUpdate.setWebsite(mContext, input);
 			tagWebsite = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Website = " + input);
 		}
 
-		if(tagDeveloper){
+		if(tagDeveloper) {
 			RomUpdate.setDeveloper(mContext, input);
 			tagDeveloper = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Developer = " + input);
 		}
-		if (tagDonateUrl){
+		if (tagDonateUrl) {
 			RomUpdate.setDonateLink(mContext, input);
 			tagDonateUrl = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Donate URL = " + input);
 		}
-		if (tagBitCoinUrl){
+		if (tagBitCoinUrl) {
 			if(input.contains("bitcoin:")) {
 				RomUpdate.setBitCoinLink(mContext, input);
 			} else {
@@ -260,13 +260,13 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if(DEBUGGING)
 				Log.d(TAG, "BitCoin URL = " + input);
 		}
-		if (tagFileSize){
+		if (tagFileSize) {
 			RomUpdate.setFileSize(mContext, Integer.parseInt(input));
 			tagFileSize = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Filesize = " + input);
 		}
-		if (tagRomHut){
+		if (tagRomHut) {
 			RomUpdate.setRomHut(mContext, input);
 			tagRomHut = false;
 			if(DEBUGGING)

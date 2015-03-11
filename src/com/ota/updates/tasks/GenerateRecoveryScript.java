@@ -31,14 +31,14 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
     public final String TAG = this.getClass().getSimpleName();
     
     private Context mContext;
-    ProgressDialog mLoadingDialog;
+    private ProgressDialog mLoadingDialog;
     private StringBuilder mScript = new StringBuilder();
     private static String mScriptFile = "/cache/recovery/openrecoveryscript";
     private static String NEW_LINE = "\n";   
     private String mFilename;;
     private String mScriptOutput;
     
-    public GenerateRecoveryScript(Context context){
+    public GenerateRecoveryScript(Context context) {
         mContext = context;
         mFilename = RomUpdate.getFilename(mContext) + ".zip";
     }
@@ -51,19 +51,19 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
         mLoadingDialog.setMessage(mContext.getString(R.string.rebooting));
         mLoadingDialog.show();
         
-        if(Preferences.getWipeData(mContext)){
+        if(Preferences.getWipeData(mContext)) {
         	mScript.append("wipe data" + NEW_LINE);
         }
-        if(Preferences.getWipeCache(mContext)){
+        if(Preferences.getWipeCache(mContext)) {
         	mScript.append("wipe cache" + NEW_LINE);
         }
-        if(Preferences.getWipeDalvik(mContext)){
+        if(Preferences.getWipeDalvik(mContext)) {
         	mScript.append("wipe dalvik" + NEW_LINE);
         }
         
         mScript.append("install " + "/sdcard/Download/" +  mFilename + NEW_LINE);
         
-        if(Preferences.getDeleteAfterInstall(mContext)){
+        if(Preferences.getDeleteAfterInstall(mContext)) {
         	mScript.append("cmd rm -rf " + "/sdcard/Download/" +  mFilename + NEW_LINE);
         }
         mScriptOutput = mScript.toString();

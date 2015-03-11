@@ -31,10 +31,10 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 	
 	public final String TAG = this.getClass().getSimpleName();
 
-	Context mContext;
-	DownloadManager mDownloadManager;
+	private Context mContext;
+	private DownloadManager mDownloadManager;
 	
-	public UpdateProgress(Context context, DownloadManager downloadManager){
+	public UpdateProgress(Context context, DownloadManager downloadManager) {
 		mContext = context;
 		mDownloadManager = downloadManager;
 	}
@@ -42,7 +42,7 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 	@Override
 	protected Void doInBackground(Long... params) {
 		int previousValue = 0;
-		while(Preferences.getIsDownloadOnGoing(mContext)){
+		while(Preferences.getIsDownloadOnGoing(mContext)) {
 			long mDownloadID = Preferences.getDownloadID(mContext);
 			DownloadManager.Query q = new DownloadManager.Query();
 			q.setFilterById(mDownloadID);
@@ -61,7 +61,7 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 
 				final int progressPercent = (int) ((bytesDownloaded * 100l) / bytesInTotal);
 				
-				if(progressPercent != previousValue){
+				if(progressPercent != previousValue) {
 					// Only publish every 1%, to reduce the amount of work being done.
 					publishProgress(progressPercent, bytesDownloaded, bytesInTotal);
 					previousValue = progressPercent;

@@ -49,7 +49,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		if(DEBUGGING)
 			Log.v(TAG, "Receiving " + mDownloadID);
 
-		if(action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
+		if(action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
 			long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0L);
 			if (id != mDownloadID) {
 				if(DEBUGGING)
@@ -74,7 +74,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 				if(DEBUGGING)
 					Log.w(TAG, "Download Failed");
 				Preferences.setDownloadFinished(context, false);
-				if(Utils.isLollipop()){
+				if(Utils.isLollipop()) {
 					AvailableActivity.setupMenuToolbar(); // Reset options menu
 				} else {
 					AvailableActivity.invalidateMenu();
@@ -85,7 +85,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 					Log.v(TAG, "Download Succeeded");
 				Preferences.setDownloadFinished(context, true);
 				AvailableActivity.setupProgress(context.getResources());
-				if(Utils.isLollipop()){
+				if(Utils.isLollipop()) {
 					AvailableActivity.setupMenuToolbar(); // Reset options menu
 				} else {
 					AvailableActivity.invalidateMenu();
@@ -94,7 +94,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			}
 		}
 
-		if(action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)){
+		if(action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
 			long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0L);
 			if (id != mDownloadID) {
 				if(DEBUGGING)
@@ -106,14 +106,14 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			}
 		}
 
-		if(action.equals(MANIFEST_CHECK_BACKGROUND)){
+		if(action.equals(MANIFEST_CHECK_BACKGROUND)) {
 			if(DEBUGGING)
 				Log.d(TAG, "Receiving background check confirmation");
 
 			boolean updateAvailable = RomUpdate.getUpdateAvailability(context);
 			String filename = RomUpdate.getFilename(context);
 
-			if(updateAvailable){
+			if(updateAvailable) {
 				Utils.setupNotification(context, filename);
 				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
@@ -125,19 +125,19 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			new LoadUpdateManifest(context, false).execute();
 		}
 
-		if(action.equals(Intent.ACTION_BOOT_COMPLETED)){
+		if(action.equals(Intent.ACTION_BOOT_COMPLETED)) {
 			if(DEBUGGING) {
 				Log.d(TAG, "Boot received");
 			}
 			boolean backgroundCheck = Preferences.getBackgroundService(context);
-			if(backgroundCheck){
+			if(backgroundCheck) {
 				if(DEBUGGING)
 					Log.d(TAG, "Starting background check alarm");
 				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
 		}
 
-        if(action.equals(IGNORE_RELEASE)){
+        if(action.equals(IGNORE_RELEASE)) {
             if(DEBUGGING) {
                 Log.d(TAG, "Ignore release");
             }

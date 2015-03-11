@@ -35,75 +35,75 @@ public class Preferences implements Constants{
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-	public static String getUpdateLastChecked(Context context, String time){
+	public static String getUpdateLastChecked(Context context, String time) {
         return getPrefs(context).getString(LAST_CHECKED, time);
     }
 	
-	public static boolean getDownloadFinished(Context context){
+	public static boolean getDownloadFinished(Context context) {
 		return getPrefs(context).getBoolean(IS_DOWNLOAD_FINISHED, false);
 	}
 
-	public static boolean getDeleteAfterInstall(Context context){
+	public static boolean getDeleteAfterInstall(Context context) {
 		return getPrefs(context).getBoolean(DELETE_AFTER_INSTALL, false);
 	}
 	
-	public static boolean getWipeData(Context context){
+	public static boolean getWipeData(Context context) {
 		return getPrefs(context).getBoolean(WIPE_DATA, false);
 	}
 	
-	public static boolean getWipeCache(Context context){
+	public static boolean getWipeCache(Context context) {
 		return getPrefs(context).getBoolean(WIPE_CACHE, true);
 	}
 	
-	public static boolean getWipeDalvik(Context context){
+	public static boolean getWipeDalvik(Context context) {
 		return getPrefs(context).getBoolean(WIPE_DALVIK, true);
 	}
 	
-	public static boolean getMD5Passed(Context context){
+	public static boolean getMD5Passed(Context context) {
 		return getPrefs(context).getBoolean(MD5_PASSED, false);
 	}
 	
-	public static boolean getHasMD5Run(Context context){
+	public static boolean getHasMD5Run(Context context) {
 		return getPrefs(context).getBoolean(MD5_RUN, false);
 	}
 	
-	public static boolean getIsDownloadOnGoing(Context context){
+	public static boolean getIsDownloadOnGoing(Context context) {
 		return getPrefs(context).getBoolean(DOWNLOAD_RUNNING, false);
 	}
 	
-	public static String getNetworkType(Context context){
+	public static String getNetworkType(Context context) {
 		return getPrefs(context).getString(NETWORK_TYPE, "2");
 	}
 	
-	public static long getDownloadID(Context context){
+	public static long getDownloadID(Context context) {
 		return getPrefs(context).getLong(DOWNLOAD_ID, 0L);
 	}
 	
-	public static String getNotificationSound(Context context){
+	public static String getNotificationSound(Context context) {
 		String defValue = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString();
         return getPrefs(context).getString(NOTIFICATIONS_SOUND, defValue);
     }
 	
-	public static Boolean getNotificationVibrate(Context context){
+	public static Boolean getNotificationVibrate(Context context) {
         return getPrefs(context).getBoolean(NOTIFICATIONS_VIBRATE, true);
     }
 	
-	public static boolean getBackgroundService(Context context){
+	public static boolean getBackgroundService(Context context) {
 		if(DEBUGGING)
 			Log.d(TAG, "Background Service set to " + getPrefs(context).getBoolean(UPDATER_BACK_SERVICE, true));
 	    return getPrefs(context).getBoolean(UPDATER_BACK_SERVICE, true);
 	}
 	
-	public static int getBackgroundFrequency(Context context){
+	public static int getBackgroundFrequency(Context context) {
 	    return Integer.parseInt(getPrefs(context).getString(UPDATER_BACK_FREQ, "43200"));
 	}
 	
-	public static boolean getORSEnabled(Context context){
+	public static boolean getORSEnabled(Context context) {
 		Log.d(TAG, "ORS Enabled Preference " + getPrefs(context).getBoolean(UPDATER_ENABLE_ORS, false));
 		return getPrefs(context).getBoolean(UPDATER_ENABLE_ORS, false);
 	}
 	
-	public static int getCurrentTheme(Context context){
+	public static int getCurrentTheme(Context context) {
 		if(Utils.isLollipop()) {
 			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "0")); // #0 is the Light Theme
 		} else {
@@ -149,93 +149,93 @@ public class Preferences implements Constants{
         }
     }
 
-    public static String getIgnoredRelease(Context context){
+    public static String getIgnoredRelease(Context context) {
         return getPrefs(context).getString(IGNORE_RELEASE_VERSION, "0");
     }
     
-    public static Boolean getAdsEnabled(Context context){
+    public static Boolean getAdsEnabled(Context context) {
         return getPrefs(context).getBoolean(ADS_ENABLED, true);
     }
 
-	public static void setUpdateLastChecked(Context context, String time){
+	public static void setUpdateLastChecked(Context context, String time) {
 	    SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(LAST_CHECKED, time);
         editor.commit();
 	}
 	
-	public static void setDownloadFinished(Context context, boolean value){
+	public static void setDownloadFinished(Context context, boolean value) {
 	    SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(IS_DOWNLOAD_FINISHED, value);
         editor.commit();
 	}
 	
-	public static void setTheme(Context context, String value){
+	public static void setTheme(Context context, String value) {
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(CURRENT_THEME, value);
         editor.commit();
     }
 	
-	public static void setDeleteAfterInstall(Context context, boolean value){
+	public static void setDeleteAfterInstall(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(DELETE_AFTER_INSTALL, value);
         editor.commit();
 	}
 	
-	public static void setWipeData(Context context, boolean value){
+	public static void setWipeData(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(WIPE_DATA, value);
         editor.commit();
 	}
 	
-	public static void setWipeCache(Context context, boolean value){
+	public static void setWipeCache(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(WIPE_CACHE, value);
         editor.commit();
 	}
 	
-	public static void setWipeDalvik(Context context, boolean value){
+	public static void setWipeDalvik(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(WIPE_DALVIK, value);
         editor.commit();
 	}
 	
-	public static void setMD5Passed(Context context, boolean value){
+	public static void setMD5Passed(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(MD5_PASSED, value);
         editor.commit();
 	}
 	
-	public static void setHasMD5Run(Context context, boolean value){
+	public static void setHasMD5Run(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(MD5_RUN, value);
         editor.commit();
 	}
 	
-	public static void setIsDownloadRunning(Context context, boolean value){
+	public static void setIsDownloadRunning(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(DOWNLOAD_RUNNING, value);
         editor.commit();
 	}
 	
-	public static void setNetworkType(Context context, String value){
+	public static void setNetworkType(Context context, String value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(NETWORK_TYPE, value);
         editor.commit();
 	}
 	
-	public static void setDownloadID(Context context, long value){
+	public static void setDownloadID(Context context, long value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putLong(DOWNLOAD_ID, value);
         editor.commit();
 	}
 	
-	public static void setBackgroundFrequency(Context context, String value){
+	public static void setBackgroundFrequency(Context context, String value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(UPDATER_BACK_FREQ, value);
         editor.commit();
 	}
 
-    public static void setIgnoredRelease(Context context, String value){
+    public static void setIgnoredRelease(Context context, String value) {
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(IGNORE_RELEASE_VERSION, value);
         editor.commit();

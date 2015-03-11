@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements Constants{
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 
-			if(action.equals(MANIFEST_LOADED)){
+			if(action.equals(MANIFEST_LOADED)) {
 				// Reloads layouts to reflect the updated manifest information
 				updateDonateLinkLayout();
 				updateRomInformation();
@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements Constants{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ota_main);
 
-		if(isLollipop){
+		if(isLollipop) {
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
 			setActionBar(toolbar);
 			toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -119,7 +119,7 @@ public class MainActivity extends Activity implements Constants{
 
 		// Check the correct build prop values are installed
 		// Also executes the manifest/update check
-		if(!Utils.isConnected(mContext)){
+		if(!Utils.isConnected(mContext)) {
 			Builder notConnectedDialog = new Builder(mContext);
 			notConnectedDialog.setTitle(R.string.main_not_connected_title)
 			.setMessage(R.string.main_not_connected_message)
@@ -152,13 +152,13 @@ public class MainActivity extends Activity implements Constants{
 	}
 
 	@Override
-	public void onStart(){
+	public void onStart() {
 		super.onStart();
 		this.registerReceiver(mReceiver, new IntentFilter(MANIFEST_LOADED));
 	}
 
 	@Override
-	public void onStop(){
+	public void onStop() {
 		super.onStop();
 		this.unregisterReceiver(mReceiver);
 	}
@@ -202,7 +202,7 @@ public class MainActivity extends Activity implements Constants{
 			return false;
 	}
 
-	private void createDialogs(){
+	private void createDialogs() {
 		// Compatibility Dialog
 		mCompatibilityDialog = new AlertDialog.Builder(mContext);
 		mCompatibilityDialog.setCancelable(false);
@@ -276,7 +276,7 @@ public class MainActivity extends Activity implements Constants{
 		});
 	}
 
-	private void updateRomUpdateLayouts(){
+	private void updateRomUpdateLayouts() {
 		View updateAvailable;
 		View updateNotAvailable;
 		updateAvailable = (CardView) findViewById(R.id.layout_main_update_available);
@@ -289,12 +289,12 @@ public class MainActivity extends Activity implements Constants{
 
 		// Update is available
 		if(RomUpdate.getUpdateAvailability(mContext) ||
-                (!RomUpdate.getUpdateAvailability(mContext)) && Utils.isUpdateIgnored(mContext)){
+                (!RomUpdate.getUpdateAvailability(mContext)) && Utils.isUpdateIgnored(mContext)) {
 			updateAvailable.setVisibility(View.VISIBLE);
 
-			if(Preferences.getDownloadFinished(mContext)){ //  Update already finished?
+			if(Preferences.getDownloadFinished(mContext)) { //  Update already finished?
 				String htmlColorOpen = "";
-				if(isLollipop){
+				if(isLollipop) {
 					if(Preferences.getCurrentTheme(mContext) == 0) { // Light
 						htmlColorOpen = "<font color='#009688'>";
 					} else {
@@ -312,7 +312,7 @@ public class MainActivity extends Activity implements Constants{
 				updateAvailableSummary.setText(Html.fromHtml(updateSummary));
 			} else {
 				String htmlColorOpen = "";
-				if(isLollipop){
+				if(isLollipop) {
 					if(Preferences.getCurrentTheme(mContext) == 0) { // Light
 						htmlColorOpen = "<font color='#009688'>";
 					} else {
@@ -338,7 +338,7 @@ public class MainActivity extends Activity implements Constants{
 			Locale locale = Locale.getDefault();
 			String time = "";
 
-			if(is24){
+			if(is24) {
 				time = new SimpleDateFormat("d, MMMM HH:mm", locale).format(now);
 			} else {
 				time = new SimpleDateFormat("d, MMMM hh:mm a", locale).format(now);
@@ -355,7 +355,7 @@ public class MainActivity extends Activity implements Constants{
 		donateLink.setVisibility(View.GONE);
 		
 		if(!(RomUpdate.getDonateLink(mContext).trim().equals("null")) 
-				|| !(RomUpdate.getBitCoinLink(mContext).trim().equals("null"))){
+				|| !(RomUpdate.getBitCoinLink(mContext).trim().equals("null"))) {
 			donateLink.setVisibility(View.VISIBLE);
 		}
 	}
@@ -364,14 +364,14 @@ public class MainActivity extends Activity implements Constants{
 		CardView webLink = (CardView) findViewById(R.id.layout_main_dev_website);
 		webLink.setVisibility(View.GONE);
 
-		if(!RomUpdate.getWebsite(mContext).trim().equals("null")){
+		if(!RomUpdate.getWebsite(mContext).trim().equals("null")) {
 			webLink.setVisibility(View.VISIBLE);
 		}
 	}
 
-	private void updateRomInformation(){
+	private void updateRomInformation() {
 		String htmlColorOpen = "";
-		if(isLollipop){
+		if(isLollipop) {
 			if(Preferences.getCurrentTheme(mContext) == 0) { // Light
 				htmlColorOpen = "<font color='#009688'>";
 			} else {
@@ -417,11 +417,11 @@ public class MainActivity extends Activity implements Constants{
 
 	}
 
-	public void openCheckForUpdates(View v){
+	public void openCheckForUpdates(View v) {
 		new LoadUpdateManifest(mContext, true).execute();
 	}
 
-	public void openDownload(View v){
+	public void openDownload(View v) {
 		Intent intent = new Intent(mContext, AvailableActivity.class);
 		startActivity(intent);
 	}
@@ -437,7 +437,7 @@ public class MainActivity extends Activity implements Constants{
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse(url));
 			startActivity(intent);			
-		} else if (payPalLinkAvailable && !bitCoinLinkAvailable){
+		} else if (payPalLinkAvailable && !bitCoinLinkAvailable) {
 			String url = RomUpdate.getBitCoinLink(mContext);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse(url));
@@ -447,19 +447,19 @@ public class MainActivity extends Activity implements Constants{
 		}
 	}
 
-	public void openWebsitePage(View v){
+	public void openWebsitePage(View v) {
 		String url = RomUpdate.getWebsite(mContext);
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse(url));
 		startActivity(intent);
 	}
 
-	public void openSettings(View v){
+	public void openSettings(View v) {
 		Intent intent = new Intent(mContext, SettingsActivity.class);
 		startActivity(intent);
 	}
 
-	public void openHelp (View v){
+	public void openHelp (View v) {
 		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
 	}
@@ -471,7 +471,7 @@ public class MainActivity extends Activity implements Constants{
 		private Context mContext;
 		private String mPropName;
 
-		public CompatibilityTask(Context context){
+		public CompatibilityTask(Context context) {
 			mContext = context;
 			mPropName = mContext.getResources().getString(R.string.prop_name);
 		}
@@ -484,7 +484,7 @@ public class MainActivity extends Activity implements Constants{
 		@Override
 		protected void onPostExecute(Boolean result) {
 
-			if(result){
+			if(result) {
 				if(DEBUGGING)
 					Log.d(TAG, "Prop found");
 				new LoadUpdateManifest(mContext, true).execute();

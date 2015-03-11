@@ -75,13 +75,13 @@ public class Utils implements Constants{
 			String line;
 			while ((line = bufferedReader.readLine()) != null) 
 			{
-				if(line.contains("[" + propName +"]")){
+				if(line.contains("[" + propName +"]")) {
 					valid = true;
 				}
 			}
 			bufferedReader.close();
 		} 
-		catch (IOException e){
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		return valid;
@@ -94,7 +94,7 @@ public class Utils implements Constants{
 			p = new ProcessBuilder("/system/bin/getprop", propName).redirectErrorStream(true).start();
 			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line = "";
-			while ((line=br.readLine()) != null){
+			while ((line=br.readLine()) != null) {
 				result = line;
 			}
 			br.close();
@@ -112,7 +112,7 @@ public class Utils implements Constants{
 			output = header + EOL + EOL;
 		}
 
-		for (int i = 0; i < items.length; i++){
+		for (int i = 0; i < items.length; i++) {
 			String text = items[i];
 			SpannableString span = new SpannableString(text + EOL + EOL);
 			span.setSpan(new BulletSpan(20), 0, text.length(), 0);          
@@ -150,25 +150,25 @@ public class Utils implements Constants{
 			Log.d(TAG, "Local filesize " + file.length());
 			Log.d(TAG, "Remote filesize " + filesize);
 		}
-		if(file.length() != 0 && file.length() == filesize){
+		if(file.length() != 0 && file.length() == filesize) {
 			status = true;
 		}		
 		Preferences.setDownloadFinished(context, status);
 	}
 
-	public static void setBackgroundCheck(Context context, boolean set){
+	public static void setBackgroundCheck(Context context, boolean set) {
 		scheduleNotification(context, !set);
 	}
 	
-	public static void scheduleNotification(Context context, boolean cancel){
+	public static void scheduleNotification(Context context, boolean cancel) {
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(context, AppReceiver.class);
 		intent.setAction(START_UPDATE_CHECK);
 		int intentId = 1673;
 		int intentFlag = PendingIntent.FLAG_UPDATE_CURRENT;
 		
-		if(cancel){
-			if(alarmManager != null){
+		if(cancel) {
+			if(alarmManager != null) {
 				if(DEBUGGING)
 					Log.d(TAG, "Cancelling alarm");
 				alarmManager.cancel(PendingIntent.getBroadcast(
@@ -202,7 +202,7 @@ public class Utils implements Constants{
 	}
 
 
-	public static boolean isConnected(Context context){
+	public static boolean isConnected(Context context) {
 		ConnectivityManager cm =
 				(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -211,7 +211,7 @@ public class Utils implements Constants{
 				activeNetwork.isConnectedOrConnecting();
 	}
 
-	public static boolean isMobileNetwork(Context context){
+	public static boolean isMobileNetwork(Context context) {
 		ConnectivityManager cm =
 				(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -220,7 +220,7 @@ public class Utils implements Constants{
 		return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
 	}
 
-	public static boolean isLollipop(){	
+	public static boolean isLollipop() {	
 		return Build.VERSION.SDK_INT >= 21;
 	}
 
@@ -242,7 +242,7 @@ public class Utils implements Constants{
 		return Integer.parseInt(current) < Integer.parseInt(manifest);
 	}
 
-    public static boolean isUpdateIgnored(Context context){
+    public static boolean isUpdateIgnored(Context context) {
         String manifestVer = Integer.toString(RomUpdate.getVersionNumber(context));
         return Preferences.getIgnoredRelease(context).matches(manifestVer);
     }
@@ -254,7 +254,7 @@ public class Utils implements Constants{
 		String manifestVer = Integer.toString(otaVersion);
 
         boolean available;
-        if (Preferences.getIgnoredRelease(context).matches(manifestVer)){
+        if (Preferences.getIgnoredRelease(context).matches(manifestVer)) {
             available = false;
         } else {
             available = DEBUG_NOTIFICATIONS ? true : versionBiggerThan(currentVer, manifestVer);
@@ -265,7 +265,7 @@ public class Utils implements Constants{
 			Log.d(TAG, "Update Availability is " + available);
 	}
 	
-	public static void setupNotification(Context context, String filename){
+	public static void setupNotification(Context context, String filename) {
 		if(DEBUGGING)
 			Log.d(TAG, "Showing notification");	
 		

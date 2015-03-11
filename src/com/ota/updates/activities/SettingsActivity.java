@@ -53,15 +53,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	public final String TAG = this.getClass().getSimpleName();
 	private static final String NOTIFICATIONS_IGNORED_RELEASE = "notifications_ignored_release";
 
-	Context mContext;
-	Preference mDownloadLocation;
-	Builder mInstallPrefsDialog;
-	Preference mInstallPrefs;
-	RingtonePreference mRingtonePreference;
+	private Context mContext;
+	private Builder mInstallPrefsDialog;
+	private Preference mInstallPrefs;
+	private RingtonePreference mRingtonePreference;
 
-	SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
+	private SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
 	
-	SwitchPreference mIgnoredRelease;
+	private SwitchPreference mIgnoredRelease;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
 		setRingtoneSummary(soundValue);
 		
-		if(!Tools.isRootAvailable()){
+		if(!Tools.isRootAvailable()) {
 			SwitchPreference ors = (SwitchPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
 		}
@@ -124,15 +123,15 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			ListPreference listPref = (ListPreference) pref;
 			pref.setSummary(listPref.getEntry());
 
-			if(key.equals(CURRENT_THEME)){
+			if(key.equals(CURRENT_THEME)) {
 				Preferences.setTheme(mContext, listPref.getValue());
 				Intent intent = new Intent(mContext, MainActivity.class);
 				startActivity(intent);
-			} else if(key.equals(UPDATER_BACK_FREQ)){
+			} else if(key.equals(UPDATER_BACK_FREQ)) {
 				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 			}
-		} else if(pref instanceof SwitchPreference){
-			if(key.equals(UPDATER_BACK_SERVICE)){
+		} else if(pref instanceof SwitchPreference) {
+			if(key.equals(UPDATER_BACK_SERVICE)) {
 				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 			}
 		}
@@ -140,7 +139,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		if(preference == mInstallPrefs){
+		if(preference == mInstallPrefs) {
 			showInstallPrefs();
 		} 
 		return false;
@@ -174,7 +173,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		mIgnoredRelease.setSelectable(false);
 	}
 
-	private void showInstallPrefs(){
+	private void showInstallPrefs() {
 		boolean wipeData, wipeCache, wipeDalvik, deleteAfterInstall;
 
 		wipeData = Preferences.getWipeData(mContext);

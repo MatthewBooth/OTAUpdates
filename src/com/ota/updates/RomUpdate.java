@@ -25,7 +25,7 @@ import android.os.Environment;
 
 import com.ota.updates.utils.Constants;
 
-public class RomUpdate implements Constants{
+public class RomUpdate implements Constants {
     
     public final String TAG = this.getClass().getSimpleName();
     
@@ -56,165 +56,165 @@ public class RomUpdate implements Constants{
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public static String getRomName(Context context){
+    public static String getRomName(Context context) {
         return getPrefs(context).getString(NAME, DEF_VALUE);
     }
     
-    public static String getVersionName(Context context){
+    public static String getVersionName(Context context) {
     	return getPrefs(context).getString(VERSION_NAME, DEF_VALUE);
     }
     
-    public static int getVersionNumber(Context context){
+    public static int getVersionNumber(Context context) {
     	return getPrefs(context).getInt(VERSION_NUMBER, 0);
     }
     
-    public static String getDirectUrl(Context context){
+    public static String getDirectUrl(Context context) {
     	return getPrefs(context).getString(DIRECT_URL, DEF_VALUE);
     }
     
-    public static String getHttpUrl(Context context){
+    public static String getHttpUrl(Context context) {
     	return getPrefs(context).getString(HTTP_URL, DEF_VALUE);
     }
     
-    public static String getMd5(Context context){
+    public static String getMd5(Context context) {
     	return getPrefs(context).getString(MD5, DEF_VALUE);
     }
     
-    public static String getChangelog(Context context){
+    public static String getChangelog(Context context) {
     	return getPrefs(context).getString(CHANGELOG, DEF_VALUE);
     }
     
-    public static String getAndroidVersion(Context context){
+    public static String getAndroidVersion(Context context) {
     	return getPrefs(context).getString(ANDROID, DEF_VALUE);
     }
     
-    public static String getWebsite(Context context){
+    public static String getWebsite(Context context) {
     	return getPrefs(context).getString(WEBSITE, DEF_VALUE);
     }
     
-    public static String getDeveloper(Context context){
+    public static String getDeveloper(Context context) {
     	return getPrefs(context).getString(DEVELOPER, DEF_VALUE);
     }
     
-    public static String getDonateLink(Context context){
+    public static String getDonateLink(Context context) {
     	return getPrefs(context).getString(DONATE_LINK, DEF_VALUE);
     }
     
-    public static String getBitCoinLink(Context context){
+    public static String getBitCoinLink(Context context) {
     	return getPrefs(context).getString(BTC_LINK, DEF_VALUE);
     }
     
-    public static int getFileSize(Context context){
+    public static int getFileSize(Context context) {
     	return getPrefs(context).getInt(FILESIZE, 0);
     }
     
-    public static String getRomHut(Context context){
+    public static String getRomHut(Context context) {
     	return getPrefs(context).getString(SPONSORED_ROMHUT, DEF_VALUE);
     }
         
-    public static boolean getUpdateAvailability(Context context){
+    public static boolean getUpdateAvailability(Context context) {
     	return getPrefs(context).getBoolean(AVAILABILITY, false);
     }
     
-    public static void setRomName(Context context, String name){
+    public static void setRomName(Context context, String name) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(NAME, name);
         editor.commit();
     }
     
-    public static void setVersionName(Context context, String version){
+    public static void setVersionName(Context context, String version) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(VERSION_NAME, version);
         editor.commit();
     }
     
-    public static void setVersionNumber(Context context, int version){
+    public static void setVersionNumber(Context context, int version) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putInt(VERSION_NUMBER, version);
         editor.commit();
     }
     
-    public static void setDirectUrl(Context context, String url){
+    public static void setDirectUrl(Context context, String url) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(DIRECT_URL, url);
         editor.commit();
     }
     
-    public static void setHttpUrl(Context context, String url){
+    public static void setHttpUrl(Context context, String url) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(HTTP_URL, url);
         editor.commit();
     }
     
-    public static void setMd5(Context context, String md5){
+    public static void setMd5(Context context, String md5) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(MD5, md5);
         editor.commit();
     }
     
-    public static void setChangelog(Context context, String change){
+    public static void setChangelog(Context context, String change) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(CHANGELOG, change);
         editor.commit();
     }
     
-    public static void setAndroidVersion(Context context, String android){
+    public static void setAndroidVersion(Context context, String android) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(ANDROID, android);
         editor.commit();
     }
     
-    public static void setWebsite(Context context, String website){
+    public static void setWebsite(Context context, String website) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(WEBSITE, website);
         editor.commit();
     }
     
-    public static void setDeveloper(Context context, String developer){
+    public static void setDeveloper(Context context, String developer) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(DEVELOPER, developer);
         editor.commit();
     }
     
-    public static void setDonateLink(Context context, String donateLink){
+    public static void setDonateLink(Context context, String donateLink) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(DONATE_LINK, donateLink);
         editor.commit();
     }
     
-    public static void setBitCoinLink(Context context, String donateLink){
+    public static void setBitCoinLink(Context context, String donateLink) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(BTC_LINK, donateLink);
         editor.commit();
     }
     
-    public static void setFileSize(Context context, int size){
+    public static void setFileSize(Context context, int size) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putInt(FILESIZE, size);
         editor.commit();
     }
     
-    public static void setRomHut(Context context, String romhut_text){
+    public static void setRomHut(Context context, String romhut_text) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(SPONSORED_ROMHUT, romhut_text);
         editor.commit();
     }
 
     
-    public static void setUpdateAvailable(Context context, boolean availability){
+    public static void setUpdateAvailable(Context context, boolean availability) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(AVAILABILITY, availability);
         editor.commit();
     }
     
-    public static String getFilename(Context context){
+    public static String getFilename(Context context) {
 		
     	String result = getVersionName(context);
     	
     	return result.replace(" ","");
     }
     
-    public static File getFullFile(Context context){
+    public static File getFullFile(Context context) {
     	return new File(SD_CARD + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + RomUpdate.getFilename(context) + ".zip");
     }
 }

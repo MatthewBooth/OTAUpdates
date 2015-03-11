@@ -28,15 +28,15 @@ import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 
-public class DownloadRomUpdate implements Constants{
+public class DownloadRomUpdate implements Constants {
 	
 	public final static String TAG = "DownloadRomUpdate";
 
-	public DownloadRomUpdate(){
+	public DownloadRomUpdate() {
 		
 	}
 	
-	public static void startDownload(Context context){
+	public static void startDownload(Context context) {
 		String url = RomUpdate.getDirectUrl(context);
 		String fileName = RomUpdate.getFilename(context) + ".zip";
 		String description = context.getResources().getString(R.string.downloading);
@@ -44,7 +44,7 @@ public class DownloadRomUpdate implements Constants{
 
 		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
-		if(Preferences.getNetworkType(context).equals("2")){
+		if(Preferences.getNetworkType(context).equals("2")) {
 			// All network types are enabled by default
 			// So if we choose Wi-Fi only, then enable the restriction
 			request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
@@ -78,7 +78,7 @@ public class DownloadRomUpdate implements Constants{
 		Preferences.setHasMD5Run(context, false);
 	}
 	
-	public static void cancelDownload(Context context){
+	public static void cancelDownload(Context context) {
 		// Grab the download ID from settings
 		long mDownloadID = Preferences.getDownloadID(context);
 		

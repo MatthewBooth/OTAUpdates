@@ -52,7 +52,7 @@ public class AboutActivity extends Activity {
 		setContentView(R.layout.ota_about);
 
 
-		if(Utils.isLollipop()){
+		if(Utils.isLollipop()) {
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
 			setActionBar(toolbar);
 			toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -71,7 +71,7 @@ public class AboutActivity extends Activity {
 		creditsTitle.setTypeface(typeFace);
 
 		String openHTML = "";
-		if(Utils.isLollipop()){
+		if(Utils.isLollipop()) {
 			if(Preferences.getCurrentTheme(this) == 0) { // Light
 				openHTML = "<font color='#009688'>";
 			} else {

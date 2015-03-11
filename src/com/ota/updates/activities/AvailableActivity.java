@@ -79,7 +79,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		super.onCreate(savedInstanceState);          
 		setContentView(R.layout.ota_available);
 		
-		if(Utils.isLollipop()){
+		if(Utils.isLollipop()) {
 			Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_available_bottom);
 			toolbarBottom.setTitle("");
 		}
@@ -111,7 +111,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			setupMenuToolbar();
 		}
 
-		if(Preferences.getIsDownloadOnGoing(mContext)){
+		if(Preferences.getIsDownloadOnGoing(mContext)) {
 			// If the activity has already been run, and the download started 
 			// Then start updating the progress bar again
 			if(DEBUGGING)
@@ -149,7 +149,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			invalidateOptionsMenu();
 			return true;
 		case R.id.menu_available_install:
-			if(!Tools.isRootAvailable()){
+			if(!Tools.isRootAvailable()) {
 				mRebootManualDialog.show();
 			} else {
 				mRebootDialog.show();
@@ -173,8 +173,8 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		boolean md5HasRun = Preferences.getHasMD5Run(mContext);
 		boolean md5Passed = Preferences.getMD5Passed(mContext);
 
-		if(!downloadFinished){ // Download hasn't finished
-			if(downloadIsRunning){ 
+		if(!downloadFinished) { // Download hasn't finished
+			if(downloadIsRunning) { 
 				// Download is still running
 				downloadMenuItem.setVisible(false);
 				cancelMenuItem.setVisible(true);
@@ -187,15 +187,15 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			}
 		} else { // Download has finished
 			String md5 = RomUpdate.getMd5(mContext);
-			if(!md5.equals("null")){ 
+			if(!md5.equals("null")) { 
 				// Is MD5 being used?
-				if(md5HasRun && md5Passed){
+				if(md5HasRun && md5Passed) {
 					md5MenuItem.setEnabled(false);
 					md5MenuItem.setTitle(R.string.available_md5_ok);
-				} else if (md5HasRun && !md5Passed){
+				} else if (md5HasRun && !md5Passed) {
 					md5MenuItem.setEnabled(false);
 					md5MenuItem.setTitle(R.string.available_md5_failed);
-				} else  if(!md5HasRun){
+				} else  if(!md5HasRun) {
 					md5MenuItem.setEnabled(true);
 				}
 			} else {
@@ -222,7 +222,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			mDeleteDialog.show();
 			break;
 		case R.id.menu_available_install:
-			if(!Tools.isRootAvailable()){
+			if(!Tools.isRootAvailable()) {
 				mRebootManualDialog.show();
 			} else {
 				mRebootDialog.show();
@@ -257,7 +257,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				setupUpdateNameInfo(); // Update name info
 				setupProgress(getResources()); // Progress goes back to 0
 				setupMd5Info(); // MD5 goes back to default
-				if(Utils.isLollipop()){
+				if(Utils.isLollipop()) {
 					setupMenuToolbar(); // Reset options menu
 				} else {
 					invalidateMenu();
@@ -341,7 +341,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}
 	}
 
-	private void setupChangeLog(){
+	private void setupChangeLog() {
 		TextView changelogView = (TextView) findViewById(R.id.tv_available_changelog_content);
 		Bypass byPass = new Bypass(this);
 		String changeLogStr = RomUpdate.getChangelog(mContext);
@@ -350,13 +350,13 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		changelogView.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 	
-	private void setupRomHut(){
+	private void setupRomHut() {
 		String romHutText = RomUpdate.getRomHut(mContext);
 		boolean isRomHut = romHutText != null;
 		if(isRomHut) {
 			TextView sponsoredBy = (TextView) findViewById(R.id.tv_available_romhut);
 			sponsoredBy.setText(romHutText);
-			if(Utils.isLollipop()){	
+			if(Utils.isLollipop()) {	
 				int color;
 				if(Preferences.getCurrentTheme(mContext) == 0) { // Light
 					color = getResources().getColor(R.color.material_deep_teal_500);
@@ -370,13 +370,13 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}
 	}
 
-	private void setupUpdateNameInfo(){
+	private void setupUpdateNameInfo() {
 		boolean isDownloadOnGoing = Preferences.getIsDownloadOnGoing(mContext);
 		TextView updateNameInfoText = (TextView) findViewById(R.id.tv_available_update_name);
 		String downloading = getResources().getString(R.string.available_downloading);
 		String filename = RomUpdate.getFilename(mContext);
 
-		if(Utils.isLollipop()){
+		if(Utils.isLollipop()) {
 			int color;
 			if(Preferences.getCurrentTheme(mContext) == 0) { // Light
 				color = getResources().getColor(R.color.material_deep_teal_500);
@@ -388,25 +388,25 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			updateNameInfoText.setTextColor(getResources().getColor(R.color.holo_blue_light));
 		}
 		
-		if(isDownloadOnGoing){
+		if(isDownloadOnGoing) {
 			updateNameInfoText.setText(downloading); 	
 		} else {			
 			updateNameInfoText.setText(filename); 	
 		}
 	}
 
-	private void setupMd5Info(){
+	private void setupMd5Info() {
 		TextView md5Text = (TextView) findViewById(R.id.tv_available_md5);
 		String md5Prefix = getResources().getString(R.string.available_md5);
 		String md5 = RomUpdate.getMd5(mContext);
-		if(md5.equals("null")){
+		if(md5.equals("null")) {
 			md5Text.setText(md5Prefix + " N/A"); 
 		} else {
 			md5Text.setText(md5Prefix + " " + md5);
 		}  	
 	}
 
-	private void download(){
+	private void download() {
 		String httpUrl = RomUpdate.getHttpUrl(mContext);
 		String directUrl = RomUpdate.getDirectUrl(mContext);
 		String error = getResources().getString(R.string.available_url_error);
@@ -414,17 +414,17 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		boolean isMobile = Utils.isMobileNetwork(mContext);
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
 			
-		if(isMobile && isSettingWiFiOnly){
+		if(isMobile && isSettingWiFiOnly) {
 			mNetworkDialog.show();
 		} else {
 			// We're good, open links or start downloads
-			if(directUrl.equals("null") && !httpUrl.equals("null")){
+			if(directUrl.equals("null") && !httpUrl.equals("null")) {
 				if(DEBUGGING)
 					Log.d(TAG, "HTTP link opening");
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse(httpUrl));
 				startActivity(intent);
-			} else if (directUrl.equals("null") && httpUrl.equals("null")){
+			} else if (directUrl.equals("null") && httpUrl.equals("null")) {
 				if(DEBUGGING)
 					Log.e(TAG, "No links found");
 				Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
@@ -433,7 +433,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 					Log.d(TAG, "Downloading via DownloadManager");
 				DownloadRomUpdate.startDownload(mContext);
 				setupUpdateNameInfo();
-				if(Utils.isLollipop()){
+				if(Utils.isLollipop()) {
 					setupMenuToolbar(); // Reset options menu
 				} else {
 					invalidateMenu();
@@ -442,11 +442,11 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}
 	}
 
-	public static void setupProgress(Resources res){
+	public static void setupProgress(Resources res) {
 		if(DEBUGGING)
 			Log.d(TAG, "Setting up Progress Bars");
 		boolean downloadFinished = Preferences.getDownloadFinished(mContext);
-		if(downloadFinished){
+		if(downloadFinished) {
 			if(DEBUGGING)
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
 			String ready = mContext.getResources().getString(R.string.available_ready_to_install);
@@ -474,7 +474,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}
 	}
 
-	public static void updateProgress(int progress, int downloaded, int total){
+	public static void updateProgress(int progress, int downloaded, int total) {
 		mProgressBar.setProgress((int) progress);
 		mProgressCounterText.setText(
 				Utils.formatDataFromBytes(downloaded) + 
@@ -482,7 +482,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				Utils.formatDataFromBytes(total));
 	}
 
-	public static void invalidateMenu(){
+	public static void invalidateMenu() {
 		((Activity) mContext).invalidateOptionsMenu();
 	}
 
@@ -493,12 +493,12 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		Context mContext;
 		ProgressDialog mMD5CheckDialog;
 
-		public MD5Check(Context context){
+		public MD5Check(Context context) {
 			mContext = context;
 		}
 
 		@Override
-		protected void onPreExecute(){
+		protected void onPreExecute() {
 			// Setup Checking dialog
 			mMD5CheckDialog = new ProgressDialog(mContext);
 			mMD5CheckDialog.setCancelable(false);
@@ -522,14 +522,14 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			mMD5CheckDialog.cancel(); // Remove dialog
 
 			// Show toast letting the user know immediately
-			if(result){
+			if(result) {
 				Toast.makeText(mContext, mContext.getString(R.string.available_md5_ok), Toast.LENGTH_LONG).show();           
 			} else {
 				Toast.makeText(mContext, mContext.getString(R.string.available_md5_failed), Toast.LENGTH_LONG).show();           
 			}
 
 			Preferences.setMD5Passed(mContext, result); // Set value for other persistent settings
-			if(Utils.isLollipop()){
+			if(Utils.isLollipop()) {
 				setupMenuToolbar(); // Reset options menu
 			} else {
 				invalidateMenu();

@@ -41,19 +41,19 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
 
     private static final String MANIFEST = "update_manifest.xml";
     
-    ProgressDialog mLoadingDialog;
+    private ProgressDialog mLoadingDialog;
     
     // Did this come from the BackgroundReceiver class?
     boolean shouldUpdateForegroundApp;
     
-    public LoadUpdateManifest(Context context, boolean input){
+    public LoadUpdateManifest(Context context, boolean input) {
         mContext = context;
         shouldUpdateForegroundApp = input;
     }
     
     @Override
-    protected void onPreExecute(){
-    	if(shouldUpdateForegroundApp){
+    protected void onPreExecute() {
+    	if(shouldUpdateForegroundApp) {
 	    	mLoadingDialog = new ProgressDialog(mContext);
 	    	mLoadingDialog.setIndeterminate(true);
 	    	mLoadingDialog.setCancelable(false);
@@ -105,7 +105,7 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
     @Override
     protected void onPostExecute(Void result) {
     	Intent intent;
-    	if(shouldUpdateForegroundApp){
+    	if(shouldUpdateForegroundApp) {
     		mLoadingDialog.cancel();
         	intent = new Intent(MANIFEST_LOADED);
         } else {
