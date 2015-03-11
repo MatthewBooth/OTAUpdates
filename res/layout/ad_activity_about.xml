@@ -22,4 +22,4 @@
 	    android:layout_height="wrap_content"
 	    ads:adSize="BANNER"
 	    ads:adUnitId="@string/ad_activity_about"
-	    android:layout_marginTop="16.0dip" />
+	    android:layout_marginTop="15.0dip" />
