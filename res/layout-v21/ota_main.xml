@@ -27,16 +27,30 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/Theme.RagnarDark" />
 
-    <include layout="@layout/card_update" />
-  
-    <include layout="@layout/card_no_update" />
-    
-	<include layout="@layout/card_website" />
-
-    <include layout="@layout/card_donate" />
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
         
-	<include layout="@layout/card_rom_info" />
-	
-	<include layout="@layout/ad_activity_main" />
+        <LinearLayout 
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+            
+		    <include layout="@layout/card_update" />
+		  
+		    <include layout="@layout/card_no_update" />
+		    
+			<include layout="@layout/card_website" />
+		
+		    <include layout="@layout/card_donate" />
+		        
+			<include layout="@layout/card_rom_info" />
+			
+			<include layout="@layout/ad_activity_main" />
+			
+		</LinearLayout>
+		
+	</ScrollView>
 
 </LinearLayout>
