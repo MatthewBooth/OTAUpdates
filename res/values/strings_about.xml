@@ -22,4 +22,7 @@
     <string name="about_donate_title">Donate</string>
     <string name="about_donate_summary">If this app has made your life easier, please consider a donation to the app developer (Kryten2k35)</string>
     <string name="about_donate_button_summary">Grab me a beer</string>
+    
+    <string name="about_version_title">Version</string>
+    <string name="about_app_version">App version:</string>
 </resources>

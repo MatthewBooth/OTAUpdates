@@ -98,6 +98,14 @@ public class AboutActivity extends Activity {
 			}
 		});
 		
+		TextView versionTitle = (TextView) findViewById(R.id.about_tv_version_title);
+		versionTitle.setTypeface(typeFace);
+		
+		TextView versionSummary = (TextView) findViewById(R.id.about_tv_version_summary);
+		String appVer = getResources().getString(R.string.about_app_version);
+		String appVerActual = getResources().getString(R.string.app_version);
+		versionSummary.setText(appVer + " v" + appVerActual);
+		
 		if(Preferences.getAdsEnabled(this)) {
 			mAdView = (AdView) findViewById(R.id.adView);
 			AdRequest adRequest = new AdRequest.Builder().build();

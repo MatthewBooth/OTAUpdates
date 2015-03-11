@@ -68,6 +68,23 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_marginBottom="16dp"
                 android:textColor="?attr/textColorSecondary" />
+            
+            <TextView
+                android:id="@+id/about_tv_version_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_version_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="?attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/about_tv_version_summary"
+                android:text="@string/about_app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginBottom="16dp"
+                android:textColor="?attr/textColorSecondary" />
 
             <TextView
                 android:id="@+id/about_tv_donate_title"
