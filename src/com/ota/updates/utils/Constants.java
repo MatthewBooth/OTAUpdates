@@ -47,6 +47,7 @@ public interface Constants {
     public static final String NOTIFICATIONS_SOUND = "notifications_sound";
     public static final String NOTIFICATIONS_VIBRATE = "notifications_vibrate";
     public static final String IGNORE_RELEASE_VERSION = "ignored_release";
+    public static final String ADS_ENABLED = "ads_enabled";
 
     // Broadcast intents
     public static String MANIFEST_LOADED = "com.ota.update.MANIFEST_LOADED";

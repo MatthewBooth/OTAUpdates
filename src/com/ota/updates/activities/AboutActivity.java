@@ -34,11 +34,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.ota.updates.R;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 
 public class AboutActivity extends Activity {
+	
+	private AdView mAdView;
+	
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Context context = this;
@@ -92,6 +97,12 @@ public class AboutActivity extends Activity {
 				setupDonateDialog();
 			}
 		});
+		
+		if(Preferences.getAdsEnabled(this)) {
+			mAdView = (AdView) findViewById(R.id.adView);
+			AdRequest adRequest = new AdRequest.Builder().build();
+			mAdView.loadAd(adRequest);
+		}
 	}
 
 	private void setupDonateDialog() {
@@ -122,5 +133,21 @@ public class AboutActivity extends Activity {
 			}
 		})
 		.show();		
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(mAdView != null) {
+			mAdView.resume();
+		}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if(mAdView != null) {
+			mAdView.pause();
+		}
 	}
 }

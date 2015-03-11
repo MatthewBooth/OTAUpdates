@@ -90,5 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/about_donate_button_summary" />
-	</LinearLayout>  
+            
+            <include layout="@layout/ad_activity_about" />
+	</LinearLayout>  	
 </LinearLayout>

@@ -152,6 +152,10 @@ public class Preferences implements Constants{
     public static String getIgnoredRelease(Context context){
         return getPrefs(context).getString(IGNORE_RELEASE_VERSION, "0");
     }
+    
+    public static Boolean getAdsEnabled(Context context){
+        return getPrefs(context).getBoolean(ADS_ENABLED, true);
+    }
 
 	public static void setUpdateLastChecked(Context context, String time){
 	    SharedPreferences.Editor editor = getPrefs(context).edit();

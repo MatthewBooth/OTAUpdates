@@ -85,8 +85,7 @@
 	<!-- App Theme -->
 	<PreferenceCategory 
 	    android:title="@string/theme"
-	    android:key="updater_theme_cat"/>
-	
+	    android:key="updater_theme_cat"/>	
 	<ListPreference 
 	    android:title="@string/theme"
 	    android:key="current_theme"
@@ -94,5 +93,15 @@
 	    android:entries="@array/theme_entries"
 	    android:entryValues="@array/theme_values"
 		android:defaultValue="0" />
+	
+	<PreferenceCategory 
+	    android:title="@string/ads_cat"
+	    android:key="updater_ads_cat"/>
+	<SwitchPreference 
+	    android:title="@string/ads_enable"
+	    android:summaryOn="@string/ads_summary_on"
+	    android:summaryOff="@string/ads_summary_off"
+	    android:key="ads_enabled"
+	    android:defaultValue="true" />
 
 </PreferenceScreen>
