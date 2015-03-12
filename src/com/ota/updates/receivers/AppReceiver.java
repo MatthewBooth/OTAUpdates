@@ -16,6 +16,7 @@
 
 package com.ota.updates.receivers;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -23,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
@@ -44,13 +46,14 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String action = intent.getAction();
+		Bundle extras = intent.getExtras();
 		long mDownloadID = Preferences.getDownloadID(context);
 
 		if(DEBUGGING)
 			Log.v(TAG, "Receiving " + mDownloadID);
 
 		if(action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
-			long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0L);
+			long id = extras.getLong(DownloadManager.EXTRA_DOWNLOAD_ID);
 			if (id != mDownloadID) {
 				if(DEBUGGING)
 					Log.v(TAG, "Ignoring unrelated download " + id);
@@ -95,14 +98,19 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		}
 
 		if(action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
-			long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0L);
-			if (id != mDownloadID) {
-				if(DEBUGGING)
-					Log.v(TAG, "Ignoring unrelated download " + id);
-				return;
-			} else {
-				Intent i = new Intent(context, MainActivity.class);
-				context.startActivity(i);
+
+			long[] ids = extras.getLongArray(DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS);
+			
+			for (long id : ids) {
+				if (id != mDownloadID) {
+					if(DEBUGGING)
+						Log.v(TAG, "mDownloadID is " + mDownloadID + " and ID is " + id);
+					return;
+				} else {
+					Intent i = new Intent(context, AvailableActivity.class);
+					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					context.startActivity(i);
+				}
 			}
 		}
 
