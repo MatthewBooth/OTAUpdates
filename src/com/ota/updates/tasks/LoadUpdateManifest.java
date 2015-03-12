@@ -53,7 +53,7 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
     
     @Override
     protected void onPreExecute() {
-    	if(shouldUpdateForegroundApp) {
+    	if (shouldUpdateForegroundApp) {
 	    	mLoadingDialog = new ProgressDialog(mContext);
 	    	mLoadingDialog.setIndeterminate(true);
 	    	mLoadingDialog.setCancelable(false);
@@ -62,7 +62,7 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
     	}
     	
     	File manifest = new File(mContext.getFilesDir().getPath(), MANIFEST);
-    	if(manifest.exists()) {
+    	if (manifest.exists()) {
     		manifest.delete();
     	}
     }
@@ -105,7 +105,7 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
     @Override
     protected void onPostExecute(Void result) {
     	Intent intent;
-    	if(shouldUpdateForegroundApp) {
+    	if (shouldUpdateForegroundApp) {
     		mLoadingDialog.cancel();
         	intent = new Intent(MANIFEST_LOADED);
         } else {

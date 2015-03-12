@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements Constants{
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 
-			if(action.equals(MANIFEST_LOADED)) {
+			if (action.equals(MANIFEST_LOADED)) {
 				// Reloads layouts to reflect the updated manifest information
 				updateDonateLinkLayout();
 				updateRomInformation();
@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements Constants{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ota_main);
 
-		if(isLollipop) {
+		if (isLollipop) {
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
 			setActionBar(toolbar);
 			toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -119,7 +119,7 @@ public class MainActivity extends Activity implements Constants{
 
 		// Check the correct build prop values are installed
 		// Also executes the manifest/update check
-		if(!Utils.isConnected(mContext)) {
+		if (!Utils.isConnected(mContext)) {
 			Builder notConnectedDialog = new Builder(mContext);
 			notConnectedDialog.setTitle(R.string.main_not_connected_title)
 			.setMessage(R.string.main_not_connected_message)
@@ -144,7 +144,7 @@ public class MainActivity extends Activity implements Constants{
 		updateRomUpdateLayouts();
 		updateWebsiteLayout();
 		
-		if(Preferences.getAdsEnabled(mContext)) {
+		if (Preferences.getAdsEnabled(mContext)) {
 			mAdView = (AdView) findViewById(R.id.adView);
 			mAdRequest = new AdRequest.Builder().build();
 			mAdView.loadAd(mAdRequest);
@@ -166,7 +166,7 @@ public class MainActivity extends Activity implements Constants{
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(mAdView != null) {
+		if (mAdView != null) {
 			mAdView.resume();
 		}
 	}
@@ -174,7 +174,7 @@ public class MainActivity extends Activity implements Constants{
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(mAdView != null) {
+		if (mAdView != null) {
 			mAdView.pause();
 		}
 	}
@@ -182,7 +182,7 @@ public class MainActivity extends Activity implements Constants{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		if(isLollipop)
+		if (isLollipop)
 			getMenuInflater().inflate(R.menu.ota_menu_main, menu);
 		return true;
 	}
@@ -190,7 +190,7 @@ public class MainActivity extends Activity implements Constants{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
-		if(isLollipop)
+		if (isLollipop)
 			switch (item.getItemId()) {
 			case R.id.menu_info:
 				openHelp(null);
@@ -238,7 +238,7 @@ public class MainActivity extends Activity implements Constants{
 					startActivity(intent);
 				} catch(ActivityNotFoundException ex) {
 					// Nothing to handle BitCoin payments. Send to Play Store
-					if(DEBUGGING)
+					if (DEBUGGING)
 						Log.d(TAG, ex.getMessage());
 					
 					mPlayStoreDialog.show();
@@ -288,14 +288,14 @@ public class MainActivity extends Activity implements Constants{
 		TextView updateNotAvailableSummary = (TextView) findViewById(R.id.main_tv_no_update_available_summary);
 
 		// Update is available
-		if(RomUpdate.getUpdateAvailability(mContext) ||
+		if (RomUpdate.getUpdateAvailability(mContext) ||
                 (!RomUpdate.getUpdateAvailability(mContext)) && Utils.isUpdateIgnored(mContext)) {
 			updateAvailable.setVisibility(View.VISIBLE);
 
-			if(Preferences.getDownloadFinished(mContext)) { //  Update already finished?
+			if (Preferences.getDownloadFinished(mContext)) { //  Update already finished?
 				String htmlColorOpen = "";
-				if(isLollipop) {
-					if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+				if (isLollipop) {
+					if (Preferences.getCurrentTheme(mContext) == 0) { // Light
 						htmlColorOpen = "<font color='#009688'>";
 					} else {
 						htmlColorOpen = "<font color='#80cbc4'>";
@@ -312,8 +312,8 @@ public class MainActivity extends Activity implements Constants{
 				updateAvailableSummary.setText(Html.fromHtml(updateSummary));
 			} else {
 				String htmlColorOpen = "";
-				if(isLollipop) {
-					if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+				if (isLollipop) {
+					if (Preferences.getCurrentTheme(mContext) == 0) { // Light
 						htmlColorOpen = "<font color='#009688'>";
 					} else {
 						htmlColorOpen = "<font color='#80cbc4'>";
@@ -338,7 +338,7 @@ public class MainActivity extends Activity implements Constants{
 			Locale locale = Locale.getDefault();
 			String time = "";
 
-			if(is24) {
+			if (is24) {
 				time = new SimpleDateFormat("d, MMMM HH:mm", locale).format(now);
 			} else {
 				time = new SimpleDateFormat("d, MMMM hh:mm a", locale).format(now);
@@ -354,7 +354,7 @@ public class MainActivity extends Activity implements Constants{
 		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
 		donateLink.setVisibility(View.GONE);
 		
-		if(!(RomUpdate.getDonateLink(mContext).trim().equals("null")) 
+		if (!(RomUpdate.getDonateLink(mContext).trim().equals("null")) 
 				|| !(RomUpdate.getBitCoinLink(mContext).trim().equals("null"))) {
 			donateLink.setVisibility(View.VISIBLE);
 		}
@@ -364,15 +364,15 @@ public class MainActivity extends Activity implements Constants{
 		CardView webLink = (CardView) findViewById(R.id.layout_main_dev_website);
 		webLink.setVisibility(View.GONE);
 
-		if(!RomUpdate.getWebsite(mContext).trim().equals("null")) {
+		if (!RomUpdate.getWebsite(mContext).trim().equals("null")) {
 			webLink.setVisibility(View.VISIBLE);
 		}
 	}
 
 	private void updateRomInformation() {
 		String htmlColorOpen = "";
-		if(isLollipop) {
-			if(Preferences.getCurrentTheme(mContext) == 0) { // Light
+		if (isLollipop) {
+			if (Preferences.getCurrentTheme(mContext) == 0) { // Light
 				htmlColorOpen = "<font color='#009688'>";
 			} else {
 				htmlColorOpen = "<font color='#80cbc4'>";
@@ -430,7 +430,7 @@ public class MainActivity extends Activity implements Constants{
 		
 		boolean payPalLinkAvailable = RomUpdate.getDonateLink(mContext).trim().equals("null");
 		boolean bitCoinLinkAvailable = RomUpdate.getBitCoinLink(mContext).trim().equals("null");
-		if(!payPalLinkAvailable && !bitCoinLinkAvailable) {
+		if (!payPalLinkAvailable && !bitCoinLinkAvailable) {
 			mDonateDialog.show();
 		} else if (!payPalLinkAvailable && bitCoinLinkAvailable) {
 			String url = RomUpdate.getDonateLink(mContext);
@@ -484,12 +484,12 @@ public class MainActivity extends Activity implements Constants{
 		@Override
 		protected void onPostExecute(Boolean result) {
 
-			if(result) {
-				if(DEBUGGING)
+			if (result) {
+				if (DEBUGGING)
 					Log.d(TAG, "Prop found");
 				new LoadUpdateManifest(mContext, true).execute();
 			} else {
-				if(DEBUGGING)
+				if (DEBUGGING)
 					Log.d(TAG, "Prop not found");
 				mCompatibilityDialog.show();
 			}

@@ -165,122 +165,122 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (tagRomName) {
 			RomUpdate.setRomName(mContext, input);
 			tagRomName = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Name = " + input);
 		}
 
 		if (tagVersionName) {
 			RomUpdate.setVersionName(mContext, input);
 			tagVersionName = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Version = " + input);
 		}
 		
 		if (tagVersionNumber) {
 			RomUpdate.setVersionNumber(mContext, Integer.parseInt(input));
 			tagVersionNumber = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "OTA Version = " + input);
 		}
 
 		if (tagDirectUrl) {
-			if(!input.isEmpty()) {
+			if (!input.isEmpty()) {
 				RomUpdate.setDirectUrl(mContext, input);
 			} else {
 				RomUpdate.setDirectUrl(mContext, "null");
 			}
 			RomUpdate.setDirectUrl(mContext, input);
 			tagDirectUrl = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "URL = " + input);
 		}
 
 		if (tagHttpUrl) {
-			if(!input.isEmpty()) {
+			if (!input.isEmpty()) {
 				RomUpdate.setHttpUrl(mContext, input);
 			} else {
 				RomUpdate.setHttpUrl(mContext, "null");
 			}
 			tagHttpUrl = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "tagHttpUrl = " + input);
 		}
 
 		if (tagMD5) {
 			RomUpdate.setMd5(mContext, input);
 			tagMD5 = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "MD5 = " + input);
 		}
 
 		if (tagLog) {
 			RomUpdate.setChangelog(mContext, input);
 			tagLog = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Changelog = " + input);
 		}
 		
 		if (tagAndroid) {
 			RomUpdate.setAndroidVersion(mContext, input);
 			tagAndroid = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Android Version = " + input);
 		}
 
 		if (tagWebsite) {
-			if(!input.isEmpty()) {
+			if (!input.isEmpty()) {
 				RomUpdate.setWebsite(mContext, input);
 			} else {
 				RomUpdate.setWebsite(mContext, "null");
 			}
 			tagWebsite = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Website = " + input);
 		}
 
-		if(tagDeveloper) {
+		if (tagDeveloper) {
 			RomUpdate.setDeveloper(mContext, input);
 			tagDeveloper = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Developer = " + input);
 		}
 		
 		if (tagDonateUrl) {
-			if(!input.isEmpty()) {
+			if (!input.isEmpty()) {
 				RomUpdate.setDonateLink(mContext, input);
 			} else {
 				RomUpdate.setDonateLink(mContext, "null");
 			}			
 			tagDonateUrl = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Donate URL = " + input);
 		}
 		
 		if (tagBitCoinUrl) {
-			if(input.contains("bitcoin:")) {
+			if (input.contains("bitcoin:")) {
 				RomUpdate.setBitCoinLink(mContext, input);
-			} else if(input.isEmpty()) { 
+			} else if (input.isEmpty()) { 
 				RomUpdate.setBitCoinLink(mContext, "null");
 			} else {		
 				RomUpdate.setBitCoinLink(mContext, "bitcoin:" + input);
 			}
 			
 			tagBitCoinUrl = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "BitCoin URL = " + input);
 		}
 		
 		if (tagFileSize) {
 			RomUpdate.setFileSize(mContext, Integer.parseInt(input));
 			tagFileSize = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Filesize = " + input);
 		}
 		
 		if (tagRomHut) {
 			RomUpdate.setRomHut(mContext, input);
 			tagRomHut = false;
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Romhut? = " + input);
 		}
 	}

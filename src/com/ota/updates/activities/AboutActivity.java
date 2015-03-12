@@ -51,7 +51,7 @@ public class AboutActivity extends Activity {
 		setContentView(R.layout.ota_about);
 
 
-		if(Utils.isLollipop()) {
+		if (Utils.isLollipop()) {
 			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
 			setActionBar(toolbar);
 			toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -70,8 +70,8 @@ public class AboutActivity extends Activity {
 		creditsTitle.setTypeface(typeFace);
 
 		String openHTML = "";
-		if(Utils.isLollipop()) {
-			if(Preferences.getCurrentTheme(this) == 0) { // Light
+		if (Utils.isLollipop()) {
+			if (Preferences.getCurrentTheme(this) == 0) { // Light
 				openHTML = "<font color='#009688'>";
 			} else {
 				openHTML = "<font color='#80cbc4'>";
@@ -105,7 +105,7 @@ public class AboutActivity extends Activity {
 		String appVerActual = getResources().getString(R.string.app_version);
 		versionSummary.setText(appVer + " v" + appVerActual);
 		
-		if(Preferences.getAdsEnabled(this)) {
+		if (Preferences.getAdsEnabled(this)) {
 			mAdView = (AdView) findViewById(R.id.adView);
 			AdRequest adRequest = new AdRequest.Builder().build();
 			mAdView.loadAd(adRequest);
@@ -145,7 +145,7 @@ public class AboutActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(mAdView != null) {
+		if (mAdView != null) {
 			mAdView.resume();
 		}
 	}
@@ -153,7 +153,7 @@ public class AboutActivity extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(mAdView != null) {
+		if (mAdView != null) {
 			mAdView.pause();
 		}
 	}

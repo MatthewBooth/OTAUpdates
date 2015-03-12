@@ -51,19 +51,19 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
         mLoadingDialog.setMessage(mContext.getString(R.string.rebooting));
         mLoadingDialog.show();
         
-        if(Preferences.getWipeData(mContext)) {
+        if (Preferences.getWipeData(mContext)) {
         	mScript.append("wipe data" + NEW_LINE);
         }
-        if(Preferences.getWipeCache(mContext)) {
+        if (Preferences.getWipeCache(mContext)) {
         	mScript.append("wipe cache" + NEW_LINE);
         }
-        if(Preferences.getWipeDalvik(mContext)) {
+        if (Preferences.getWipeDalvik(mContext)) {
         	mScript.append("wipe dalvik" + NEW_LINE);
         }
         
         mScript.append("install " + "/sdcard/Download/" +  mFilename + NEW_LINE);
         
-        if(Preferences.getDeleteAfterInstall(mContext)) {
+        if (Preferences.getDeleteAfterInstall(mContext)) {
         	mScript.append("cmd rm -rf " + "/sdcard/Download/" +  mFilename + NEW_LINE);
         }
         mScriptOutput = mScript.toString();

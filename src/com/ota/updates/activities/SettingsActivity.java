@@ -81,7 +81,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
 		setRingtoneSummary(soundValue);
 		
-		if(!Tools.isRootAvailable()) {
+		if (!Tools.isRootAvailable()) {
 			SwitchPreference ors = (SwitchPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
 		}
@@ -90,7 +90,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		mIgnoredRelease.setOnPreferenceChangeListener(this);
 		String ignoredRelease = Preferences.getIgnoredRelease(mContext);
 		boolean isIgnored = ignoredRelease.equalsIgnoreCase("0");
-		if(!isIgnored) {
+		if (!isIgnored) {
 			mIgnoredRelease.setSummary(
 					getResources().getString(R.string.notification_ignoring_release) +
 					" " + 
@@ -123,15 +123,15 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			ListPreference listPref = (ListPreference) pref;
 			pref.setSummary(listPref.getEntry());
 
-			if(key.equals(CURRENT_THEME)) {
+			if (key.equals(CURRENT_THEME)) {
 				Preferences.setTheme(mContext, listPref.getValue());
 				Intent intent = new Intent(mContext, MainActivity.class);
 				startActivity(intent);
-			} else if(key.equals(UPDATER_BACK_FREQ)) {
+			} else if (key.equals(UPDATER_BACK_FREQ)) {
 				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 			}
-		} else if(pref instanceof SwitchPreference) {
-			if(key.equals(UPDATER_BACK_SERVICE)) {
+		} else if (pref instanceof SwitchPreference) {
+			if (key.equals(UPDATER_BACK_SERVICE)) {
 				Utils.setBackgroundCheck(mContext, Preferences.getBackgroundService(mContext));
 			}
 		}
@@ -139,7 +139,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		if(preference == mInstallPrefs) {
+		if (preference == mInstallPrefs) {
 			showInstallPrefs();
 		} 
 		return false;
@@ -152,8 +152,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			setRingtoneSummary((String)newValue);
 			result = true;
 		} else if (preference == mIgnoredRelease) {
-			if(!(Boolean) newValue) {
-				if(DEBUGGING) {
+			if (!(Boolean) newValue) {
+				if (DEBUGGING) {
 					Log.d(TAG, "Unignoring release");
 				}
 				setNotIgnore(true);

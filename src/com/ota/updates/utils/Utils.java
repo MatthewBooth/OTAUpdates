@@ -75,7 +75,7 @@ public class Utils implements Constants{
 			String line;
 			while ((line = bufferedReader.readLine()) != null) 
 			{
-				if(line.contains("[" + propName +"]")) {
+				if (line.contains("[" + propName +"]")) {
 					valid = true;
 				}
 			}
@@ -145,12 +145,12 @@ public class Utils implements Constants{
 		int filesize = RomUpdate.getFileSize(context);
 
 		boolean status = false;
-		if(DEBUGGING) {
+		if (DEBUGGING) {
 			Log.d(TAG, "Local file " + file.getAbsolutePath());
 			Log.d(TAG, "Local filesize " + file.length());
 			Log.d(TAG, "Remote filesize " + filesize);
 		}
-		if(file.length() != 0 && file.length() == filesize) {
+		if (file.length() != 0 && file.length() == filesize) {
 			status = true;
 		}		
 		Preferences.setDownloadFinished(context, status);
@@ -167,9 +167,9 @@ public class Utils implements Constants{
 		int intentId = 1673;
 		int intentFlag = PendingIntent.FLAG_UPDATE_CURRENT;
 		
-		if(cancel) {
-			if(alarmManager != null) {
-				if(DEBUGGING)
+		if (cancel) {
+			if (alarmManager != null) {
+				if (DEBUGGING)
 					Log.d(TAG, "Cancelling alarm");
 				alarmManager.cancel(PendingIntent.getBroadcast(
 						context, 
@@ -180,13 +180,13 @@ public class Utils implements Constants{
 		} else {
 			int requestedInterval;
 			
-			if(DEBUG_NOTIFICATIONS) {
+			if (DEBUG_NOTIFICATIONS) {
 				requestedInterval = 30;
 			} else {
 				requestedInterval = Preferences.getBackgroundFrequency(context);
 			}
 			
-			if(DEBUGGING)
+			if (DEBUGGING)
 				Log.d(TAG, "Setting alarm for " + requestedInterval + " seconds");
 			Calendar calendar = Calendar.getInstance();
 			long time = calendar.getTimeInMillis() + requestedInterval * 1000;
@@ -236,7 +236,7 @@ public class Utils implements Constants{
 			}
 		}
 		
-		if(DEBUGGING)
+		if (DEBUGGING)
 			Log.d(TAG, "Current: " + current + " Manifest: " + manifest);
 
 		return Integer.parseInt(current) < Integer.parseInt(manifest);
@@ -261,12 +261,12 @@ public class Utils implements Constants{
         }
 
 		RomUpdate.setUpdateAvailable(context, available);
-		if(DEBUGGING)
+		if (DEBUGGING)
 			Log.d(TAG, "Update Availability is " + available);
 	}
 	
 	public static void setupNotification(Context context, String filename) {
-		if(DEBUGGING)
+		if (DEBUGGING)
 			Log.d(TAG, "Showing notification");	
 		
 		NotificationManager mNotifyManager =
@@ -301,7 +301,7 @@ public class Utils implements Constants{
 		.addAction(R.drawable.ic_action_download, context.getString(R.string.download), downloadPendingIntent)
         .addAction(R.drawable.ic_action_close, context.getString(R.string.ignore), skipPendingIntent);
 
-		if(Preferences.getNotificationVibrate(context)) {
+		if (Preferences.getNotificationVibrate(context)) {
 			mBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
 		}
 

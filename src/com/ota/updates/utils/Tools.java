@@ -64,10 +64,10 @@ public class Tools implements Constants{
     }
 	
     private static String getSuBin() {
-    	if(new File("/system/xbin","su").exists()) {
+    	if (new File("/system/xbin","su").exists()) {
     		return "/system/xbin/su";
     	}
-    	if(RootTools.isRootAvailable()) {
+    	if (RootTools.isRootAvailable()) {
     		return "su";
     	}
     	return "sh";
@@ -114,7 +114,7 @@ public class Tools implements Constants{
 			
 			process.destroy();
     		success = true;
-    		if(err.size() > 0) {
+    		if (err.size() > 0) {
     			success = false;
     		}
 		} catch (IOException e) {

@@ -89,7 +89,7 @@ public class Preferences implements Constants{
     }
 	
 	public static boolean getBackgroundService(Context context) {
-		if(DEBUGGING)
+		if (DEBUGGING)
 			Log.d(TAG, "Background Service set to " + getPrefs(context).getBoolean(UPDATER_BACK_SERVICE, true));
 	    return getPrefs(context).getBoolean(UPDATER_BACK_SERVICE, true);
 	}
@@ -104,7 +104,7 @@ public class Preferences implements Constants{
 	}
 	
 	public static int getCurrentTheme(Context context) {
-		if(Utils.isLollipop()) {
+		if (Utils.isLollipop()) {
 			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "0")); // #0 is the Light Theme
 		} else {
 			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "2")); // #2 is the Dark Theme
@@ -122,7 +122,7 @@ public class Preferences implements Constants{
         case 2:
             return R.style.Theme_RagnarDark;
         default:
-        	if(Utils.isLollipop()) {
+        	if (Utils.isLollipop()) {
         		return R.style.Theme_RagnarLight;
         	} else {
         		return R.style.Theme_RagnarDark;
@@ -141,7 +141,7 @@ public class Preferences implements Constants{
         case 2:
             return R.style.Theme_RagnarDark_Settings;
         default:
-        	if(Utils.isLollipop()) {
+        	if (Utils.isLollipop()) {
         		return R.style.Theme_RagnarLight_Settings;
         	} else {
         		return R.style.Theme_RagnarDark_Settings;

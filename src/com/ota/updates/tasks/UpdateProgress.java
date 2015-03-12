@@ -61,7 +61,7 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 
 				final int progressPercent = (int) ((bytesDownloaded * 100l) / bytesInTotal);
 				
-				if(progressPercent != previousValue) {
+				if (progressPercent != previousValue) {
 					// Only publish every 1%, to reduce the amount of work being done.
 					publishProgress(progressPercent, bytesDownloaded, bytesInTotal);
 					previousValue = progressPercent;
@@ -78,9 +78,9 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 	}
 	
 	protected void onProgressUpdate(Integer... progress) {
-		if(DEBUGGING)
+		if (DEBUGGING)
 			Log.d(TAG, "Updating Progress - " + progress[0] + "%");
-		if(Preferences.getIsDownloadOnGoing(mContext))
+		if (Preferences.getIsDownloadOnGoing(mContext))
 			AvailableActivity.updateProgress(progress[0], progress[1], progress[2]);
      }
 

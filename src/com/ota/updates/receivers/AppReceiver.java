@@ -49,13 +49,13 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 		Bundle extras = intent.getExtras();
 		long mDownloadID = Preferences.getDownloadID(context);
 
-		if(DEBUGGING)
+		if (DEBUGGING)
 			Log.v(TAG, "Receiving " + mDownloadID);
 
-		if(action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+		if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
 			long id = extras.getLong(DownloadManager.EXTRA_DOWNLOAD_ID);
 			if (id != mDownloadID) {
-				if(DEBUGGING)
+				if (DEBUGGING)
 					Log.v(TAG, "Ignoring unrelated download " + id);
 				return;
 			}
@@ -67,28 +67,28 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 
 			// it shouldn't be empty, but just in case
 			if (!cursor.moveToFirst()) {
-				if(DEBUGGING)
+				if (DEBUGGING)
 					Log.e(TAG, "Empty row");
 				return;
 			}
 
 			int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
 			if (DownloadManager.STATUS_SUCCESSFUL != cursor.getInt(statusIndex)) {
-				if(DEBUGGING)
+				if (DEBUGGING)
 					Log.w(TAG, "Download Failed");
 				Preferences.setDownloadFinished(context, false);
-				if(Utils.isLollipop()) {
+				if (Utils.isLollipop()) {
 					AvailableActivity.setupMenuToolbar(); // Reset options menu
 				} else {
 					AvailableActivity.invalidateMenu();
 				}
 				return;
 			} else {
-				if(DEBUGGING)
+				if (DEBUGGING)
 					Log.v(TAG, "Download Succeeded");
 				Preferences.setDownloadFinished(context, true);
 				AvailableActivity.setupProgress(context);
-				if(Utils.isLollipop()) {
+				if (Utils.isLollipop()) {
 					AvailableActivity.setupMenuToolbar(); // Reset options menu
 				} else {
 					AvailableActivity.invalidateMenu();
@@ -97,13 +97,13 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			}
 		}
 
-		if(action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
+		if (action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
 
 			long[] ids = extras.getLongArray(DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS);
 			
 			for (long id : ids) {
 				if (id != mDownloadID) {
-					if(DEBUGGING)
+					if (DEBUGGING)
 						Log.v(TAG, "mDownloadID is " + mDownloadID + " and ID is " + id);
 					return;
 				} else {
@@ -114,39 +114,39 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			}
 		}
 
-		if(action.equals(MANIFEST_CHECK_BACKGROUND)) {
-			if(DEBUGGING)
+		if (action.equals(MANIFEST_CHECK_BACKGROUND)) {
+			if (DEBUGGING)
 				Log.d(TAG, "Receiving background check confirmation");
 
 			boolean updateAvailable = RomUpdate.getUpdateAvailability(context);
 			String filename = RomUpdate.getFilename(context);
 
-			if(updateAvailable) {
+			if (updateAvailable) {
 				Utils.setupNotification(context, filename);
 				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
 		}
 
-		if(action.equals(START_UPDATE_CHECK)) {
+		if (action.equals(START_UPDATE_CHECK)) {
 			if (DEBUGGING)
 				Log.d(TAG, "Update check started");
 			new LoadUpdateManifest(context, false).execute();
 		}
 
-		if(action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-			if(DEBUGGING) {
+		if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+			if (DEBUGGING) {
 				Log.d(TAG, "Boot received");
 			}
 			boolean backgroundCheck = Preferences.getBackgroundService(context);
-			if(backgroundCheck) {
-				if(DEBUGGING)
+			if (backgroundCheck) {
+				if (DEBUGGING)
 					Log.d(TAG, "Starting background check alarm");
 				Utils.scheduleNotification(context, !Preferences.getBackgroundService(context));
 			}
 		}
 
-        if(action.equals(IGNORE_RELEASE)) {
-            if(DEBUGGING) {
+        if (action.equals(IGNORE_RELEASE)) {
+            if (DEBUGGING) {
                 Log.d(TAG, "Ignore release");
             }
             Preferences.setIgnoredRelease(context, Integer.toString(RomUpdate.getVersionNumber(context)));
