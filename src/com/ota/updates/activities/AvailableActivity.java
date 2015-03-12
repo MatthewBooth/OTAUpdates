@@ -483,7 +483,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}
 	}
 
-	public static void updateProgress(int progress, int downloaded, int total) {
+	public static void updateProgress(int progress, int downloaded, int total, Context context) {
 		mProgressBar.setProgress((int) progress);
 		mProgressCounterText.setText(
 				Utils.formatDataFromBytes(downloaded) + 

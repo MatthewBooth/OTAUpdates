@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.ota.updates.activities.AvailableActivity;
+import com.ota.updates.activities.MainActivity;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 
@@ -80,8 +81,10 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 	protected void onProgressUpdate(Integer... progress) {
 		if (DEBUGGING)
 			Log.d(TAG, "Updating Progress - " + progress[0] + "%");
-		if (Preferences.getIsDownloadOnGoing(mContext))
-			AvailableActivity.updateProgress(progress[0], progress[1], progress[2]);
+		if (Preferences.getIsDownloadOnGoing(mContext)) {
+			AvailableActivity.updateProgress(progress[0], progress[1], progress[2], mContext);
+			MainActivity.updateProgress(progress[0], progress[1], progress[2], mContext);
+		}
      }
 
 }

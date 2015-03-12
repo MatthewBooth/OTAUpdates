@@ -18,15 +18,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation" >
     <string name="main_update_available">Update Available!</string>
+    <string name="main_update_finished">Download complete</string>
     <string name="main_no_update_available">No Update Available</string>
     <string name="main_update_filename">Filename</string>
-    <string name="main_update_progress">Update Progress</string>
+    <string name="main_update_progress">Download Progress</string>
     <string name="main_website">Website</string>
     <string name="main_website_summary">Visit ROM website</string>
     <string name="main_donate">Donate</string>
     <string name="main_donate_summary">Donate to the ROM developer</string>
     <string name="main_tap_to_download">Tap to download</string>
-    <string name="main_download_completed_details">Download Complete. Tap for details</string>
+    <string name="main_download_completed_details">Tap for details</string>
+    <string name="main_tap_to_view_progress">Tap to view progress</string>
     <string name="main_last_checked">Last checked for an update at</string>
     
     <!-- ROM Information -->

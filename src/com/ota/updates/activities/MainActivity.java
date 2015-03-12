@@ -45,6 +45,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -71,6 +72,8 @@ public class MainActivity extends Activity implements Constants{
 	
 	private AdView mAdView;
 	private AdRequest mAdRequest;
+	
+	public static ProgressBar mProgressBar;
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
@@ -286,13 +289,18 @@ public class MainActivity extends Activity implements Constants{
 
 		TextView updateAvailableSummary = (TextView) findViewById(R.id.main_tv_update_available_summary);
 		TextView updateNotAvailableSummary = (TextView) findViewById(R.id.main_tv_no_update_available_summary);
+		
+		mProgressBar = (ProgressBar) findViewById(R.id.bar_main_progress_bar);
+		mProgressBar.setVisibility(View.GONE);
 
 		// Update is available
 		if (RomUpdate.getUpdateAvailability(mContext) ||
                 (!RomUpdate.getUpdateAvailability(mContext)) && Utils.isUpdateIgnored(mContext)) {
 			updateAvailable.setVisibility(View.VISIBLE);
+			TextView updateAvailableTitle = (TextView) findViewById(R.id.main_tv_update_available_title);
 
 			if (Preferences.getDownloadFinished(mContext)) { //  Update already finished?
+				updateAvailableTitle.setText(getResources().getString(R.string.main_update_finished));
 				String htmlColorOpen = "";
 				if (isLollipop) {
 					if (Preferences.getCurrentTheme(mContext) == 0) { // Light
@@ -310,7 +318,26 @@ public class MainActivity extends Activity implements Constants{
 						+ getResources().getString(R.string.main_download_completed_details)
 						+ htmlColorClose;
 				updateAvailableSummary.setText(Html.fromHtml(updateSummary));
+			} else if (Preferences.getIsDownloadOnGoing(mContext)) {
+				updateAvailableTitle.setText(getResources().getString(R.string.main_update_progress));
+				mProgressBar.setVisibility(View.VISIBLE);
+				String htmlColorOpen = "";
+				if (isLollipop) {
+					if (Preferences.getCurrentTheme(mContext) == 0) { // Light
+						htmlColorOpen = "<font color='#009688'>";
+					} else {
+						htmlColorOpen = "<font color='#80cbc4'>";
+					}
+				} else {
+					htmlColorOpen = "<font color='#33b5e5'>";
+				}
+				String htmlColorClose = "</font>";
+				String updateSummary = htmlColorOpen
+						+ getResources().getString(R.string.main_tap_to_view_progress)
+						+ htmlColorClose;
+				updateAvailableSummary.setText(Html.fromHtml(updateSummary));
 			} else {
+				updateAvailableTitle.setText(getResources().getString(R.string.main_update_available));
 				String htmlColorOpen = "";
 				if (isLollipop) {
 					if (Preferences.getCurrentTheme(mContext) == 0) { // Light
@@ -462,6 +489,11 @@ public class MainActivity extends Activity implements Constants{
 	public void openHelp (View v) {
 		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
+	}
+	
+	public static void updateProgress(int progress, int downloaded, int total, Context context) {
+		//mProgressBar = (ProgressBar) ((Activity) context).findViewById(R.id.bar_main_progress_bar);
+		mProgressBar.setProgress((int) progress);
 	}
 
 	public class CompatibilityTask extends AsyncTask<Void, Boolean, Boolean> implements Constants{

@@ -44,11 +44,17 @@
 				        android:orientation="vertical" >
 				
 						<TextView
+						    android:id="@+id/main_tv_update_available_title"
 						        android:layout_width="wrap_content"
 						        android:layout_height="wrap_content"
-						        android:text="@string/main_update_available"
 						        android:textAppearance="?android:attr/textAppearanceMedium"
 						        android:textColor="?attr/updateAvailable" />
+						
+						<ProgressBar
+						        android:id="@+id/bar_main_progress_bar"
+						        style="?android:attr/progressBarStyleHorizontal"
+						        android:layout_width="match_parent"
+						        android:layout_height="wrap_content" />
 						
 						<TextView
 						         android:id="@+id/main_tv_update_available_summary"
