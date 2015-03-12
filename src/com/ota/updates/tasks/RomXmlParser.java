@@ -184,24 +184,23 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		}
 
 		if (tagDirectUrl) {
+			if(!input.isEmpty()) {
+				RomUpdate.setDirectUrl(mContext, input);
+			} else {
+				RomUpdate.setDirectUrl(mContext, "null");
+			}
 			RomUpdate.setDirectUrl(mContext, input);
 			tagDirectUrl = false;
 			if(DEBUGGING)
 				Log.d(TAG, "URL = " + input);
-			URL url;
-			try {
-				url = new URL(input);
-				URLConnection connection = url.openConnection();
-				connection.connect();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 
 		if (tagHttpUrl) {
-			RomUpdate.setHttpUrl(mContext, input);
+			if(!input.isEmpty()) {
+				RomUpdate.setHttpUrl(mContext, input);
+			} else {
+				RomUpdate.setHttpUrl(mContext, "null");
+			}
 			tagHttpUrl = false;
 			if(DEBUGGING)
 				Log.d(TAG, "tagHttpUrl = " + input);
@@ -220,6 +219,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if(DEBUGGING)
 				Log.d(TAG, "Changelog = " + input);
 		}
+		
 		if (tagAndroid) {
 			RomUpdate.setAndroidVersion(mContext, input);
 			tagAndroid = false;
@@ -228,7 +228,11 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		}
 
 		if (tagWebsite) {
-			RomUpdate.setWebsite(mContext, input);
+			if(!input.isEmpty()) {
+				RomUpdate.setWebsite(mContext, input);
+			} else {
+				RomUpdate.setWebsite(mContext, "null");
+			}
 			tagWebsite = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Website = " + input);
@@ -240,16 +244,24 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if(DEBUGGING)
 				Log.d(TAG, "Developer = " + input);
 		}
+		
 		if (tagDonateUrl) {
-			RomUpdate.setDonateLink(mContext, input);
+			if(!input.isEmpty()) {
+				RomUpdate.setDonateLink(mContext, input);
+			} else {
+				RomUpdate.setDonateLink(mContext, "null");
+			}			
 			tagDonateUrl = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Donate URL = " + input);
 		}
+		
 		if (tagBitCoinUrl) {
 			if(input.contains("bitcoin:")) {
 				RomUpdate.setBitCoinLink(mContext, input);
-			} else {
+			} else if(input.isEmpty()) { 
+				RomUpdate.setBitCoinLink(mContext, "null");
+			} else {		
 				RomUpdate.setBitCoinLink(mContext, "bitcoin:" + input);
 			}
 			
@@ -257,20 +269,20 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if(DEBUGGING)
 				Log.d(TAG, "BitCoin URL = " + input);
 		}
+		
 		if (tagFileSize) {
 			RomUpdate.setFileSize(mContext, Integer.parseInt(input));
 			tagFileSize = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Filesize = " + input);
 		}
+		
 		if (tagRomHut) {
 			RomUpdate.setRomHut(mContext, input);
 			tagRomHut = false;
 			if(DEBUGGING)
 				Log.d(TAG, "Romhut? = " + input);
 		}
-
 	}
-
 }
 
