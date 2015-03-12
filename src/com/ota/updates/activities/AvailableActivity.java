@@ -159,6 +159,14 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			return super.onOptionsItemSelected(item);           
 		}
 	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(mContext, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+		startActivity(intent);
+		super.onBackPressed();
+	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
