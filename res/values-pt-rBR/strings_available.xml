@@ -12,9 +12,10 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
+
     <string name="available_changelog_title">Mudanças</string>
     <string name="available_check_md5">Verificar MD5</string>
     <string name="available_ready_to_install">Pronto para instalar</string>
@@ -22,15 +23,13 @@
     <string name="available_md5_failed">MD5 Falhou</string>
     <string name="available_checking_md5">Verificando MD5&#8230;</string>
     <string name="available_downloading">Baixando&#8230;</string>
-
     <string name="are_you_sure">Tem certeza?</string>
-
     <string name="available_delete_confirm_message">Tem certeza que deseja apagar o arquivo baixado?</string>
     <string name="available_reboot_confirm">Gostaria de reiniciar agora?</string>
     <string name="available_url_error">Erro de URL: Por favor, entre em contato com o desenvolvedor da ROM</string>
     <string name="available_reboot_manual_title">Por favor, reinicie agora</string>
     <string name="available_reboot_manual_message">Por favor, reinicie para o modo de recuperação e instale a ROM.\n\nVocê pode encontrá-la em /sdcard/Downloads</string>
-
     <string name="available_wrong_network_title">Rede errada selecionada</string>
     <string name="available_wrong_network_message">Você está tentando baixar pela rede móvel, porém as configurações só permitem por Wi-Fi. Por favor, altere as configurações de acordo.</string>
+
 </resources>

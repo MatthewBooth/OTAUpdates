@@ -12,11 +12,10 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation" >
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
     <string name="main_update_available">Update Available!</string>
     <string name="main_update_finished">Download complete</string>
     <string name="main_no_update_available">No Update Available</string>
@@ -30,7 +29,7 @@
     <string name="main_download_completed_details">Tap for details</string>
     <string name="main_tap_to_view_progress">Tap to view progress</string>
     <string name="main_last_checked">Last checked for an update at</string>
-    
+
     <!-- ROM Information -->
     <string name="main_rom_information">ROM information</string>
     <string name="main_rom_name">ROM name:</string>
@@ -39,7 +38,7 @@
     <string name="main_rom_build_date">ROM date:</string>
     <string name="main_android_verison">Android version:</string>
     <string name="main_rom_developer">Developer(s):</string>
-    
+
     <!-- Dialogs -->
     <string name="main_not_compatible_title">Not compatible</string>
     <string name="main_not_compatible_message">This ROM is not compatible with OTA Updates. Please contact your developer for more information</string>
@@ -47,8 +46,7 @@
     <string name="main_not_connected_message">You are not connected to any network. Please enable your network or WiFi and try again.</string>
     <string name="main_playstore_title">BitCoin</string>
     <string name="main_playstore_message">You do not have any available apps to handle the \"bitcoin:\" mime-type.\n\nWould you like to search the Google Play Store to find one?</string>
-    
-    
+
     <!-- Content Descriptions -->
     <string name="main_button_icon">Button icon</string>
     <string name="main_dev_website_icon">Developer Website Icon</string>
@@ -56,4 +54,5 @@
 
     <!-- Toast -->
     <string name="main_release_ignored">Release ignored</string>
+
 </resources>

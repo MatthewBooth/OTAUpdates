@@ -15,6 +15,7 @@
 	limitations under the License.
 -->
 <resources>
+
     <string name="about_about_title">Über</string>
     <string name="about_about_summary">	Diese App entstand, weil ich unzufrieden mit ähnlichen Apps war. Ich entwickelte sie zunächst nur für meine ROM, doch schnell viel auf, dass diese App auch anderen Entwicklern helfen kann. Also habe ich sie in eine allgemeinere Form gebracht und um einige Implementierungshinweise erweitert.</string>
     <string name="about_credits_title">Danke an</string>
@@ -22,4 +23,5 @@
     <string name="about_donate_title">Spenden</string>
     <string name="about_donate_summary">Wenn Sie diese App nützlich fanden, denken Sie bitte über eine kleine Spende an den Entwickler nach (Kryten2k35).</string>
     <string name="about_donate_button_summary">Geben Sie mir ein Bier aus</string>
+
 </resources>

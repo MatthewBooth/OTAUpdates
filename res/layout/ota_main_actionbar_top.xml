@@ -15,24 +15,26 @@
 	limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="end">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end" >
 
-		<ImageButton
-				android:id="@+id/btn_main_help"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				style="?android:attr/actionButtonStyle"
-				android:src="?attr/helpIcon" 
-				android:onClick="openHelp"
-				android:contentDescription="@string/main_actionbar_button" />
-		<ImageButton
-			    android:id="@+id/btn_main_settings"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    style="?android:attr/actionButtonStyle"
-			    android:src="?attr/settingsIcon" 
-			    android:onClick="openSettings"
-			    android:contentDescription="@string/main_actionbar_button" />
+    <ImageButton
+        android:id="@+id/btn_main_help"
+        style="?android:attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/main_actionbar_button"
+        android:onClick="openHelp"
+        android:src="?attr/helpIcon" />
+
+    <ImageButton
+        android:id="@+id/btn_main_settings"
+        style="?android:attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/main_actionbar_button"
+        android:onClick="openSettings"
+        android:src="?attr/settingsIcon" />
+
 </LinearLayout>

@@ -12,9 +12,10 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
+
     <string name="app_name">Artmod обновления</string>
     <string name="prop_name">ro.ota.romname</string>
     <string name="cancel">Отмена</string>
@@ -56,7 +57,7 @@
     <string name="available_reboot_manual_message">"Пожалуйста перезагрузите а рекавери и установите обновление.
 
 Вы можете найти обновление в /sdcard/Downloads"</string>
-     <string name="available_wrong_network_title">Выбранная сеть не доступна</string>
+    <string name="available_wrong_network_title">Выбранная сеть не доступна</string>
     <string name="available_wrong_network_message">Вы пытаетесь загрузить обновление через передачу данных, в настройках выбрано только WiFi, сначала измените настройки!</string>
     <string name="main_update_available">Доступно обновление!</string>
     <string name="main_no_update_available">Нет доступных обновлений</string>
@@ -124,4 +125,5 @@
     <string name="notifications_sound">Звук</string>
     <string name="notifications_vibrate">Вибрация</string>
     <string name="silent_ringtone">Без звука</string>
+
 </resources>

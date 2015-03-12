@@ -14,7 +14,9 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<transition xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/list_pressed_holo_dark"  />
-    <item android:drawable="@drawable/list_longpressed_holo_dark"  />
+<transition xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/list_pressed_holo_dark"/>
+    <item android:drawable="@drawable/list_longpressed_holo_dark"/>
+
 </transition>

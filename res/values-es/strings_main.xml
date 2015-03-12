@@ -12,9 +12,10 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
+
     <string name="main_update_available">¡Actualización disponible!</string>
     <string name="main_no_update_available">No hay actualizaciones</string>
     <string name="main_update_filename">Nombre del archivo</string>
@@ -23,7 +24,7 @@
     <string name="main_donate">Donar</string>
     <string name="main_donate_summary">Donar al desarrollador de la ROM</string>
     <string name="main_tap_to_download">Pulse para descargar</string>
-     <string name="main_download_completed_details">Descarga completada. Pulse para detalles</string>
+    <string name="main_download_completed_details">Descarga completada. Pulse para detalles</string>
     <string name="main_last_checked">Última comprobación de actualizaciones</string>
 
     <!-- ROM Information -->
@@ -34,16 +35,16 @@
     <string name="main_rom_build_date">Fecha de ROM:</string>
     <string name="main_android_verison">Versión de Android:</string>
     <string name="main_rom_developer">Desarrollador(es):</string>
-    
+
     <!-- Dialogs -->
     <string name="main_not_compatible_title">No compatible</string>
     <string name="main_not_compatible_message">Esta ROM no es compatible con OTA Updates. Por favor contacte con su desarrollador para más información</string>
     <string name="main_not_connected_title">No conectado</string>
     <string name="main_not_connected_message">No está conectado a ninguna red. Por favor habilite su red o WiFi e inténtelo de nuevo.</string>
-    
-    
+
     <!-- Content Descriptions -->
     <string name="main_button_icon">Icono del botón</string>
     <string name="main_dev_website_icon">Icono de la Web del Desarrollador</string>
     <string name="main_actionbar_button">Botones de barra de acciones</string>
+
 </resources>

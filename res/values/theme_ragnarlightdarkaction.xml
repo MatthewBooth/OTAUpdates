@@ -28,28 +28,26 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_ragnarlightdarkaction</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_ragnarlightdarkaction</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.RagnarLight.DarkActionBar</item>
-        
+
         <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.RagnarLight.DarkActionBar.Widget</item>
-        
-        <!-- Styleables -->
-		<item name="noUpdateAvailable">@color/holo_red_light</item>
-		<item name="updateAvailable">@color/holo_green_light</item>
-		<item name="colorHoloBlue">@color/holo_blue_dark</item>
 
-		<item name="helpIcon">@drawable/ic_about_dark</item>
-		<item name="settingsIcon">@drawable/ic_settings_dark</item>		
-		<item name="downloadIcon">@drawable/ic_download_light</item>
-		<item name="browserIcon">@drawable/ic_web_site_light</item>
-		<item name="donateIcon">@drawable/ic_donate_light</item>
-		<item name="checkIcon">@drawable/ic_check_light</item>
-		<item name="separator">@color/separator_light</item>
-		<item name="backgroundSelector">@drawable/list_selector_holo_light</item>
-		<item name="cardBackground">@color/card_background_holo_light</item>
-		<item name="cardStyle">@style/CardStyle.Light</item>
-		
-		<item name="textColorPrimary">@color/black</item>
-	    <item name="textColorSecondary">@color/dark_grey</item>
+        <!-- Styleables -->
+        <item name="noUpdateAvailable">@color/holo_red_light</item>
+        <item name="updateAvailable">@color/holo_green_light</item>
+        <item name="colorHoloBlue">@color/holo_blue_dark</item>
+        <item name="helpIcon">@drawable/ic_about_dark</item>
+        <item name="settingsIcon">@drawable/ic_settings_dark</item>
+        <item name="downloadIcon">@drawable/ic_download_light</item>
+        <item name="browserIcon">@drawable/ic_web_site_light</item>
+        <item name="donateIcon">@drawable/ic_donate_light</item>
+        <item name="checkIcon">@drawable/ic_check_light</item>
+        <item name="separator">@color/separator_light</item>
+        <item name="backgroundSelector">@drawable/list_selector_holo_light</item>
+        <item name="cardBackground">@color/card_background_holo_light</item>
+        <item name="cardStyle">@style/CardStyle.Light</item>
+        <item name="textColorPrimary">@color/black</item>
+        <item name="textColorSecondary">@color/dark_grey</item>
     </style>
 
     <style name="ActionBar.Solid.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
@@ -65,7 +63,7 @@
     </style>
 
     <style name="PopupMenu.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlightdarkaction</item>	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlightdarkaction</item>
     </style>
 
     <style name="DropDownListView.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ListView.DropDown">
@@ -81,11 +79,11 @@
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlightdarkaction</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_ragnarlightdarkaction</item>
     </style>
-    
+
     <style name="ProgressBar.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_ragnarlightdarkaction</item>
     </style>
-    
+
     <style name="ActionButton.CloseMode.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_ragnarlightdarkaction</item>
     </style>
@@ -97,4 +95,5 @@
     </style>
 
     <style name="Theme.RagnarLight.DarkActionBar.Settings" parent="Theme.RagnarLight.DarkActionBar" />
+
 </resources>

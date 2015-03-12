@@ -14,6 +14,10 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<ripple android:color="@color/ripple_material_light" xmlns:android="http://schemas.android.com/apk/res/android">
- <item android:drawable="@drawable/card_material_background_light"></item>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_material_light" >
+
+    <item android:drawable="@drawable/card_material_background_light">
+    </item>
+
 </ripple>

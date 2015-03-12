@@ -15,93 +15,103 @@
 	limitations under the License.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <!-- Open Recovery Script -->
     <PreferenceCategory
-        android:title="@string/twrp_ors_cat"
-        android:key="updater_ors_screen_title" />
-	    <SwitchPreference 
-	        android:title="@string/twrp_ors_title"
-	        android:key="updater_twrp_ors"
-	        android:summary="@string/twrp_ors_summary"
-	        android:defaultValue="false" />
-	    <Preference 
-	        android:title="@string/twrp_ors_install_prefs"
-	        android:key="install_prefs"
-	        android:summary="@string/twrp_ors_install_prefs_summary"
-	        android:dependency="updater_twrp_ors" />
-	    <Preference 
-	        android:title="@string/information"
-	        android:key="updater_twrp_ors_information"
-	        android:summary="@string/twrp_ors_information"
-	        android:selectable="false"
-	        android:dependency="updater_twrp_ors" />
-	
-    <!-- Background update service -->
-	<PreferenceCategory
-        android:title="@string/notifications_title"
-        android:key="updater_ors_screen_title" />
-	    <SwitchPreference 
-	        android:title="@string/notifications_title"
-	        android:key="background_service"
-	        android:summary="@string/background_service_summary"
-	        android:defaultValue="true" />
-	    <ListPreference
-	        android:title="@string/background_frequency"
-	        android:key="background_frequency"
-	        android:summary="@string/list_summary"
-	        android:entries="@array/updater_background_frequency_entries"
-	        android:entryValues="@array/updater_background_frequency_values"
-	        android:dependency="background_service"
-	        android:defaultValue="43200" />
-	    <RingtonePreference 
-	        android:title="@string/notifications_sound"
-	        android:key="notifications_sound"
-	        android:ringtoneType="notification"
-	        android:dependency="background_service"
-            android:defaultValue="content://settings/system/notification_sound" />	    
-	    <SwitchPreference 
-	        android:title="@string/notifications_vibrate"
-	        android:key="notifications_vibrate"
-	        android:dependency="background_service"
-	        android:defaultValue="true" />
-	    <SwitchPreference 
-	        android:title="@string/notification_ignore_release_title"
-	        android:key="notifications_ignored_release"
-	        android:dependency="background_service"
-	        android:defaultValue="false" />
-	 
-	 <!-- Network Settings -->
-	 <PreferenceCategory 
-	    android:title="@string/mobile_wifi_network"
-	    android:key="updater_updater_mobile_wifi_network_cat"/>
-		<ListPreference 
-	    	android:title="@string/mobile_wifi_title"
-	    	android:key="network_type"
-	    	android:summary="@string/list_summary"
-	    	android:entries="@array/updater_network_entries"
-	        android:entryValues="@array/updater_network_values"
-	        android:defaultValue="2"/>
+        android:key="updater_ors_screen_title"
+        android:title="@string/twrp_ors_cat" />
 
-	<!-- App Theme -->
-	<PreferenceCategory 
-	    android:title="@string/theme"
-	    android:key="updater_theme_cat"/>	
-	<ListPreference 
-	    android:title="@string/theme"
-	    android:key="current_theme"
-	    android:summary="@string/list_summary"
-	    android:entries="@array/theme_entries"
-	    android:entryValues="@array/theme_values"
-		android:defaultValue="0" />
-	
-	<PreferenceCategory 
-	    android:title="@string/ads_cat"
-	    android:key="updater_ads_cat"/>
-	<SwitchPreference 
-	    android:title="@string/ads_enable"
-	    android:summaryOn="@string/ads_summary_on"
-	    android:summaryOff="@string/ads_summary_off"
-	    android:key="ads_enabled"
-	    android:defaultValue="true" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="updater_twrp_ors"
+        android:summary="@string/twrp_ors_summary"
+        android:title="@string/twrp_ors_title" />
+
+    <Preference
+        android:dependency="updater_twrp_ors"
+        android:key="install_prefs"
+        android:summary="@string/twrp_ors_install_prefs_summary"
+        android:title="@string/twrp_ors_install_prefs" />
+    <Preference
+        android:dependency="updater_twrp_ors"
+        android:key="updater_twrp_ors_information"
+        android:selectable="false"
+        android:summary="@string/twrp_ors_information"
+        android:title="@string/information" />
+
+    <!-- Background update service -->
+    <PreferenceCategory
+        android:key="updater_ors_screen_title"
+        android:title="@string/notifications_title" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="background_service"
+        android:summary="@string/background_service_summary"
+        android:title="@string/notifications_title" />
+
+    <ListPreference
+        android:defaultValue="43200"
+        android:dependency="background_service"
+        android:entries="@array/updater_background_frequency_entries"
+        android:entryValues="@array/updater_background_frequency_values"
+        android:key="background_frequency"
+        android:summary="@string/list_summary"
+        android:title="@string/background_frequency" />
+
+    <RingtonePreference
+        android:defaultValue="content://settings/system/notification_sound"
+        android:dependency="background_service"
+        android:key="notifications_sound"
+        android:ringtoneType="notification"
+        android:title="@string/notifications_sound" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="background_service"
+        android:key="notifications_vibrate"
+        android:title="@string/notifications_vibrate" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="background_service"
+        android:key="notifications_ignored_release"
+        android:title="@string/notification_ignore_release_title" />
+
+    <!-- Network Settings -->
+    <PreferenceCategory
+        android:key="updater_updater_mobile_wifi_network_cat"
+        android:title="@string/mobile_wifi_network" />
+
+    <ListPreference
+        android:defaultValue="2"
+        android:entries="@array/updater_network_entries"
+        android:entryValues="@array/updater_network_values"
+        android:key="network_type"
+        android:summary="@string/list_summary"
+        android:title="@string/mobile_wifi_title" />
+
+    <!-- App Theme -->
+    <PreferenceCategory
+        android:key="updater_theme_cat"
+        android:title="@string/theme" />
+
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/theme_entries"
+        android:entryValues="@array/theme_values"
+        android:key="current_theme"
+        android:summary="@string/list_summary"
+        android:title="@string/theme" />
+
+    <PreferenceCategory
+        android:key="updater_ads_cat"
+        android:title="@string/ads_cat" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="ads_enabled"
+        android:summaryOff="@string/ads_summary_off"
+        android:summaryOn="@string/ads_summary_on"
+        android:title="@string/ads_enable" />
 
 </PreferenceScreen>

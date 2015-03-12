@@ -12,10 +12,11 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
-	<string name="available_update_name">Update naam en file-informatie hier</string>
+
+    <string name="available_update_name">Update naam en file-informatie hier</string>
     <string name="available_progress_counter">0MB / 0MB</string>
     <string name="available_changelog_content">De Changelog komt hier</string>
     <string name="available_md5">MD5:</string>
@@ -25,15 +26,13 @@
     <string name="available_md5_failed">MD5 Fout</string>
     <string name="available_checking_md5">Controleer MD5&#8230;</string>
     <string name="available_downloading">Downloaden&#8230;</string>
-    
     <string name="are_you_sure">Weet je het zeker?</string>
-    
     <string name="available_delete_confirm_message">Weet je zeker dat je het gedownloade bestand wilt verwijderen?</string>
     <string name="available_reboot_confirm">Wil je nu herstarten?</string>
     <string name="available_url_error">URL fout: Raadpleeg jouw ROM ontwikkelaar</string>
     <string name="available_reboot_manual_title">Herstart alsjeblieft</string>
-     <string name="available_reboot_manual_message">Herstart naar recovery en flash de ROM.\n\nDie kan je vinden in /sdcard/Downloads</string>
-    
+    <string name="available_reboot_manual_message">Herstart naar recovery en flash de ROM.\n\nDie kan je vinden in /sdcard/Downloads</string>
     <string name="available_wrong_network_title">Verkeerd netwerk geselecteerd.</string>
     <string name="available_wrong_network_message">Je probeert via je mobiele netwerk te downloaden, en de instelling staat op alleen Wi-Fi toestaan. Wijzig de instellingen.</string>
+
 </resources>

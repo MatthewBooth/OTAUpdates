@@ -14,46 +14,42 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" 
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <style name="Theme.RagnarDark" parent="@android:Theme.Material">
+
         <!-- Styleables -->
-		<item name="noUpdateAvailable">@color/material_red_200</item>
-		<item name="updateAvailable">@color/material_light_green_500</item>
-		
-		<item name="helpIcon">@drawable/ic_about_dark</item>
-		<item name="settingsIcon">@drawable/ic_settings_dark</item>		
-		<item name="downloadIcon">@drawable/drawable_download</item>
-		<item name="browserIcon">@drawable/drawable_website</item>
-		<item name="donateIcon">@drawable/drawable_donate</item>
-		<item name="checkIcon">@drawable/drawable_check</item>
-		<item name="separator">@color/separator_dark</item>
-		<item name="backgroundRippleSelector">@drawable/ripple_selector_dark</item>
-		
-		<!-- Main theme colors -->
-	    <item name="android:colorPrimary">@color/material_primary</item>
-	    <item name="android:colorPrimaryDark">@color/material_primary_dark</item>
-	    <item name="colorPrimary">@color/material_primary</item>
-	    <item name="colorPrimaryDark">@color/material_primary_dark</item>
-	    <item name="android:colorAccent">@color/accent_material_dark</item>	    
-	    <item name="android:windowBackground">@drawable/material_background_dark</item>
-	    <item name="cardBackground">@color/card_background_material_dark</item>
-	    <item name="textColorPrimary">@color/primary_text_material_dark</item>
-	    <item name="textColorSecondary">@color/secondary_text_material_dark</item>
-	    <item name="materialAccent">@color/accent_material_dark</item>
-	    
-	    <item name="cardStyle">@style/CardStyle.Dark</item>
-	    
-	    <item name="android:windowNoTitle">true</item>
-    	<!--We will be using the toolbar so no need to show ActionBar-->
-    	<item name="android:windowActionBar">false</item>	    
-	   
+        <item name="noUpdateAvailable">@color/material_red_200</item>
+        <item name="updateAvailable">@color/material_light_green_500</item>
+        <item name="helpIcon">@drawable/ic_about_dark</item>
+        <item name="settingsIcon">@drawable/ic_settings_dark</item>
+        <item name="downloadIcon">@drawable/drawable_download</item>
+        <item name="browserIcon">@drawable/drawable_website</item>
+        <item name="donateIcon">@drawable/drawable_donate</item>
+        <item name="checkIcon">@drawable/drawable_check</item>
+        <item name="separator">@color/separator_dark</item>
+        <item name="backgroundRippleSelector">@drawable/ripple_selector_dark</item>
+
+        <!-- Main theme colors -->
+        <item name="android:colorPrimary">@color/material_primary</item>
+        <item name="android:colorPrimaryDark">@color/material_primary_dark</item>
+        <item name="colorPrimary">@color/material_primary</item>
+        <item name="colorPrimaryDark">@color/material_primary_dark</item>
+        <item name="android:colorAccent">@color/accent_material_dark</item>
+        <item name="android:windowBackground">@drawable/material_background_dark</item>
+        <item name="cardBackground">@color/card_background_material_dark</item>
+        <item name="textColorPrimary">@color/primary_text_material_dark</item>
+        <item name="textColorSecondary">@color/secondary_text_material_dark</item>
+        <item name="materialAccent">@color/accent_material_dark</item>
+        <item name="cardStyle">@style/CardStyle.Dark</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- We will be using the toolbar so no need to show ActionBar -->
+        <item name="android:windowActionBar">false</item>
     </style>
-    
+
     <style name="Theme.RagnarDark.Settings" parent="Theme.RagnarDark">
         <item name="android:windowNoTitle">false</item>
-    	<item name="android:windowActionBar">true</item>       
+        <item name="android:windowActionBar">true</item>
     </style>
 
 </resources>

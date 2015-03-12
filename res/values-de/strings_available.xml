@@ -15,7 +15,8 @@
 	limitations under the License.
 -->
 <resources>
-	<string name="available_update_name">Hier stehen der Update-Name und die Dateiinformationen</string>
+
+    <string name="available_update_name">Hier stehen der Update-Name und die Dateiinformationen</string>
     <string name="available_progress_counter">0MB / 0MB</string>
     <string name="available_changelog_title">Änderungen</string>
     <string name="available_changelog_content">Hier findet sich das Änderungsprotokoll</string>
@@ -25,15 +26,13 @@
     <string name="available_md5_failed">MD5 fehlgeschlagen</string>
     <string name="available_checking_md5">MD5 wird geprüft&#8230;</string>
     <string name="available_downloading">Wird heruntergeladen&#8230;</string>
-    
     <string name="are_you_sure">Sind Sie sich sicher?</string>
-    
     <string name="available_delete_confirm_message">Möchten Sie die heruntergeladene Datei wirklich löschen?</string>
     <string name="available_reboot_confirm">Möchten Sie jetzt neu starten?</string>
     <string name="available_url_error">Fehler in der URL: Bitte kontaktieren Sie den Entwickler Ihrer ROM</string>
     <string name="available_reboot_manual_title">Bitte jetzt neu starten</string>
-     <string name="available_reboot_manual_message">Bitte starten Sie Ihr Gerät im Recovery-Modus und spielen dort die ROM auf.\n\nSie finden das Update unter /sdcard/Downloads.</string>
-    
+    <string name="available_reboot_manual_message">Bitte starten Sie Ihr Gerät im Recovery-Modus und spielen dort die ROM auf.\n\nSie finden das Update unter /sdcard/Downloads.</string>
     <string name="available_wrong_network_title">Falsches Netzwerk</string>
     <string name="available_wrong_network_message">Sie versuchen einen Download im mobilen Netzwerk zu starten, die Einstellungen erlauben dies aber nur im WLAN. Bitte passen Sie die Einstellungen entsprechend an.</string>
+
 </resources>

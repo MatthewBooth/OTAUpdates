@@ -12,63 +12,55 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
+
     <string name="preferences_name">Settings</string>
     <string name="download_folder" translatable="false">/storage/emulated/0/Download</string>
     <string name="list_summary" translatable="false">%s</string>
-    
-    <string name="twrp_ors_cat"  translatable="false">OpenRecoveryScript</string>
+    <string name="twrp_ors_cat" translatable="false">OpenRecoveryScript</string>
     <string name="twrp_ors_title">Enable OpenRecoveryScript</string>
     <string name="twrp_ors_summary">Works for TWRP and some custom CWM (not official) recoveries</string>
     <string name="twrp_ors_information">Enables this app to flash the file via recovery without any interaction needed from the user. Just hit install and wait for it to finish.</string>
-	<string name="twrp_ors_delete_after">Delete after install</string>
+    <string name="twrp_ors_delete_after">Delete after install</string>
     <string name="twrp_ors_delete_after_summary">Should the open recovery script remove the update after the install?</string>
-    
     <string name="twrp_ors_install_prefs">Install preferences</string>
     <string name="twrp_ors_install_prefs_summary">Choose some install preferences to use when using the ORS script</string>
     <string name="twrp_ors_wipe_data">Wipe Data</string>
     <string name="twrp_ors_wipe_cache">Wipe Cache</string>
     <string name="twrp_ors_wipe_dalvik">Wipe Dalvik</string>
-    
     <string name="notifications_title">Notifications</string>
-	<string name="background_service_summary">Automatically check for updates and show a notification if one is available</string>
-	<string name="background_frequency">Update check frequency</string>
-	<string name="background_30mins">30 Mins</string>
-	<string name="background_60mins">60 Mins</string>
-	<string name="background_2hours">2 Hours</string>
-	<string name="background_3hours">3 hours</string>
-	<string name="background_6hours">6 hours</string>
-	<string name="background_12hours">12 hours</string>
-	<string name="background_24hours">Daily</string>
-	<string name="background_2days">2 days</string>
-	<string name="background_3days">3 days</string>
-	<string name="background_7days">Weekly</string>
+    <string name="background_service_summary">Automatically check for updates and show a notification if one is available</string>
+    <string name="background_frequency">Update check frequency</string>
+    <string name="background_30mins">30 Mins</string>
+    <string name="background_60mins">60 Mins</string>
+    <string name="background_2hours">2 Hours</string>
+    <string name="background_3hours">3 hours</string>
+    <string name="background_6hours">6 hours</string>
+    <string name="background_12hours">12 hours</string>
+    <string name="background_24hours">Daily</string>
+    <string name="background_2days">2 days</string>
+    <string name="background_3days">3 days</string>
+    <string name="background_7days">Weekly</string>
+    <string name="theme_title">App Theme</string>
+    <string name="mobile_wifi_network">Network</string>
+    <string name="mobile_wifi_title">Update over network</string>
+    <string name="wifi_network_only">Wi-Fi only</string>
+    <string name="mobile_or_wifi">Mobile or Wi-Fi</string>
+    <string name="theme">Theme</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_light_dark">Light, Dark ActionBar</string>
+    <string name="notifications_sound">Sound</string>
+    <string name="notifications_vibrate">Vibrate</string>
+    <string name="silent_ringtone">Silent</string>
+    <string name="notification_ignore_release_title">Ignore release</string>
+    <string name="notification_ignoring_release">Currently ignoring version: </string>
+    <string name="notification_not_ignoring_release">You are not currently ignoring a release</string>
+    <string name="ads_cat">Advertisements</string>
+    <string name="ads_enable">Enabled ads</string>
+    <string name="ads_summary_on">Consider leaving advertisements enabled to support further development of the app</string>
+    <string name="ads_summary_off">Consider enabling advertisements enabled to support further development of the app</string>
 
-	<string name="theme_title">App Theme</string>
-	
-	<string name="mobile_wifi_network">Network</string>
-	<string name="mobile_wifi_title">Update over network</string>
-	<string name="wifi_network_only">Wi-Fi only</string>
-	<string name="mobile_or_wifi">Mobile or Wi-Fi</string>
-	
-	<string name="theme">Theme</string>
-	<string name="theme_dark">Dark</string>
-	<string name="theme_light">Light</string>
-	<string name="theme_light_dark">Light, Dark ActionBar</string>
-	
-	<string name="notifications_sound">Sound</string>
-	<string name="notifications_vibrate">Vibrate</string>
-	<string name="silent_ringtone">Silent</string>
-	
-	<string name="notification_ignore_release_title">Ignore release</string>
-	<string name="notification_ignoring_release">Currently ignoring version: </string>
-	<string name="notification_not_ignoring_release">You are not currently ignoring a release</string>
-	
-	<string name="ads_cat">Advertisements</string>
-	<string name="ads_enable">Enabled ads</string>
-	<string name="ads_summary_on">Consider leaving advertisements enabled to support further development of the app</string>
-	<string name="ads_summary_off">Consider enabling advertisements enabled to support further development of the app</string>
-	
 </resources>

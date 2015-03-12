@@ -15,6 +15,8 @@
 	limitations under the License.
 -->
 <resources>
+
     <string name="ad_activity_main">ca-app-pub-1094770210220666/4170147370</string>
-    <string name="ad_activity_about">ca-app-pub-1094770210220666/8541471376</string> 
+    <string name="ad_activity_about">ca-app-pub-1094770210220666/8541471376</string>
+
 </resources>

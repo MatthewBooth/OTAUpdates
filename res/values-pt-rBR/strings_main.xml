@@ -12,9 +12,10 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
+
     <string name="main_update_available">Atualização Disponível!</string>
     <string name="main_no_update_available">Nenhuma atualização disponível</string>
     <string name="main_update_filename">Nome do arquivo</string>
@@ -41,9 +42,9 @@
     <string name="main_not_connected_title">Desconectado</string>
     <string name="main_not_connected_message">Você não está conectado a nenhuma rede. Por favor, ative a rede de dados móvel ou Wi-Fi e tente novamente.</string>
 
-
     <!-- Content Descriptions -->
     <string name="main_button_icon">Ícone do Botão</string>
     <string name="main_dev_website_icon">Ícone do Website do Desenvolvedor</string>
     <string name="main_actionbar_button">Botões da Barra de Ação</string>
+
 </resources>

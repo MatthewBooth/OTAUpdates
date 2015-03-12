@@ -16,8 +16,8 @@
 -->
 <resources>
 
-    <!--  Generic strings -->
-    <string name="cancel">Abbrechen</string>  
+    <!-- Generic strings -->
+    <string name="cancel">Abbrechen</string>
     <string name="delete">Entfernen</string>
     <string name="back">Zurück</string>
     <string name="help">Hilfe</string>
@@ -29,4 +29,5 @@
     <string name="rebooting">Wird neu gestartet&#8230;</string>
     <string name="information">Informationen</string>
     <string name="update_available">ROM-Aktualisierung verfügbar</string>
+
 </resources>

@@ -12,19 +12,17 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation" >
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <!-- App Strings -->
     <string name="app_name" translatable="false">OTA Updates</string>
     <string name="prop_name" translatable="false">ro.ota.romname</string>
     <string name="app_version" translatable="false">2.3</string>
-    
-    <!--  Generic strings -->
-    <string name="cancel">Cancel</string>  
+
+    <!-- Generic strings -->
+    <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="delete">Delete</string>
     <string name="back">Back</string>
@@ -39,4 +37,5 @@
     <string name="update_available">ROM update available</string>
     <string name="ignore">Ignore</string>
     <string name="donate">Donate</string>
+
 </resources>

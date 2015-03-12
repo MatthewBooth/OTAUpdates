@@ -15,11 +15,13 @@
 	limitations under the License.
 -->
 <resources>
-	<declare-styleable name="Theme.Ragnar">
-	    <attr name="colorPrimary" format="color" />
-		<attr name="colorPrimaryDark" format="color" />
-		<attr name="menuTheme" format="reference" />
-		<attr name="backgroundRippleSelector" format="reference" />
-		<attr name="materialAccent" format="color" />
-	</declare-styleable>
+
+    <declare-styleable name="Theme.Ragnar">
+        <attr name="colorPrimary" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="menuTheme" format="reference" />
+        <attr name="backgroundRippleSelector" format="reference" />
+        <attr name="materialAccent" format="color" />
+    </declare-styleable>
+
 </resources>

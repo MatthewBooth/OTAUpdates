@@ -15,22 +15,23 @@
 	limitations under the License.
 -->
 
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
     <!-- Non focused states -->
-    <item android:state_focused="false" android:state_selected="false" android:state_pressed="false" android:drawable="@android:color/transparent" />
-    <item android:state_focused="false" android:state_selected="true"  android:state_pressed="false" android:drawable="@drawable/tab_selected_ragnardark" />
+    <item android:drawable="@android:color/transparent" android:state_focused="false" android:state_pressed="false" android:state_selected="false"/>
+    <item android:drawable="@drawable/tab_selected_ragnardark" android:state_focused="false" android:state_pressed="false" android:state_selected="true"/>
 
     <!-- Focused states -->
-    <item android:state_focused="true" android:state_selected="false" android:state_pressed="false" android:drawable="@drawable/tab_unselected_focused_ragnardark" />
-    <item android:state_focused="true" android:state_selected="true"  android:state_pressed="false" android:drawable="@drawable/tab_selected_focused_ragnardark" />
+    <item android:drawable="@drawable/tab_unselected_focused_ragnardark" android:state_focused="true" android:state_pressed="false" android:state_selected="false"/>
+    <item android:drawable="@drawable/tab_selected_focused_ragnardark" android:state_focused="true" android:state_pressed="false" android:state_selected="true"/>
 
     <!-- Pressed -->
-    <!--    Non focused states -->
-    <item android:state_focused="false" android:state_selected="false" android:state_pressed="true" android:drawable="@drawable/tab_unselected_pressed_ragnardark" />
-    <item android:state_focused="false" android:state_selected="true"  android:state_pressed="true" android:drawable="@drawable/tab_selected_pressed_ragnardark" />
+    <!-- Non focused states -->
+    <item android:drawable="@drawable/tab_unselected_pressed_ragnardark" android:state_focused="false" android:state_pressed="true" android:state_selected="false"/>
+    <item android:drawable="@drawable/tab_selected_pressed_ragnardark" android:state_focused="false" android:state_pressed="true" android:state_selected="true"/>
 
-    <!--    Focused states -->
-    <item android:state_focused="true" android:state_selected="false" android:state_pressed="true" android:drawable="@drawable/tab_unselected_pressed_ragnardark" />
-    <item android:state_focused="true" android:state_selected="true"  android:state_pressed="true" android:drawable="@drawable/tab_selected_pressed_ragnardark" />
+    <!-- Focused states -->
+    <item android:drawable="@drawable/tab_unselected_pressed_ragnardark" android:state_focused="true" android:state_pressed="true" android:state_selected="false"/>
+    <item android:drawable="@drawable/tab_selected_pressed_ragnardark" android:state_focused="true" android:state_pressed="true" android:state_selected="true"/>
+
 </selector>

@@ -15,19 +15,20 @@
 	limitations under the License.
 -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@android:id/background"
-          android:drawable="@drawable/progress_bg_ragnarlightdarkaction" />
-
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/progress_bg_ragnarlightdarkaction"/>
     <item android:id="@android:id/secondaryProgress">
-        <scale android:scaleWidth="100%"
-               android:drawable="@drawable/progress_secondary_ragnarlightdarkaction" />
+        <scale
+            android:drawable="@drawable/progress_secondary_ragnarlightdarkaction"
+            android:scaleWidth="100%" />
     </item>
-
     <item android:id="@android:id/progress">
-        <scale android:scaleWidth="100%"
-               android:drawable="@drawable/progress_primary_ragnarlightdarkaction" />
+        <scale
+            android:drawable="@drawable/progress_primary_ragnarlightdarkaction"
+            android:scaleWidth="100%" />
     </item>
 
 </layer-list>

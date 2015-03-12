@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp" >
 
     <TextView
         android:id="@+id/tv_available_update_name"
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="@string/available_progress_counter"
-        android:textSize="10sp"
         android:textColor="?attr/textColorSecondary"
+        android:textSize="10sp"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="@string/available_md5"
-        android:textSize="10sp"
         android:textColor="?attr/textColorSecondary"
+        android:textSize="10sp"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -63,11 +63,11 @@
         android:layout_gravity="right"
         android:textSize="10sp"
         tools:ignore="SmallSp" />
-    
+
     <View
-		style="@style/HorizontalSeparator"
-		android:layout_marginTop="8dp" 
-		android:layout_marginBottom="8dp" />
+        style="@style/HorizontalSeparator"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -88,4 +88,5 @@
                 android:textColor="?attr/textColorSecondary" />
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

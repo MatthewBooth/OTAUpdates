@@ -14,12 +14,11 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-	<com.google.android.gms.ads.AdView 
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    xmlns:ads="http://schemas.android.com/apk/res-auto"
-		android:id="@+id/adView"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    ads:adSize="BANNER"
-	    ads:adUnitId="@string/ad_activity_about"
-	    android:layout_marginTop="15.0dip" />
+<com.google.android.gms.ads.AdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/adView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15.0dip"
+    ads:adSize="BANNER"
+    ads:adUnitId="@string/ad_activity_about" />

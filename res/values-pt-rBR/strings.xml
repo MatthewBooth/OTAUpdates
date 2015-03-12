@@ -12,13 +12,14 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources>
+
     <!-- App Strings -->
     <string name="app_name">Atualizações OTA</string>
 
-    <!--  Generic strings -->
+    <!-- Generic strings -->
     <string name="cancel">Cancelar</string>
     <string name="delete">Apagar</string>
     <string name="back">Voltar</string>
@@ -30,4 +31,5 @@
     <string name="rebooting">Reiniciando&#8230;</string>
     <string name="information">Informação</string>
     <string name="update_available">Atualização da ROM disponível</string>
+
 </resources>

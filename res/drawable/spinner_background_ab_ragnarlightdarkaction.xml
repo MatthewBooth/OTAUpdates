@@ -15,13 +15,11 @@
 	limitations under the License.
 -->
 
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false"
-        android:drawable="@drawable/spinner_ab_disabled_ragnarlightdarkaction" />
-    <item android:state_pressed="true"
-        android:drawable="@drawable/spinner_ab_pressed_ragnarlightdarkaction" />
-    <item android:state_pressed="false" android:state_focused="true"
-        android:drawable="@drawable/spinner_ab_focused_ragnarlightdarkaction" />
-    <item android:drawable="@drawable/spinner_ab_default_ragnarlightdarkaction" />
+
+    <item android:drawable="@drawable/spinner_ab_disabled_ragnarlightdarkaction" android:state_enabled="false"/>
+    <item android:drawable="@drawable/spinner_ab_pressed_ragnarlightdarkaction" android:state_pressed="true"/>
+    <item android:drawable="@drawable/spinner_ab_focused_ragnarlightdarkaction" android:state_focused="true" android:state_pressed="false"/>
+    <item android:drawable="@drawable/spinner_ab_default_ragnarlightdarkaction"/>
+
 </selector>
