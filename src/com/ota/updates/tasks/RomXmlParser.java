@@ -44,9 +44,6 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 	private StringBuffer value = new StringBuffer();;
 	private Context mContext;
 
-	private int filesize;
-	private String filesizeStr;
-
 	boolean tagRomName = false;
 	boolean tagVersionName = false;
 	boolean tagVersionNumber = false;
