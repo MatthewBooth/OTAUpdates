@@ -143,6 +143,7 @@ public class Utils implements Constants{
 	public static void setHasFileDownloaded(Context context) {
 		File file = RomUpdate.getFullFile(context);
 		int filesize = RomUpdate.getFileSize(context);
+		boolean downloadIsRunning = Preferences.getIsDownloadOnGoing(context);
 
 		boolean status = false;
 		if (DEBUGGING) {
@@ -150,7 +151,7 @@ public class Utils implements Constants{
 			Log.d(TAG, "Local filesize " + file.length());
 			Log.d(TAG, "Remote filesize " + filesize);
 		}
-		if (file.length() != 0 && file.length() == filesize) {
+		if (file.length() != 0 && file.length() == filesize && !downloadIsRunning) {
 			status = true;
 		}		
 		Preferences.setDownloadFinished(context, status);
