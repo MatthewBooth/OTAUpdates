@@ -68,6 +68,9 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 				} 
 			} catch (CursorIndexOutOfBoundsException e) {
 				Preferences.setIsDownloadRunning(mContext, false);
+			} catch (ArithmeticException e) {
+				Preferences.setIsDownloadRunning(mContext, false);
+				Log.e(TAG, " " + e.getStackTrace());
 			}
 			cursor.close();
 		}

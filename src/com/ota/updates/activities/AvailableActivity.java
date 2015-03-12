@@ -103,7 +103,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 
 		setupDialogs();
 		setupUpdateNameInfo();
-		setupProgress(getResources());
+		setupProgress(mContext);
 		setupMd5Info();
 		setupRomHut();
 		setupChangeLog();
@@ -145,7 +145,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		case R.id.menu_available_cancel:
 			DownloadRomUpdate.cancelDownload(mContext);
 			setupUpdateNameInfo();
-			setupProgress(getResources());
+			setupProgress(mContext);
 			invalidateOptionsMenu();
 			return true;
 		case R.id.menu_available_install:
@@ -234,7 +234,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		case R.id.menu_available_cancel:
 			DownloadRomUpdate.cancelDownload(mContext);
 			setupUpdateNameInfo();
-			setupProgress(getResources());
+			setupProgress(mContext);
 			setupMenuToolbar();
 			break;
 		}
@@ -255,7 +255,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				Preferences.setHasMD5Run(mContext, false); // MD5 check hasn't been run
 				Preferences.setDownloadFinished(mContext, false);
 				setupUpdateNameInfo(); // Update name info
-				setupProgress(getResources()); // Progress goes back to 0
+				setupProgress(mContext); // Progress goes back to 0
 				setupMd5Info(); // MD5 goes back to default
 				if(Utils.isLollipop()) {
 					setupMenuToolbar(); // Reset options menu
@@ -442,21 +442,22 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		}
 	}
 
-	public static void setupProgress(Resources res) {
+	public static void setupProgress(Context context) {
+		Resources res = context.getResources();
 		if(DEBUGGING)
 			Log.d(TAG, "Setting up Progress Bars");
-		boolean downloadFinished = Preferences.getDownloadFinished(mContext);
+		boolean downloadFinished = Preferences.getDownloadFinished(context);
 		if(downloadFinished) {
 			if(DEBUGGING)
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
-			String ready = mContext.getResources().getString(R.string.available_ready_to_install);
+			String ready = context.getResources().getString(R.string.available_ready_to_install);
 
 			if(Utils.isLollipop()) {
 				int color;
-				if(Preferences.getCurrentTheme(mContext) == 0) { // Light
-					color = mContext.getResources().getColor(R.color.material_deep_teal_500);
+				if(Preferences.getCurrentTheme(context) == 0) { // Light
+					color = context.getResources().getColor(R.color.material_deep_teal_500);
 				} else {
-					color = mContext.getResources().getColor(R.color.material_deep_teal_200);
+					color = context.getResources().getColor(R.color.material_deep_teal_200);
 				}
 				mProgressCounterText.setTextColor(color);
 			} else {
@@ -467,7 +468,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		} else {
 			if(DEBUGGING)
 				Log.d(TAG, "Download not finished/started. Setting Progress Bars to default.");
-			int fileSize = RomUpdate.getFileSize(mContext);
+			int fileSize = RomUpdate.getFileSize(context);
 			String fileSizeStr = Utils.formatDataFromBytes(fileSize);
 			mProgressCounterText.setText(fileSizeStr);
 			mProgressBar.setProgress(0);

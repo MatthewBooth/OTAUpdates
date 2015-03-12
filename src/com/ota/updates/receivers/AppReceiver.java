@@ -84,7 +84,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 				if(DEBUGGING)
 					Log.v(TAG, "Download Succeeded");
 				Preferences.setDownloadFinished(context, true);
-				AvailableActivity.setupProgress(context.getResources());
+				AvailableActivity.setupProgress(context);
 				if(Utils.isLollipop()) {
 					AvailableActivity.setupMenuToolbar(); // Reset options menu
 				} else {
