@@ -71,6 +71,47 @@ Here are some useful links to help with Markdown:-
 - [http://dillinger.io/](http://dillinger.io/) -  to help checking how it looks visually
 - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/markdown-Cheatsheet)
 
+#### Using an optional Addons XML
+
+You may use an addition XML file for providing addon and extra files for your ROM. For instance, kernel files, or quick fixes.
+
+You should format it like this:
+
+``` XML
+<?xml version="1.0" encoding="utf-8"?>
+<addons>
+	<addon>
+		<name>Accuweather</name> <!-- The name, simples -->
+		<description>Accuweather Daemon and Widgets</description> <!-- You can use markdown here if you want -->
+		<updated-at>2014-12-24</updated-at> <!-- Must be in yyyy-mm-dd format -->
+		<size>9001027</size> <!-- filesize in bytes -->
+		<download-link>
+		https://romhut.com/addons/accuweather-53b5c4b3242f2/download
+		</download-link>
+	</addon>
+	<addon>
+		<name>Samsung Wallet</name> <!-- The name, simples -->
+		<description>Samsung's Wallet technology</description> <!-- You can use markdown here if you want -->
+		<updated-at>2014-10-14</updated-at> <!-- Must be in yyyy-mm-dd format -->
+		<size>5427814</size> <!-- filesize in bytes -->
+		<download-link>
+		https://romhut.com/addons/samsung-wallet-53b5c482ce61c/download
+		</download-link>
+	</addon>
+</addons>
+```
+
+Doing this, you should add these following elements to the bottom of your OTA XML
+
+```XML
+<AddonCount>2</AddonCount>
+<AddonsURL>
+https://romhut.com/roms/danvdh-googleedition/addons.xml
+</AddonsURL>
+```
+Taking care to provide a direct link to your XML in the AddonsUrl tag, and providing an accurate count in the AddonCount tag.
+
+
 #### Editing your build.prop
 
 At the bottom of your build.prop, add the following values editing them to suit your needs, for example:
