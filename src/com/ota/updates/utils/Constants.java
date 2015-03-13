@@ -20,7 +20,7 @@ import android.os.Environment;
 
 public interface Constants {
     // Developer
-    public static final boolean DEBUGGING = true;
+    public static final boolean DEBUGGING = false;
     public static final boolean DEBUG_NOTIFICATIONS = false;
 
     // Storage

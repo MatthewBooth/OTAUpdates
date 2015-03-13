@@ -381,7 +381,7 @@ public class MainActivity extends Activity implements Constants{
 	
 	private void updateAddonsLayout() {
 		CardView addonsLink = (CardView) findViewById(R.id.layout_main_addons);
-		addonsLink.setVisibility(View.VISIBLE);
+		addonsLink.setVisibility(View.GONE);
 		
 		if (RomUpdate.getAddonsCount(mContext) > 0) {
 			addonsLink.setVisibility(View.VISIBLE);

@@ -70,7 +70,7 @@ public class AddonActivity extends Activity implements Constants {
 		mListview = (ListView) findViewById(R.id.listview);
 		mDownloadAddon = new DownloadAddon();
 
-		new LoadAddonManifest().execute("https://romhut.com/roms/archiport/addons.xml");
+		new LoadAddonManifest().execute(RomUpdate.getAddonsUrl(mContext));
 	}
 
 	public static void setupListView(ArrayList<Addon> addonsList) {		
