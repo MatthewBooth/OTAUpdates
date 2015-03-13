@@ -10,11 +10,15 @@ If you want to, you can host the ROM zip and ota.xml manifest yourself! You can 
   
 - Open the .apk file using an archive manager like 7zip and extract the necessary lib file for your device. Most devices will use armeabi, armeabi-v7a or arm64-v8a. Please the libbypass.so file in your system folder as follows:
 
-For Lollipop devices put the apk and lib file like this -- system/app/OTAUpdates/base.apk
-														-- system/app/OTAUpdates/lib/arm/libbypass.so
+For Lollipop devices put the apk and lib file like this: 
+
+- system/app/OTAUpdates/base.apk
+- system/app/OTAUpdates/lib/arm/libbypass.so
 														
-For Pre-Lollipop devices, like this 					-- system/app/OTAUpdates.apk
-														-- system/lib/libbypass.so
+For Pre-Lollipop devices, like this:
+
+- system/app/OTAUpdates.apk
+- system/lib/libbypass.so
 
 #### Create an ota.xml
 
