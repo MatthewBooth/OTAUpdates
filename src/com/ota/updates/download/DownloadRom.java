@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ota.updates;
+package com.ota.updates.download;
 
 import java.io.File;
 
@@ -23,20 +23,22 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
-import com.ota.updates.tasks.UpdateProgress;
+import com.ota.updates.R;
+import com.ota.updates.RomUpdate;
+import com.ota.updates.R.string;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 
-public class DownloadRomUpdate implements Constants {
+public class DownloadRom implements Constants {
 	
 	public final static String TAG = "DownloadRomUpdate";
 
-	public DownloadRomUpdate() {
+	public DownloadRom() {
 		
 	}
 	
-	public static void startDownload(Context context) {
+	public void startDownload(Context context) {
 		String url = RomUpdate.getDirectUrl(context);
 		String fileName = RomUpdate.getFilename(context) + ".zip";
 		String description = context.getResources().getString(R.string.downloading);
@@ -71,14 +73,14 @@ public class DownloadRomUpdate implements Constants {
 		Preferences.setIsDownloadRunning(context, true);
 		
 		// Start updating the progress
-		new UpdateProgress(context, downloadManager).execute(mDownloadID);
+		new DownloadRomProgress(context, downloadManager).execute(mDownloadID);
 		
 		// MD5 checker has not been run, nor passed
 		Preferences.setMD5Passed(context, false);
 		Preferences.setHasMD5Run(context, false);
 	}
 	
-	public static void cancelDownload(Context context) {
+	public void cancelDownload(Context context) {
 		// Grab the download ID from settings
 		long mDownloadID = Preferences.getDownloadID(context);
 		

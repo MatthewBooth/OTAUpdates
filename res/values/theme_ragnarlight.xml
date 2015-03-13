@@ -38,6 +38,7 @@
         <item name="downloadIcon">@drawable/ic_download_light</item>
         <item name="browserIcon">@drawable/ic_web_site_light</item>
         <item name="donateIcon">@drawable/ic_donate_light</item>
+        <item name="addonsIcon">@drawable/ic_addon_light</item>
         <item name="checkIcon">@drawable/ic_check_light</item>
         <item name="separator">@color/separator_light</item>
         <item name="backgroundSelector">@drawable/list_selector_holo_light</item>

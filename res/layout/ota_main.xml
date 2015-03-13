@@ -27,6 +27,8 @@
         <include layout="@layout/card_update" />
 
         <include layout="@layout/card_no_update" />
+        
+        <include layout="@layout/card_addons" />
 
         <include layout="@layout/card_website" />
 

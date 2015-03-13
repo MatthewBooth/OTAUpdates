@@ -27,6 +27,7 @@
         <item name="browserIcon">@drawable/drawable_website</item>
         <item name="donateIcon">@drawable/drawable_donate</item>
         <item name="checkIcon">@drawable/drawable_check</item>
+        <item name="addonsIcon">@drawable/drawable_addon</item>
         <item name="separator">@color/separator_dark</item>
         <item name="backgroundRippleSelector">@drawable/ripple_selector_dark</item>
 

@@ -37,5 +37,6 @@
     <string name="update_available">ROM update available</string>
     <string name="ignore">Ignore</string>
     <string name="donate">Donate</string>
+    <string name="finished">Finished</string>
 
 </resources>

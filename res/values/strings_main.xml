@@ -29,6 +29,8 @@
     <string name="main_download_completed_details">Tap for details</string>
     <string name="main_tap_to_view_progress">Tap to view progress</string>
     <string name="main_last_checked">Last checked for an update at</string>
+    <string name="main_addon">Addons</string>
+    <string name="main_addon_summary">Browse and download additional files for this ROM</string>
 
     <!-- ROM Information -->
     <string name="main_rom_information">ROM information</string>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ota.updates.tasks;
+package com.ota.updates.download;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -28,14 +28,14 @@ import com.ota.updates.activities.MainActivity;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 
-public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements Constants {
+public class DownloadRomProgress  extends AsyncTask<Long, Integer, Void> implements Constants {
 	
 	public final String TAG = this.getClass().getSimpleName();
 
 	private Context mContext;
 	private DownloadManager mDownloadManager;
 	
-	public UpdateProgress(Context context, DownloadManager downloadManager) {
+	public DownloadRomProgress(Context context, DownloadManager downloadManager) {
 		mContext = context;
 		mDownloadManager = downloadManager;
 	}
@@ -86,5 +86,4 @@ public class UpdateProgress  extends AsyncTask<Long, Integer, Void> implements C
 			MainActivity.updateProgress(progress[0], progress[1], progress[2], mContext);
 		}
      }
-
 }

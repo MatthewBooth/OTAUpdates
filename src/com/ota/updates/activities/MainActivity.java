@@ -83,6 +83,7 @@ public class MainActivity extends Activity implements Constants{
 			if (action.equals(MANIFEST_LOADED)) {
 				// Reloads layouts to reflect the updated manifest information
 				updateDonateLinkLayout();
+				updateAddonsLayout();
 				updateRomInformation();
 				updateRomUpdateLayouts();
 				updateWebsiteLayout();
@@ -143,6 +144,7 @@ public class MainActivity extends Activity implements Constants{
 
 		// Update the layouts
 		updateDonateLinkLayout();
+		updateAddonsLayout();
 		updateRomInformation();
 		updateRomUpdateLayouts();
 		updateWebsiteLayout();
@@ -376,6 +378,15 @@ public class MainActivity extends Activity implements Constants{
 			updateNotAvailableSummary.setText(lastChecked + " " + time);
 		}
 	}
+	
+	private void updateAddonsLayout() {
+		CardView addonsLink = (CardView) findViewById(R.id.layout_main_addons);
+		addonsLink.setVisibility(View.VISIBLE);
+		
+		if (RomUpdate.getAddonsCount(mContext) > 0) {
+			addonsLink.setVisibility(View.VISIBLE);
+		}
+	}
 
 	private void updateDonateLinkLayout() {
 		CardView donateLink = (CardView) findViewById(R.id.layout_main_dev_donate_link);
@@ -450,6 +461,11 @@ public class MainActivity extends Activity implements Constants{
 
 	public void openDownload(View v) {
 		Intent intent = new Intent(mContext, AvailableActivity.class);
+		startActivity(intent);
+	}
+	
+	public void openAddons(View v) {
+		Intent intent = new Intent(mContext, AddonActivity.class);
 		startActivity(intent);
 	}
 

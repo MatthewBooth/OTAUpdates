@@ -21,8 +21,7 @@
         <attr name="moreIconWidget" format="reference" />
         <attr name="settingsIcon" format="reference" />
         <attr name="downloadIcon" format="reference" />
-        <attr name="downloadExtraIcon" format="reference" />
-        <attr name="downloadGappsIcon" format="reference" />
+		<attr name="addonsIcon" format="reference" />
         <attr name="backgroundSelector" format="reference" />
         <attr name="separator" format="reference" />
         <attr name="browserIcon" format="reference" />

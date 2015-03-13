@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 	Copyright (C) 2015 Matt Booth (Kryten2k35).
+ 
+ 	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International 
+ 	(the "License") you may not use this file except in compliance with the License.
+ 	You may obtain a copy of the License at
+ 
+ 		http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ 
+ 	Unless required by applicable law or agreed to in writing, software
+ 	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_main_addons"
+    style="?attr/cardStyle"
+    card_view:cardCornerRadius="@dimen/card_view_radius"
+    card_view:cardElevation="@dimen/shadow_height"
+    card_view:cardUseCompatPadding="true" >
+
+    <LinearLayout
+        style="@style/MainListElement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openAddons" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:contentDescription="@string/main_dev_website_icon"
+            android:src="?attr/addonsIcon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_addon"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/textColorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_addon_summary"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?attr/textColorSecondary" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

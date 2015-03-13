@@ -42,11 +42,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import com.ota.updates.DownloadRomUpdate;
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
+import com.ota.updates.download.DownloadRom;
+import com.ota.updates.download.DownloadRomProgress;
 import com.ota.updates.tasks.GenerateRecoveryScript;
-import com.ota.updates.tasks.UpdateProgress;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Tools;
@@ -70,6 +70,8 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 	private static Button mInstallButton;
 	private static Button mDownloadButton;
 	private static Button mCancelButton;
+	
+	private DownloadRom mDownloadRom;
 
 
 	@SuppressLint("NewApi") @Override
@@ -83,6 +85,8 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_available_bottom);
 			toolbarBottom.setTitle("");
 		}
+		
+		mDownloadRom = new DownloadRom();
 
 		mProgressBar = (ProgressBar) findViewById(R.id.bar_available_progress_bar);
 		mProgressCounterText = (TextView) findViewById(R.id.tv_available_progress_counter);
@@ -117,7 +121,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			if (DEBUGGING)
 				Log.d(TAG, "Starting progress updater");
 			DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-			new UpdateProgress(mContext, downloadManager).execute();
+			new DownloadRomProgress(mContext, downloadManager).execute();
 		}
 	}
 
@@ -143,7 +147,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			download();
 			return true;
 		case R.id.menu_available_cancel:
-			DownloadRomUpdate.cancelDownload(mContext);
+			mDownloadRom.cancelDownload(mContext);
 			setupUpdateNameInfo();
 			setupProgress(mContext);
 			invalidateOptionsMenu();
@@ -240,7 +244,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			download();
 			break;
 		case R.id.menu_available_cancel:
-			DownloadRomUpdate.cancelDownload(mContext);
+			mDownloadRom.cancelDownload(mContext);
 			setupUpdateNameInfo();
 			setupProgress(mContext);
 			setupMenuToolbar();
@@ -439,7 +443,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			} else {
 				if (DEBUGGING)
 					Log.d(TAG, "Downloading via DownloadManager");
-				DownloadRomUpdate.startDownload(mContext);
+				mDownloadRom.startDownload(mContext);
 				setupUpdateNameInfo();
 				if (Utils.isLollipop()) {
 					setupMenuToolbar(); // Reset options menu

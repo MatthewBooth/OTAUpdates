@@ -16,7 +16,9 @@
 
 package com.ota.updates.receivers;
 
-import android.app.Activity;
+import java.util.Iterator;
+import java.util.Set;
+
 import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,12 +30,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
+import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
+import com.ota.updates.OtaUpdates;
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
+import com.ota.updates.activities.AddonActivity;
 import com.ota.updates.activities.AvailableActivity;
-import com.ota.updates.activities.MainActivity;
 import com.ota.updates.tasks.LoadUpdateManifest;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
@@ -47,64 +51,113 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 	public void onReceive(Context context, Intent intent) {
 		String action = intent.getAction();
 		Bundle extras = intent.getExtras();
-		long mDownloadID = Preferences.getDownloadID(context);
-
-		if (DEBUGGING)
-			Log.v(TAG, "Receiving " + mDownloadID);
+		long mRomDownloadID = Preferences.getDownloadID(context);
 
 		if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
 			long id = extras.getLong(DownloadManager.EXTRA_DOWNLOAD_ID);
-			if (id != mDownloadID) {
-				if (DEBUGGING)
-					Log.v(TAG, "Ignoring unrelated download " + id);
-				return;
-			}
+			boolean isAddonDownload = false;
+			int keyForAddonDownload = 0;
 
-			DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-			DownloadManager.Query query = new DownloadManager.Query();
-			query.setFilterById(id);
-			Cursor cursor = downloadManager.query(query);
+			Set<Integer> set = OtaUpdates.getAddonDownloadKeySet();
+			Iterator<Integer> iterator = set.iterator();
 
-			// it shouldn't be empty, but just in case
-			if (!cursor.moveToFirst()) {
-				if (DEBUGGING)
-					Log.e(TAG, "Empty row");
-				return;
-			}
-
-			int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-			if (DownloadManager.STATUS_SUCCESSFUL != cursor.getInt(statusIndex)) {
-				if (DEBUGGING)
-					Log.w(TAG, "Download Failed");
-				Preferences.setDownloadFinished(context, false);
-				if (Utils.isLollipop()) {
-					AvailableActivity.setupMenuToolbar(); // Reset options menu
-				} else {
-					AvailableActivity.invalidateMenu();
+			while (iterator.hasNext() && isAddonDownload != true) {
+				int nextValue = iterator.next();
+				if (id == OtaUpdates.getAddonDownload(nextValue)) {
+					isAddonDownload = true;
+					keyForAddonDownload = nextValue;
+					if (DEBUGGING) {
+						Log.d(TAG, "Checking ID " + nextValue);
+					}
 				}
-				return;
+			}
+
+			if (isAddonDownload) {
+				DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+				DownloadManager.Query query = new DownloadManager.Query();
+				query.setFilterById(id);
+				Cursor cursor = downloadManager.query(query);
+
+				// it shouldn't be empty, but just in case
+				if (!cursor.moveToFirst()) {
+					if (DEBUGGING)
+						Log.e(TAG, "Addon Download Empty row");
+					return;
+				}
+
+				int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+				if (DownloadManager.STATUS_SUCCESSFUL != cursor.getInt(statusIndex)) {
+					if (DEBUGGING)
+						Log.w(TAG, "Download Failed");
+					Log.d(TAG, "Removing Addon download with id " + keyForAddonDownload);
+					OtaUpdates.removeAddonDownload(keyForAddonDownload);
+					AddonActivity.AddonsArrayAdapter.updateProgress(keyForAddonDownload, 0, true);
+					AddonActivity.AddonsArrayAdapter.updateButtons(keyForAddonDownload, false);
+					return;
+				} else {
+					if (DEBUGGING)
+						Log.v(TAG, "Download Succeeded");
+					Log.d(TAG, "Removing Addon download with id " + keyForAddonDownload);
+					OtaUpdates.removeAddonDownload(keyForAddonDownload);
+					AddonActivity.AddonsArrayAdapter.updateButtons(keyForAddonDownload, true);
+					return;
+				}
 			} else {
 				if (DEBUGGING)
-					Log.v(TAG, "Download Succeeded");
-				Preferences.setDownloadFinished(context, true);
-				AvailableActivity.setupProgress(context);
-				if (Utils.isLollipop()) {
-					AvailableActivity.setupMenuToolbar(); // Reset options menu
-				} else {
-					AvailableActivity.invalidateMenu();
+					Log.v(TAG, "Receiving " + mRomDownloadID);
+
+				if (id != mRomDownloadID) {
+					if (DEBUGGING)
+						Log.v(TAG, "Ignoring unrelated non-ROM download " + id);
+					return;
 				}
-				return;
+
+				DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+				DownloadManager.Query query = new DownloadManager.Query();
+				query.setFilterById(id);
+				Cursor cursor = downloadManager.query(query);
+
+				// it shouldn't be empty, but just in case
+				if (!cursor.moveToFirst()) {
+					if (DEBUGGING)
+						Log.e(TAG, "Rom download Empty row");
+					return;
+				}
+
+				int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+				if (DownloadManager.STATUS_SUCCESSFUL != cursor.getInt(statusIndex)) {
+					if (DEBUGGING)
+						Log.w(TAG, "Download Failed");
+					Preferences.setDownloadFinished(context, false);
+					if (Utils.isLollipop()) {
+						AvailableActivity.setupMenuToolbar(); // Reset options menu
+					} else {
+						AvailableActivity.invalidateMenu();
+					}
+					return;
+				} else {
+					if (DEBUGGING)
+						Log.v(TAG, "Download Succeeded");
+					Preferences.setDownloadFinished(context, true);
+					AvailableActivity.setupProgress(context);
+					if (Utils.isLollipop()) {
+						AvailableActivity.setupMenuToolbar(); // Reset options menu
+					} else {
+						AvailableActivity.invalidateMenu();
+					}
+					return;
+				}
 			}
 		}
 
 		if (action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
 
 			long[] ids = extras.getLongArray(DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS);
-			
+
 			for (long id : ids) {
-				if (id != mDownloadID) {
+				if (id != mRomDownloadID) {
 					if (DEBUGGING)
-						Log.v(TAG, "mDownloadID is " + mDownloadID + " and ID is " + id);
+						Log.v(TAG, "mDownloadID is " + mRomDownloadID + " and ID is " + id);
 					return;
 				} else {
 					Intent i = new Intent(context, AvailableActivity.class);
@@ -145,27 +198,27 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 			}
 		}
 
-        if (action.equals(IGNORE_RELEASE)) {
-            if (DEBUGGING) {
-                Log.d(TAG, "Ignore release");
-            }
-            Preferences.setIgnoredRelease(context, Integer.toString(RomUpdate.getVersionNumber(context)));
-            final NotificationManager mNotifyManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            Builder mBuilder = new NotificationCompat.Builder(context);
-            mBuilder.setContentTitle(context.getString(R.string.main_release_ignored))
-                    .setSmallIcon(R.drawable.ic_notif)
-                    .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));
-            mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+		if (action.equals(IGNORE_RELEASE)) {
+			if (DEBUGGING) {
+				Log.d(TAG, "Ignore release");
+			}
+			Preferences.setIgnoredRelease(context, Integer.toString(RomUpdate.getVersionNumber(context)));
+			final NotificationManager mNotifyManager =
+					(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+			Builder mBuilder = new NotificationCompat.Builder(context);
+			mBuilder.setContentTitle(context.getString(R.string.main_release_ignored))
+			.setSmallIcon(R.drawable.ic_notif)
+			.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0));
+			mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
 
-            Handler h = new Handler();
-            long delayInMilliseconds = 1500;
-            h.postDelayed(new Runnable() {
+			Handler h = new Handler();
+			long delayInMilliseconds = 1500;
+			h.postDelayed(new Runnable() {
 
-                public void run() {
-                    mNotifyManager.cancel(NOTIFICATION_ID);
-                }}, delayInMilliseconds);
-        }
+				public void run() {
+					mNotifyManager.cancel(NOTIFICATION_ID);
+				}}, delayInMilliseconds);
+		}
 	}
 }
 

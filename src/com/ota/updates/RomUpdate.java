@@ -46,6 +46,8 @@ public class RomUpdate implements Constants {
     private static String FILESIZE = "rom_filesize";
     private static String AVAILABILITY = "update_availability";
     private static String SPONSORED_ROMHUT = "rom_sponsored_romhut";
+    private static String ADDONS_COUNT = "rom_addons_count";
+    private static String ADDONS_URL = "rom_addons_url";
     
     private static String DEF_VALUE = "null";
 
@@ -106,6 +108,14 @@ public class RomUpdate implements Constants {
     
     public static int getFileSize(Context context) {
     	return getPrefs(context).getInt(FILESIZE, 0);
+    }
+    
+    public static int getAddonsCount(Context context) {
+    	return getPrefs(context).getInt(ADDONS_COUNT, 0);
+    }
+    
+    public static String getAddonsUrl(Context context) {
+    	return getPrefs(context).getString(ADDONS_URL, DEF_VALUE);
     }
     
     public static String getRomHut(Context context) {
@@ -199,7 +209,18 @@ public class RomUpdate implements Constants {
         editor.putString(SPONSORED_ROMHUT, romhut_text);
         editor.commit();
     }
-
+    
+    public static void setAddonsCount(Context context, int addons_count) {
+    	SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putInt(ADDONS_COUNT, addons_count);
+        editor.commit();
+    }
+    
+    public static void setAddonsUrl(Context context, String addons_url) {
+    	SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString(ADDONS_URL, addons_url);
+        editor.commit();
+    }
     
     public static void setUpdateAvailable(Context context, boolean availability) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();

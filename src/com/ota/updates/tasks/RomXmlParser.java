@@ -41,7 +41,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 
 	public final String TAG = this.getClass().getSimpleName();
 
-	private StringBuffer value = new StringBuffer();;
+	private StringBuffer value = new StringBuffer();
 	private Context mContext;
 
 	boolean tagRomName = false;
@@ -58,6 +58,8 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 	boolean tagBitCoinUrl = false;
 	boolean tagFileSize = false;
 	boolean tagRomHut = false;
+	boolean tagAddonsCount = false;
+	boolean tagAddonUrl = false;
 
 	public void parse(File xmlFile, Context context) throws IOException {
 		mContext = context;
@@ -112,25 +114,25 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (qName.equalsIgnoreCase("httpurl")) {
 			tagHttpUrl = true;
 		}
-
-		if (qName.equalsIgnoreCase("checkmd5")) {
-			tagMD5 = true;
-		}
-
-		if (qName.equalsIgnoreCase("changelog")) {
-			tagLog = true;
-		}
-
+		
 		if (qName.equalsIgnoreCase("android")) {
 			tagAndroid = true;
 		}
 
-		if (qName.equalsIgnoreCase("websiteurl")) {
-			tagWebsite = true;
+		if (qName.equalsIgnoreCase("checkmd5")) {
+			tagMD5 = true;
 		}
-
+		
+		if (qName.equalsIgnoreCase("filesize")) {
+			tagFileSize = true;
+		}
+		
 		if (qName.equalsIgnoreCase("developer")) {
 			tagDeveloper = true;
+		}
+
+		if (qName.equalsIgnoreCase("websiteurl")) {
+			tagWebsite = true;
 		}
 
 		if (qName.equalsIgnoreCase("donateurl")) {
@@ -140,10 +142,19 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (qName.equalsIgnoreCase("bitcoinaddress")) {
 			tagBitCoinUrl = true;
 		}
-
-		if (qName.equalsIgnoreCase("filesize")) {
-			tagFileSize = true;
+		
+		if (qName.equalsIgnoreCase("changelog")) {
+			tagLog = true;
 		}
+		
+		if (qName.equalsIgnoreCase("addoncount")) {
+			tagAddonsCount = true;
+		}
+
+		if (qName.equalsIgnoreCase("addonsurl")) {
+			tagAddonUrl = true;
+		}
+		
 		if (qName.equalsIgnoreCase("romhut")) {
 			tagRomHut = true;
 		}
@@ -205,6 +216,13 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if (DEBUGGING)
 				Log.d(TAG, "tagHttpUrl = " + input);
 		}
+		
+		if (tagAndroid) {
+			RomUpdate.setAndroidVersion(mContext, input);
+			tagAndroid = false;
+			if (DEBUGGING)
+				Log.d(TAG, "Android Version = " + input);
+		}
 
 		if (tagMD5) {
 			RomUpdate.setMd5(mContext, input);
@@ -212,19 +230,19 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if (DEBUGGING)
 				Log.d(TAG, "MD5 = " + input);
 		}
-
-		if (tagLog) {
-			RomUpdate.setChangelog(mContext, input);
-			tagLog = false;
+		
+		if (tagFileSize) {
+			RomUpdate.setFileSize(mContext, Integer.parseInt(input));
+			tagFileSize = false;
 			if (DEBUGGING)
-				Log.d(TAG, "Changelog = " + input);
+				Log.d(TAG, "Filesize = " + input);
 		}
 		
-		if (tagAndroid) {
-			RomUpdate.setAndroidVersion(mContext, input);
-			tagAndroid = false;
+		if (tagDeveloper) {
+			RomUpdate.setDeveloper(mContext, input);
+			tagDeveloper = false;
 			if (DEBUGGING)
-				Log.d(TAG, "Android Version = " + input);
+				Log.d(TAG, "Developer = " + input);
 		}
 
 		if (tagWebsite) {
@@ -238,13 +256,6 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 				Log.d(TAG, "Website = " + input);
 		}
 
-		if (tagDeveloper) {
-			RomUpdate.setDeveloper(mContext, input);
-			tagDeveloper = false;
-			if (DEBUGGING)
-				Log.d(TAG, "Developer = " + input);
-		}
-		
 		if (tagDonateUrl) {
 			if (!input.isEmpty()) {
 				RomUpdate.setDonateLink(mContext, input);
@@ -270,11 +281,25 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 				Log.d(TAG, "BitCoin URL = " + input);
 		}
 		
-		if (tagFileSize) {
-			RomUpdate.setFileSize(mContext, Integer.parseInt(input));
-			tagFileSize = false;
+		if (tagLog) {
+			RomUpdate.setChangelog(mContext, input);
+			tagLog = false;
 			if (DEBUGGING)
-				Log.d(TAG, "Filesize = " + input);
+				Log.d(TAG, "Changelog = " + input);
+		}
+		
+		if (tagAddonsCount) {
+			RomUpdate.setAddonsCount(mContext, Integer.parseInt(input));
+			tagAddonsCount = false;
+			if (DEBUGGING)
+				Log.d(TAG, "Addons Count = " + input);
+		}
+		
+		if (tagAddonUrl) {
+			RomUpdate.setAddonsUrl(mContext, input);
+			tagAddonUrl = false;
+			if (DEBUGGING)
+				Log.d(TAG, "Addons URL = " + input);
 		}
 		
 		if (tagRomHut) {
