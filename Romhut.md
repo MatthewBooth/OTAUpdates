@@ -8,7 +8,13 @@ Romhut will handle most of the work for you. You can use it to host your files a
 
   You can also use this in your AOSP ROM. You should know how to add this to your build, if so. A makefile is included.
 
-- Unpack the zip from the above link into your system folder. There is one for Lollipop and greater devices and one for KitKat and earlier
+- Open the .apk file using an archive manager like 7zip and extract the necessary lib file for your device. Most devices will use armeabi, armeabi-v7a or arm64-v8a. Please the libbypass.so file in your system folder as follows:
+
+For Lollipop devices put the apk and lib file like this -- system/app/OTAUpdates/base.apk
+														-- system/app/OTAUpdates/lib/arm/libbypass.so
+														
+For Pre-Lollipop devices, like this 					-- system/app/OTAUpdates.apk
+														-- system/lib/libbypass.so
 
 #### Head over to Romhut
 
