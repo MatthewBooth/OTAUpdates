@@ -38,5 +38,6 @@
     <string name="ignore">Ignore</string>
     <string name="donate">Donate</string>
     <string name="finished">Finished</string>
+    <string name="settings">Settings</string>
 
 </resources>

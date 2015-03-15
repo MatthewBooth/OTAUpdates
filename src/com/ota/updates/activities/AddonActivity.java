@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -201,7 +202,15 @@ public class AddonActivity extends Activity implements Constants {
 			mNetworkDialog = new Builder(mContext);
 			mNetworkDialog.setTitle(R.string.available_wrong_network_title)
 			.setMessage(R.string.available_wrong_network_message)
-			.setPositiveButton(R.string.ok, null);
+			.setPositiveButton(R.string.ok, null)
+			.setNeutralButton(R.string.settings, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(mContext, SettingsActivity.class);
+					mContext.startActivity(intent);
+				}
+			});
 			
 			mNetworkDialog.show();
 		}

@@ -301,7 +301,15 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		mNetworkDialog = new Builder(mContext);
 		mNetworkDialog.setTitle(R.string.available_wrong_network_title)
 		.setMessage(R.string.available_wrong_network_message)
-		.setPositiveButton(R.string.ok, null);
+		.setPositiveButton(R.string.ok, null)
+		.setNeutralButton(R.string.settings, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(mContext, SettingsActivity.class);
+					mContext.startActivity(intent);
+				}
+			});
 		
 		mRebootManualDialog = new AlertDialog.Builder(mContext);
 		mRebootManualDialog.setTitle(R.string.available_reboot_manual_title)
