@@ -19,7 +19,7 @@
     <!-- App Strings -->
     <string name="app_name" translatable="false">OTA Updates</string>
     <string name="prop_name" translatable="false">ro.ota.romname</string>
-    <string name="app_version" translatable="false">2.3</string>
+    <string name="app_version" translatable="false">2.3.1</string>
 
     <!-- Generic strings -->
     <string name="cancel">Cancel</string>
