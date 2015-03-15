@@ -16,6 +16,7 @@ import java.util.Locale;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -45,12 +46,13 @@ import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 
 public class AddonActivity extends Activity implements Constants {
-	
+
 	public final static String TAG = "AddonActivity";
 
 	public static Context mContext;
 	private static ListView mListview;
 	private static DownloadAddon mDownloadAddon;
+	private static Builder mNetworkDialog;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -158,16 +160,16 @@ public class AddonActivity extends Activity implements Constants {
 			if(v == null) {
 				return;
 			}
-			
+
 			ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progress_bar);
-			
+
 			if (finished) {
 				progressBar.setProgress(0);
 			} else {
 				progressBar.setProgress(progress);
 			}
 		}
-		
+
 		public static void updateButtons(int index, boolean finished) {
 			View v = mListview.getChildAt((index - 1) - 
 					mListview.getFirstVisiblePosition());
@@ -175,11 +177,11 @@ public class AddonActivity extends Activity implements Constants {
 			if(v == null) {
 				return;
 			}
-			
+
 			final Button download = (Button) v.findViewById(R.id.download_button);
 			final Button cancel = (Button) v.findViewById(R.id.cancel_button);
 			final Button delete = (Button) v.findViewById(R.id.delete_button);
-			
+
 			if (finished) {
 				download.setVisibility(View.VISIBLE);
 				download.setText(mContext.getResources().getString(R.string.finished));
@@ -193,6 +195,15 @@ public class AddonActivity extends Activity implements Constants {
 				cancel.setVisibility(View.GONE);
 				delete.setVisibility(View.GONE);
 			}
+		}
+		
+		private void showNetworkDialog() {
+			mNetworkDialog = new Builder(mContext);
+			mNetworkDialog.setTitle(R.string.available_wrong_network_title)
+			.setMessage(R.string.available_wrong_network_message)
+			.setPositiveButton(R.string.ok, null);
+			
+			mNetworkDialog.show();
 		}
 
 		@Override
@@ -209,9 +220,9 @@ public class AddonActivity extends Activity implements Constants {
 			final Button download = (Button) convertView.findViewById(R.id.download_button);
 			final Button cancel = (Button) convertView.findViewById(R.id.cancel_button);
 			final Button delete = (Button) convertView.findViewById(R.id.delete_button);
-					
+
 			title.setText(item.getTitle());
-			
+
 			Bypass byPass = new Bypass(mContext);
 			String descriptionStr = item.getDesc();
 			CharSequence string = byPass.markdownToSpannable(descriptionStr);
@@ -219,7 +230,7 @@ public class AddonActivity extends Activity implements Constants {
 
 			String UpdatedOnStr = convertView.getResources().getString(R.string.addons_updated_on);
 			String date = item.getUpdatedOn();
-			
+
 			Locale locale = Locale.getDefault();
 			SimpleDateFormat fromDate = new SimpleDateFormat("yyyy-mm-dd", locale);
 			SimpleDateFormat toDate = new SimpleDateFormat("dd, MMMM yyyy", locale);
@@ -229,12 +240,12 @@ public class AddonActivity extends Activity implements Constants {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 			updatedOn.setText(UpdatedOnStr + " " + date);
 
 			filesize.setText(Utils.formatDataFromBytes(item.getFilesize()));
 			final File file = new File(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS, item.getTitle() + ".zip");
-			
+
 			if (DEBUGGING) {
 				Log.d(TAG, "file path " + file.getAbsolutePath());
 				Log.d(TAG, "file length " + file.length() + " remoteLength " +  item.getFilesize());
@@ -252,17 +263,24 @@ public class AddonActivity extends Activity implements Constants {
 				cancel.setVisibility(View.GONE);
 				delete.setVisibility(View.GONE);
 			}
-			
+
 			download.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					mDownloadAddon.startDownload(mContext, item.getDownloadLink(), item.getTitle(), item.getId());
-					download.setVisibility(View.GONE);
-					cancel.setVisibility(View.VISIBLE);
+					boolean isMobile = Utils.isMobileNetwork(mContext);
+					boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
+
+					if (isMobile && isSettingWiFiOnly) {
+						showNetworkDialog();
+					} else {
+						mDownloadAddon.startDownload(mContext, item.getDownloadLink(), item.getTitle(), item.getId());
+						download.setVisibility(View.GONE);
+						cancel.setVisibility(View.VISIBLE);
+					}
 				}
 			});
-			
+
 			cancel.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -273,9 +291,9 @@ public class AddonActivity extends Activity implements Constants {
 					updateProgress(item.getId(), 0, true);
 				}
 			});
-			
+
 			delete.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					if (file.exists()) {
