@@ -236,6 +236,7 @@ public class AddonActivity extends Activity implements Constants {
 			String descriptionStr = item.getDesc();
 			CharSequence string = byPass.markdownToSpannable(descriptionStr);
 			desc.setText(string);
+			desc.setMovementMethod(LinkMovementMethod.getInstance());
 
 			String UpdatedOnStr = convertView.getResources().getString(R.string.addons_updated_on);
 			String date = item.getUpdatedOn();
