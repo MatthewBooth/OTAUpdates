@@ -1,6 +1,6 @@
 #### v2.3.1
 ##### 15th March 2015
-* Updated to target/be compatible with API v21 (Android 5.1)
+* Updated to target/be compatible with API v22 (Android 5.1)
 
 * Show a warning dialog when trying to download an addon on a mobile network, but Wi-Fi only is in the settings
 
