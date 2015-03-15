@@ -1,4 +1,5 @@
-#### v2.3.1 15th March 2015
+#### v2.3.1
+##### 15th March 2015
 * Updated to target/be compatible with API v21 (Android 5.1)
 
 * Show a warning dialog when trying to download an addon on a mobile network, but Wi-Fi only is in the settings
@@ -13,7 +14,8 @@
 
 * Fixed links in the Addons description markdown not being able to be clicked
 
-#### v2.3 13th March 2015
+#### v2.3 
+##### 13th March 2015
 * Fixed cancel button not updating to install when the download finishes
 
 * Important licence changes (to ensure the app cannot be taken and resold by someone -it stays free)
@@ -43,7 +45,8 @@
 
 * Added Addons (can be added manually via a new XML, or automatically on RomHut
 
-#### v2.2 9th January 2015
+#### v2.2
+##### 9th January 2015
 * Fixed with MD5 returning false if you use uppercase MD5 string in the XML
 
 * Fixed OpenRecoveryScript not installing if used (looking for the file in a folder with 0 in it.)
@@ -56,7 +59,8 @@
 
 * Added Spanish translation
 
-#### v2.1 8th January 2015
+#### v2.1
+##### 8th January 2015
 * Fixed issue with ROMs not seeing updates
 
 * Fixed background service not switching off
@@ -79,7 +83,8 @@
 
 * General cleaning of the code and making more efficient
 
-#### v2.0 5th December 2014 
+#### v2.0
+##### 5th December 2014 
 * Material UI for 5.0+ devices
 
 * More robust checking of version numbers
@@ -90,5 +95,6 @@
 
 * Default checking on boot time is 12 hours rather than 3 days
 
-#### v1.0 19th July
+#### v1.0
+##### 19th July
 * Initial release
