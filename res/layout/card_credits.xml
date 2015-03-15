@@ -19,13 +19,14 @@
     style="?attr/cardStyle"
     card_view:cardCornerRadius="@dimen/card_view_radius"
     card_view:cardElevation="@dimen/shadow_height"
-    card_view:cardUseCompatPadding="true" >
+    card_view:cardUseCompatPadding="true">
 
     <LinearLayout
         style="@style/MainListElement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clickable="false">
 
         <TextView
             android:id="@+id/about_tv_credits_title"

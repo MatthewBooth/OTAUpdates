@@ -25,7 +25,8 @@
         style="@style/MainListElement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clickable="false">
 
         <TextView
             android:id="@+id/about_tv_version_title"
