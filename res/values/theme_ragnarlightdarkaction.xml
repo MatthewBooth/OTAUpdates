@@ -19,19 +19,8 @@
 
     <style name="Theme.RagnarLight.DarkActionBar" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:windowBackground">@drawable/holo_background_light</item>
-        <item name="android:actionBarItemBackground">@drawable/selectable_background_ragnarlightdarkaction</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.RagnarLight.DarkActionBar</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight.DarkActionBar</item>
-        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.RagnarLight.DarkActionBar</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.RagnarLight.DarkActionBar</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.RagnarLight.DarkActionBar</item>
-        <item name="android:actionModeBackground">@drawable/cab_background_top_ragnarlightdarkaction</item>
-        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_ragnarlightdarkaction</item>
-        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.RagnarLight.DarkActionBar</item>
-
-        <!-- Light.DarkActionBar specific -->
-        <item name="android:actionBarWidgetTheme">@style/Theme.RagnarLight.DarkActionBar.Widget</item>
-
+	
         <!-- Styleables -->
         <item name="noUpdateAvailable">@color/holo_red_light</item>
         <item name="updateAvailable">@color/holo_green_light</item>
@@ -52,47 +41,9 @@
     </style>
 
     <style name="ActionBar.Solid.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/ab_solid_ragnarlightdarkaction</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_ragnarlightdarkaction</item>
-        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_ragnarlightdarkaction</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.RagnarLight.DarkActionBar</item>
-    </style>
-
-    <style name="ActionBar.Transparent.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">@drawable/ab_transparent_ragnarlightdarkaction</item>
-        <item name="android:progressBarStyle">@style/ProgressBar.RagnarLight.DarkActionBar</item>
-    </style>
-
-    <style name="PopupMenu.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlightdarkaction</item>
-    </style>
-
-    <style name="DropDownListView.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ListView.DropDown">
-        <item name="android:listSelector">@drawable/selectable_background_ragnarlightdarkaction</item>
-    </style>
-
-    <style name="ActionBarTabStyle.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ActionBar.TabView">
-        <item name="android:background">@drawable/tab_indicator_ab_ragnarlightdarkaction</item>
-    </style>
-
-    <style name="DropDownNav.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.Spinner">
-        <item name="android:background">@drawable/spinner_background_ab_ragnarlightdarkaction</item>
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ragnarlightdarkaction</item>
-        <item name="android:dropDownSelector">@drawable/selectable_background_ragnarlightdarkaction</item>
-    </style>
-
-    <style name="ProgressBar.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
-        <item name="android:progressDrawable">@drawable/progress_horizontal_ragnarlightdarkaction</item>
-    </style>
-
-    <style name="ActionButton.CloseMode.RagnarLight.DarkActionBar" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
-        <item name="android:background">@drawable/btn_cab_done_ragnarlightdarkaction</item>
-    </style>
-
-    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.RagnarLight.DarkActionBar.Widget" parent="@android:style/Theme.Holo">
-        <item name="android:popupMenuStyle">@style/PopupMenu.RagnarLight.DarkActionBar</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.RagnarLight.DarkActionBar</item>
+        <item name="android:background">@drawable/ab_solid_holo_dark</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_holo_dark</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_holo_dark</item>
     </style>
 
     <style name="Theme.RagnarLight.DarkActionBar.Settings" parent="Theme.RagnarLight.DarkActionBar" />
