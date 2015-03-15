@@ -25,5 +25,8 @@
     <string name="about_donate_button_summary">Grab me a beer</string>
     <string name="about_version_title">Version</string>
     <string name="about_app_version">App version:</string>
+    <string name="changelog">Changelog</string>
+    <string name="changelog_summary">View the app\'s changelog</string>
+    <string name="changelog_error">Error reading changelog</string>
 
 </resources>
