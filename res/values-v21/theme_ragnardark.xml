@@ -19,7 +19,7 @@
     <style name="Theme.RagnarDark" parent="@android:Theme.Material">
 
         <!-- Styleables -->
-        <item name="noUpdateAvailable">@color/material_red_200</item>
+        <item name="noUpdateAvailable">@color/material_red_500</item>
         <item name="updateAvailable">@color/material_light_green_500</item>
         <item name="helpIcon">@drawable/ic_about_dark</item>
         <item name="settingsIcon">@drawable/ic_settings_dark</item>
