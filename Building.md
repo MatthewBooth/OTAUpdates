@@ -23,6 +23,14 @@ $SDK_ROOT/extras/android/support/v7/cardview
 ```
 Now right click on the OTAUpdates project in Eclipse and choose properties and add cardview as library (or edit the missing library that most likely exists)
 
+#### Google Play Services
+
+You also need to import the google_play_services library from Google's extras code. Make sure your Android SDK is up to date and import form the following location:
+```shell 
+$SDK_ROOT/extras/google/google_play_services
+```
+Now right click on the OTAUpdates project in Eclipse and choose properties and add google_play_services as library (or edit the missing library that most likely exists).
+
 #### Bypass
 
 This is where things get interesting:-
