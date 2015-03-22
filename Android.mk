@@ -15,21 +15,31 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := $(call all-subdir-java-files) $(call all-renderscript-files-under, src)
+bypass_dir := ../../../external/bypass/platform/android/library
+src_dirs := src $(bypass_dir)/src
 
-cards_res := ../../../frameworks/support/v7/cardview/res
-res_dirs := $(cards_res) res
+LOCAL_SRC_FILES := $(call all-java-files-under, $(src_dirs))
+
+google_play_dir := ../../../external/google/google_play_services/libproject/google-play-services_lib/res
+res_dir := $(google_play_dir) res
 
 LOCAL_PACKAGE_NAME := OTAUpdates
-LOCAL_CERTIFICATE := shared
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
+LOCAL_PROGUARD_ENABLED := disabled
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
 	RootTools \
 	android-support-v4 \
-	android-support-v7-cardview
+	android-support-v7-cardview \
+	play 
 
-LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
-LOCAL_AAPT_FLAGS := --auto-add-overlay
+LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir)) \
+	frameworks/support/v7/cardview/res
+
+LOCAL_AAPT_FLAGS := \
+	--auto-add-overlay \
+	--extra-packages com.google.android.gms
 
 include $(BUILD_PACKAGE)
 
