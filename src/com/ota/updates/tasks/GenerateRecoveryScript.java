@@ -78,13 +78,14 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 	protected Boolean doInBackground(Void... params) {
 
 		try {
-			File scriptFile = new File("/cache" + "/" + SCRIPT_FILE) ;
+			File scriptFile = new File(SCRIPT_FILE) ;
 			FileWriter writer = null;
+			Tools.shell("mkdir -p /cache/recovery", false);
 			writer = new FileWriter(scriptFile);
 			writer.write(mScriptOutput);
 			writer.close();
 		} catch (Exception e) {
-			Log.e(TAG, "Writing to cache" + "' error: "+e.getMessage());
+			Log.e(TAG, "Writing to cache" + "' error: " + e.getMessage());
 			Tools.shell("echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE, true);
 		}
 
