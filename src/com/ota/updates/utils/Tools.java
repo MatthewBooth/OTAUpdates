@@ -23,8 +23,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.stericson.RootTools.BuildConfig;
@@ -34,8 +36,8 @@ public class Tools implements Constants{
     
     public final String TAG = this.getClass().getSimpleName();
 
-	public static void recovery() {
-		rebootPhone("recovery");
+	public static void recovery(Context context) {
+		rebootPhone(context, "recovery");
 	}
 
 	public static String shell(String cmd, boolean root) {
@@ -55,8 +57,13 @@ public class Tools implements Constants{
 		return RootTools.isRootAvailable();
 	}
 	
-	private static void rebootPhone(String type) {
-		shell("reboot "+type, true);
+	private static void rebootPhone(Context context, String type) {	
+		try {
+			((PowerManager) context.getSystemService(Context.POWER_SERVICE)).reboot(type);
+		} catch (Exception e) {
+			Log.e("Tools", "reboot '"+type+"' error: "+e.getMessage());
+			shell("reboot "+type, true);
+		}
 	}
 
 	private static boolean isUiThread() {

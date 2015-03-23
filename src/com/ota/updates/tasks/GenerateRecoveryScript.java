@@ -79,6 +79,6 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
     @Override
     protected void onPostExecute(Boolean value) {
         mLoadingDialog.cancel();
-        Tools.recovery();
+        Tools.recovery(mContext);
     }
 }

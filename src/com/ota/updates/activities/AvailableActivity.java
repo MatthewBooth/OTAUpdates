@@ -293,7 +293,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				if (Preferences.getORSEnabled(mContext)) {
 					new GenerateRecoveryScript(mContext).execute();
 				} else {
-					Tools.recovery();
+					Tools.recovery(mContext);
 				}
 			}
 		}).setNegativeButton(R.string.cancel, null);
