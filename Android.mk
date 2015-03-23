@@ -43,9 +43,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	android-support-v7-cardview \
 	play 
 
-$(shell cp $(LOCAL_PATH)/libs/$(TARGET_ARCH_ABI)/libbypass.so $(TARGET_OUT_SHARED_LIBRARIES))
-
-LOCAL_JNI_SHARED_LIBRARIES := libs/$(TARGET_ARCH_ABI)/libbypass
+$(shell cp $(LOCAL_PATH)/libs/$(TARGET_ARCH_ABI)/libbypass.so $(TARGET_OUT)/lib/libbypass.so)
 
 LOCAL_CERTIFICATE := platform
 
