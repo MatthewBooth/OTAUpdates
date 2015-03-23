@@ -308,4 +308,13 @@ public class Utils implements Constants{
 
 		mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}
+	
+	public static boolean isAosp() {
+		String prop = "com.ota.aosp";
+		if(doesPropExist(prop)) {
+			return getProp(prop).equalsIgnoreCase("true");
+		} else {
+			return false;
+		}
+	}
 }
