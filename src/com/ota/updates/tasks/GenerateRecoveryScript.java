@@ -18,6 +18,7 @@ package com.ota.updates.tasks;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.OutputStream;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -78,12 +79,12 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 	protected Boolean doInBackground(Void... params) {
 
 		try {
-			File scriptFile = new File(SCRIPT_FILE) ;
-			FileWriter writer = null;
-			Tools.shell("mkdir -p /cache/recovery", false);
-			writer = new FileWriter(scriptFile);
-			writer.write(mScriptOutput);
-			writer.close();
+			Process p = Runtime.getRuntime().exec("sh");
+			OutputStream os = p.getOutputStream();
+			os.write("mkdir -p /cache/recovery/\n".getBytes());
+			String cmd = "echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE + "\n";
+			os.write(cmd.getBytes());
+			os.flush();
 		} catch (Exception e) {
 			Log.e(TAG, "Writing to cache" + "' error: " + e.getMessage());
 			Tools.shell("echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE, true);
