@@ -7,16 +7,9 @@ If you are aiming to build this with an AOSP-based ROM (such as AOSP, CyanogenMo
 To include this in your AOSP based ROM, you need to add it to your room_service.xml
 
 ```XML
-<project path="packages/apps/OTAUpdates" name="Kryten2k35/OTAUpdates" revision="stable" />
+<project path="packages/apps/OTAUpdates" name="Kryten2k35/OTAUpdates" revision="aosp" />
 ```
 
-You also need to include an extra build.prop line to help me determine that you are using an AOSP variant, as more better options are available if you are (such as rebooting without needing SU).
-
-Please add
-```shell
-com.ota.aosp=true
-```
-to the build.prop along with the other values mentioned in the Building section.
 
 ### Extras
 
