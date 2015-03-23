@@ -30,8 +30,13 @@ Anyone is free to use this project in their ROM. I only request that you keep th
 I'd also appreciate a tag in your post, wherever you publish :)
 
 # Building
+## Eclipse
 
 To build from source via Eclipse, you need to checkout the [instructions on building](Building.md)
+
+## AOSP
+
+To build from source in your AOSP build, you need to checkout the [instructions on building with AOSP](AOSP_CM.md). There are some advantages of this method, being that this method does not need SU permissions throughout the app.
 
 # Contributions
 
