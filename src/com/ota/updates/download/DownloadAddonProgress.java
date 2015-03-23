@@ -1,11 +1,7 @@
 package com.ota.updates.download;
 
 import com.ota.updates.activities.AddonActivity;
-import com.ota.updates.activities.AvailableActivity;
-import com.ota.updates.activities.MainActivity;
 import com.ota.updates.utils.Constants;
-import com.ota.updates.utils.Preferences;
-
 import android.app.DownloadManager;
 import android.content.Context;
 import android.database.Cursor;

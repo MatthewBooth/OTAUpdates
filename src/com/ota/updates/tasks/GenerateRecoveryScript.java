@@ -16,9 +16,13 @@
 
 package com.ota.updates.tasks;
 
+import java.io.File;
+import java.io.FileWriter;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
@@ -27,58 +31,68 @@ import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Tools;
 
 public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> implements Constants {
-    
-    public final String TAG = this.getClass().getSimpleName();
-    
-    private Context mContext;
-    private ProgressDialog mLoadingDialog;
-    private StringBuilder mScript = new StringBuilder();
-    private static String mScriptFile = "/cache/recovery/openrecoveryscript";
-    private static String NEW_LINE = "\n";   
-    private String mFilename;;
-    private String mScriptOutput;
-    
-    public GenerateRecoveryScript(Context context) {
-        mContext = context;
-        mFilename = RomUpdate.getFilename(mContext) + ".zip";
-    }
 
-    protected void onPreExecute() {
-        // Show dialog
-        mLoadingDialog = new ProgressDialog(mContext);
-        mLoadingDialog.setCancelable(false);
-        mLoadingDialog.setIndeterminate(true);
-        mLoadingDialog.setMessage(mContext.getString(R.string.rebooting));
-        mLoadingDialog.show();
-        
-        if (Preferences.getWipeData(mContext)) {
-        	mScript.append("wipe data" + NEW_LINE);
-        }
-        if (Preferences.getWipeCache(mContext)) {
-        	mScript.append("wipe cache" + NEW_LINE);
-        }
-        if (Preferences.getWipeDalvik(mContext)) {
-        	mScript.append("wipe dalvik" + NEW_LINE);
-        }
-        
-        mScript.append("install " + "/sdcard/Download/" +  mFilename + NEW_LINE);
-        
-        if (Preferences.getDeleteAfterInstall(mContext)) {
-        	mScript.append("cmd rm -rf " + "/sdcard/Download/" +  mFilename + NEW_LINE);
-        }
-        mScriptOutput = mScript.toString();
-    }
-    
-    @Override
-    protected Boolean doInBackground(Void... params) {
+	public final String TAG = this.getClass().getSimpleName();
 
-        Tools.shell("echo \"" + mScriptOutput + "\" > " + mScriptFile, true);
+	private Context mContext;
+	private ProgressDialog mLoadingDialog;
+	private StringBuilder mScript = new StringBuilder();
+	private static String SCRIPT_FILE = "/cache/recovery/openrecoveryscript";
+	private static String NEW_LINE = "\n";   
+	private String mFilename;;
+	private String mScriptOutput;
+
+	public GenerateRecoveryScript(Context context) {
+		mContext = context;
+		mFilename = RomUpdate.getFilename(mContext) + ".zip";
+	}
+
+	protected void onPreExecute() {
+		// Show dialog
+		mLoadingDialog = new ProgressDialog(mContext);
+		mLoadingDialog.setCancelable(false);
+		mLoadingDialog.setIndeterminate(true);
+		mLoadingDialog.setMessage(mContext.getString(R.string.rebooting));
+		mLoadingDialog.show();
+
+		if (Preferences.getWipeData(mContext)) {
+			mScript.append("wipe data" + NEW_LINE);
+		}
+		if (Preferences.getWipeCache(mContext)) {
+			mScript.append("wipe cache" + NEW_LINE);
+		}
+		if (Preferences.getWipeDalvik(mContext)) {
+			mScript.append("wipe dalvik" + NEW_LINE);
+		}
+
+		mScript.append("install " + "/sdcard/Download/" +  mFilename + NEW_LINE);
+
+		if (Preferences.getDeleteAfterInstall(mContext)) {
+			mScript.append("cmd rm -rf " + "/sdcard/Download/" +  mFilename + NEW_LINE);
+		}
+
+		mScriptOutput = mScript.toString();
+	}
+
+	@Override
+	protected Boolean doInBackground(Void... params) {
+
+		try {
+			File scriptFile = new File("/cache" + "/" + SCRIPT_FILE) ;
+			FileWriter writer = null;
+			writer = new FileWriter(scriptFile);
+			writer.write(mScriptOutput);
+			writer.close();
+		} catch (Exception e) {
+			Log.e(TAG, "Writing to cache" + "' error: "+e.getMessage());
+			Tools.shell("echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE, true);
+		}
+
 		return true;
-        
-    }
-    @Override
-    protected void onPostExecute(Boolean value) {
-        mLoadingDialog.cancel();
-        Tools.recovery(mContext);
-    }
+	}
+	@Override
+	protected void onPostExecute(Boolean value) {
+		mLoadingDialog.cancel();
+		Tools.recovery(mContext);
+	}
 }

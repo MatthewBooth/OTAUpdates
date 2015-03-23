@@ -25,7 +25,6 @@ import android.os.Environment;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
-import com.ota.updates.R.string;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;

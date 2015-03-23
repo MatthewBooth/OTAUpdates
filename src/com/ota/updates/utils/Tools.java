@@ -59,7 +59,8 @@ public class Tools implements Constants{
 	
 	private static void rebootPhone(Context context, String type) {	
 		try {
-			((PowerManager) context.getSystemService(Context.POWER_SERVICE)).reboot(type);
+			PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+	        powerManager.reboot("recovery");
 		} catch (Exception e) {
 			Log.e("Tools", "reboot '"+type+"' error: "+e.getMessage());
 			shell("reboot "+type, true);

@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
-import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
 import com.ota.updates.OtaUpdates;
