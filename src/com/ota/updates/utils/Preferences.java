@@ -16,9 +16,12 @@
 
 package com.ota.updates.utils;
 
+import java.io.File;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.os.Build;
 
 import com.ota.updates.R;
 
@@ -154,7 +157,12 @@ public class Preferences implements Constants{
     }
     
     public static Boolean getAdsEnabled(Context context) {
-        return getPrefs(context).getBoolean(ADS_ENABLED, true);
+        File file = new File("/system/priv-app/OTAUpdates/OTAUpdates.apk");
+        if (file.exists() && Build.VERSION.SDK_INT >= 22) {
+            return false;
+        } else {
+            return getPrefs(context).getBoolean(ADS_ENABLED, true);
+        }
     }
 
 	public static void setUpdateLastChecked(Context context, String time) {
