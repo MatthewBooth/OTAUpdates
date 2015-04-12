@@ -59,7 +59,7 @@
     <string name="notification_ignoring_release">Currently ignoring version: </string>
     <string name="notification_not_ignoring_release">You are not currently ignoring a release</string>
     <string name="ads_cat">Advertisements</string>
-    <string name="ads_enable">Enabled ads</string>
+    <string name="ads_enable">Enable ads</string>
     <string name="ads_summary_on">Consider leaving advertisements enabled to support further development of the app</string>
     <string name="ads_summary_off">Consider enabling advertisements enabled to support further development of the app</string>
 
