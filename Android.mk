@@ -43,6 +43,9 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	android-support-v7-cardview \
 	play 
 
+# Create $(TARGET_OUT_SHARED_LIBRARIES) if not already exists,
+# hence prevent build errors.
+$(shell mkdir -p $(TARGET_OUT_SHARED_LIBRARIES))
 $(shell cp $(LOCAL_PATH)/libs/$(TARGET_ARCH_ABI)/libbypass.so $(TARGET_OUT_SHARED_LIBRARIES))
 
 LOCAL_JNI_SHARED_LIBRARIES := libs/$(TARGET_ARCH_ABI)/libbypass
