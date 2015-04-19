@@ -4,7 +4,6 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE	:= libbypass
 LOCAL_MODULE_TAGS := optional
-LOCAL_MULTILIB := 32
 
 LOCAL_SRC_FILES := \
 	android/bypass.cpp \
