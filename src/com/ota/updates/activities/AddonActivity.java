@@ -71,8 +71,14 @@ public class AddonActivity extends Activity implements Constants {
 
 		mListview = (ListView) findViewById(R.id.listview);
 		mDownloadAddon = new DownloadAddon();
-
-		new LoadAddonManifest().execute(RomUpdate.getAddonsUrl(mContext));
+		
+		String isRomhut = "";
+		
+		if(!RomUpdate.getRomHut(mContext).equals("null")) {
+			isRomhut = "?order_by=name&order_direction=asc";
+		}
+		
+		new LoadAddonManifest().execute(RomUpdate.getAddonsUrl(mContext) + isRomhut);
 	}
 
 	public static void setupListView(ArrayList<Addon> addonsList) {		
