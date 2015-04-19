@@ -22,7 +22,7 @@
         android:title="@string/twrp_ors_cat" />
 
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="updater_twrp_ors"
         android:summary="@string/twrp_ors_summary"
         android:title="@string/twrp_ors_title" />
