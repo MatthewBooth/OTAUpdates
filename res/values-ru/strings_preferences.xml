@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 	Copyright (C) 2015 Matt Booth (Kryten2k35).
+ 
+ 	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International 
+ 	(the "License") you may not use this file except in compliance with the License.
+ 	You may obtain a copy of the License at
+ 
+ 		http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ 
+ 	Unless required by applicable law or agreed to in writing, software
+ 	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+<resources>
+
+    <string name="preferences_name">Настройки</string>
+    <string name="twrp_ors_title">Скрипт для рекавери</string>
+    <string name="twrp_ors_summary">Работает на TWRP и некоторых кастомных рековери на основе CWM</string>
+    <string name="twrp_ors_information">Если включить скрипт, ОТА-обновление установится автоматически, без участия пользователя. Просто нажмите установить и ждите завершения.</string>
+    <string name="twrp_ors_delete_after">Удалить после установки</string>
+    <string name="twrp_ors_delete_after_summary">Удалить архив с обновлением после установки?</string>
+    <string name="twrp_ors_install_prefs">Действия во время установки</string>
+    <string name="twrp_ors_install_prefs_summary">Выберите действия, которые выполняются скриптом во время установки</string>
+    <string name="twrp_ors_wipe_data">Очистить Data</string>
+    <string name="twrp_ors_wipe_cache">Очистить Cache</string>
+    <string name="twrp_ors_wipe_dalvik">Очистить Dalvik</string>
+    <string name="notifications_title">Уведомления</string>
+    <string name="background_service_summary">Автоматически проверять наличие обновлений и показывать уведомление, если доступно</string>
+    <string name="background_frequency">Частота проверки обновлений</string>
+    <string name="background_30mins">Каждые 30 минут</string>
+    <string name="background_60mins">Каждые 60 минут</string>
+    <string name="background_2hours">Каждые 2 часа</string>
+    <string name="background_3hours">Каждые 3 часа</string>
+    <string name="background_6hours">Каждые 6 часов</string>
+    <string name="background_12hours">Каждые 12 часов</string>
+    <string name="background_24hours">Раз в день</string>
+    <string name="background_2days">Раз в 2 дня</string>
+    <string name="background_3days">Раз в 3 дня</string>
+    <string name="background_7days">Раз в неделю</string>
+    <string name="theme_title">Тема приложения</string>
+    <string name="mobile_wifi_network">Сеть</string>
+    <string name="mobile_wifi_title">Сети для обновления</string>
+    <string name="wifi_network_only">Только Wi-Fi</string>
+    <string name="mobile_or_wifi">Передача данных или Wi-Fi</string>
+    <string name="theme">Тема</string>
+    <string name="theme_dark">Темная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_light_dark">Светлая с черной панелью</string>
+    <string name="notifications_sound">Звук</string>
+    <string name="notifications_vibrate">Вибрация</string>
+    <string name="silent_ringtone">Без звука</string>
+    <string name="notification_ignore_release_title">Игнорировать релиз</string>
+    <string name="notification_ignoring_release">Игнорируемая версия: </string>
+    <string name="notification_not_ignoring_release">В данный момент никакой релиз не игнорируется</string>
+    <string name="ads_cat">Реклама</string>
+    <string name="ads_enable">Включить рекламу</string>
+    <string name="ads_summary_on">Имейте в виду, оставляя рекламу, вы поддерживаете дальнейшее развите приложения</string>
+    <string name="ads_summary_off">Имейте в виду, включая рекламу, вы поддерживаете дальнейшее развите приложения</string>
+
+</resources>

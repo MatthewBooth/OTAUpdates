@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 	Copyright (C) 2015 Matt Booth (Kryten2k35).
+ 
+ 	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International 
+ 	(the "License") you may not use this file except in compliance with the License.
+ 	You may obtain a copy of the License at
+ 
+ 		http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ 
+ 	Unless required by applicable law or agreed to in writing, software
+ 	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="main_update_available">Доступно обновление!</string>
+    <string name="main_update_finished">Скачивание завершено</string>
+    <string name="main_no_update_available">Нет доступных обновлений</string>
+    <string name="main_update_filename">Имя файла</string>
+    <string name="main_update_progress">Процесс скачивания</string>
+    <string name="main_website">Сайт</string>
+    <string name="main_website_summary">Посетить сайт прошивки</string>
+    <string name="main_donate">Пожертвовать</string>
+    <string name="main_donate_summary">Пожертвование разработчику прошивки</string>
+    <string name="main_tap_to_download">Нажмите для скачивания</string>
+    <string name="main_download_completed_details">Нажмите для подробностей</string>
+    <string name="main_tap_to_view_progress">Нажмите, чтобы посмотреть прогресс</string>
+    <string name="main_last_checked">Последняя проверка обновлений</string>
+    <string name="main_addon">Дополнения</string>
+    <string name="main_addon_summary">Просмотр и загрузка дополнений для этого ROM</string>
+
+    <!-- ROM Information -->
+    <string name="main_rom_information">Информация о прошивке</string>
+    <string name="main_rom_name">Название прошивки:</string>
+    <string name="main_rom_version">Версия прошивки:</string>
+    <string name="main_rom_codename">Кодовое имя прошивки:</string>
+    <string name="main_rom_build_date">Дата сборки:</string>
+    <string name="main_android_verison">Версия Android:</string>
+    <string name="main_rom_developer">Разработчики:</string>
+
+    <!-- Dialogs -->
+    <string name="main_not_compatible_title">Не поддерживается</string>
+    <string name="main_not_compatible_message">Эта прошивка не поддерживает ОТА-обновления. Для получения подробной информации свяжитесь с разработчиком.</string>
+    <string name="main_not_connected_title">Нет соединения</string>
+    <string name="main_not_connected_message">Нет соединения с интернетом. Проверьте соединение по Wi-Fi или по мобильной сети и попробуйте снова</string>
+    <string name="main_playstore_title">BitCoin</string>
+    <string name="main_playstore_message">У вас нет ни одного приложения для работы с \"bitcoin:\".\n\nМожет хотите найти такое приложение в Google Play Store?</string>
+
+    <!-- Content Descriptions -->
+    <string name="main_button_icon">Иконка кнопки</string>
+    <string name="main_dev_website_icon">Иконка сайта разработчика</string>
+    <string name="main_actionbar_button">Кнопки на активной панели</string>
+
+    <!-- Toast -->
+    <string name="main_release_ignored">Релиз проигнорирован</string>
+
+</resources>
