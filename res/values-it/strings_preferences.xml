@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 	Copyright (C) 2015 Matt Booth (Kryten2k35).
+ 
+ 	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International 
+ 	(the "License") you may not use this file except in compliance with the License.
+ 	You may obtain a copy of the License at
+ 
+ 		http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ 
+ 	Unless required by applicable law or agreed to in writing, software
+ 	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<resources>
+
+    <string name="preferences_name">Impostazioni</string>
+    <string name="download_folder" translatable="false">/storage/emulated/0/Download</string>
+    <string name="list_summary" translatable="false">%s</string>
+    <string name="twrp_ors_cat" translatable="false">OpenRecoveryScript</string>
+    <string name="twrp_ors_title">Abilita OpenRecoveryScript</string>
+    <string name="twrp_ors_summary">Funziona con recovery TWRP ed alcune versioni CWM non ufficiali</string>
+    <string name="twrp_ors_information">Consente a questa app di flashare il file da recovery senza nessuna interazione richiesta da parte dell\'utente. Toccato il pulsante Installa si attende la fine della procedura.</string>
+    <string name="twrp_ors_delete_after">Elimina dopo l\'installazione</string>
+    <string name="twrp_ors_delete_after_summary">Lo script open recovery deve cancellare il file dopo l\'installazione?</string>
+    <string name="twrp_ors_install_prefs">Preferenze per l\'installazione</string>
+    <string name="twrp_ors_install_prefs_summary">Seleziona alcune preferenze per l\'installazione quando si utilizza lo script ORS</string>
+    <string name="twrp_ors_wipe_data">Wipe Data</string>
+    <string name="twrp_ors_wipe_cache">Wipe Cache</string>
+    <string name="twrp_ors_wipe_dalvik">Wipe Dalvik</string>
+    <string name="notifications_title">Notifiche</string>
+    <string name="background_service_summary">Controlla automaticamente per eventuali aggiornamenti e visualizza una notifica se questa è disponibile</string>
+    <string name="background_frequency">Tempistica di controllo</string>
+    <string name="background_30mins">30 min</string>
+    <string name="background_60mins">60 min</string>
+    <string name="background_2hours">2 ore</string>
+    <string name="background_3hours">3 ore</string>
+    <string name="background_6hours">6 ore</string>
+    <string name="background_12hours">12 ore</string>
+    <string name="background_24hours">Giornalmente</string>
+    <string name="background_2days">2 giorni</string>
+    <string name="background_3days">3 giorni</string>
+    <string name="background_7days">Settimanalmente</string>
+    <string name="theme_title">Tema applicazione</string>
+    <string name="mobile_wifi_network">Rete</string>
+    <string name="mobile_wifi_title">Aggiorna tramite connessione</string>
+    <string name="wifi_network_only">Solo Wi-Fi</string>
+    <string name="mobile_or_wifi">Dati o Wi-Fi</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dark">Scuro</string>
+    <string name="theme_light">Chiaro</string>
+    <string name="theme_light_dark">Chiaro, ActionBar scura</string>
+    <string name="notifications_sound">Suoneria</string>
+    <string name="notifications_vibrate">Vibrazione</string>
+    <string name="silent_ringtone">Silenzioso</string>
+    <string name="notification_ignore_release_title">Ignora rilascio</string>
+    <string name="notification_ignoring_release">Versione attualmente ignorata: </string>
+    <string name="notification_not_ignoring_release">Non stai ignorando nessun rilascio</string>
+    <string name="ads_cat">Pubblicità</string>
+    <string name="ads_enable">Abilita pubblicità</string>
+    <string name="ads_summary_on">Considera di mantenere abilitata la pubblicità per supportare ulteriori sviluppi di questa applicazione</string>
+    <string name="ads_summary_off">Considera di abilitare la pubblicità per supportare ulteriori sviluppi di questa applicazione</string>
+
+</resources>
