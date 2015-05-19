@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 	Copyright (C) 2015 Matt Booth (Kryten2k35).
+ 
+ 	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International 
+ 	(the "License") you may not use this file except in compliance with the License.
+ 	You may obtain a copy of the License at
+ 
+ 		http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ 
+ 	Unless required by applicable law or agreed to in writing, software
+ 	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<resources>
+
+    <string name="available_update_name">Aggiorna qui nome ed informazioni sul file</string>
+    <string name="available_progress_counter">0MB / 0MB</string>
+    <string name="available_changelog_title">Changelog</string>
+    <string name="available_changelog_content">Il changelog va inserito qui</string>
+    <string name="available_md5" translatable="false">MD5:</string>
+    <string name="available_check_md5">Controlla MD5</string>
+    <string name="available_ready_to_install">Pronto per l\'installazione</string>
+    <string name="available_md5_ok">Verifica MD5 riuscita</string>
+    <string name="available_md5_failed">Verifica MD5 fallita</string>
+    <string name="available_checking_md5">Controllo MD5 in corso&#8230;</string>
+    <string name="available_downloading">Scaricamento&#8230;</string>
+    <string name="are_you_sure">Sei sicuro?</string>
+    <string name="available_delete_confirm_message">Sei sicuro di voler cancellare il file scaricato?</string>
+    <string name="available_reboot_confirm">Vuoi riavviare ora?</string>
+    <string name="available_url_error">Errore URL: Consulta lo sviluppatore della ROM</string>
+    <string name="available_reboot_manual_title">Per favore riavvia ora</string>
+    <string name="available_reboot_manual_message">Per favore riavvia in recovery e flasha la ROM.\n\nLa puoi trovare in /sdcard/Downloads</string>
+    <string name="available_wrong_network_title">Hai selezionato la rete sbagliata</string>
+    <string name="available_wrong_network_message">Stai tentando di scaricare tramite la connessione dati, le impostazioni correnti consentono solo tramite Wi-Fi. Per favore modifica le impostazioni di conseguenza.</string>
+
+</resources>

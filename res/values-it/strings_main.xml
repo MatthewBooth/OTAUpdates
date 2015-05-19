@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 	Copyright (C) 2015 Matt Booth (Kryten2k35).
+ 
+ 	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International 
+ 	(the "License") you may not use this file except in compliance with the License.
+ 	You may obtain a copy of the License at
+ 
+ 		http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ 
+ 	Unless required by applicable law or agreed to in writing, software
+ 	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="main_update_available">Aggiornamento disponibile!</string>
+    <string name="main_update_finished">Scaricamento completato</string>
+    <string name="main_no_update_available">Non sono disponibili aggiornamenti</string>
+    <string name="main_update_filename">Nome del file</string>
+    <string name="main_update_progress">Avanzamento dello scaricamento</string>
+    <string name="main_website">Sito web</string>
+    <string name="main_website_summary">Visita il sito web della ROM</string>
+    <string name="main_donate">Donazione</string>
+    <string name="main_donate_summary">Dona allo sviluppatore della ROM</string>
+    <string name="main_tap_to_download">Tocca per scaricare</string>
+    <string name="main_download_completed_details">Tocca per i dettagli</string>
+    <string name="main_tap_to_view_progress">Tocca per vedere l\'avanzamento</string>
+    <string name="main_last_checked">Ultimo controllo effettuato il</string>
+    <string name="main_addon">Addons</string>
+    <string name="main_addon_summary">Sfoglia e scarica file addizionali per questa ROM</string>
+
+    <!-- ROM Information -->
+    <string name="main_rom_information">Informazioni ROM</string>
+    <string name="main_rom_name">Nome ROM:</string>
+    <string name="main_rom_version">Versione ROM:</string>
+    <string name="main_rom_codename">Nome in codice ROM:</string>
+    <string name="main_rom_build_date">Data ROM:</string>
+    <string name="main_android_verison">Versione Android:</string>
+    <string name="main_rom_developer">Sviluppatore(i):</string>
+
+    <!-- Dialogs -->
+    <string name="main_not_compatible_title">Non compatibile</string>
+    <string name="main_not_compatible_message">Questa ROM non è compatibile con gli aggiornamenti OTA. Per favore contatta lo sviluppatore per maggiori informazioni</string>
+    <string name="main_not_connected_title">Non connesso</string>
+    <string name="main_not_connected_message">Non sei connesso con nessuna rete. Per favore abilita una connessione di rete e riprova.</string>
+    <string name="main_playstore_title">BitCoin</string>
+    <string name="main_playstore_message">Non disponi di nessuna app in grado di gestire il mime-type \"bitcoin:\".\n\nVuoi cercarne una all\'interno del Google Play Store?</string>
+
+    <!-- Content Descriptions -->
+    <string name="main_button_icon">Icona del pulsante</string>
+    <string name="main_dev_website_icon">Icona sito web sviluppatore</string>
+    <string name="main_actionbar_button">Pulsanti Actionbar</string>
+
+    <!-- Toast -->
+    <string name="main_release_ignored">Rilascio ignorato</string>
+
+</resources>
