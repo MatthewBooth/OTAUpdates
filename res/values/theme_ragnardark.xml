@@ -27,6 +27,7 @@
         <item name="colorHoloBlue">@color/holo_blue_light</item>
         <item name="helpIcon">@drawable/ic_about_dark</item>
         <item name="settingsIcon">@drawable/ic_settings_dark</item>
+        <item name="changelogIcon">@drawable/ic_changelog_dark</item>
         <item name="downloadIcon">@drawable/ic_download_dark</item>
         <item name="browserIcon">@drawable/ic_web_site_dark</item>
         <item name="donateIcon">@drawable/ic_donate_dark</item>

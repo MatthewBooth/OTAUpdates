@@ -182,7 +182,7 @@ public class Utils implements Constants{
 			int requestedInterval;
 			
 			if (DEBUG_NOTIFICATIONS) {
-				requestedInterval = 30;
+				requestedInterval = 30000;
 			} else {
 				requestedInterval = Preferences.getBackgroundFrequency(context);
 			}

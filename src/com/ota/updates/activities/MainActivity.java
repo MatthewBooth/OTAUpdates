@@ -16,6 +16,17 @@
 
 package com.ota.updates.activities;
 
+import in.uncod.android.bypass.Bypass;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -25,6 +36,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -53,6 +65,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
+import com.ota.updates.tasks.Changelog;
 import com.ota.updates.tasks.LoadUpdateManifest;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
@@ -118,6 +131,22 @@ public class MainActivity extends Activity implements Constants{
 			actionBar.setCustomView(actionbarView, layoutParams);
 			actionBar.setDisplayShowCustomEnabled(true);
 		}
+		
+		boolean firstRun = Preferences.getFirstRun(mContext);				
+		if(firstRun) {
+			Preferences.setFirstRun(mContext, false);
+			showWhatsNew();
+		}
+		
+		String oldChangelog = Preferences.getOldChangelog(mContext);
+		String currentChangelog = getResources().getString(R.string.app_version);
+		if(!oldChangelog.equals(currentChangelog)) {
+			showWhatsNew();
+		}
+		
+		// Create download directories if needed
+		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
+		installAfterFlashDir.mkdirs();
 
 		createDialogs();
 
@@ -197,6 +226,9 @@ public class MainActivity extends Activity implements Constants{
 		// Handle item selection
 		if (isLollipop)
 			switch (item.getItemId()) {
+			case R.id.menu_changelog:
+				openChangelog(null);
+				return true;
 			case R.id.menu_info:
 				openHelp(null);
 				return true;
@@ -505,6 +537,18 @@ public class MainActivity extends Activity implements Constants{
 	public void openHelp (View v) {
 		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
+	}
+	
+	public void openChangelog (View v) {
+		String title = getResources().getString(R.string.changelog);
+		String changelog = RomUpdate.getChangelog(mContext);
+		new Changelog(this, mContext, title, changelog, false).execute();
+	}
+
+	private void showWhatsNew() {
+		String title = getResources().getString(R.string.changelog);
+		String changelog = getResources().getString(R.string.changelog_url);
+		new Changelog(this, mContext, title, changelog, true).execute();
 	}
 	
 	public static void updateProgress(int progress, int downloaded, int total, Context context) {

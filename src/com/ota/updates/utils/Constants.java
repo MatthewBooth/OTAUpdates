@@ -20,11 +20,13 @@ import android.os.Environment;
 
 public interface Constants {
     // Developer
-    public static final boolean DEBUGGING = false;
-    public static final boolean DEBUG_NOTIFICATIONS = false;
+    public static final boolean DEBUGGING = true;
+    public static final boolean DEBUG_NOTIFICATIONS = true;
 
     // Storage
     public static final String SD_CARD = Environment.getExternalStorageDirectory().getPath();
+    public static final String OTA_DOWNLOAD_DIR = "OTAUpdates";
+    public static final String INSTALL_AFTER_FLASH_DIR = SD_CARD + "/" + OTA_DOWNLOAD_DIR + "/" + "InstallAfterFlash";
 
     // Settings
     public static final String CURRENT_THEME = "current_theme";
@@ -48,6 +50,8 @@ public interface Constants {
     public static final String NOTIFICATIONS_VIBRATE = "notifications_vibrate";
     public static final String IGNORE_RELEASE_VERSION = "ignored_release";
     public static final String ADS_ENABLED = "ads_enabled";
+    public static final String OLD_CHANGELOG = "old_changelog";
+    public static final String FIRST_RUN = "first_run";
 
     // Broadcast intents
     public static String MANIFEST_LOADED = "com.ota.update.MANIFEST_LOADED";

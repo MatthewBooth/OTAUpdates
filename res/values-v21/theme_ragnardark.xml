@@ -23,6 +23,7 @@
         <item name="updateAvailable">@color/material_light_green_500</item>
         <item name="helpIcon">@drawable/ic_about_dark</item>
         <item name="settingsIcon">@drawable/ic_settings_dark</item>
+        <item name="changelogIcon">@drawable/ic_changelog</item>
         <item name="downloadIcon">@drawable/drawable_download</item>
         <item name="browserIcon">@drawable/drawable_website</item>
         <item name="donateIcon">@drawable/drawable_donate</item>

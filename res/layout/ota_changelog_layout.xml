@@ -9,7 +9,7 @@
     android:paddingRight="16.0dip">
 
     <TextView
-        android:id="@+id/changelog"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

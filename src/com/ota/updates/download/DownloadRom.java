@@ -21,7 +21,6 @@ import java.io.File;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Environment;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
@@ -56,7 +55,7 @@ public class DownloadRom implements Constants {
 
 		request.setVisibleInDownloadsUi(true);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+		request.setDestinationInExternalPublicDir(OTA_DOWNLOAD_DIR, fileName);
 		
 		// Delete any existing files
 		Utils.deleteFile(file);

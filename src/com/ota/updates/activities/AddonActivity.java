@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,14 +16,13 @@ import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -219,6 +219,24 @@ public class AddonActivity extends Activity implements Constants {
 			
 			mNetworkDialog.show();
 		}
+		
+		private void deleteConfirm(final File file, final Addon item) {
+			Builder deleteConfirm = new Builder(mContext);
+			deleteConfirm.setTitle(R.string.delete);
+			deleteConfirm.setMessage(mContext.getResources().getString(R.string.delete_confirm) + "\n\n" + file.getName());
+			deleteConfirm.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if (file.exists()) {
+						file.delete();
+						updateButtons(item.getId(), false);
+					}
+				}
+			});
+			deleteConfirm.setNegativeButton(R.string.cancel, null);
+			deleteConfirm.show();
+		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -247,8 +265,8 @@ public class AddonActivity extends Activity implements Constants {
 			String date = item.getUpdatedOn();
 
 			Locale locale = Locale.getDefault();
-			SimpleDateFormat fromDate = new SimpleDateFormat("yyyy-mm-dd", locale);
-			SimpleDateFormat toDate = new SimpleDateFormat("dd, MMMM yyyy", locale);
+			DateFormat fromDate = new SimpleDateFormat("yyyy-MM-dd", locale);
+			DateFormat toDate = new SimpleDateFormat("dd, MMMM yyyy", locale);
 
 			try {
 				date = toDate.format(fromDate.parse(date));
@@ -259,13 +277,14 @@ public class AddonActivity extends Activity implements Constants {
 			updatedOn.setText(UpdatedOnStr + " " + date);
 
 			filesize.setText(Utils.formatDataFromBytes(item.getFilesize()));
-			final File file = new File(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS, item.getTitle() + ".zip");
+			final File file = new File(SD_CARD + "/" + OTA_DOWNLOAD_DIR, item.getTitle() + ".zip");
 
 			if (DEBUGGING) {
 				Log.d(TAG, "file path " + file.getAbsolutePath());
 				Log.d(TAG, "file length " + file.length() + " remoteLength " +  item.getFilesize());
 			}
-			if (file.length() == item.getFilesize()) {
+			boolean finished = file.length() == item.getFilesize();
+			if (finished) {
 				download.setVisibility(View.VISIBLE);
 				download.setText(mContext.getResources().getString(R.string.finished));
 				download.setClickable(false);
@@ -311,10 +330,7 @@ public class AddonActivity extends Activity implements Constants {
 
 				@Override
 				public void onClick(View v) {
-					if (file.exists()) {
-						file.delete();
-						updateButtons(item.getId(), false);
-					}					
+					deleteConfirm(file, item);					
 				}
 			});
 

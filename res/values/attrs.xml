@@ -20,6 +20,7 @@
         <attr name="helpIcon" format="reference" />
         <attr name="moreIconWidget" format="reference" />
         <attr name="settingsIcon" format="reference" />
+        <attr name="changelogIcon" format="reference" />
         <attr name="downloadIcon" format="reference" />
 		<attr name="addonsIcon" format="reference" />
         <attr name="backgroundSelector" format="reference" />

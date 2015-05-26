@@ -17,9 +17,6 @@
 package com.ota.updates.tasks;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.OutputStream;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -66,10 +63,20 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 			mScript.append("wipe dalvik" + NEW_LINE);
 		}
 
-		mScript.append("install " + "/sdcard/Download/" +  mFilename + NEW_LINE);
+		mScript.append("install " + "/sdcard/" + OTA_DOWNLOAD_DIR +  mFilename + NEW_LINE);
+
+		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
+		File[] filesArr = installAfterFlashDir.listFiles();
+		if(filesArr != null && filesArr.length > 0) {
+			for(int i = 0; i < filesArr.length; i++) {
+				mScript.append("install " + INSTALL_AFTER_FLASH_DIR + "/" + filesArr[i].getName());
+				if(DEBUGGING)
+					Log.d(TAG, "install " + INSTALL_AFTER_FLASH_DIR + "/" + filesArr[i].getName());
+			}
+		}
 
 		if (Preferences.getDeleteAfterInstall(mContext)) {
-			mScript.append("cmd rm -rf " + "/sdcard/Download/" +  mFilename + NEW_LINE);
+			mScript.append("cmd rm -rf " + "/sdcard/" + OTA_DOWNLOAD_DIR +  mFilename + NEW_LINE);
 		}
 
 		mScriptOutput = mScript.toString();
@@ -77,17 +84,18 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 
 	@Override
 	protected Boolean doInBackground(Void... params) {
-
-		try {
-			Process p = Runtime.getRuntime().exec("sh");
-			OutputStream os = p.getOutputStream();
-			os.write("mkdir -p /cache/recovery/\n".getBytes());
-			String cmd = "echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE + "\n";
-			os.write(cmd.getBytes());
-			os.flush();
-		} catch (Exception e) {
-			Log.e(TAG, "Writing to cache" + "' error: " + e.getMessage());
-			Tools.shell("echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE, true);
+		// Try create a dir in the cache folder
+		// Without root
+		String check = Tools.shell("mkdir -p /cache/recovery/; echo $?", false);
+		
+		// If not 0, then permission was denied
+		if(!check.equals("0")) {
+			// Run as root
+			Tools.shell("mkdir -p /cache/recovery/; echo $?", true);
+			Tools.shell("echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE + "\n", true);
+		} else {
+			// Permission was enabled, run without root
+			Tools.shell("echo \"" + mScriptOutput + "\" > " + SCRIPT_FILE + "\n", false);
 		}
 
 		return true;
