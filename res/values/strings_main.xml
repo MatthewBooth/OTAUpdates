@@ -43,7 +43,7 @@
 
     <!-- Dialogs -->
     <string name="main_not_compatible_title">Not compatible</string>
-    <string name="main_not_compatible_message">This ROM is not compatible with OTA Updates. Please contact your developer for more information</string>
+    <string name="main_not_compatible_message">This ROM is not compatible with OTA Updates. Please contact your ROM developer. This app requires a custom ROM where the developer has specifically enabled support. Do not rate 1 star because of this. This is not a fault.</string>
     <string name="main_not_connected_title">Not connected</string>
     <string name="main_not_connected_message">You are not connected to any network. Please enable your network or WiFi and try again.</string>
     <string name="main_playstore_title">BitCoin</string>
