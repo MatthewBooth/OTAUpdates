@@ -2,17 +2,24 @@
 ##### 26th May 2015
 * Added first run message to inform about new features
 
+
 * Fixed Open Recovery Script on non-AOSP ROMs. Should now work properly
+
 
 * Added "install after ROM functionality" - Put zips inside "/sdcard/OTAUpdates/InstallAfterFlash/" and they will be automatically flashed after an update, if using Open Recovery Script
 
+
 * Added delete confirmation on addons
+
 
 * Change default download directories. Now they go into /sdcard/OTAUpdates
 
+
 * Translations for Italian and Russian
 
+
 * Added AOSP makefile functionality for AOSP ROMs built form source
+
 
 * Open Recovery Script is now on by default
 
