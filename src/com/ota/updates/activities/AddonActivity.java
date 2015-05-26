@@ -220,6 +220,24 @@ public class AddonActivity extends Activity implements Constants {
 			
 			mNetworkDialog.show();
 		}
+		
+		private void deleteConfirm(final File file, final Addon item) {
+			Builder deleteConfirm = new Builder(mContext);
+			deleteConfirm.setTitle(R.string.delete);
+			deleteConfirm.setMessage(mContext.getResources().getString(R.string.delete_confirm) + "\n\n" + file.getName());
+			deleteConfirm.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if (file.exists()) {
+						file.delete();
+						updateButtons(item.getId(), false);
+					}
+				}
+			});
+			deleteConfirm.setNegativeButton(R.string.cancel, null);
+			deleteConfirm.show();
+		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -313,10 +331,7 @@ public class AddonActivity extends Activity implements Constants {
 
 				@Override
 				public void onClick(View v) {
-					if (file.exists()) {
-						file.delete();
-						updateButtons(item.getId(), false);
-					}					
+					deleteConfirm(file, item);					
 				}
 			});
 
