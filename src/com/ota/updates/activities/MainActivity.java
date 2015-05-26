@@ -18,7 +18,15 @@ package com.ota.updates.activities;
 
 import in.uncod.android.bypass.Bypass;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -28,6 +36,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -56,6 +65,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;
+import com.ota.updates.tasks.Changelog;
 import com.ota.updates.tasks.LoadUpdateManifest;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Preferences;
@@ -518,22 +528,9 @@ public class MainActivity extends Activity implements Constants{
 	}
 	
 	public void openChangelog (View v) {
-		showChangelogDialog();
-	}
-	
-	private void showChangelogDialog() {
-		View view = getLayoutInflater().inflate(R.layout.ota_changelog_layout, null);
-		TextView changelog = (TextView) view.findViewById(R.id.changelog);
-
-		Bypass bypass = new Bypass(mContext);
-		CharSequence string = bypass.markdownToSpannable(RomUpdate.getChangelog(mContext));
-		changelog.setText(string);
-		
-		Builder dialog = new AlertDialog.Builder(mContext);
-		dialog.setTitle(getResources().getString(R.string.changelog) + " - " + RomUpdate.getVersionNumber(mContext));
-		dialog.setView(view);
-		dialog.setPositiveButton(R.string.done, null);
-		dialog.show();
+		String title = getResources().getString(R.string.changelog);
+		String changelog = RomUpdate.getChangelog(mContext);
+		new Changelog(this, mContext, title, changelog, false).execute();
 	}
 	
 	public static void updateProgress(int progress, int downloaded, int total, Context context) {

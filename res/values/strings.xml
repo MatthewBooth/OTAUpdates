@@ -15,11 +15,15 @@
 	limitations under the License.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-
+	
+    <!-- ATTENTION -->
+    <!-- DO NOT TRANSLATE THE ITEMS MARKED "translatable="false" -->
+    
     <!-- App Strings -->
     <string name="app_name" translatable="false">OTA Updates</string>
     <string name="prop_name" translatable="false">ro.ota.romname</string>
     <string name="app_version" translatable="false">2.3.1</string>
+    <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/Kryten2k35/OTAUpdates/stable/Changelog.md</string>
 
     <!-- Generic strings -->
     <string name="cancel">Cancel</string>
