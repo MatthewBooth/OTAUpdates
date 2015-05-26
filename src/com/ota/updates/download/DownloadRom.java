@@ -56,7 +56,7 @@ public class DownloadRom implements Constants {
 
 		request.setVisibleInDownloadsUi(true);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+		request.setDestinationInExternalPublicDir(OTA_DOWNLOAD_DIR, fileName);
 		
 		// Delete any existing files
 		Utils.deleteFile(file);

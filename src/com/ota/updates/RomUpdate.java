@@ -236,6 +236,6 @@ public class RomUpdate implements Constants {
     }
     
     public static File getFullFile(Context context) {
-    	return new File(SD_CARD + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + RomUpdate.getFilename(context) + ".zip");
+    	return new File(SD_CARD + "/" + OTA_DOWNLOAD_DIR + "/" + RomUpdate.getFilename(context) + ".zip");
     }
 }
