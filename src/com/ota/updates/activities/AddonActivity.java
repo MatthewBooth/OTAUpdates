@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -247,8 +248,8 @@ public class AddonActivity extends Activity implements Constants {
 			String date = item.getUpdatedOn();
 
 			Locale locale = Locale.getDefault();
-			SimpleDateFormat fromDate = new SimpleDateFormat("yyyy-mm-dd", locale);
-			SimpleDateFormat toDate = new SimpleDateFormat("dd, MMMM yyyy", locale);
+			DateFormat fromDate = new SimpleDateFormat("yyyy-MM-dd", locale);
+			DateFormat toDate = new SimpleDateFormat("dd, MMMM yyyy", locale);
 
 			try {
 				date = toDate.format(fromDate.parse(date));
