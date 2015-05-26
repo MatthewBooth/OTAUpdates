@@ -21,7 +21,6 @@ import java.io.File;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Environment;
 
 import com.ota.updates.R;
 import com.ota.updates.RomUpdate;

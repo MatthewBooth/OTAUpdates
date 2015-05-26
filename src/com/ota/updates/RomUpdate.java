@@ -21,7 +21,6 @@ import java.io.File;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Environment;
 
 import com.ota.updates.utils.Constants;
 
