@@ -18,6 +18,7 @@ package com.ota.updates.activities;
 
 import in.uncod.android.bypass.Bypass;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -120,6 +121,10 @@ public class MainActivity extends Activity implements Constants{
 			actionBar.setCustomView(actionbarView, layoutParams);
 			actionBar.setDisplayShowCustomEnabled(true);
 		}
+		
+		// Create downlaod directories if needed
+		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
+		installAfterFlashDir.mkdirs();
 
 		createDialogs();
 

@@ -26,7 +26,7 @@ public interface Constants {
     // Storage
     public static final String SD_CARD = Environment.getExternalStorageDirectory().getPath();
     public static final String OTA_DOWNLOAD_DIR = "OTAUpdates";
-    public static final String INSTALL_AFTER_FLASH_DIR = SD_CARD +  OTA_DOWNLOAD_DIR + "InstallAfterFlash";
+    public static final String INSTALL_AFTER_FLASH_DIR = SD_CARD + "/" + OTA_DOWNLOAD_DIR + "/" + "InstallAfterFlash";
 
     // Settings
     public static final String CURRENT_THEME = "current_theme";
