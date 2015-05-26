@@ -259,13 +259,14 @@ public class AddonActivity extends Activity implements Constants {
 			updatedOn.setText(UpdatedOnStr + " " + date);
 
 			filesize.setText(Utils.formatDataFromBytes(item.getFilesize()));
-			final File file = new File(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS, item.getTitle() + ".zip");
+			final File file = new File(SD_CARD + "/" + OTA_DOWNLOAD_DIR, item.getTitle() + ".zip");
 
 			if (DEBUGGING) {
 				Log.d(TAG, "file path " + file.getAbsolutePath());
 				Log.d(TAG, "file length " + file.length() + " remoteLength " +  item.getFilesize());
 			}
-			if (file.length() == item.getFilesize()) {
+			boolean finished = file.length() == item.getFilesize();
+			if (finished) {
 				download.setVisibility(View.VISIBLE);
 				download.setText(mContext.getResources().getString(R.string.finished));
 				download.setClickable(false);
