@@ -16,6 +16,8 @@
 
 package com.ota.updates.activities;
 
+import in.uncod.android.bypass.Bypass;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -197,6 +199,9 @@ public class MainActivity extends Activity implements Constants{
 		// Handle item selection
 		if (isLollipop)
 			switch (item.getItemId()) {
+			case R.id.menu_changelog:
+				openChangelog(null);
+				return true;
 			case R.id.menu_info:
 				openHelp(null);
 				return true;
@@ -505,6 +510,25 @@ public class MainActivity extends Activity implements Constants{
 	public void openHelp (View v) {
 		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
+	}
+	
+	public void openChangelog (View v) {
+		showChangelogDialog();
+	}
+	
+	private void showChangelogDialog() {
+		View view = getLayoutInflater().inflate(R.layout.ota_changelog_layout, null);
+		TextView changelog = (TextView) view.findViewById(R.id.changelog);
+
+		Bypass bypass = new Bypass(mContext);
+		CharSequence string = bypass.markdownToSpannable(RomUpdate.getChangelog(mContext));
+		changelog.setText(string);
+		
+		Builder dialog = new AlertDialog.Builder(mContext);
+		dialog.setTitle(getResources().getString(R.string.changelog) + " - " + RomUpdate.getVersionNumber(mContext));
+		dialog.setView(view);
+		dialog.setPositiveButton(R.string.done, null);
+		dialog.show();
 	}
 	
 	public static void updateProgress(int progress, int downloaded, int total, Context context) {
