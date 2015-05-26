@@ -50,6 +50,8 @@ public interface Constants {
     public static final String NOTIFICATIONS_VIBRATE = "notifications_vibrate";
     public static final String IGNORE_RELEASE_VERSION = "ignored_release";
     public static final String ADS_ENABLED = "ads_enabled";
+    public static final String OLD_CHANGELOG = "old_changelog";
+    public static final String FIRST_RUN = "first_run";
 
     // Broadcast intents
     public static String MANIFEST_LOADED = "com.ota.update.MANIFEST_LOADED";

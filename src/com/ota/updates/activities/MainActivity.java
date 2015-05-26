@@ -132,7 +132,19 @@ public class MainActivity extends Activity implements Constants{
 			actionBar.setDisplayShowCustomEnabled(true);
 		}
 		
-		// Create downlaod directories if needed
+		boolean firstRun = Preferences.getFirstRun(mContext);				
+		if(firstRun) {
+			Preferences.setFirstRun(mContext, false);
+			showWhatsNew();
+		}
+		
+		String oldChangelog = Preferences.getOldChangelog(mContext);
+		String currentChangelog = getResources().getString(R.string.app_version);
+		if(!oldChangelog.equals(currentChangelog)) {
+			showWhatsNew();
+		}
+		
+		// Create download directories if needed
 		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
 		installAfterFlashDir.mkdirs();
 
@@ -531,6 +543,12 @@ public class MainActivity extends Activity implements Constants{
 		String title = getResources().getString(R.string.changelog);
 		String changelog = RomUpdate.getChangelog(mContext);
 		new Changelog(this, mContext, title, changelog, false).execute();
+	}
+
+	private void showWhatsNew() {
+		String title = getResources().getString(R.string.changelog);
+		String changelog = getResources().getString(R.string.changelog_url);
+		new Changelog(this, mContext, title, changelog, true).execute();
 	}
 	
 	public static void updateProgress(int progress, int downloaded, int total, Context context) {
