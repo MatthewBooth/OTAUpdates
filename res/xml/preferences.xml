@@ -103,11 +103,11 @@
         android:summary="@string/list_summary"
         android:title="@string/theme" />
 
-    <PreferenceCategory
+    <!--<PreferenceCategory
         android:key="updater_ads_cat"
         android:title="@string/ads_cat" />
 
-    <!-- <SwitchPreference
+    <SwitchPreference
         android:defaultValue="true"
         android:key="ads_enabled"
         android:summaryOff="@string/ads_summary_off"
