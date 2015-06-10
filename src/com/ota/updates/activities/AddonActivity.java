@@ -81,12 +81,14 @@ public class AddonActivity extends Activity implements Constants {
 		new LoadAddonManifest().execute(RomUpdate.getAddonsUrl(mContext) + isRomhut);
 	}
 
-	public static void setupListView(ArrayList<Addon> addonsList) {		
+	public void setupListView(ArrayList<Addon> addonsList) {		
 		final AddonsArrayAdapter adapter = new AddonsArrayAdapter(mContext, addonsList);
-		mListview.setAdapter(adapter);
+		if(mListview != null) {
+			mListview.setAdapter(adapter);
+		}
 	}
 
-	private static class LoadAddonManifest extends AsyncTask<Object, Void, ArrayList<Addon>> {
+	private class LoadAddonManifest extends AsyncTask<Object, Void, ArrayList<Addon>> {
 
 		public final String TAG = this.getClass().getSimpleName();
 
@@ -277,7 +279,7 @@ public class AddonActivity extends Activity implements Constants {
 			updatedOn.setText(UpdatedOnStr + " " + date);
 
 			filesize.setText(Utils.formatDataFromBytes(item.getFilesize()));
-			final File file = new File(SD_CARD + "/" + OTA_DOWNLOAD_DIR, item.getTitle() + ".zip");
+			final File file = new File(OTA_DOWNLOAD_DIR, item.getTitle() + ".zip");
 
 			if (DEBUGGING) {
 				Log.d(TAG, "file path " + file.getAbsolutePath());
