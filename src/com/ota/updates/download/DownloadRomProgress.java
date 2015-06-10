@@ -16,6 +16,7 @@
 
 package com.ota.updates.download;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.database.Cursor;
@@ -83,7 +84,7 @@ public class DownloadRomProgress  extends AsyncTask<Long, Integer, Void> impleme
 			Log.d(TAG, "Updating Progress - " + progress[0] + "%");
 		if (Preferences.getIsDownloadOnGoing(mContext)) {
 			AvailableActivity.updateProgress(progress[0], progress[1], progress[2], mContext);
-			MainActivity.updateProgress(progress[0], progress[1], progress[2], mContext);
+			MainActivity.updateProgress(progress[0], progress[1], progress[2], (Activity) mContext);
 		}
      }
 }

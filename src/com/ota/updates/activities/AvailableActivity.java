@@ -64,13 +64,13 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 	private Builder mRebootDialog;
 	private Builder mRebootManualDialog;
 	private Builder mNetworkDialog;
-	
+
 	private static Button mCheckMD5Button;
 	private static Button mDeleteButton;
 	private static Button mInstallButton;
 	private static Button mDownloadButton;
 	private static Button mCancelButton;
-	
+
 	private DownloadRom mDownloadRom;
 
 
@@ -80,24 +80,24 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		setTheme(Preferences.getTheme(mContext));
 		super.onCreate(savedInstanceState);          
 		setContentView(R.layout.ota_available);
-		
+
 		if (Utils.isLollipop()) {
 			Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_available_bottom);
 			toolbarBottom.setTitle("");
 		}
-		
+
 		mDownloadRom = new DownloadRom();
 
 		mProgressBar = (ProgressBar) findViewById(R.id.bar_available_progress_bar);
 		mProgressCounterText = (TextView) findViewById(R.id.tv_available_progress_counter);
-		
+
 		if (Utils.isLollipop()) {
 			mCheckMD5Button = (Button) findViewById(R.id.menu_available_check_md5);
 			mDeleteButton = (Button) findViewById(R.id.menu_available_delete);
 			mInstallButton = (Button) findViewById(R.id.menu_available_install);
 			mDownloadButton = (Button) findViewById(R.id.menu_available_download);
 			mCancelButton = (Button) findViewById(R.id.menu_available_cancel);
-	
+
 			mCheckMD5Button.setOnClickListener(this);
 			mDeleteButton.setOnClickListener(this);
 			mInstallButton.setOnClickListener(this);
@@ -163,7 +163,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			return super.onOptionsItemSelected(item);           
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		Intent intent = new Intent(mContext, MainActivity.class);
@@ -221,7 +221,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		super.onPrepareOptionsMenu(menu);
 		return true;
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -251,7 +251,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			break;
 		}
 	}
-	
+
 	private void setupDialogs() {
 		mDeleteDialog = new AlertDialog.Builder(mContext);
 		mDeleteDialog.setTitle(R.string.are_you_sure)
@@ -304,19 +304,19 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		.setPositiveButton(R.string.ok, null)
 		.setNeutralButton(R.string.settings, new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Intent intent = new Intent(mContext, SettingsActivity.class);
-					mContext.startActivity(intent);
-				}
-			});
-		
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(mContext, SettingsActivity.class);
+				mContext.startActivity(intent);
+			}
+		});
+
 		mRebootManualDialog = new AlertDialog.Builder(mContext);
 		mRebootManualDialog.setTitle(R.string.available_reboot_manual_title)
 		.setMessage(R.string.available_reboot_manual_message)
 		.setPositiveButton(R.string.cancel, null);
 	}
-	
+
 	public static void setupMenuToolbar() {
 		boolean downloadFinished = Preferences.getDownloadFinished(mContext);
 		boolean downloadIsRunning = Preferences.getIsDownloadOnGoing(mContext);
@@ -369,7 +369,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		changelogView.setText(string);
 		changelogView.setMovementMethod(LinkMovementMethod.getInstance());
 	}
-	
+
 	private void setupRomHut() {
 		String romHutText = RomUpdate.getRomHut(mContext);
 		boolean isRomHut = romHutText != null;
@@ -407,7 +407,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		} else {
 			updateNameInfoText.setTextColor(getResources().getColor(R.color.holo_blue_light));
 		}
-		
+
 		if (isDownloadOnGoing) {
 			updateNameInfoText.setText(downloading); 	
 		} else {			
@@ -430,10 +430,10 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		String httpUrl = RomUpdate.getHttpUrl(mContext);
 		String directUrl = RomUpdate.getDirectUrl(mContext);
 		String error = getResources().getString(R.string.available_url_error);
-		
+
 		boolean isMobile = Utils.isMobileNetwork(mContext);
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
-			
+
 		if (isMobile && isSettingWiFiOnly) {
 			mNetworkDialog.show();
 		} else {
@@ -472,26 +472,32 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				Log.d(TAG, "Download finished. Setting up Progress Bars accordingly.");
 			String ready = context.getResources().getString(R.string.available_ready_to_install);
 
+			int color = res.getColor(R.color.holo_blue_light);
 			if (Utils.isLollipop()) {
-				int color;
 				if (Preferences.getCurrentTheme(context) == 0) { // Light
 					color = context.getResources().getColor(R.color.material_deep_teal_500);
 				} else {
 					color = context.getResources().getColor(R.color.material_deep_teal_200);
-				}
+				}		
+			} 
+			if(mProgressCounterText != null) {
 				mProgressCounterText.setTextColor(color);
-			} else {
-				mProgressCounterText.setTextColor(res.getColor(R.color.holo_blue_light));
+				mProgressCounterText.setText(ready);
 			}
-			mProgressCounterText.setText(ready);
-			mProgressBar.setProgress(100);
+			if(mProgressBar != null) {
+				mProgressBar.setProgress(100);
+			}
 		} else {
 			if (DEBUGGING)
 				Log.d(TAG, "Download not finished/started. Setting Progress Bars to default.");
 			int fileSize = RomUpdate.getFileSize(context);
 			String fileSizeStr = Utils.formatDataFromBytes(fileSize);
-			mProgressCounterText.setText(fileSizeStr);
-			mProgressBar.setProgress(0);
+			if(mProgressCounterText != null) {
+				mProgressCounterText.setText(fileSizeStr);
+			}
+			if(mProgressBar != null) {
+				mProgressBar.setProgress(0);
+			}
 		}
 	}
 

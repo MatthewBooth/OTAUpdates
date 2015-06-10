@@ -204,21 +204,30 @@ public class Utils implements Constants{
 
 
 	public static boolean isConnected(Context context) {
+		boolean isConnected = false;
 		ConnectivityManager cm =
 				(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		return activeNetwork != null &&
-				activeNetwork.isConnectedOrConnecting();
+		if(cm != null) {
+			NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+			if(activeNetwork != null) {
+				isConnected = activeNetwork != null &&
+						activeNetwork.isConnectedOrConnecting();
+			}
+		}
+		return isConnected;
 	}
 
 	public static boolean isMobileNetwork(Context context) {
+		boolean isMobileNetwork = false;
 		ConnectivityManager cm =
 				(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-		return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+		if(cm != null) {
+			NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+			if(activeNetwork != null) {
+				isMobileNetwork = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+			}
+		}
+		return isMobileNetwork;
 	}
 
 	public static boolean isLollipop() {	
