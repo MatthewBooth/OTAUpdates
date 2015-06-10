@@ -16,17 +16,7 @@
 
 package com.ota.updates.activities;
 
-import in.uncod.android.bypass.Bypass;
-
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -36,7 +26,6 @@ import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -57,6 +46,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -75,7 +65,7 @@ public class MainActivity extends Activity implements Constants{
 
 	public final String TAG = this.getClass().getSimpleName();
 
-	private Context mContext;
+	private static Context mContext;
 
 	private Builder mCompatibilityDialog;
 	private Builder mDonateDialog;
@@ -147,6 +137,9 @@ public class MainActivity extends Activity implements Constants{
 		// Create download directories if needed
 		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
 		installAfterFlashDir.mkdirs();
+		
+		if(DEBUGGING)
+			Log.d(TAG, SD_CARD + " " + OTA_DOWNLOAD_DIR + " " + INSTALL_AFTER_FLASH_DIR);
 
 		createDialogs();
 
@@ -179,9 +172,13 @@ public class MainActivity extends Activity implements Constants{
 		updateWebsiteLayout();
 		
 		if (Preferences.getAdsEnabled(mContext)) {
-			mAdView = (AdView) findViewById(R.id.adView);
-			mAdRequest = new AdRequest.Builder().build();
-			mAdView.loadAd(mAdRequest);
+			try {
+				mAdView = (AdView) findViewById(R.id.adView);
+				mAdRequest = new AdRequest.Builder().build();
+				mAdView.loadAd(mAdRequest);
+			} catch(NullPointerException e) {
+				Log.e(TAG, e.getMessage());
+			}
 		}
 	}
 
@@ -551,9 +548,10 @@ public class MainActivity extends Activity implements Constants{
 		new Changelog(this, mContext, title, changelog, true).execute();
 	}
 	
-	public static void updateProgress(int progress, int downloaded, int total, Context context) {
-		//mProgressBar = (ProgressBar) ((Activity) context).findViewById(R.id.bar_main_progress_bar);
-		mProgressBar.setProgress((int) progress);
+	public static void updateProgress(int progress, int downloaded, int total, Activity activity) {
+		if(mProgressBar != null) {
+			mProgressBar.setProgress((int) progress);
+		}
 	}
 
 	public class CompatibilityTask extends AsyncTask<Void, Boolean, Boolean> implements Constants{
