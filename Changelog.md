@@ -1,3 +1,23 @@
+#### v2.4.3
+##### 11th June 2015
+* Change the way the file directories are created
+
+* Hopefully stop this IllegalStateException that's showing in the crash
+reports.
+
+* Fix NPE on download progress bar in MainActivity
+
+* OTA Dir path correction
+
+* Fix NPE in AvailableActivity when setting up progress bars and text
+color
+
+* Catch NPE related to Google Play Services and ads
+
+* Check for null values when checking for connectivity
+
+* Fixed another NPE with the Addons List view
+
 #### v2.4
 ##### 26th May 2015
 * Added first run message to inform about new features
