@@ -260,7 +260,8 @@ public class MainActivity extends Activity implements Constants{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String url = "";
-				if (which == 0) {
+				int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+				if (selectedPosition == 0) {
 					url = RomUpdate.getDonateLink(mContext);
 				} else {
 					url = RomUpdate.getBitCoinLink(mContext);
@@ -273,8 +274,7 @@ public class MainActivity extends Activity implements Constants{
 				} catch(ActivityNotFoundException ex) {
 					// Nothing to handle BitCoin payments. Send to Play Store
 					if (DEBUGGING)
-						Log.d(TAG, ex.getMessage());
-					
+						Log.d(TAG, ex.getMessage());					
 					mPlayStoreDialog.show();
 				}
 			}
