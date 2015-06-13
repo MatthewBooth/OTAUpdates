@@ -112,7 +112,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		setupRomHut();
 		setupChangeLog();
 		if (Utils.isLollipop()) {
-			setupMenuToolbar();
+			setupMenuToolbar(mContext);
 		}
 
 		if (Preferences.getIsDownloadOnGoing(mContext)) {
@@ -247,7 +247,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			mDownloadRom.cancelDownload(mContext);
 			setupUpdateNameInfo();
 			setupProgress(mContext);
-			setupMenuToolbar();
+			setupMenuToolbar(mContext);
 			break;
 		}
 	}
@@ -270,7 +270,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				setupProgress(mContext); // Progress goes back to 0
 				setupMd5Info(); // MD5 goes back to default
 				if (Utils.isLollipop()) {
-					setupMenuToolbar(); // Reset options menu
+					setupMenuToolbar(mContext); // Reset options menu
 				} else {
 					invalidateMenu();
 				}
@@ -317,11 +317,11 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		.setPositiveButton(R.string.cancel, null);
 	}
 
-	public static void setupMenuToolbar() {
-		boolean downloadFinished = Preferences.getDownloadFinished(mContext);
-		boolean downloadIsRunning = Preferences.getIsDownloadOnGoing(mContext);
-		boolean md5HasRun = Preferences.getHasMD5Run(mContext);
-		boolean md5Passed = Preferences.getMD5Passed(mContext);
+	public static void setupMenuToolbar(Context context) {
+		boolean downloadFinished = Preferences.getDownloadFinished(context);
+		boolean downloadIsRunning = Preferences.getIsDownloadOnGoing(context);
+		boolean md5HasRun = Preferences.getHasMD5Run(context);
+		boolean md5Passed = Preferences.getMD5Passed(context);
 
 		mDeleteButton.setEnabled(false);
 		mCheckMD5Button.setEnabled(false);
@@ -339,7 +339,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				mInstallButton.setVisibility(View.GONE);
 			}
 		} else { // Download has finished
-			String md5 = RomUpdate.getMd5(mContext);
+			String md5 = RomUpdate.getMd5(context);
 			if (!md5.equals("null")) {
 				// Is MD5 being used?
 				if (md5HasRun && md5Passed) {
@@ -454,7 +454,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				mDownloadRom.startDownload(mContext);
 				setupUpdateNameInfo();
 				if (Utils.isLollipop()) {
-					setupMenuToolbar(); // Reset options menu
+					setupMenuToolbar(mContext); // Reset options menu
 				} else {
 					invalidateMenu();
 				}
@@ -557,7 +557,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 
 			Preferences.setMD5Passed(mContext, result); // Set value for other persistent settings
 			if (Utils.isLollipop()) {
-				setupMenuToolbar(); // Reset options menu
+				setupMenuToolbar(mContext); // Reset options menu
 			} else {
 				invalidateMenu();
 			}
