@@ -78,7 +78,7 @@ public class AddonActivity extends Activity implements Constants {
 			isRomhut = "?order_by=name&order_direction=asc";
 		}
 		
-		new LoadAddonManifest().execute(RomUpdate.getAddonsUrl(mContext) + isRomhut);
+		new LoadAddonManifest(mContext).execute(RomUpdate.getAddonsUrl(mContext) + isRomhut);
 	}
 
 	public void setupListView(ArrayList<Addon> addonsList) {		
@@ -94,8 +94,14 @@ public class AddonActivity extends Activity implements Constants {
 
 		private static final String MANIFEST = "addon_manifest.xml";
 
-		ProgressDialog mLoadingDialog;
+		private ProgressDialog mLoadingDialog;
 
+		private Context mContext;
+		
+		public LoadAddonManifest(Context context) {
+			mContext = context;
+		}
+		
 		@Override
 		protected void onPreExecute(){
 
@@ -150,7 +156,9 @@ public class AddonActivity extends Activity implements Constants {
 		@Override
 		protected void onPostExecute(ArrayList<Addon> result) {
 			mLoadingDialog.cancel();
-			setupListView(result);
+			if(result != null) {
+				setupListView(result);
+			}
 			super.onPostExecute(result);
 		}
 	}

@@ -129,7 +129,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 						Log.w(TAG, "Download Failed");
 					Preferences.setDownloadFinished(context, false);
 					if (Utils.isLollipop()) {
-						AvailableActivity.setupMenuToolbar(); // Reset options menu
+						AvailableActivity.setupMenuToolbar(context); // Reset options menu
 					} else {
 						AvailableActivity.invalidateMenu();
 					}
@@ -140,7 +140,7 @@ public class AppReceiver extends BroadcastReceiver implements Constants{
 					Preferences.setDownloadFinished(context, true);
 					AvailableActivity.setupProgress(context);
 					if (Utils.isLollipop()) {
-						AvailableActivity.setupMenuToolbar(); // Reset options menu
+						AvailableActivity.setupMenuToolbar(context); // Reset options menu
 					} else {
 						AvailableActivity.invalidateMenu();
 					}
