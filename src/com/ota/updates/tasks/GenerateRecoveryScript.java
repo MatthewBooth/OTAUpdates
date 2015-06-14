@@ -63,15 +63,15 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 			mScript.append("wipe dalvik" + NEW_LINE);
 		}
 
-		mScript.append("install " + "/sdcard/" + "OTAUpdates" + "/" +  mFilename + NEW_LINE);
+		mScript.append("install " + "/sdcard/" + "OTAUpdates/" +  mFilename + NEW_LINE);
 
 		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
 		File[] filesArr = installAfterFlashDir.listFiles();
 		if(filesArr != null && filesArr.length > 0) {
 			for(int i = 0; i < filesArr.length; i++) {
-				mScript.append("install " + INSTALL_AFTER_FLASH_DIR + "/" + filesArr[i].getName());
+				mScript.append("install " + "/sdcard/" + "OTAUpdates/" + "InstallAfterFlash" + "/" + filesArr[i].getName());
 				if(DEBUGGING)
-					Log.d(TAG, "install " + INSTALL_AFTER_FLASH_DIR + "/" + filesArr[i].getName());
+					Log.d(TAG, "install " + "/sdcard/" + "OTAUpdates/" + "InstallAfterFlash" + "/" + filesArr[i].getName());
 			}
 		}
 
