@@ -23,7 +23,6 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -36,9 +35,6 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.app.TaskStackBuilder;
-import android.text.SpannableString;
-import android.text.TextUtils;
-import android.text.style.BulletSpan;
 import android.util.Log;
 
 import com.ota.updates.R;
@@ -50,8 +46,6 @@ import com.ota.updates.receivers.AppReceiver;
 public class Utils implements Constants{
 
 	public final static String TAG = "Utils";
-
-	private static final String EOL = System.getProperty("line.separator");
 
 	private static final int KILOBYTE = 1024;
 	private static int KB = KILOBYTE;
@@ -102,23 +96,6 @@ public class Utils implements Constants{
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	@SuppressLint("NewApi")
-	static public CharSequence getBulletList(String header, String []items) {
-		CharSequence output = "";
-
-		if (header != null && !header.isEmpty()) {
-			output = header + EOL + EOL;
-		}
-
-		for (int i = 0; i < items.length; i++) {
-			String text = items[i];
-			SpannableString span = new SpannableString(text + EOL + EOL);
-			span.setSpan(new BulletSpan(20), 0, text.length(), 0);          
-			output = TextUtils.concat(output, span);         
-		}   	
-		return output;
 	}
 
 	public static String formatDataFromBytes(long size) {
