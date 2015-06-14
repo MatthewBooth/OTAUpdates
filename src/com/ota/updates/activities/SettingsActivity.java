@@ -56,6 +56,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	private Context mContext;
 	private Builder mInstallPrefsDialog;
 	private Preference mInstallPrefs;
+	private Preference mAboutActivity;
 	private RingtonePreference mRingtonePreference;
 
 	private SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
@@ -74,6 +75,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 		mInstallPrefs = (Preference) findPreference(INSTALL_PREFS);
 		mInstallPrefs.setOnPreferenceClickListener(this);
+		
+		mAboutActivity = (Preference) findPreference(ABOUT_ACTIVITY_PREF);
+		mAboutActivity.setOnPreferenceClickListener(this);
 
 		mRingtonePreference = (RingtonePreference) findPreference(NOTIFICATIONS_SOUND);
 		
@@ -141,7 +145,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	public boolean onPreferenceClick(Preference preference) {
 		if (preference == mInstallPrefs) {
 			showInstallPrefs();
-		} 
+		} else if (preference == mAboutActivity) {
+			Intent intent = new Intent(mContext, AboutActivity.class);
+			startActivity(intent);
+		}
 		return false;
 	}
 

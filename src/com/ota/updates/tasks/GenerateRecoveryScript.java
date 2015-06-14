@@ -63,20 +63,48 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 			mScript.append("wipe dalvik" + NEW_LINE);
 		}
 
-		mScript.append("install " + "/sdcard/" + "OTAUpdates" + "/" +  mFilename + NEW_LINE);
+		mScript.append("install " + "/sdcard" 
+				+ File.separator 
+				+ OTA_DOWNLOAD_DIR 
+				+ File.separator 
+				+ mFilename 
+				+ NEW_LINE);
 
-		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
+		File installAfterFlashDir = new File("/sdcard"
+				+ File.separator 
+				+ OTA_DOWNLOAD_DIR 
+				+ File.separator 
+				+ INSTALL_AFTER_FLASH_DIR);
 		File[] filesArr = installAfterFlashDir.listFiles();
 		if(filesArr != null && filesArr.length > 0) {
 			for(int i = 0; i < filesArr.length; i++) {
-				mScript.append("install " + INSTALL_AFTER_FLASH_DIR + "/" + filesArr[i].getName());
+				mScript.append("install " 
+						+ "/sdcard" 
+						+ OTA_DOWNLOAD_DIR 
+						+ File.separator 
+						+ INSTALL_AFTER_FLASH_DIR 
+						+ File.separator 
+						+ filesArr[i].getName());
 				if(DEBUGGING)
-					Log.d(TAG, "install " + INSTALL_AFTER_FLASH_DIR + "/" + filesArr[i].getName());
+					Log.d(TAG, "install " 
+							+ "/sdcard/" 
+							+ OTA_DOWNLOAD_DIR 
+							+ File.separator 
+							+ INSTALL_AFTER_FLASH_DIR 
+							+ File.separator 
+							+ filesArr[i].getName());
 			}
 		}
 
 		if (Preferences.getDeleteAfterInstall(mContext)) {
-			mScript.append("cmd rm -rf " + "/sdcard/" + "OTAUpdates" + "/" +  mFilename + NEW_LINE);
+			mScript.append("cmd rm -rf " 
+					+ "/sdcard/" 
+					+ OTA_DOWNLOAD_DIR 
+					+ File.separator 
+					+ INSTALL_AFTER_FLASH_DIR 
+					+ File.separator 
+					+ mFilename 
+					+ NEW_LINE);
 		}
 
 		mScriptOutput = mScript.toString();
@@ -87,7 +115,7 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 		// Try create a dir in the cache folder
 		// Without root
 		String check = Tools.shell("mkdir -p /cache/recovery/; echo $?", false);
-		
+
 		// If not 0, then permission was denied
 		if(!check.equals("0")) {
 			// Run as root

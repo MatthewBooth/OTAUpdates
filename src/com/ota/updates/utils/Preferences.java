@@ -75,7 +75,7 @@ public class Preferences implements Constants{
 	}
 	
 	public static String getNetworkType(Context context) {
-		return getPrefs(context).getString(NETWORK_TYPE, "2");
+		return getPrefs(context).getString(NETWORK_TYPE, WIFI_ONLY);
 	}
 	
 	public static long getDownloadID(Context context) {
@@ -108,9 +108,9 @@ public class Preferences implements Constants{
 	
 	public static int getCurrentTheme(Context context) {
 		if (Utils.isLollipop()) {
-			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "0")); // #0 is the Light Theme
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_LIGHT));
 		} else {
-			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, "2")); // #2 is the Dark Theme
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_DARK));
 		}
 	}
 	
@@ -230,12 +230,6 @@ public class Preferences implements Constants{
 	public static void setIsDownloadRunning(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(DOWNLOAD_RUNNING, value);
-        editor.commit();
-	}
-	
-	public static void setNetworkType(Context context, String value) {
-		SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(NETWORK_TYPE, value);
         editor.commit();
 	}
 	
