@@ -20,6 +20,13 @@
     <PreferenceCategory
         android:key="updater_ors_screen_title"
         android:title="@string/twrp_ors_cat" />
+    
+    <Preference
+        android:dependency="updater_twrp_ors"
+        android:key="updater_twrp_ors_information"
+        android:selectable="false"
+        android:summary="@string/twrp_ors_information"
+        android:title="@string/information" />
 
     <SwitchPreference
         android:defaultValue="true"
@@ -32,13 +39,7 @@
         android:key="install_prefs"
         android:summary="@string/twrp_ors_install_prefs_summary"
         android:title="@string/twrp_ors_install_prefs" />
-    <Preference
-        android:dependency="updater_twrp_ors"
-        android:key="updater_twrp_ors_information"
-        android:selectable="false"
-        android:summary="@string/twrp_ors_information"
-        android:title="@string/information" />
-
+    
     <!-- Background update service -->
     <PreferenceCategory
         android:key="updater_ors_screen_title"
@@ -107,11 +108,22 @@
         android:key="updater_ads_cat"
         android:title="@string/ads_cat" />
 
-    <!-- <SwitchPreference
+    <SwitchPreference
         android:defaultValue="true"
         android:key="ads_enabled"
         android:summaryOff="@string/ads_summary_off"
         android:summaryOn="@string/ads_summary_on"
         android:title="@string/ads_enable" />-->
+    
+     <!-- About -->
+    <PreferenceCategory
+        android:key="settings_about"
+        android:title="@string/app_name" />
+    
+    <Preference 
+        android:key="about_activity_pref"
+        android:title="@string/about_about_title"
+        android:summary="@string/about_preferences_summary" />
+
 
 </PreferenceScreen>
