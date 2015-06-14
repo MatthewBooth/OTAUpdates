@@ -3,8 +3,8 @@
 * Fixed the downloading location bug. Sorry about that.
 * Moved the open recovery script information above the settings
 * Removed some unused code and optimised others
-* Added downloading to external SD card (AOSP based ROMs only)
 * Fixed InstallAfterFlash location
+* moved About/Info into settings
 
 #### v2.4.4
 ##### 13th June 2015
