@@ -31,6 +31,11 @@ public interface Constants {
     // Networks
     public static final String WIFI_ONLY = "2";
     public static final String WIFI_OR_MOBILE = "1";
+    
+    // Theme
+    public static final String THEME_LIGHT = "0";
+    public static final String THEME_LIGHT_DARKACTIONBAR = "1";
+    public static final String THEME_DARK = "2";
 
     // Settings
     public static final String CURRENT_THEME = "current_theme";
