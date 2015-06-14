@@ -27,6 +27,10 @@ public interface Constants {
     public static final String SD_CARD = Environment.getExternalStorageDirectory().getAbsolutePath();
     public static final String OTA_DOWNLOAD_DIR = "OTAUpdates";
     public static final String INSTALL_AFTER_FLASH_DIR = "InstallAfterFlash";
+    
+    // Networks
+    public static final String WIFI_ONLY = "2";
+    public static final String WIFI_OR_MOBILE = "1";
 
     // Settings
     public static final String CURRENT_THEME = "current_theme";

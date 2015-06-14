@@ -20,7 +20,7 @@ public class DownloadAddon implements Constants {
 	public void startDownload(Context context, String url, String fileName, int id) {
 		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 		
-		if(Preferences.getNetworkType(context).equals("2")) {
+		if(Preferences.getNetworkType(context).equals(WIFI_ONLY)) {
 			// All network types are enabled by default
 			// So if we choose Wi-Fi only, then enable the restriction
 			request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);

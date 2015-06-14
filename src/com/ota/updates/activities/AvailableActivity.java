@@ -432,7 +432,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		String error = getResources().getString(R.string.available_url_error);
 
 		boolean isMobile = Utils.isMobileNetwork(mContext);
-		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
+		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals(WIFI_ONLY);
 
 		if (isMobile && isSettingWiFiOnly) {
 			mNetworkDialog.show();

@@ -72,7 +72,7 @@ public class Preferences implements Constants{
 	}
 	
 	public static String getNetworkType(Context context) {
-		return getPrefs(context).getString(NETWORK_TYPE, "2");
+		return getPrefs(context).getString(NETWORK_TYPE, WIFI_ONLY);
 	}
 	
 	public static long getDownloadID(Context context) {
@@ -222,12 +222,6 @@ public class Preferences implements Constants{
 	public static void setIsDownloadRunning(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putBoolean(DOWNLOAD_RUNNING, value);
-        editor.commit();
-	}
-	
-	public static void setNetworkType(Context context, String value) {
-		SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(NETWORK_TYPE, value);
         editor.commit();
 	}
 	

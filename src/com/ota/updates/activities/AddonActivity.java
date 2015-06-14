@@ -315,7 +315,7 @@ public class AddonActivity extends Activity implements Constants {
 				@Override
 				public void onClick(View v) {
 					boolean isMobile = Utils.isMobileNetwork(mContext);
-					boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals("2");
+					boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals(WIFI_ONLY);
 
 					if (isMobile && isSettingWiFiOnly) {
 						showNetworkDialog();
