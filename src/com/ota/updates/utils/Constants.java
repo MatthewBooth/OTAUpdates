@@ -61,6 +61,7 @@ public interface Constants {
 	public static final String ADS_ENABLED 							= "ads_enabled";
 	public static final String OLD_CHANGELOG 						= "old_changelog";
 	public static final String FIRST_RUN 							= "first_run";
+	public static final String ABOUT_ACTIVITY_PREF					= "about_activity_pref";
 
 	// Broadcast intents
 	public static String MANIFEST_LOADED 							= "com.ota.update.MANIFEST_LOADED";

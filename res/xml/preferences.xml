@@ -114,5 +114,15 @@
         android:summaryOff="@string/ads_summary_off"
         android:summaryOn="@string/ads_summary_on"
         android:title="@string/ads_enable" />
+    
+     <!-- About -->
+    <PreferenceCategory
+        android:key="settings_about"
+        android:title="@string/app_name" />
+    
+    <Preference 
+        android:key="about_activity_pref"
+        android:title="@string/about_about_title"
+        android:summary="@string/about_preferences_summary" />
 
 </PreferenceScreen>

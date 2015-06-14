@@ -224,9 +224,6 @@ public class MainActivity extends Activity implements Constants{
 			case R.id.menu_changelog:
 				openChangelog(null);
 				return true;
-			case R.id.menu_info:
-				openHelp(null);
-				return true;
 			case R.id.menu_settings:
 				openSettings(null);
 				return true;
@@ -526,11 +523,6 @@ public class MainActivity extends Activity implements Constants{
 
 	public void openSettings(View v) {
 		Intent intent = new Intent(mContext, SettingsActivity.class);
-		startActivity(intent);
-	}
-
-	public void openHelp (View v) {
-		Intent intent = new Intent(mContext, AboutActivity.class);
 		startActivity(intent);
 	}
 	
