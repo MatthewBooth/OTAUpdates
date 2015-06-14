@@ -16,8 +16,6 @@
 
 package com.ota.updates.utils;
 
-import java.io.File;
-
 import android.os.Environment;
 
 public interface Constants {
@@ -27,10 +25,8 @@ public interface Constants {
 
     // Storage
     public static final String SD_CARD = Environment.getExternalStorageDirectory().getAbsolutePath();
-    public static final String OTA_DOWNLOAD_DIR_NAME = "OTAUpdates";
-    public static final String OTA_DOWNLOAD_DIR = SD_CARD + File.separator + OTA_DOWNLOAD_DIR_NAME;
-    public static final String INSTALL_AFTER_FLASH_DIR_NAME = "InstallAfterFlash";
-    public static final String INSTALL_AFTER_FLASH_DIR = OTA_DOWNLOAD_DIR + File.separator + INSTALL_AFTER_FLASH_DIR_NAME;
+    public static final String OTA_DOWNLOAD_DIR = "OTAUpdates";
+    public static final String INSTALL_AFTER_FLASH_DIR = "InstallAfterFlash";
 
     // Settings
     public static final String CURRENT_THEME = "current_theme";

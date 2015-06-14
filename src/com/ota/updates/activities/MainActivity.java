@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -46,7 +45,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -94,7 +92,6 @@ public class MainActivity extends Activity implements Constants{
 		}
 	};
 
-	@SuppressLint({ "InflateParams", "NewApi" })
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -135,11 +132,12 @@ public class MainActivity extends Activity implements Constants{
 		}
 		
 		// Create download directories if needed
-		File installAfterFlashDir = new File(INSTALL_AFTER_FLASH_DIR);
+		File installAfterFlashDir = new File(SD_CARD 
+				+ File.separator
+				+ OTA_DOWNLOAD_DIR
+				+ File.separator
+				+ INSTALL_AFTER_FLASH_DIR);
 		installAfterFlashDir.mkdirs();
-		
-		if(DEBUGGING)
-			Log.d(TAG, SD_CARD + " " + OTA_DOWNLOAD_DIR + " " + INSTALL_AFTER_FLASH_DIR);
 
 		createDialogs();
 
