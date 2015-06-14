@@ -45,6 +45,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.WindowManager.BadTokenException;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -571,7 +573,11 @@ public class MainActivity extends Activity implements Constants{
 			} else {
 				if (DEBUGGING)
 					Log.d(TAG, "Prop not found");
-				mCompatibilityDialog.show();
+				try {
+					mCompatibilityDialog.show();
+				} catch(WindowManager.BadTokenException ex) {
+					Log.e(TAG, ex.getMessage());
+				}
 			}
 			super.onPostExecute(result);
 		}
