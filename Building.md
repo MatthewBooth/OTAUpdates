@@ -31,17 +31,20 @@ $SDK_ROOT/extras/google/google_play_services
 ```
 Now right click on the OTAUpdates project in Eclipse and choose properties and add google_play_services as library (or edit the missing library that most likely exists).
 
+#### ByPass
+
+Once you've done the above, you need to edit the project one more final time:
+
+- In Eclipse, right click on the project and choose "Properties"
+- Choose "Java Build Path"
+- Click the "Source" tab
+- Choose "Add folder"
+- Check "src_bypass"
+- Done!
+
 ## Try a build
 
 Now, try building and installing the apk on your device. It should now work.
 
-Bare in mind, that having manually compiled the apk when placing in your ROM, you should extract the libraries in the lib/ folder of the apk and place them in:
-
-- 4.4.4 or earlier = /system/lib
-- 5.0 or later = /system/app/OTAUpdates/lib/arm 
-
-Put the apk in:
-
-- 4.4.4 or earlier = /system/app
-- 5.0 or later = /system/app/OTAUpdates/ (and call it base.apk)
+For including in your ROM you need to head over to the instructions for [installing](Installing.md).
 

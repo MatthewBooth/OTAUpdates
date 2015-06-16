@@ -1,26 +1,22 @@
-## Romhut
+## RomHut
 
-Romhut will handle most of the work for you. You can use it to host your files and manifest. It's a great ROM hosting website. It's free for developers and users, with no insane wait times or download restrictions.
+RomHut will handle most of the work for you. You can use it to host your files and manifest. It's a great ROM hosting website. It's free for developers and users, with no insane wait times or download restrictions.
 
 #### Include this in your ROM:
 
-- Download the APK from [here](http://ultimarom.com/downloads/ota-updates/) OR compile this project using Eclipse ([Check the build instructions](Building.md)).
+You can use this application in a few different ways:
 
-  You can also use this in your AOSP ROM. You should know how to add this to your build, if so. A makefile is included.
+- Download the APK from [here](http://ultimarom.com/downloads/ota-updates/)
+- Compile this project using Eclipse ([Check the build instructions](Building.md))
+- Build from source with your AOSP ROM ([Check the AOSP build instructions](AOSP_CM.md))
 
-- Open the .apk file using an archive manager like 7zip and extract the necessary lib file for your device. Most devices will use armeabi, armeabi-v7a or arm64-v8a. Please the libbypass.so file in your system folder as follows:
+#### Installing the app
 
-For Lollipop devices put the apk and lib file like this: 
+If you have compiled or downloaded the APK, head over to the instructions for [installing](Installing.md).
 
-- system/app/OTAUpdates/base.apk
-- system/app/OTAUpdates/lib/arm/libbypass.so
-														
-For Pre-Lollipop devices, like this:
+If you compiled with AOSP, this is already done for you.
 
-- system/app/OTAUpdates.apk
-- system/lib/libbypass.so
-
-#### Head over to Romhut
+#### Head over to RomHut
 
 - Head over to Romhut.com and [apply for a developer account](https://romhut.com/developers/new). It's free for all
 
@@ -41,7 +37,7 @@ ro.ota.manifest=https://romhut.com/roms/danvdh-googleedition/ota.xml
 
 Please pay CLOSE attention to the ro.ota.version entry. This is not your particular ROM version (v6.5 or v1.2.5, for example) this is a value for the OTA app to determine if an update is available. Your NEXT version should be numerically higher than this. You may use value you like, so long as it is an integer and successive updates are larger.
 
-This example is using Universal Standard time, which is YYYYMMDD. It is a good version scheme to use for the OTA app if you do not plan on release more than one version per ROM per day
+This example is using Universal Standard time, which is YYYYMMDD. It is a good version scheme to use for the OTA app if you do not plan on release more than one version per ROM per day.
 
 #### Back to Romhut
 

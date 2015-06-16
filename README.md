@@ -11,10 +11,25 @@ A useful tool to help ROM developers provide OTA updates to their users. It's fr
 3. A place to host your ROM
 4. Some build.prop entries
 
-# How-to
+# Building or Downloading
+## Downloading
 
-There are two ways you can use this in your ROM. Manually, or automatically with [romhut.com](https://www.romhut.com). Romhut is highly recommended, as it will host your files for you, automate the process somewhat and it's free for users and developers.
-- [Using with romhut.com](Romhut.md)
+You can get the latest version of the APK [here](http://ultimarom.com/ota-updates/).
+
+## Eclipse
+
+To build from source via Eclipse, you need to checkout the [instructions on building](Building.md)
+
+## AOSP
+
+To build from source in your AOSP build, you need to checkout the [instructions on building with AOSP](AOSP_CM.md). There are some advantages of this method, being that this method does not need root/SU permissions throughout the app.
+
+# Using
+
+There are two ways you can use this in your ROM. Manually, or automatically with [romhut.com](https://www.romhut.com). 
+
+RomHut is highly recommended, as it will host your files for you, automate the process somewhat and it's free for users and developers:
+- [Using with romhut.com](RomHut.md)
 - [Using manually](Manually.md)
 
 # Installing
@@ -29,15 +44,6 @@ Anyone is free to use this project in their ROM. I only request that you keep th
 
 I'd also appreciate a tag in your post, wherever you publish :)
 
-# Building
-## Eclipse
-
-To build from source via Eclipse, you need to checkout the [instructions on building](Building.md)
-
-## AOSP
-
-To build from source in your AOSP build, you need to checkout the [instructions on building with AOSP](AOSP_CM.md). There are some advantages of this method, being that this method does not need SU permissions throughout the app.
-
 # Contributions
 
 If you feel like you can contribute to this project, don't hesitate to fork and send me some pull requests.
@@ -48,4 +54,4 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 
 This licence is chosen because it gives people the rights to clone this project and freely use it in their ROM or application, but only so long as they are sharing it in the same manner, and not going to publish it for commercial uses. I.E. This is free to use and modify (so long as you share any changes under the same licence), but you can't take it and sell it.
 
-Other parts of this project (Bypass, cardsview) have their own licences and are not affected by this one.
+Other parts of this project (Bypass, cardview) have their own licences and are not affected by this one.
