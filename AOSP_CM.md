@@ -2,32 +2,21 @@
 
 If you are aiming to build this with an AOSP-based ROM (such as AOSP, CyanogenMod, AOKP, PA, Slim, etc) then there are a few steps you need to take to ensure this happens correctly.
 
-### Including the project
+### Including in your roomservice.xml/local_manifest.xml
 
 To include this in your AOSP based ROM, you need to add it to your room_service.xml
 
 ```XML
-<project path="packages/apps/OTAUpdates" name="Kryten2k35/OTAUpdates" revision="aosp" />
+<project path="packages/apps/OTAUpdates" name="MatthewBooth/OTAUpdates" revision="aosp" />
 ```
 
+### Including in your config files
 
-### Extras
+Depending on your source tree, you will need to include the following in one of the config.mk files (usually in the vendor folder or device folder:
 
-#### Pre-Lollipop
-
-If you're building for a source tree earlier than Lollipop, then you will need to include the cardview support libraries in your source. Edit your room_services.xml to include this
-
-```XML
-<remove-project name="platform/frameworks/support" />
-<project path="frameworks/support" name="platform/frameworks/support" revision="android-5.1.0_r1" />
+```Makefile
+PRODUCT_PACKAGES += /
+	OTAUpdates
 ```
 
-To ensure you have the latest version of the support libraries
-
-#### Google Play Services
-
-Next you'll need to add the following Google libraries to your room_service.xml from CyanogenMod:
-
-```XML
-<project path="external/google" name="CyanogenMod/android_external_google" revision="cm-12.0" />
-```
+If you're building from source, you probably already know how to do this.
