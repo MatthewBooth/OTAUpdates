@@ -5,8 +5,9 @@ gradlew.bat
 gradlew
 .settings/
 lint.xml
+.classpath
+.refactor
+.project
+build.gradle
 proguard-project.txt
 project.properties
-.classpath
-.project
-.refactor
