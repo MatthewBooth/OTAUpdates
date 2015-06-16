@@ -2,13 +2,25 @@
 
 Placing this in your ROM is actually quite easy.
 
-Firstly, either compile yourself using the instructions, or head over to [UltimaROM.com](http://ultimarom.com/downloads/ota-updates/) and get a pre-compiled APK. The pre-compiled version is much quicker.
+Firstly, you should have checked out the instructions for building or acquiring this ROM
 
-### Which version of the file do I need?
+### Ok, where should I put the APK?
 
-You need the version of the file that corresponds to the Android version of your ROM, and your ARM CPU architecture.
+You should put the downloaded apk in the following folder:
 
-##### Finding your ARM CPU architecture
+##### Lollipop and later
+
+The APK goes in /system/priv-app/OTAUpdates/OTAUpdates.apk
+
+##### Kitkat and earlier
+
+The APK goes in /system/priv-app/OTAUpdates.apk
+
+### Anything else?
+
+Yes! There is also a library to extract from the OTAUpdates.apk and place in the system folder.
+
+##### First you need to know your ARM CPU Architecture
 
 Install ADB and run this command
 
@@ -19,16 +31,8 @@ cat /proc/cpuinfo
 
 You may see "armeabi", armeabi-v7a or arm64-v8a
 
-##### Finding your Android version 
+##### Now install the library
 
-This APK only supports from Android 4.0 to 5.0+
+Now you you know which ARM architecture to use, you can open the OTAUpdates.apk and head into to OTAUpdates.apk/lib/ folder. Open the folder necessary for your ARM Architecture and extract the libbypass.so.
 
-- If you are on a ROM that is earlier than Kitkat, then you need the "v11" zip
-
-- If you are on a ROM that is Kitkat, then you need the "v19" zip
-
-- If you are on a ROM that is Lollipop, then you need the "v21" zip
-
-##### Ok, now what?
-
-Now you've got the zip, extract it and drag and drop into your system folder
+In your ROM you should now place that lib into /system/lib/libbypass.so
