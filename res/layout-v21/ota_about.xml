@@ -48,9 +48,6 @@
 	        <include layout="@layout/card_credits" />
 	
 	        <include layout="@layout/card_app_donate" />
-	
-	        <include layout="@layout/ad_activity_about" />
-	    
-		</LinearLayout>
+	    </LinearLayout>
 	</ScrollView>
 </LinearLayout>

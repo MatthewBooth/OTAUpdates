@@ -48,8 +48,6 @@
             <include layout="@layout/card_donate" />
 
             <include layout="@layout/card_rom_info" />
-
-            <include layout="@layout/ad_activity_main" />
         </LinearLayout>
     </ScrollView>
 
