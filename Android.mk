@@ -21,18 +21,15 @@ endif
 
 # Cardview Dir
 cardview_dir := ../../../frameworks/support/v7/cardview
-# Google Play Services Dir
-google_play_dir := ../../../external/google/google_play_services/libproject/google-play-services_lib/res
 
 src_dirs := src src_bypass
-res_dirs := res $(chips_dir) $(cardview_dir)/res $(google_play_dir)
+res_dirs := res $(chips_dir) $(cardview_dir)/res
 
 LOCAL_SRC_FILES := $(call all-java-files-under, $(src_dirs))
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
 
 LOCAL_AAPT_FLAGS := \
 	--auto-add-overlay \
-	--extra-packages com.google.android.gms \
 	--extra-packages android.support.v7.cardview
 
 LOCAL_PACKAGE_NAME := OTAUpdates
@@ -42,8 +39,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_STATIC_JAVA_LIBRARIES := \
 	RootTools \
 	android-support-v4 \
-	android-support-v7-cardview \
-	play 
+	android-support-v7-cardview
 
 LOCAL_JNI_SHARED_LIBRARIES := libbypass
 
