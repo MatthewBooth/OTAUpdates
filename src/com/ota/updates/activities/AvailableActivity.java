@@ -430,6 +430,9 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		String httpUrl = RomUpdate.getHttpUrl(mContext);
 		String directUrl = RomUpdate.getDirectUrl(mContext);
 		String error = getResources().getString(R.string.available_url_error);
+		
+		if(DEBUGGING)
+			Log.d(TAG, "HTTPURL = " + httpUrl + " DirectURL = " + directUrl);
 
 		boolean isMobile = Utils.isMobileNetwork(mContext);
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals(WIFI_ONLY);
@@ -438,17 +441,16 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			mNetworkDialog.show();
 		} else {
 			// We're good, open links or start downloads
-			if (directUrl.equals("null") && !httpUrl.equals("null")) {
+			boolean directUrlEmpty = directUrl.equals("null") || directUrl.isEmpty();
+			boolean httpUrlEmpty = httpUrl.equals("null") || httpUrl.isEmpty();
+			
+			if (directUrlEmpty) {
 				if (DEBUGGING)
 					Log.d(TAG, "HTTP link opening");
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse(httpUrl));
 				startActivity(intent);
-			} else if (directUrl.equals("null") && httpUrl.equals("null")) {
-				if (DEBUGGING)
-					Log.e(TAG, "No links found");
-				Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
-			} else {
+			} else if (httpUrlEmpty || !directUrlEmpty) {
 				if (DEBUGGING)
 					Log.d(TAG, "Downloading via DownloadManager");
 				mDownloadRom.startDownload(mContext);
@@ -458,6 +460,10 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				} else {
 					invalidateMenu();
 				}
+			} else {
+				if (DEBUGGING)
+					Log.e(TAG, "No links found");
+				Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
 			}
 		}
 	}

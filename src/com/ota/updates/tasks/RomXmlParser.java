@@ -210,7 +210,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			}
 			tagHttpUrl = false;
 			if (DEBUGGING)
-				Log.d(TAG, "tagHttpUrl = " + input);
+				Log.d(TAG, "HTTP URL = " + input);
 		}
 		
 		if (tagAndroid) {
