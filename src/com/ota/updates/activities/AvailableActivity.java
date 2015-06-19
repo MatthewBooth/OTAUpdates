@@ -395,7 +395,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		boolean isDownloadOnGoing = Preferences.getIsDownloadOnGoing(mContext);
 		TextView updateNameInfoText = (TextView) findViewById(R.id.tv_available_update_name);
 		String downloading = getResources().getString(R.string.available_downloading);
-		String filename = RomUpdate.getFilename(mContext);
+		String filename = RomUpdate.getVersionName(mContext);
 
 		if (Utils.isLollipop()) {
 			int color;
