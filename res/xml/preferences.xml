@@ -97,7 +97,6 @@
         android:title="@string/theme" />
 
     <ListPreference
-        android:defaultValue="0"
         android:entries="@array/theme_entries"
         android:entryValues="@array/theme_values"
         android:key="current_theme"

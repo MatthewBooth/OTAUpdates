@@ -60,8 +60,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	private RingtonePreference mRingtonePreference;
 
 	private SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
-	
+
 	private SwitchPreference mIgnoredRelease;
+
+	private ListPreference mThemePref;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,21 +77,25 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 		mInstallPrefs = (Preference) findPreference(INSTALL_PREFS);
 		mInstallPrefs.setOnPreferenceClickListener(this);
-		
+
 		mAboutActivity = (Preference) findPreference(ABOUT_ACTIVITY_PREF);
 		mAboutActivity.setOnPreferenceClickListener(this);
 
 		mRingtonePreference = (RingtonePreference) findPreference(NOTIFICATIONS_SOUND);
-		
+
+		mThemePref = (ListPreference) findPreference(CURRENT_THEME);
+		mThemePref.setValue(Integer.toString(Preferences.getCurrentTheme(mContext)));
+		setThemeSummary();
+
 		String defValue = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString();
 		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
 		setRingtoneSummary(soundValue);
-		
+
 		if (!Tools.isRootAvailable()) {
 			SwitchPreference ors = (SwitchPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
 		}
-		
+
 		mIgnoredRelease = (SwitchPreference) findPreference(NOTIFICATIONS_IGNORED_RELEASE);
 		mIgnoredRelease.setOnPreferenceChangeListener(this);
 		String ignoredRelease = Preferences.getIgnoredRelease(mContext);
@@ -221,9 +227,23 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	}
 
 	private void setRingtoneSummary(String soundValue) {
-        Uri soundUri = TextUtils.isEmpty(soundValue) ? null : Uri.parse(soundValue);
-        Ringtone tone = soundUri != null ? RingtoneManager.getRingtone(this, soundUri) : null;
-        mRingtonePreference.setSummary(tone != null ? tone.getTitle(this)
-                : getResources().getString(R.string.silent_ringtone));
-    }
+		Uri soundUri = TextUtils.isEmpty(soundValue) ? null : Uri.parse(soundValue);
+		Ringtone tone = soundUri != null ? RingtoneManager.getRingtone(this, soundUri) : null;
+		mRingtonePreference.setSummary(tone != null ? tone.getTitle(this)
+				: getResources().getString(R.string.silent_ringtone));
+	}
+
+	private void setThemeSummary() {	
+		int currentTheme = Preferences.getCurrentTheme(mContext);
+		if(DEBUGGING)
+			Log.d(TAG, "Current theme number is" + currentTheme);
+		int id = 0;
+		for (int i = 0; i < mThemePref.getEntryValues().length; i++) {
+			if (mThemePref.getEntryValues()[i].equals(Integer.toString(currentTheme))) {
+				id = i;
+				break;
+			}
+		}
+		mThemePref.setSummary(mThemePref.getEntries()[id]);
+	}
 }

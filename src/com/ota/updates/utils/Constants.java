@@ -28,6 +28,7 @@ public interface Constants {
 	public static final String OTA_VERSION 							= "ro.ota.version";
 	public static final String OTA_MANIFEST 						= "ro.ota.manifest";
 	public static final String OTA_DOWNLOAD_LOC						= "ro.ota.download_loc";
+	public static final String OTA_DEFAULT_THEME					= "ro.ota.default_theme";
 	
 	// Storage
 	public static final String SD_CARD 								= Environment.getExternalStorageDirectory().getAbsolutePath();
