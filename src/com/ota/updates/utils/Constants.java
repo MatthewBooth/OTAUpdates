@@ -22,7 +22,12 @@ public interface Constants {
 	// Developer
 	public static final boolean DEBUGGING 							= false;
 	public static final boolean DEBUG_NOTIFICATIONS 				= false;
-
+	
+	// Props
+	public static final String OTA_ROMNAME 							= "ro.ota.romname";
+	public static final String OTA_VERSION 							= "ro.ota.version";
+	public static final String OTA_MANIFEST 						= "ro.ota.manifest";
+	
 	// Storage
 	public static final String SD_CARD 								= Environment.getExternalStorageDirectory().getAbsolutePath();
 	public static final String OTA_DOWNLOAD_DIR 					= "OTAUpdates";
