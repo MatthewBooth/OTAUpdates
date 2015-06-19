@@ -1,5 +1,7 @@
 package com.ota.updates.download;
 
+import java.io.File;
+
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
@@ -31,7 +33,7 @@ public class DownloadAddon implements Constants {
 		request.setVisibleInDownloadsUi(true);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 		fileName = fileName + ".zip";
-		request.setDestinationInExternalPublicDir(OTA_DOWNLOAD_DIR, fileName);
+		request.setDestinationInExternalPublicDir(SD_CARD + File.separator + OTA_DOWNLOAD_DIR, fileName);
 		
 		DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 		long mDownloadID = downloadManager.enqueue(request);
