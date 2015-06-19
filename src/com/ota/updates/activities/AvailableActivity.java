@@ -371,11 +371,12 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 	}
 
 	private void setupRomHut() {
-		String romHutText = RomUpdate.getRomHut(mContext);
-		boolean isRomHut = romHutText != null;
-		if (isRomHut) {
-			TextView sponsoredBy = (TextView) findViewById(R.id.tv_available_romhut);
-			sponsoredBy.setText(romHutText);
+		String domainText = RomUpdate.getUrlDomain(mContext);
+		boolean isRomHut = domainText.contains("romhut.com");
+		if (domainText != null) {
+			TextView domainTextView = (TextView) findViewById(R.id.tv_available_romhut);
+			String sponsoredBy = isRomHut ?  "Sponsored by " : "";
+			domainTextView.setText(sponsoredBy + domainText);
 			if (Utils.isLollipop()) {	
 				int color;
 				if (Preferences.getCurrentTheme(mContext) == 0) { // Light
@@ -383,9 +384,9 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				} else {
 					color = getResources().getColor(R.color.material_deep_teal_200);
 				}
-				sponsoredBy.setTextColor(color);
+				domainTextView.setTextColor(color);
 			} else {
-				sponsoredBy.setTextColor(getResources().getColor(R.color.holo_blue_light));
+				domainTextView.setTextColor(getResources().getColor(R.color.holo_blue_light));
 			}
 		}
 	}

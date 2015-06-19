@@ -74,8 +74,9 @@ public class AddonActivity extends Activity implements Constants {
 		
 		String isRomhut = "";
 		
-		if(!RomUpdate.getRomHut(mContext).equals("null")) {
-			isRomhut = "?order_by=name&order_direction=asc";
+		String urlDomain = RomUpdate.getUrlDomain(mContext);
+		if(!urlDomain.equals("null")) {
+			isRomhut = urlDomain.contains("romhut.com") ? "?order_by=name&order_direction=asc" : "";
 		}
 		
 		new LoadAddonManifest(mContext).execute(RomUpdate.getAddonsUrl(mContext) + isRomhut);
