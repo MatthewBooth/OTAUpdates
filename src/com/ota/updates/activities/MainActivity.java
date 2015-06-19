@@ -340,7 +340,7 @@ public class MainActivity extends Activity implements Constants{
 					htmlColorOpen = "<font color='#33b5e5'>";
 				}
 				String htmlColorClose = "</font>";
-				String updateSummary = RomUpdate.getFilename(mContext)
+				String updateSummary = RomUpdate.getVersionName(mContext)
 						+ "<br />"
 						+ htmlColorOpen
 						+ getResources().getString(R.string.main_download_completed_details)
@@ -377,7 +377,7 @@ public class MainActivity extends Activity implements Constants{
 					htmlColorOpen = "<font color='#33b5e5'>";
 				}
 				String htmlColorClose = "</font>";
-				String updateSummary = RomUpdate.getFilename(mContext)
+				String updateSummary = RomUpdate.getVersionName(mContext)
 						+ "<br />"
 						+ htmlColorOpen
 						+ getResources().getString(R.string.main_tap_to_download)
