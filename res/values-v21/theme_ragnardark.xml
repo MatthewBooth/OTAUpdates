@@ -31,6 +31,7 @@
         <item name="addonsIcon">@drawable/drawable_addon</item>
         <item name="separator">@color/separator_dark</item>
         <item name="backgroundRippleSelector">@drawable/ripple_selector_dark</item>
+        <item name="proRibbon">@drawable/pro_ribbon_dark</item>
 
         <!-- Main theme colors -->
         <item name="android:colorPrimary">@color/material_primary</item>

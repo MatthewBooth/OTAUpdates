@@ -179,6 +179,10 @@ public class Preferences implements Constants{
 	public static Boolean getFirstRun(Context context) {
 		return getPrefs(context).getBoolean(FIRST_RUN, true);
 	}
+	
+	public static Boolean getIsPro(Context context) {
+		return getPrefs(context).getBoolean(IS_PRO, false);
+	}
 
 	public static void setUpdateLastChecked(Context context, String time) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
@@ -267,6 +271,12 @@ public class Preferences implements Constants{
 	public static void setFirstRun(Context context, boolean value) {
 		SharedPreferences.Editor editor = getPrefs(context).edit();
 		editor.putBoolean(FIRST_RUN, value);
+		editor.commit();
+	}
+	
+	public static void setIsPro(Context context, boolean value) {
+		SharedPreferences.Editor editor = getPrefs(context).edit();
+		editor.putBoolean(IS_PRO, value);
 		editor.commit();
 	}
 }

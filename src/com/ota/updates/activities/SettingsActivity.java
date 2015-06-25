@@ -19,6 +19,8 @@ package com.ota.updates.activities;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceCategory;
 import android.preference.SwitchPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -64,6 +67,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	private SwitchPreference mIgnoredRelease;
 
 	private ListPreference mThemePref;
+
+	private Preference mProPreference;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -111,6 +116,22 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		} else {
 			setNotIgnore(false);
 		}
+
+		mProPreference = (Preference) findPreference(ABOUT_PREF_PRO);
+		mProPreference.setOnPreferenceClickListener(this);
+
+		Boolean isPro = Utils.isPackageInstalled("com.ota.updatespro", mContext);
+		if (isPro) {		
+			mProPreference.setLayoutResource(R.layout.preference_pro);
+			mProPreference.setTitle(R.string.about_pro_title);
+			mProPreference.setSummary(R.string.about_pro_summary);
+			mProPreference.setSelectable(!isPro);
+		} else {
+			mProPreference.setLayoutResource(R.layout.preference_no_pro);
+			mProPreference.setTitle(R.string.about_pro_title);
+			mProPreference.setSummary(R.string.about_non_pro_summary);
+		}
+		Preferences.setIsPro(mContext, isPro);
 	}
 
 	@Override
@@ -149,10 +170,17 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
+		String otaPackage = "com.ota.updatespro";
+
 		if (preference == mInstallPrefs) {
 			showInstallPrefs();
 		} else if (preference == mAboutActivity) {
 			Intent intent = new Intent(mContext, AboutActivity.class);
+			startActivity(intent);
+		} else if (preference == mProPreference) {
+			String url = "https://play.google.com/store/apps/details?id=" + otaPackage;
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(url));
 			startActivity(intent);
 		}
 		return false;

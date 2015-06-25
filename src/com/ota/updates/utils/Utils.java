@@ -28,6 +28,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -293,6 +295,16 @@ public class Utils implements Constants{
 		}
 
 		mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+	}
+	
+	public static boolean isPackageInstalled(String packagename, Context context) {
+	    PackageManager pm = context.getPackageManager();
+	    try {
+	        pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+	        return true;
+	    } catch (NameNotFoundException e) {
+	        return false;
+	    }
 	}
 	
 	public static String getRemovableMediaPath() {

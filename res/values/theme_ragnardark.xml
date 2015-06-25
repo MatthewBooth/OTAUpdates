@@ -39,6 +39,7 @@
         <item name="cardStyle">@style/CardStyle.Dark</item>
         <item name="textColorPrimary">@color/white</item>
         <item name="textColorSecondary">@color/grey</item>
+        <item name="proRibbon">@drawable/pro_ribbon_dark</item>
     </style>
 
     <style name="ActionBar.Solid.RagnarDark" parent="@android:style/Widget.Holo.ActionBar.Solid">
