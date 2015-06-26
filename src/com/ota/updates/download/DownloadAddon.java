@@ -1,7 +1,5 @@
 package com.ota.updates.download;
 
-import java.io.File;
-
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
@@ -19,7 +17,7 @@ public class DownloadAddon implements Constants {
 		
 	}
 	
-	public void startDownload(Context context, String url, String fileName, int id) {
+	public void startDownload(Context context, String url, String fileName, int id, int index) {
 		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 		
 		if(Preferences.getNetworkType(context).equals(WIFI_ONLY)) {
@@ -33,21 +31,21 @@ public class DownloadAddon implements Constants {
 		request.setVisibleInDownloadsUi(true);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 		fileName = fileName + ".zip";
-		request.setDestinationInExternalPublicDir(SD_CARD + File.separator + OTA_DOWNLOAD_DIR, fileName);
+		request.setDestinationInExternalPublicDir(OTA_DOWNLOAD_DIR, fileName);
 		
 		DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 		long mDownloadID = downloadManager.enqueue(request);
-		OtaUpdates.putAddonDownload(id, mDownloadID);
-		new DownloadAddonProgress(context, downloadManager, id).execute(mDownloadID);
+		OtaUpdates.putAddonDownload(index, mDownloadID);
+		new DownloadAddonProgress(context, downloadManager, index).execute(mDownloadID);
 		if (DEBUGGING) {
 			Log.d(TAG, "Starting download with manager ID " + mDownloadID + " and item id of " + id);
 		}
 	}
 	
-	public void cancelDownload(Context context, int id) {
-		long mDownloadID = OtaUpdates.getAddonDownload(id);
+	public void cancelDownload(Context context, int index) {
+		long mDownloadID = OtaUpdates.getAddonDownload(index);
 		if (DEBUGGING) {
-			Log.d(TAG, "Stopping download with manager ID " + mDownloadID + " and item id of " + id);
+			Log.d(TAG, "Stopping download with manager ID " + mDownloadID + " and item index of " + index);
 		}
 		DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 		downloadManager.remove(mDownloadID);

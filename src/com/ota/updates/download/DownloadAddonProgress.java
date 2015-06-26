@@ -15,10 +15,11 @@ public class DownloadAddonProgress extends AsyncTask<Long, Integer, Void> implem
 	private DownloadManager mDownloadManager;
 	private int mViewId;
 	private boolean mIsRunning = true;
+	private int mIndex;
 
-	public DownloadAddonProgress(Context context, DownloadManager downloadManager, int id) {
+	public DownloadAddonProgress(Context context, DownloadManager downloadManager, int index) {
 		mDownloadManager = downloadManager;
-		mViewId = id;
+		mIndex = index;
 	}
 
 	@Override
@@ -70,9 +71,9 @@ public class DownloadAddonProgress extends AsyncTask<Long, Integer, Void> implem
 		if (DEBUGGING)
 			Log.d(TAG, "Updating Progress - " + progress[0] + "%");
 		if(mIsRunning) {
-			AddonActivity.AddonsArrayAdapter.updateProgress(mViewId, progress[0], false);
+			AddonActivity.AddonsArrayAdapter.updateProgress(mIndex, progress[0], false);
 		} else {
-			AddonActivity.AddonsArrayAdapter.updateProgress(mViewId, 0, true);
+			AddonActivity.AddonsArrayAdapter.updateProgress(mIndex, 0, true);
 		}
 	}
 }
