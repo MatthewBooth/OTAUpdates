@@ -74,8 +74,9 @@ public class AddonActivity extends Activity implements Constants {
 		
 		String isRomhut = "";
 		
-		if(!RomUpdate.getRomHut(mContext).equals("null")) {
-			isRomhut = "?order_by=name&order_direction=asc";
+		String urlDomain = RomUpdate.getUrlDomain(mContext);
+		if(!urlDomain.equals("null")) {
+			isRomhut = urlDomain.contains("romhut.com") ? "?order_by=name&order_direction=asc" : "";
 		}
 		
 		new LoadAddonManifest(mContext).execute(RomUpdate.getAddonsUrl(mContext) + isRomhut);
@@ -145,8 +146,7 @@ public class AddonActivity extends Activity implements Constants {
 				input.close();
 
 				// file finished downloading, parse it!
-				AddonXmlParser parser = new AddonXmlParser();
-				return parser.parse(new File(mContext.getFilesDir(), MANIFEST), mContext);
+				return AddonXmlParser.parse(new File(mContext.getFilesDir(), MANIFEST));
 			} catch (Exception e) {
 				Log.d(TAG, "Exception: " + e.getMessage());
 			}
@@ -170,7 +170,7 @@ public class AddonActivity extends Activity implements Constants {
 		}
 
 		public static void updateProgress(int index, int progress, boolean finished) {
-			View v = mListview.getChildAt((index - 1) - 
+			View v = mListview.getChildAt(index - 
 					mListview.getFirstVisiblePosition());
 
 			if(v == null) {
@@ -183,6 +183,9 @@ public class AddonActivity extends Activity implements Constants {
 				progressBar.setProgress(0);
 			} else {
 				progressBar.setProgress(progress);
+				if(DEBUGGING) {
+					Log.d(TAG, "Setting Progress as " + progress); 
+				}
 			}
 		}
 
@@ -251,6 +254,7 @@ public class AddonActivity extends Activity implements Constants {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final Addon item = getItem(position);    
+			final int index = position;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_addons_list_item, parent, false);
 			}
@@ -320,7 +324,7 @@ public class AddonActivity extends Activity implements Constants {
 					if (isMobile && isSettingWiFiOnly) {
 						showNetworkDialog();
 					} else {
-						mDownloadAddon.startDownload(mContext, item.getDownloadLink(), item.getTitle(), item.getId());
+						mDownloadAddon.startDownload(mContext, item.getDownloadLink(), item.getTitle(), item.getId(), index);
 						download.setVisibility(View.GONE);
 						cancel.setVisibility(View.VISIBLE);
 					}
@@ -331,10 +335,10 @@ public class AddonActivity extends Activity implements Constants {
 
 				@Override
 				public void onClick(View v) {
-					mDownloadAddon.cancelDownload(mContext, item.getId());
+					mDownloadAddon.cancelDownload(mContext, index);
 					download.setVisibility(View.VISIBLE);
 					cancel.setVisibility(View.GONE);
-					updateProgress(item.getId(), 0, true);
+					updateProgress(index, 0, true);
 				}
 			});
 

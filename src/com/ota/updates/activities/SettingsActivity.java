@@ -16,6 +16,8 @@
 
 package com.ota.updates.activities;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -28,7 +30,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.SwitchPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -36,6 +37,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -58,10 +60,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	private Preference mInstallPrefs;
 	private Preference mAboutActivity;
 	private RingtonePreference mRingtonePreference;
-
 	private SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
-	
 	private SwitchPreference mIgnoredRelease;
+	private ListPreference mThemePref;
+	private Preference mProPreference;
+	private Preference mStorageLocation;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,21 +78,25 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 		mInstallPrefs = (Preference) findPreference(INSTALL_PREFS);
 		mInstallPrefs.setOnPreferenceClickListener(this);
-		
+
 		mAboutActivity = (Preference) findPreference(ABOUT_ACTIVITY_PREF);
 		mAboutActivity.setOnPreferenceClickListener(this);
 
 		mRingtonePreference = (RingtonePreference) findPreference(NOTIFICATIONS_SOUND);
-		
+
+		mThemePref = (ListPreference) findPreference(CURRENT_THEME);
+		mThemePref.setValue(Integer.toString(Preferences.getCurrentTheme(mContext)));
+		setThemeSummary();
+
 		String defValue = android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString();
 		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
 		setRingtoneSummary(soundValue);
-		
+
 		if (!Tools.isRootAvailable()) {
 			SwitchPreference ors = (SwitchPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
 		}
-		
+
 		mIgnoredRelease = (SwitchPreference) findPreference(NOTIFICATIONS_IGNORED_RELEASE);
 		mIgnoredRelease.setOnPreferenceChangeListener(this);
 		String ignoredRelease = Preferences.getIgnoredRelease(mContext);
@@ -105,6 +112,27 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		} else {
 			setNotIgnore(false);
 		}
+
+		mProPreference = (Preference) findPreference(ABOUT_PREF_PRO);
+		mProPreference.setOnPreferenceClickListener(this);
+
+		Boolean isPro = Utils.isPackageInstalled("com.ota.updatespro", mContext);
+		if (isPro) {		
+			mProPreference.setLayoutResource(R.layout.preference_pro);
+			mProPreference.setTitle(R.string.about_pro_title);
+			mProPreference.setSummary(R.string.about_pro_summary);
+			mProPreference.setSelectable(!isPro);
+		} else {
+			mProPreference.setLayoutResource(R.layout.preference_no_pro);
+			mProPreference.setTitle(R.string.about_pro_title);
+			mProPreference.setSummary(R.string.about_non_pro_summary);
+		}
+		Preferences.setIsPro(mContext, isPro);
+		
+		mStorageLocation = (Preference) findPreference(STORAGE_LOCATION);
+		mStorageLocation.setSelectable(false);
+		String storageLocationStr = SD_CARD + File.separator + OTA_DOWNLOAD_DIR;
+		mStorageLocation.setSummary(storageLocationStr);
 	}
 
 	@Override
@@ -143,10 +171,17 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
+		String otaPackage = "com.ota.updatespro";
+
 		if (preference == mInstallPrefs) {
 			showInstallPrefs();
 		} else if (preference == mAboutActivity) {
 			Intent intent = new Intent(mContext, AboutActivity.class);
+			startActivity(intent);
+		} else if (preference == mProPreference) {
+			String url = "https://play.google.com/store/apps/details?id=" + otaPackage;
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(url));
 			startActivity(intent);
 		}
 		return false;
@@ -221,9 +256,23 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	}
 
 	private void setRingtoneSummary(String soundValue) {
-        Uri soundUri = TextUtils.isEmpty(soundValue) ? null : Uri.parse(soundValue);
-        Ringtone tone = soundUri != null ? RingtoneManager.getRingtone(this, soundUri) : null;
-        mRingtonePreference.setSummary(tone != null ? tone.getTitle(this)
-                : getResources().getString(R.string.silent_ringtone));
-    }
+		Uri soundUri = TextUtils.isEmpty(soundValue) ? null : Uri.parse(soundValue);
+		Ringtone tone = soundUri != null ? RingtoneManager.getRingtone(this, soundUri) : null;
+		mRingtonePreference.setSummary(tone != null ? tone.getTitle(this)
+				: getResources().getString(R.string.silent_ringtone));
+	}
+
+	private void setThemeSummary() {	
+		int currentTheme = Preferences.getCurrentTheme(mContext);
+		if(DEBUGGING)
+			Log.d(TAG, "Current theme number is" + currentTheme);
+		int id = 0;
+		for (int i = 0; i < mThemePref.getEntryValues().length; i++) {
+			if (mThemePref.getEntryValues()[i].equals(Integer.toString(currentTheme))) {
+				id = i;
+				break;
+			}
+		}
+		mThemePref.setSummary(mThemePref.getEntries()[id]);
+	}
 }

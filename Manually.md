@@ -89,26 +89,30 @@ You should format it like this:
 
 ``` XML
 <?xml version="1.0" encoding="utf-8"?>
-<addons>
-	<addon>
-		<name>Accuweather</name> <!-- The name, simples -->
-		<description>Accuweather Daemon and Widgets</description> <!-- You can use markdown here if you want -->
-		<updated-at>2014-12-24</updated-at> <!-- Must be in yyyy-mm-dd format -->
-		<size>9001027</size> <!-- filesize in bytes -->
-		<download-link>
-		https://romhut.com/addons/accuweather-53b5c4b3242f2/download
-		</download-link>
-	</addon>
-	<addon>
-		<name>Samsung Wallet</name> <!-- The name, simples -->
-		<description>Samsung's Wallet technology</description> <!-- You can use markdown here if you want -->
-		<updated-at>2014-10-14</updated-at> <!-- Must be in yyyy-mm-dd format -->
-		<size>5427814</size> <!-- filesize in bytes -->
-		<download-link>
-		https://romhut.com/addons/samsung-wallet-53b5c482ce61c/download
-		</download-link>
-	</addon>
-</addons>
+<hash>
+    <addons>
+        <addon>
+            <id>1</id> <!-- Use integers only, make them unique -->
+            <name>Accuweather</name> <!-- The name, simples -->
+            <description>Accuweather Daemon and Widgets</description> <!-- You can use markdown here if you want -->
+            <updated-at>2014-12-24</updated-at> <!-- Must be in yyyy-mm-dd format -->
+            <size>9001027</size> <!-- filesize in bytes -->
+            <download-link>
+            https://romhut.com/addons/accuweather-53b5c4b3242f2/download
+            </download-link>
+        </addon>
+        <addon>
+            <id>2</id> <!-- Use integers only, make them unique -->
+            <name>Samsung Wallet</name> <!-- The name, simples -->
+            <description>Samsung's Wallet technology</description> <!-- You can use markdown here if you want -->
+            <updated-at>2014-10-14</updated-at> <!-- Must be in yyyy-mm-dd format -->
+            <size>5427814</size> <!-- filesize in bytes -->
+            <download-link>
+            https://romhut.com/addons/samsung-wallet-53b5c482ce61c/download
+            </download-link>
+        </addon>
+    </addons>
+</hash>
 ```
 
 Doing this, you should add these following elements to the bottom of your OTA XML
