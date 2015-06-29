@@ -78,6 +78,14 @@
         android:key="notifications_ignored_release"
         android:title="@string/notification_ignore_release_title" />
 
+     <!-- Storage Settings -->
+    <PreferenceCategory
+        android:key="updater_storage_location_cat"
+        android:title="@string/storage" />
+    <Preference 
+        android:key="updater_storage_location"
+        android:title="@string/storage_location" />
+    
     <!-- Network Settings -->
     <PreferenceCategory
         android:key="updater_updater_mobile_wifi_network_cat"

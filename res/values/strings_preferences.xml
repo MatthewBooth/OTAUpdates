@@ -61,10 +61,11 @@
     <string name="ads_cat">Advertisements</string>
     <string name="ads_enable">Enabled ads</string>
     <string name="ads_summary_on">Consider leaving advertisements enabled to support further development of the app</string>
-    <string name="ads_summary_off">Consider enabling advertisements enabled to support further development of the app</string>
-    
+    <string name="ads_summary_off">Consider enabling advertisements enabled to support further development of the app</string> 
     <string name="about_pro_title">OTA Updates Pro</string>
     <string name="about_non_pro_summary">Consider showing your support by buying OTA Updates Pro</string>
     <string name="about_pro_summary">Thanks for your support!</string>
+    <string name="storage">Storage</string>
+    <string name="storage_location">Storage location</string>
 
 </resources>

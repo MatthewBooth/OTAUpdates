@@ -13,7 +13,6 @@ public class DownloadAddonProgress extends AsyncTask<Long, Integer, Void> implem
 	public final String TAG = this.getClass().getSimpleName();
 
 	private DownloadManager mDownloadManager;
-	private int mViewId;
 	private boolean mIsRunning = true;
 	private int mIndex;
 

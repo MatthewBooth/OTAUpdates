@@ -16,11 +16,11 @@
 
 package com.ota.updates.activities;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,8 +30,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceCategory;
-import android.preference.SwitchPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -39,6 +37,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -61,14 +60,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 	private Preference mInstallPrefs;
 	private Preference mAboutActivity;
 	private RingtonePreference mRingtonePreference;
-
 	private SparseBooleanArray mInstallPrefsItems = new SparseBooleanArray();
-
 	private SwitchPreference mIgnoredRelease;
-
 	private ListPreference mThemePref;
-
 	private Preference mProPreference;
+	private Preference mStorageLocation;
 
 	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +128,11 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 			mProPreference.setSummary(R.string.about_non_pro_summary);
 		}
 		Preferences.setIsPro(mContext, isPro);
+		
+		mStorageLocation = (Preference) findPreference(STORAGE_LOCATION);
+		mStorageLocation.setSelectable(false);
+		String storageLocationStr = SD_CARD + File.separator + OTA_DOWNLOAD_DIR;
+		mStorageLocation.setSummary(storageLocationStr);
 	}
 
 	@Override
