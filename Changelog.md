@@ -1,3 +1,21 @@
+#### v2.5.1
+##### 29th June 2015
+* Fixed a serious FC when a ROM didn't have a default theme set in the build.prop (so, most people).
+
+#### v2.5
+##### 29th June 2015
+* Fixed downloading from HTTP only links for manual users
+* Added the parsing of the download link's host and showing it in the available update activity screen
+* Fixed my own donation links always showing Coinbase!
+* Added the choosing of download location by developers (see the XDA thread instructions for this)
+* Added the ability for developers to choose the default theme (also see the XDA thread for this)
+* Changed the available update activity page to show the full download file title without stripping spaces
+* Fixed some more NullPointerExceptions for various methods
+* Used version name rather than filename for available update activity
+* Fixed the generation of ORS (@nicholaschum)
+* Added Pro/Donate button to the settings. This does nothing (Currently) just a donate button, but in future this will add some nice things for those who buy it and support development.
+* Added showing the current storage location in preferences to show users where downloads will go. Later this will be changed to allow users to change the download location
+
 #### v2.4.5
 ##### 14th June 2015
 * Fixed the downloading location bug. Sorry about that.
