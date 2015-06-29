@@ -19,7 +19,6 @@ package com.ota.updates.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
 import com.ota.updates.R;
 
 public class Preferences implements Constants{
@@ -106,18 +105,26 @@ public class Preferences implements Constants{
 	public static int getCurrentTheme(Context context) {
 		Boolean isDefaultThemeUsed = Utils.doesPropExist(OTA_DEFAULT_THEME);
 		String getDefTheme = Utils.getProp(OTA_DEFAULT_THEME);
-		int defThemeInt = Integer.parseInt(getDefTheme);
 		Boolean isLollipop = Utils.isLollipop();
 
-		// Hasa a default theme been set by the developer?
-		if(isDefaultThemeUsed && !(defThemeInt < 0 || defThemeInt > 2)) {
-			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, getDefTheme));
-		} else {
-			if (isLollipop) {
-				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_LIGHT));
+		// Has a a default theme been set by the developer?
+		if(isDefaultThemeUsed && !getDefTheme.isEmpty()) {
+			int defThemeInt = Integer.parseInt(getDefTheme);
+			if(!(defThemeInt < 0 || defThemeInt > 2)) {
+				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, getDefTheme));
 			} else {
-				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_DARK));
+				return normalTheme(context, isLollipop);
 			}
+		} else {
+			return normalTheme(context, isLollipop);
+		}
+	}
+
+	private static int normalTheme(Context context, Boolean isLollipop) {
+		if (isLollipop) {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_LIGHT));
+		} else {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_DARK));
 		}
 	}
 
@@ -146,23 +153,23 @@ public class Preferences implements Constants{
 	}
 
 	public static int getSettingsTheme(Context context)
-	{       
-		switch(getCurrentTheme(context))
-		{
-		case 0:
-			return R.style.Theme_RagnarLight_Settings;
-		case 1:
-			return R.style.Theme_RagnarLight_DarkActionBar_Settings;
-		case 2:
-			return R.style.Theme_RagnarDark_Settings;
-		default:
-			if (Utils.isLollipop()) {
-				return R.style.Theme_RagnarLight_Settings;
-			} else {
-				return R.style.Theme_RagnarDark_Settings;
-			}
-		}
-	}
+    {       
+        switch(getCurrentTheme(context))
+        {
+        case 0:
+            return R.style.Theme_RagnarLight_Settings;
+        case 1:
+            return R.style.Theme_RagnarLight_DarkActionBar_Settings;
+        case 2:
+            return R.style.Theme_RagnarDark_Settings;
+        default:
+        	if (Utils.isLollipop()) {
+        		return R.style.Theme_RagnarLight_Settings;
+        	} else {
+        		return R.style.Theme_RagnarDark_Settings;
+        	}
+        }
+    }
 
 	public static String getIgnoredRelease(Context context) {
 		return getPrefs(context).getString(IGNORE_RELEASE_VERSION, "0");
