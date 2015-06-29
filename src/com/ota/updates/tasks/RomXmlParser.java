@@ -18,6 +18,9 @@ package com.ota.updates.tasks;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -53,7 +56,6 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 	boolean tagDonateUrl = false;
 	boolean tagBitCoinUrl = false;
 	boolean tagFileSize = false;
-	boolean tagRomHut = false;
 	boolean tagAddonsCount = false;
 	boolean tagAddonUrl = false;
 
@@ -150,10 +152,6 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (qName.equalsIgnoreCase("addonsurl")) {
 			tagAddonUrl = true;
 		}
-		
-		if (qName.equalsIgnoreCase("romhut")) {
-			tagRomHut = true;
-		}
 
 	}
 
@@ -193,6 +191,7 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (tagDirectUrl) {
 			if (!input.isEmpty()) {
 				RomUpdate.setDirectUrl(mContext, input);
+				setUrlDomain(input);
 			} else {
 				RomUpdate.setDirectUrl(mContext, "null");
 			}
@@ -205,12 +204,13 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 		if (tagHttpUrl) {
 			if (!input.isEmpty()) {
 				RomUpdate.setHttpUrl(mContext, input);
+				setUrlDomain(input);
 			} else {
 				RomUpdate.setHttpUrl(mContext, "null");
 			}
 			tagHttpUrl = false;
 			if (DEBUGGING)
-				Log.d(TAG, "tagHttpUrl = " + input);
+				Log.d(TAG, "HTTP URL = " + input);
 		}
 		
 		if (tagAndroid) {
@@ -297,13 +297,20 @@ public class RomXmlParser extends DefaultHandler implements Constants {
 			if (DEBUGGING)
 				Log.d(TAG, "Addons URL = " + input);
 		}
-		
-		if (tagRomHut) {
-			RomUpdate.setRomHut(mContext, input);
-			tagRomHut = false;
-			if (DEBUGGING)
-				Log.d(TAG, "Romhut? = " + input);
+	}
+	
+	private void setUrlDomain(String input) {
+		URI uri;
+		try {
+			uri = new URI(input);
+			String domain = uri.getHost();
+			RomUpdate.setUrlDomain(mContext, domain.startsWith("www.") ? domain.substring(4) : domain);
+		} catch (URISyntaxException e) {
+			Log.e(TAG, e.getMessage());
+			RomUpdate.setUrlDomain(mContext, "Error");
 		}
+	    
+		
 	}
 }
 

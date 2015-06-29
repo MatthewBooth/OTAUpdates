@@ -29,15 +29,6 @@
         android:src="?attr/changelogIcon" />
 
     <ImageButton
-        android:id="@+id/btn_main_help"
-        style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/main_actionbar_button"
-        android:onClick="openHelp"
-        android:src="?attr/helpIcon" />
-
-    <ImageButton
         android:id="@+id/btn_main_settings"
         style="?android:attr/actionButtonStyle"
         android:layout_width="wrap_content"

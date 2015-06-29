@@ -371,11 +371,12 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 	}
 
 	private void setupRomHut() {
-		String romHutText = RomUpdate.getRomHut(mContext);
-		boolean isRomHut = romHutText != null;
-		if (isRomHut) {
-			TextView sponsoredBy = (TextView) findViewById(R.id.tv_available_romhut);
-			sponsoredBy.setText(romHutText);
+		String domainText = RomUpdate.getUrlDomain(mContext);
+		boolean isRomHut = domainText.contains("romhut.com");
+		if (domainText != null) {
+			TextView domainTextView = (TextView) findViewById(R.id.tv_available_romhut);
+			String sponsoredBy = isRomHut ?  "Sponsored by " : "";
+			domainTextView.setText(sponsoredBy + domainText);
 			if (Utils.isLollipop()) {	
 				int color;
 				if (Preferences.getCurrentTheme(mContext) == 0) { // Light
@@ -383,9 +384,9 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				} else {
 					color = getResources().getColor(R.color.material_deep_teal_200);
 				}
-				sponsoredBy.setTextColor(color);
+				domainTextView.setTextColor(color);
 			} else {
-				sponsoredBy.setTextColor(getResources().getColor(R.color.holo_blue_light));
+				domainTextView.setTextColor(getResources().getColor(R.color.holo_blue_light));
 			}
 		}
 	}
@@ -394,7 +395,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		boolean isDownloadOnGoing = Preferences.getIsDownloadOnGoing(mContext);
 		TextView updateNameInfoText = (TextView) findViewById(R.id.tv_available_update_name);
 		String downloading = getResources().getString(R.string.available_downloading);
-		String filename = RomUpdate.getFilename(mContext);
+		String filename = RomUpdate.getVersionName(mContext);
 
 		if (Utils.isLollipop()) {
 			int color;
@@ -430,6 +431,9 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 		String httpUrl = RomUpdate.getHttpUrl(mContext);
 		String directUrl = RomUpdate.getDirectUrl(mContext);
 		String error = getResources().getString(R.string.available_url_error);
+		
+		if(DEBUGGING)
+			Log.d(TAG, "HTTPURL = " + httpUrl + " DirectURL = " + directUrl);
 
 		boolean isMobile = Utils.isMobileNetwork(mContext);
 		boolean isSettingWiFiOnly = Preferences.getNetworkType(mContext).equals(WIFI_ONLY);
@@ -438,17 +442,16 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 			mNetworkDialog.show();
 		} else {
 			// We're good, open links or start downloads
-			if (directUrl.equals("null") && !httpUrl.equals("null")) {
+			boolean directUrlEmpty = directUrl.equals("null") || directUrl.isEmpty();
+			boolean httpUrlEmpty = httpUrl.equals("null") || httpUrl.isEmpty();
+			
+			if (directUrlEmpty) {
 				if (DEBUGGING)
 					Log.d(TAG, "HTTP link opening");
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse(httpUrl));
 				startActivity(intent);
-			} else if (directUrl.equals("null") && httpUrl.equals("null")) {
-				if (DEBUGGING)
-					Log.e(TAG, "No links found");
-				Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
-			} else {
+			} else if (httpUrlEmpty || !directUrlEmpty) {
 				if (DEBUGGING)
 					Log.d(TAG, "Downloading via DownloadManager");
 				mDownloadRom.startDownload(mContext);
@@ -458,6 +461,10 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 				} else {
 					invalidateMenu();
 				}
+			} else {
+				if (DEBUGGING)
+					Log.e(TAG, "No links found");
+				Toast.makeText(mContext, error, Toast.LENGTH_LONG).show();
 			}
 		}
 	}

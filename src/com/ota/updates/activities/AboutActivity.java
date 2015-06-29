@@ -104,7 +104,8 @@ public class AboutActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String url = "";
-				if (which == 0) {
+				int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+				if (selectedPosition == 0) {
 					url = "http://goo.gl/ZKSY4";
 				} else {
 					url = "http://goo.gl/o4c6ES";

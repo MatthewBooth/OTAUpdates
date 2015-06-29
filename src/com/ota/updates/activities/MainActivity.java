@@ -308,7 +308,7 @@ public class MainActivity extends Activity implements Constants{
 					htmlColorOpen = "<font color='#33b5e5'>";
 				}
 				String htmlColorClose = "</font>";
-				String updateSummary = RomUpdate.getFilename(mContext)
+				String updateSummary = RomUpdate.getVersionName(mContext)
 						+ "<br />"
 						+ htmlColorOpen
 						+ getResources().getString(R.string.main_download_completed_details)
@@ -345,7 +345,7 @@ public class MainActivity extends Activity implements Constants{
 					htmlColorOpen = "<font color='#33b5e5'>";
 				}
 				String htmlColorClose = "</font>";
-				String updateSummary = RomUpdate.getFilename(mContext)
+				String updateSummary = RomUpdate.getVersionName(mContext)
 						+ "<br />"
 						+ htmlColorOpen
 						+ getResources().getString(R.string.main_tap_to_download)
@@ -417,13 +417,13 @@ public class MainActivity extends Activity implements Constants{
 		//ROM name
 		TextView romName = (TextView) findViewById(R.id.tv_main_rom_name);
 		String romNameTitle = getApplicationContext().getResources().getString(R.string.main_rom_name) + " ";
-		String romNameActual = Utils.getProp("ro.ota.romname");
+		String romNameActual = Utils.getProp(OTA_ROMNAME);
 		romName.setText(Html.fromHtml(romNameTitle + htmlColorOpen + romNameActual + htmlColorClose));
 
 		//ROM version
 		TextView romVersion = (TextView) findViewById(R.id.tv_main_rom_version);
 		String romVersionTitle = getApplicationContext().getResources().getString(R.string.main_rom_version) + " ";
-		String romVersionActual = Utils.getProp("ro.ota.version");
+		String romVersionActual = Utils.getProp(OTA_VERSION);
 		romVersion.setText(Html.fromHtml(romVersionTitle + htmlColorOpen + romVersionActual + htmlColorClose));
 
 		//ROM date

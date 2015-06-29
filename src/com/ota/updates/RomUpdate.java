@@ -44,7 +44,7 @@ public class RomUpdate implements Constants {
     private static String BTC_LINK = "rom_bitcoin_link";
     private static String FILESIZE = "rom_filesize";
     private static String AVAILABILITY = "update_availability";
-    private static String SPONSORED_ROMHUT = "rom_sponsored_romhut";
+    private static String URL_DOMAIN = "rom_url_domain";
     private static String ADDONS_COUNT = "rom_addons_count";
     private static String ADDONS_URL = "rom_addons_url";
     
@@ -117,8 +117,8 @@ public class RomUpdate implements Constants {
     	return getPrefs(context).getString(ADDONS_URL, DEF_VALUE);
     }
     
-    public static String getRomHut(Context context) {
-    	return getPrefs(context).getString(SPONSORED_ROMHUT, DEF_VALUE);
+    public static String getUrlDomain(Context context) {
+    	return getPrefs(context).getString(URL_DOMAIN, DEF_VALUE);
     }
         
     public static boolean getUpdateAvailability(Context context) {
@@ -203,9 +203,9 @@ public class RomUpdate implements Constants {
         editor.commit();
     }
     
-    public static void setRomHut(Context context, String romhut_text) {
+    public static void setUrlDomain(Context context, String romhut_text) {
     	SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(SPONSORED_ROMHUT, romhut_text);
+        editor.putString(URL_DOMAIN, romhut_text);
         editor.commit();
     }
     
