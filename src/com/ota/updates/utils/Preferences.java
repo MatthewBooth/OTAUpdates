@@ -21,8 +21,11 @@ import java.io.File;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+<<<<<<< HEAD
 import android.os.Build;
 
+=======
+>>>>>>> master
 import com.ota.updates.R;
 
 public class Preferences implements Constants{
@@ -109,11 +112,14 @@ public class Preferences implements Constants{
 	public static int getCurrentTheme(Context context) {
 		Boolean isDefaultThemeUsed = Utils.doesPropExist(OTA_DEFAULT_THEME);
 		String getDefTheme = Utils.getProp(OTA_DEFAULT_THEME);
-		int defThemeInt = Integer.parseInt(getDefTheme);
 		Boolean isLollipop = Utils.isLollipop();
 
 		// Has a a default theme been set by the developer?
 		if(isDefaultThemeUsed && !getDefTheme.isEmpty()) {
+<<<<<<< HEAD
+=======
+			int defThemeInt = Integer.parseInt(getDefTheme);
+>>>>>>> master
 			if(!(defThemeInt < 0 || defThemeInt > 2)) {
 				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, getDefTheme));
 			} else {
