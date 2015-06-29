@@ -16,13 +16,9 @@
 
 package com.ota.updates.utils;
 
-import java.io.File;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.os.Build;
-
 import com.ota.updates.R;
 
 public class Preferences implements Constants{
@@ -109,18 +105,26 @@ public class Preferences implements Constants{
 	public static int getCurrentTheme(Context context) {
 		Boolean isDefaultThemeUsed = Utils.doesPropExist(OTA_DEFAULT_THEME);
 		String getDefTheme = Utils.getProp(OTA_DEFAULT_THEME);
-		int defThemeInt = Integer.parseInt(getDefTheme);
 		Boolean isLollipop = Utils.isLollipop();
 
-		// Hasa a default theme been set by the developer?
-		if(isDefaultThemeUsed && !(defThemeInt < 0 || defThemeInt > 2)) {
-			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, getDefTheme));
-		} else {
-			if (isLollipop) {
-				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_LIGHT));
+		// Has a a default theme been set by the developer?
+		if(isDefaultThemeUsed && !getDefTheme.isEmpty()) {
+			int defThemeInt = Integer.parseInt(getDefTheme);
+			if(!(defThemeInt < 0 || defThemeInt > 2)) {
+				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, getDefTheme));
 			} else {
-				return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_DARK));
+				return normalTheme(context, isLollipop);
 			}
+		} else {
+			return normalTheme(context, isLollipop);
+		}
+	}
+
+	private static int normalTheme(Context context, Boolean isLollipop) {
+		if (isLollipop) {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_LIGHT));
+		} else {
+			return Integer.parseInt(getPrefs(context).getString(CURRENT_THEME, THEME_DARK));
 		}
 	}
 
@@ -165,27 +169,6 @@ public class Preferences implements Constants{
         		return R.style.Theme_RagnarDark_Settings;
         	}
         }
-    }
-
-    public static String getIgnoredRelease(Context context) {
-        return getPrefs(context).getString(IGNORE_RELEASE_VERSION, "0");
-    }
-    
-    public static Boolean getAdsEnabled(Context context) {
-        File file = new File("/system/priv-app/OTAUpdates/OTAUpdates.apk");
-        if (file.exists() && Build.VERSION.SDK_INT >= 22) {
-            return false;
-        } else {
-            return getPrefs(context).getBoolean(ADS_ENABLED, true);
-        }
-    }
-    
-    public static String getOldChangelog(Context context) {
-        return getPrefs(context).getString(OLD_CHANGELOG, context.getResources().getString(R.string.app_version));
-    }
-    
-    public static Boolean getFirstRun(Context context) {
-        return getPrefs(context).getBoolean(FIRST_RUN, true);
     }
 
 	public static String getIgnoredRelease(Context context) {

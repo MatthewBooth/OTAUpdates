@@ -17,7 +17,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ota.updates"
-    android:versionCode="16"
+    android:versionCode="17"
     android:versionName="@string/app_version" >
     
     <uses-sdk
