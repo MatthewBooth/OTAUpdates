@@ -29,16 +29,24 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
 
+        setupDrawer(toolbar);
+    }
+
+    private void setupDrawer(Toolbar toolbar) {
         int[] attrs = { com.mikepenz.materialdrawer.R.attr.material_drawer_icons };
         TypedArray typedArray = obtainStyledAttributes(attrs);
 
         Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withSelectedItem(1)
                 .addDrawerItems(
                         new SectionDrawerItem().withName(R.string.drawer_section_rom).setDivider(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_primary_updates).withIcon(new IconDrawable(this,
                                 Iconify.IconValue.fa_refresh).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
+                                .sizeDp(16)),
+                        new PrimaryDrawerItem().withName(R.string.drawer_primary_versions).withIcon(new IconDrawable(this,
+                                Iconify.IconValue.fa_file_archive_o).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
                                 .sizeDp(16)),
                         new PrimaryDrawerItem().withName(R.string.drawer_primary_addons).withIcon(new IconDrawable(this,
                                 Iconify.IconValue.fa_puzzle_piece).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
@@ -56,8 +64,17 @@ public class MainActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_secondary_settings).withIcon(new IconDrawable(this,
                                 Iconify.IconValue.fa_cog).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
                                 .sizeDp(16)),
+                        new SecondaryDrawerItem().withName(R.string.drawer_secondary_licences).withIcon(new IconDrawable(this,
+                                Iconify.IconValue.fa_file_text_o).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
+                                .sizeDp(16)),
+                        new SecondaryDrawerItem().withName(R.string.drawer_secondary_github).withIcon(new IconDrawable(this,
+                                Iconify.IconValue.fa_github).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
+                                .sizeDp(16)),
                         new SecondaryDrawerItem().withName(R.string.drawer_secondary_about).withIcon(new IconDrawable(this,
                                 Iconify.IconValue.fa_question).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
+                                .sizeDp(16)),
+                        new SecondaryDrawerItem().withName(R.string.drawer_secondary_pro_bought).withIcon(new IconDrawable(this,
+                                Iconify.IconValue.fa_heart).colorRes(typedArray.getResourceId(0, Color.BLACK)).alpha(153)
                                 .sizeDp(16))
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -68,5 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+        typedArray.recycle();
     }
 }

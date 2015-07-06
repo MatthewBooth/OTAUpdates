@@ -2,10 +2,10 @@
 <resources>
 
     <!-- Material DEFAULT colors -->
-    <color name="material_drawer_primary">#2196F3</color>
-    <color name="material_drawer_primary_dark">#1976D2</color>
-    <color name="material_drawer_primary_light">#BBDEFB</color>
-    <color name="material_drawer_accent">#FF4081</color>
+    <color name="material_drawer_primary">@color/material_blue_grey_900</color>
+    <color name="material_drawer_primary_dark">@color/material_blue_grey_950</color>
+    <color name="material_drawer_primary_light">@color/material_blue_grey_800</color>
+    <color name="material_drawer_accent">?attr/materialAccent</color>
 
     <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
     <!-- MaterialDrawer DEFAULT colors -->
@@ -19,7 +19,7 @@
     <color name="material_drawer_divider">#1F000000</color>
     <!-- Material DEFAULT drawer colors -->
     <color name="material_drawer_selected">#E8E8E8</color>
-    <color name="material_drawer_selected_text">#2196F3</color>
+    <color name="material_drawer_selected_text">?attr/materialAccent</color>
     <color name="material_drawer_header_selection_text">#FFF</color>
 
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
@@ -34,7 +34,7 @@
     <color name="material_drawer_dark_divider">#1FFFFFFF</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
     <color name="material_drawer_dark_selected">#202020</color>
-    <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+    <color name="material_drawer_dark_selected_text">?attr/materialAccent</color>
     <color name="material_drawer_dark_header_selection_text">#FFF</color>
 
 </resources>

@@ -1,4 +1,11 @@
 <resources>
 
+    <style name="OtaUpdates.Light" parent="MaterialDrawerTheme.Light.TranslucentStatus">
+        <item name="materialAccent">@color/material_deep_teal_500</item>
+    </style>
+
+    <style name="OtaUpdates.Dark" parent="MaterialDrawerTheme.TranslucentStatus">
+        <item name="materialAccent">@color/material_deep_teal_200</item>
+    </style>
 
 </resources>
