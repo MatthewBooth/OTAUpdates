@@ -1,3 +1,7 @@
+#### v2.5.2
+##### 11th July 2015
+* Fixed download location bug. It's a back and forth with this one. I think each device is handling it differently.
+
 #### v2.5.1
 ##### 29th June 2015
 * Fixed a serious FC when a ROM didn't have a default theme set in the build.prop (so, most people).

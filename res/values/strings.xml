@@ -22,7 +22,7 @@
     <!-- App Strings -->
     <string name="app_name" translatable="false">OTA Updates</string>
     <string name="prop_name" translatable="false">ro.ota.romname</string>
-    <string name="app_version" translatable="false">2.5.1</string>
+    <string name="app_version" translatable="false">2.5.2</string>
     <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/MatthewBooth/OTAUpdates/stable/Changelog.md</string>
 
     <!-- Generic strings -->
