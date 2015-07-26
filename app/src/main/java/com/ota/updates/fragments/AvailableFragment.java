@@ -96,7 +96,7 @@ public class AvailableFragment extends Fragment implements Constants {
         if (toolbarView != null) {
             Toolbar toolbar = (Toolbar) toolbarView;
             activity.setSupportActionBar(toolbar);
-            activity.getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+            activity.getSupportActionBar().setTitle(getResources().getString(R.string.updates));
             Utils.setupDrawer(activity, activity, toolbar, UPDATE_CHECK_ACTIVITY);
         }
     }

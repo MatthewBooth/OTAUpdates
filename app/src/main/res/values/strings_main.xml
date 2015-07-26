@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="check_activity_name">Updates</string>
+    <string name="updates">Updates</string>
 </resources>
