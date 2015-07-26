@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="update_icon_shadow_dx">3</integer>
+    <integer name="update_icon_shadow_dy">3</integer>
+    <integer name="update_icon_shadow_radius">1</integer>
+</resources>

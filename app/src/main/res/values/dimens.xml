@@ -1,5 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+
+    <!-- Toolbar dimensions -->
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="toolbar_size">56dp</dimen>
+
+    <!-- Floating Action Button -->
+    <dimen name="fab_button_margin_bottom">56dp</dimen>
+    <dimen name="fab_button_margin_right">24dp</dimen>
+
+    <!-- Update Available -->
+    <dimen name="update_available_upper_seam_size">212dp</dimen>
+    <dimen name="update_icon_offset">3dp</dimen>
+    <dimen name="update_icon_type_offset">24dp</dimen>
+    <dimen name="update_icon_type_text">12sp</dimen>
 </resources>

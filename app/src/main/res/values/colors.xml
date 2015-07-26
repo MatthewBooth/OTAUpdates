@@ -37,4 +37,7 @@
     <color name="material_drawer_dark_selected_text">?attr/materialAccent</color>
     <color name="material_drawer_dark_header_selection_text">#FFF</color>
 
+    <!-- App colors -->
+    <color name="update_icon_shadow">#22000000</color>
+
 </resources>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/toolbar" />
+
+        <RelativeLayout
+            android:id="@+id/upper_seam"
+            style="@style/LayoutBase.Upper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/update_available_upper_seam_size">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="16dp"
+                android:text="@string/update_available"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:id="@+id/filename_icon"
+                style="@style/UpdateIconStyle"
+                android:layout_below="@+id/title" />
+
+            <TextView
+                android:id="@+id/filename"
+                style="@style/UpdateIconTextStyle"
+                android:layout_below="@+id/title"
+                android:text="@string/filename" />
+
+            <TextView
+                android:id="@+id/filesize_icon"
+                style="@style/UpdateIconStyle"
+                android:layout_below="@+id/filename" />
+
+            <TextView
+                android:id="@+id/filesize"
+                style="@style/UpdateIconTextStyle"
+                android:layout_below="@+id/filename"
+                android:text="@string/filesize" />
+
+            <android.widget.IconTextView
+                android:id="@+id/filehash_icon"
+                style="@style/UpdateIconStyle"
+                android:layout_below="@+id/filesize" />
+
+            <TextView
+                android:id="@+id/filehash"
+                style="@style/UpdateIconTextStyle"
+                android:layout_below="@+id/filesize"
+                android:text="@string/md5_sum" />
+
+            <android.widget.IconTextView
+                android:id="@+id/filehost_icon"
+                style="@style/UpdateIconStyle"
+                android:layout_below="@+id/filehash" />
+
+            <TextView
+                android:id="@+id/filehost"
+                style="@style/UpdateIconTextStyle"
+                android:layout_below="@+id/filehash"
+                android:text="@string/filehost" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_below="@id/filehost"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progress"
+                android:layout_marginTop="8dp"
+                android:gravity="end" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_below="@id/upper_seam"
+            android:background="@color/divider" />
+
+        <RelativeLayout
+            android:id="@+id/lower_seam"
+            style="@style/LayoutBase.Lower"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/divider">
+
+            <TextView
+                android:id="@+id/changelog_title"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/changelog" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/changelog_title">
+
+                <TextView
+                    android:id="@+id/changelog"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/FabStyle"
+        android:src="@drawable/ic_refresh_white"
+        app:layout_anchor="@id/upper_seam"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</android.support.design.widget.CoordinatorLayout>

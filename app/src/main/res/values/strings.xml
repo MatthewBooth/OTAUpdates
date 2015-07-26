@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name">OTAUpdates</string>
+    <string name="refreshing">Refreshing&#8230;</string>
+    <string name="dismiss">Dismiss</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Update Check -->
+    <string name="no_update_available">No updates are available</string>
+    <string name="last_checked_for_update">Last checked for an update</string>
+
+    <!--Update Available -->
+    <string name="update_available">Update available</string>
+    <string name="filename">Filename</string>
+    <string name="filesize">Filesize</string>
+    <string name="md5_sum" translatable="false">MD5</string>
+    <string name="filehost">Host</string>
+    <string name="changelog">Changelog</string>
+    <string name="fa_filename">{fa-file-archive-o}</string>
+    <string name="fa_filesize">{fa-arrows-h}</string>
+    <string name="fa_md5_sum">{fa-check-circle-o}</string>
+    <string name="fa_filehost">{fa-globe}</string>
 
 </resources>

@@ -1,11 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="OtaUpdates.Light" parent="MaterialDrawerTheme.Light.TranslucentStatus">
-        <item name="materialAccent">@color/material_deep_teal_500</item>
+    <style name="MaterialDrawer.DrawerArrowStyle.Dark" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/white</item>
     </style>
 
-    <style name="OtaUpdates.Dark" parent="MaterialDrawerTheme.TranslucentStatus">
-        <item name="materialAccent">@color/material_deep_teal_200</item>
+    <style name="LayoutBase">
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="LayoutBase.Upper" parent="LayoutBase">
+        <item name="android:layout_marginTop">@dimen/toolbar_size</item>
+    </style>
+
+    <style name="LayoutBase.Lower" parent="LayoutBase">
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/fab_button_margin_right</item>
+    </style>
+
+    <style name="UpdateIconStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:shadowColor">@color/update_icon_shadow</item>
+        <item name="android:shadowDx">@integer/update_icon_shadow_dx</item>
+        <item name="android:shadowDy">@integer/update_icon_shadow_dy</item>
+        <item name="android:shadowRadius">@integer/update_icon_shadow_radius</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/update_icon_type_text</item>
+        <item name="android:layout_marginTop">@dimen/update_icon_offset</item>
+    </style>
+
+    <style name="UpdateIconTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">@dimen/update_icon_type_offset</item>
     </style>
 
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OtaUpdates.Light" parent="MaterialDrawerTheme.Light.TranslucentStatus">
+        <item name="materialAccent">@color/material_deep_teal_500</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle.Dark</item>
+        <item name="colorAccent">@color/material_deep_teal_200</item>
+    </style>
+
+    <style name="OtaUpdates.Dark" parent="MaterialDrawerTheme.TranslucentStatus">
+        <item name="materialAccent">@color/material_deep_teal_200</item>
+        <item name="colorAccent">@color/material_deep_teal_500</item>
+    </style>
+
+</resources>
