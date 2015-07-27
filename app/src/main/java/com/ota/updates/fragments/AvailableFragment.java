@@ -1,6 +1,7 @@
 package com.ota.updates.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import com.joanzapata.android.iconify.Iconify;
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
+
+import in.uncod.android.bypass.Bypass;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,7 +82,7 @@ public class AvailableFragment extends Fragment implements Constants {
 
         setupUpdateIconsText(view);
 
-        setupChangelog(view);
+        setupChangelog(view, activity);
 
         return view;
     }
@@ -142,12 +145,24 @@ public class AvailableFragment extends Fragment implements Constants {
         }
     }
 
-    private void setupChangelog(View view) {
+    private void setupChangelog(View view, Context context) {
         View changelog = view.findViewById(R.id.changelog);
         if (changelog != null) {
             TextView tv = (TextView) changelog;
-            Bypass byPass = new Bypass(this);
-            CharSequence string = byPass.markdownToSpannable(changeLogStr);
+            Bypass byPass = new Bypass(context);
+            String changelogStr = "* ROM \n" +
+                    "    * Fixed tethering\n" +
+                    "    * Added ipv6 tethering\n" +
+                    "    * Launcher3: Optimisation and some Materialize\n" +
+                    "    * Fixed back/menu keys wake up the device\n" +
+                    "    * A lot of optimisation to build enviroment\n" +
+                    "    * Updated translation for AOSP Settings and Power menu\n" +
+                    "    * Updated stagefright/av with latest cm changes\n" +
+                    "    * Fixed OTA Updates\n" +
+                    "    * Added clear recents app button\n" +
+                    "    * Make \"SD Card removed\" notification dismissible\n" +
+                    "    * Various frameworks improvements";
+            CharSequence string = byPass.markdownToSpannable(changelogStr);
             tv.setText(string);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
         }
