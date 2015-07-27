@@ -10,10 +10,6 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="LayoutBase.Upper" parent="LayoutBase">
-        <item name="android:layout_marginTop">@dimen/toolbar_size</item>
-    </style>
-
     <style name="LayoutBase.Lower" parent="LayoutBase">
         <item name="android:layout_marginTop">24dp</item>
     </style>
@@ -34,6 +30,7 @@
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textSize">@dimen/update_icon_type_text</item>
         <item name="android:layout_marginTop">@dimen/update_icon_offset</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
     </style>
 
     <style name="UpdateIconTextStyle">

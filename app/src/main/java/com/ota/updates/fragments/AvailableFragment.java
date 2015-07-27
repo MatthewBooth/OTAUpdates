@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,6 @@ import com.joanzapata.android.iconify.Iconify;
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
-import com.ota.updates.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,29 +75,13 @@ public class AvailableFragment extends Fragment implements Constants {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        setupToolbar(view, activity);
-
         setupUpdateIcons(view);
 
         setupUpdateIconsText(view);
 
-        return view;
-    }
+        setupChangelog(view);
 
-    /**
-     * Sets up the toolbar for the fragment
-     *
-     * @param view     The root view for the fragment
-     * @param activity The activity that loads the fragment
-     */
-    private void setupToolbar(View view, AppCompatActivity activity) {
-        View toolbarView = view.findViewById(R.id.toolbar);
-        if (toolbarView != null) {
-            Toolbar toolbar = (Toolbar) toolbarView;
-            activity.setSupportActionBar(toolbar);
-            activity.getSupportActionBar().setTitle(getResources().getString(R.string.updates));
-            Utils.setupDrawer(activity, activity, toolbar, UPDATE_CHECK_ACTIVITY);
-        }
+        return view;
     }
 
     /**
@@ -156,6 +139,17 @@ public class AvailableFragment extends Fragment implements Constants {
         if (fileHashIconView != null) {
             TextView iconTV = (TextView) fileHashIconView;
             Iconify.setIcon(iconTV, Iconify.IconValue.fa_check_circle_o);
+        }
+    }
+
+    private void setupChangelog(View view) {
+        View changelog = view.findViewById(R.id.changelog);
+        if (changelog != null) {
+            TextView tv = (TextView) changelog;
+            Bypass byPass = new Bypass(this);
+            CharSequence string = byPass.markdownToSpannable(changeLogStr);
+            tv.setText(string);
+            tv.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 

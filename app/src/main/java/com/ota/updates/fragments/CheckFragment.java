@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
-import com.ota.updates.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,14 +73,6 @@ public class CheckFragment extends Fragment implements Constants {
         final View view = inflater.inflate(R.layout.fragment_check, container, false);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        View toolbarView = view.findViewById(R.id.toolbar);
-        if (toolbarView != null) {
-            Toolbar toolbar = (Toolbar) toolbarView;
-            activity.setSupportActionBar(toolbar);
-            activity.getSupportActionBar().setTitle(getResources().getString(R.string.updates));
-            Utils.setupDrawer(activity, activity, toolbar, UPDATE_CHECK_ACTIVITY);
-        }
 
         View fabView = view.findViewById(R.id.fab);
         if (fabView != null) {

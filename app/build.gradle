@@ -21,11 +21,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile('com.mikepenz:materialdrawer:3.0.9@aar') {
-        transitive = true
-    }
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'in.uncod.android.bypass:parent:1.1'
+    compile 'in.uncod.android.bypass:bypass:1.1'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
     compile 'com.android.support:support-v4:22.2.0'
     compile 'com.google.android.gms:play-services:7.5.0'

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="OtaUpdates.Light" parent="MaterialDrawerTheme.Light.TranslucentStatus">
-        <item name="materialAccent">@color/material_deep_teal_500</item>
-        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle.Dark</item>
-        <item name="colorAccent">@color/material_deep_teal_200</item>
+    <style name="OtaUpdates.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="dividerColor">@color/divider_color</item>
     </style>
 
-    <style name="OtaUpdates.Dark" parent="MaterialDrawerTheme.TranslucentStatus">
-        <item name="materialAccent">@color/material_deep_teal_200</item>
-        <item name="colorAccent">@color/material_deep_teal_500</item>
+    <style name="OtaUpdates.Dark" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="dividerColor">@color/divider_color_dark</item>
     </style>
 
 </resources>

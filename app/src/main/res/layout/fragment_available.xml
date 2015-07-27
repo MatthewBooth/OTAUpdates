@@ -9,11 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar" />
-
         <RelativeLayout
             android:id="@+id/upper_seam"
-            style="@style/LayoutBase.Upper"
+            style="@style/LayoutBase"
             android:layout_width="match_parent"
             android:layout_height="@dimen/update_available_upper_seam_size">
 
@@ -48,7 +46,7 @@
                 android:layout_below="@+id/filename"
                 android:text="@string/filesize" />
 
-            <android.widget.IconTextView
+            <TextView
                 android:id="@+id/filehash_icon"
                 style="@style/UpdateIconStyle"
                 android:layout_below="@+id/filesize" />
@@ -59,7 +57,7 @@
                 android:layout_below="@+id/filesize"
                 android:text="@string/md5_sum" />
 
-            <android.widget.IconTextView
+            <TextView
                 android:id="@+id/filehost_icon"
                 style="@style/UpdateIconStyle"
                 android:layout_below="@+id/filehash" />
@@ -92,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_below="@id/upper_seam"
-            android:background="@color/divider" />
+            android:background="?attr/dividerColor" />
 
         <RelativeLayout
             android:id="@+id/lower_seam"
