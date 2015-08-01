@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/inbox"
-            android:checked="false"
-            android:title="Item 1" />
+            android:id="@+id/ota_updates"
+            android:title="@string/drawer_primary_updates" />
 
         <item
-            android:id="@+id/starred"
-            android:checked="false"
-            android:title="Item 2" />
+            android:id="@+id/ota_versions"
+            android:title="@string/drawer_primary_versions" />
 
         <item
-            android:id="@+id/sent_mail"
-            android:checked="false"
-            android:title="Item 3" />
-
-        <item
-            android:id="@+id/drafts"
-            android:checked="false"
-            android:title="Item 4" />
+            android:id="@+id/ota_addons"
+            android:title="@string/drawer_primary_addons" />
 
     </group>
+
+    <item
+        android:id="@+id/section_rom"
+        android:title="@string/drawer_section_rom">
+        <menu>
+            <item
+                android:id="@+id/rom_webite"
+                android:title="@string/drawer_primary_rom_website" />
+            <item
+                android:id="@+id/rom_donate"
+                android:title="@string/drawer_primary_rom_donate" />
+            <item
+                android:id="@+id/rom_information"
+                android:title="@string/drawer_primary_rom_information" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/section_app"
+        android:title="@string/drawer_section_app">
+        <menu>
+            <item
+                android:id="@+id/app_settings"
+                android:title="@string/drawer_secondary_settings" />
+            <item
+                android:id="@+id/app_pro"
+                android:title="@string/drawer_secondary_pro_bought" />
+            <item
+                android:id="@+id/app_licences"
+                android:title="@string/drawer_secondary_licences" />
+            <item
+                android:id="@+id/app_github"
+                android:title="@string/drawer_secondary_github" />
+            <item
+                android:id="@+id/app_about"
+                android:title="@string/drawer_secondary_about" />
+        </menu>
+    </item>
 </menu>

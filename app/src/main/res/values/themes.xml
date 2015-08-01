@@ -5,12 +5,14 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="dividerColor">@color/divider_color</item>
+        <item name="drawerIconColors">@color/color_primary</item>
     </style>
 
     <style name="OtaUpdates.Dark" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="dividerColor">@color/divider_color_dark</item>
+        <item name="drawerIconColors">@color/color_primary</item>
     </style>
 
 </resources>

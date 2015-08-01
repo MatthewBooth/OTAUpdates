@@ -2,5 +2,6 @@
 <resources>
 
     <attr name="dividerColor" format="color" />
+    <attr name="drawerIconColors" format="color" />
 
 </resources>
