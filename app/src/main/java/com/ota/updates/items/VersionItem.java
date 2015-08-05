@@ -1,7 +1,6 @@
-package com.ota.updates.rom;
+package com.ota.updates.items;
 
-public class Version {
-    private int id;
+public class VersionItem extends BaseItem {
     private String fullName;
     private String slug;
     private String androidVersion;
@@ -9,18 +8,9 @@ public class Version {
     private String updatedAt;
     private String createdAt;
     private String publishedAt;
-    private int downloads;
     private int versionNumber;
-    private Upload deltaUpload;
-    private Upload fullUpload;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private UploadItem deltaUpload;
+    private UploadItem fullUpload;
 
     public String getFullName() {
         return fullName;
@@ -78,14 +68,6 @@ public class Version {
         this.publishedAt = publishedAt;
     }
 
-    public int getDownloads() {
-        return downloads;
-    }
-
-    public void setDownloads(int downloads) {
-        this.downloads = downloads;
-    }
-
     public int getVersionNumber() {
         return versionNumber;
     }
@@ -94,19 +76,19 @@ public class Version {
         this.versionNumber = versionNumber;
     }
 
-    public Upload getDeltaUpload() {
+    public UploadItem getDeltaUpload() {
         return deltaUpload;
     }
 
-    public void setDeltaUpload(Upload deltaUpload) {
+    public void setDeltaUpload(UploadItem deltaUpload) {
         this.deltaUpload = deltaUpload;
     }
 
-    public Upload getFullUpload() {
+    public UploadItem getFullUpload() {
         return fullUpload;
     }
 
-    public void setFullUpload(Upload fullUpload) {
+    public void setFullUpload(UploadItem fullUpload) {
         this.fullUpload = fullUpload;
     }
 }

@@ -1,20 +1,10 @@
-package com.ota.updates.rom;
+package com.ota.updates.items;
 
-public class Upload {
-    private int id;
+public class UploadItem extends BaseItem {
     private int size;
     private String md5;
     private String status;
-    private int downloads;
     private String downloadLink;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getSize() {
         return size;
@@ -38,14 +28,6 @@ public class Upload {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public int getDownloads() {
-        return downloads;
-    }
-
-    public void setDownloads(int downloads) {
-        this.downloads = downloads;
     }
 
     public String getDownloadLink() {

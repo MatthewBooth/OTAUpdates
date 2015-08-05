@@ -1,30 +1,20 @@
-package com.ota.updates.rom;
+package com.ota.updates.items;
 
 import java.util.ArrayList;
 
-public class Addon {
+public class AddonItem extends BaseItem {
 
-    private int id;
     private String name;
     private String slug;
     private String description;
     private String updatedAt;
     private String createdAt;
     private String publishedAt;
-    private int downloads;
     private int size;
     private String md5;
     private String downloadLink;
 
-    private ArrayList<Upload> fileUploads;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private ArrayList<UploadItem> fileUploads;
 
     public String getName() {
         return name;
@@ -74,14 +64,6 @@ public class Addon {
         this.publishedAt = publishedAt;
     }
 
-    public int getDownloads() {
-        return downloads;
-    }
-
-    public void setDownloads(int downloads) {
-        this.downloads = downloads;
-    }
-
     public int getSize() {
         return size;
     }
@@ -106,11 +88,11 @@ public class Addon {
         this.downloadLink = downloadLink;
     }
 
-    public ArrayList<Upload> getFileUploads() {
+    public ArrayList<UploadItem> getFileUploads() {
         return fileUploads;
     }
 
-    public void setFileUploads(ArrayList<Upload> fileUploads) {
+    public void setFileUploads(ArrayList<UploadItem> fileUploads) {
         this.fileUploads = fileUploads;
     }
 }
