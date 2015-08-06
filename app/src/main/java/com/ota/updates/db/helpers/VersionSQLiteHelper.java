@@ -17,18 +17,18 @@ public class VersionSQLiteHelper extends SQLiteOpenHelper implements Constants {
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create version table
         String CREATE_VERSION_TABLE = "CREATE TABLE IF NOT EXISTS " + Contracts.VersionContract.TABLE_NAME + " (" +
-                Contracts.VersionContract.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_FULL_NAME + " text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_SLUG + " text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_ANDROID_VERSION + " text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_CHANGELOG + " text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_UPDATED_AT + " updated_at text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_CREATED_AT + " text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_PUBLISHED_AT + " text NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_DOWNLOADS + " int(11) NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_VERSION_NUMBER + " int(11) NOT NULL," +
-                Contracts.VersionContract.COLUMN_NAME_FULL_ID + " int(11)," +
-                Contracts.VersionContract.COLUMN_NAME_DELTA_ID + " int(11)" +
+                Contracts.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
+                Contracts.COLUMN_NAME_FULL_NAME + " text NOT NULL," +
+                Contracts.COLUMN_NAME_SLUG + " text NOT NULL," +
+                Contracts.COLUMN_NAME_ANDROID_VERSION + " text NOT NULL," +
+                Contracts.COLUMN_NAME_CHANGELOG + " text NOT NULL," +
+                Contracts.COLUMN_NAME_UPDATED_AT + " updated_at text NOT NULL," +
+                Contracts.COLUMN_NAME_CREATED_AT + " text NOT NULL," +
+                Contracts.COLUMN_NAME_PUBLISHED_AT + " text NOT NULL," +
+                Contracts.COLUMN_NAME_DOWNLOADS + " int(11) NOT NULL," +
+                Contracts.COLUMN_NAME_VERSION_NUMBER + " int(11) NOT NULL," +
+                Contracts.COLUMN_NAME_FULL_ID + " int(11)," +
+                Contracts.COLUMN_NAME_DELTA_ID + " int(11)" +
                 ")";
 
         // create version table

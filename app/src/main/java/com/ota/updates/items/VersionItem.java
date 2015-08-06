@@ -9,8 +9,8 @@ public class VersionItem extends BaseItem {
     private String createdAt;
     private String publishedAt;
     private int versionNumber;
-    private UploadItem deltaUpload;
-    private UploadItem fullUpload;
+    private int deltaUploadId;
+    private int fullUploadId;
 
     public String getFullName() {
         return fullName;
@@ -76,19 +76,19 @@ public class VersionItem extends BaseItem {
         this.versionNumber = versionNumber;
     }
 
-    public UploadItem getDeltaUpload() {
-        return deltaUpload;
+    public int getDeltaUploadId() {
+        return deltaUploadId;
     }
 
-    public void setDeltaUpload(UploadItem deltaUpload) {
-        this.deltaUpload = deltaUpload;
+    public void setDeltaUploadId(int deltaUploadId) {
+        this.deltaUploadId = deltaUploadId;
     }
 
-    public UploadItem getFullUpload() {
-        return fullUpload;
+    public int getFullUploadId() {
+        return fullUploadId;
     }
 
-    public void setFullUpload(UploadItem fullUpload) {
-        this.fullUpload = fullUpload;
+    public void setFullUploadId(int fullUploadId) {
+        this.fullUploadId = fullUploadId;
     }
 }

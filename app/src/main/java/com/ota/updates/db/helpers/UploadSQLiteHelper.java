@@ -17,12 +17,12 @@ public class UploadSQLiteHelper extends SQLiteOpenHelper implements Constants {
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create upload table
         String CREATE_UPLOAD_TABLE = "CREATE TABLE IF NOT EXISTS " + Contracts.UploadContract.TABLE_NAME + " (" +
-                Contracts.UploadContract.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
-                Contracts.UploadContract.COLUMN_NAME_SIZE + " int(32) NOT NULL," +
-                Contracts.UploadContract.COLUMN_NAME_MD5 + " text(32) NOT NULL," +
-                Contracts.UploadContract.COLUMN_NAME_STATUS + " text NOT NULL," +
-                Contracts.UploadContract.COLUMN_NAME_DOWNLOADS + " int(11) NOT NULL," +
-                Contracts.UploadContract.COLUMN_NAME_DOWNLOAD_LINK + " text NOT NULL" +
+                Contracts.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
+                Contracts.COLUMN_NAME_SIZE + " int(32) NOT NULL," +
+                Contracts.COLUMN_NAME_MD5 + " text(32) NOT NULL," +
+                Contracts.COLUMN_NAME_STATUS + " text NOT NULL," +
+                Contracts.COLUMN_NAME_DOWNLOADS + " int(11) NOT NULL," +
+                Contracts.COLUMN_NAME_DOWNLOAD_LINK + " text NOT NULL" +
                 ")";
         // create upload table
         db.execSQL(CREATE_UPLOAD_TABLE);

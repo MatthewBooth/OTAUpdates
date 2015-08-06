@@ -16,17 +16,17 @@ public class UploadAccess extends BaseAccess<UploadItem> {
     @Override
     public void put(UploadItem item) {
         ContentValues values = new ContentValues();
-        values.put(Contracts.UploadContract.COLUMN_NAME_ID, item.getId());
-        values.put(Contracts.UploadContract.COLUMN_NAME_SIZE, item.getSize());
-        values.put(Contracts.UploadContract.COLUMN_NAME_MD5, item.getMd5());
-        values.put(Contracts.UploadContract.COLUMN_NAME_STATUS, item.getStatus());
-        values.put(Contracts.UploadContract.COLUMN_NAME_DOWNLOADS, item.getDownloads());
-        values.put(Contracts.UploadContract.COLUMN_NAME_DOWNLOAD_LINK, item.getDownloadLink());
+        values.put(Contracts.COLUMN_NAME_ID, item.getId());
+        values.put(Contracts.COLUMN_NAME_SIZE, item.getSize());
+        values.put(Contracts.COLUMN_NAME_MD5, item.getMd5());
+        values.put(Contracts.COLUMN_NAME_STATUS, item.getStatus());
+        values.put(Contracts.COLUMN_NAME_DOWNLOADS, item.getDownloads());
+        values.put(Contracts.COLUMN_NAME_DOWNLOAD_LINK, item.getDownloadLink());
 
         long newRowId;
         newRowId = mDatabase.insert(
                 Contracts.UploadContract.TABLE_NAME,
-                Contracts.VersionContract.COLUMN_NAME_FULL_ID, // A nullable ID from another table...
+                Contracts.COLUMN_NAME_FULL_ID, // A nullable ID from another table...
                 values
         );
     }
