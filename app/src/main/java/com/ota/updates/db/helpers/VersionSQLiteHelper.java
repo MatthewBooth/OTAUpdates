@@ -16,7 +16,6 @@ public class VersionSQLiteHelper extends SQLiteOpenHelper implements Constants {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create version table
-
         String CREATE_VERSION_TABLE = "CREATE TABLE IF NOT EXISTS " + Contracts.VersionContract.TABLE_NAME + " (" +
                 Contracts.VersionContract.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
                 Contracts.VersionContract.COLUMN_NAME_FULL_NAME + " text NOT NULL," +

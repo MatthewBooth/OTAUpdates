@@ -15,6 +15,7 @@ public class UploadSQLiteHelper extends SQLiteOpenHelper implements Constants {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // SQL statement to create upload table
         String CREATE_UPLOAD_TABLE = "CREATE TABLE IF NOT EXISTS " + Contracts.UploadContract.TABLE_NAME + " (" +
                 Contracts.UploadContract.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
                 Contracts.UploadContract.COLUMN_NAME_SIZE + " int(32) NOT NULL," +

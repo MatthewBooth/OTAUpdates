@@ -15,6 +15,7 @@ public class AddonSQLiteHelper extends SQLiteOpenHelper implements Constants {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // SQL statement to create addon table
         String CREATE_ADDON_TABLE = "CREATE TABLE IF NOT EXISTS " + Contracts.AddonContract.TABLE_NAME + " (" +
                 Contracts.AddonContract.COLUMN_NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
                 Contracts.AddonContract.COLUMN_NAME_NAME + " text NOT NULL," +
