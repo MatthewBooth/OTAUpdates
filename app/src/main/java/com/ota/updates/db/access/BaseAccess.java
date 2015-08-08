@@ -4,7 +4,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public abstract class BaseAccess<T> {
+import com.ota.updates.utils.Constants;
+
+public abstract class BaseAccess<T> implements Constants {
     protected SQLiteDatabase mDatabase;
     protected SQLiteOpenHelper mDbHelper;
 
