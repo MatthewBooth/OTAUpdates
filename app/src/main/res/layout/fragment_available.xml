@@ -24,10 +24,11 @@
                 android:text="@string/update_available"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-            <TextView
+            <com.ota.updates.utils.fontawesome.TextAwesome
                 android:id="@+id/filename_icon"
                 style="@style/UpdateIconStyle"
-                android:layout_below="@+id/title" />
+                android:layout_below="@+id/title"
+                android:text="@string/fa_file_archive_o" />
 
             <TextView
                 android:id="@+id/filename"
@@ -35,10 +36,11 @@
                 android:layout_below="@+id/title"
                 android:text="@string/filename" />
 
-            <TextView
+            <com.ota.updates.utils.fontawesome.TextAwesome
                 android:id="@+id/filesize_icon"
                 style="@style/UpdateIconStyle"
-                android:layout_below="@+id/filename" />
+                android:layout_below="@+id/filename"
+                android:text="@string/fa_arrows_h" />
 
             <TextView
                 android:id="@+id/filesize"
@@ -46,10 +48,11 @@
                 android:layout_below="@+id/filename"
                 android:text="@string/filesize" />
 
-            <TextView
+            <com.ota.updates.utils.fontawesome.TextAwesome
                 android:id="@+id/filehash_icon"
                 style="@style/UpdateIconStyle"
-                android:layout_below="@+id/filesize" />
+                android:layout_below="@+id/filesize"
+                android:text="@string/fa_check_circle_o" />
 
             <TextView
                 android:id="@+id/filehash"
@@ -57,10 +60,11 @@
                 android:layout_below="@+id/filesize"
                 android:text="@string/md5_sum" />
 
-            <TextView
+            <com.ota.updates.utils.fontawesome.TextAwesome
                 android:id="@+id/filehost_icon"
                 style="@style/UpdateIconStyle"
-                android:layout_below="@+id/filehash" />
+                android:layout_below="@+id/filehash"
+                android:text="@string/fa_globe" />
 
             <TextView
                 android:id="@+id/filehost"

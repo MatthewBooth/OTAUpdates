@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.joanzapata.android.iconify.Iconify;
 import com.ota.updates.R;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
@@ -78,8 +77,6 @@ public class AvailableFragment extends Fragment implements Constants {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        setupUpdateIcons(view);
-
         setupUpdateIconsText(view);
 
         setupChangelog(view, activity);
@@ -111,37 +108,6 @@ public class AvailableFragment extends Fragment implements Constants {
         View fileHashView = view.findViewById(R.id.filehash);
         if (fileHashView != null) {
             TextView fileHashTV = (TextView) fileHashView;
-        }
-    }
-
-    /**
-     * Sets up the update icons for the upper seam of the app
-     *
-     * @param view The root view for the fragment
-     */
-    private void setupUpdateIcons(View view) {
-        View fileNameIconView = view.findViewById(R.id.filename_icon);
-        if (fileNameIconView != null) {
-            TextView iconTV = (TextView) fileNameIconView;
-            Iconify.setIcon(iconTV, Iconify.IconValue.fa_file_archive_o);
-        }
-
-        View fileSizeIconView = view.findViewById(R.id.filesize_icon);
-        if (fileSizeIconView != null) {
-            TextView iconTV = (TextView) fileSizeIconView;
-            Iconify.setIcon(iconTV, Iconify.IconValue.fa_arrows_h);
-        }
-
-        View fileHostIconView = view.findViewById(R.id.filehost_icon);
-        if (fileHostIconView != null) {
-            TextView iconTV = (TextView) fileHostIconView;
-            Iconify.setIcon(iconTV, Iconify.IconValue.fa_globe);
-        }
-
-        View fileHashIconView = view.findViewById(R.id.filehash_icon);
-        if (fileHashIconView != null) {
-            TextView iconTV = (TextView) fileHashIconView;
-            Iconify.setIcon(iconTV, Iconify.IconValue.fa_check_circle_o);
         }
     }
 

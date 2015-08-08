@@ -1,5 +1,6 @@
 package com.ota.updates.activities;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
@@ -19,25 +20,24 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify;
 import com.ota.updates.R;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
+import com.ota.updates.utils.fontawesome.DrawableAwesome;
 
 
 public class MainActivity extends AppCompatActivity implements Constants, FragmentInteractionListener {
 
-    private Toolbar mToolbar;
-    private NavigationView mNavigationView;
-    private DrawerLayout mDrawerLayout;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        mContext = this;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getWindow(); // in Activity's onCreate() for instance
@@ -45,20 +45,15 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }
 
         // Initializing Toolbar and setting it as the actionbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         //Initializing NavigationView
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-
-        setupNavigationViewOnItemSelected();
-
-        setupNavigationViewIcons();
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         // Initializing Drawer Layout and ActionBarToggle
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.openDrawer, R.string.closeDrawer) {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         };
 
         //Setting the actionbarToggle to drawer layout
-        mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
@@ -105,16 +100,17 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             fragmentManager.beginTransaction()
                     .add(R.id.fragment, availableFragment).commit();
         }
+
+        setupNavigationViewIcons(navigationView.getMenu());
+
+        setupNavigationViewOnItemSelected(navigationView, drawerLayout);
     }
 
     /**
-     * Sets up the navigation icons for the drawer
+     * Sets up the NavigationView (drawer) icons
+     * @param menu The menu item that relates to NavigationView (use getMenu() )
      */
-    private void setupNavigationViewIcons() {
-        Menu menu = mNavigationView.getMenu();
-
-        int[] attrs = {R.attr.drawerIconColors};
-        TypedArray typedArray = this.obtainStyledAttributes(attrs);
+    private void setupNavigationViewIcons(Menu menu) {
 
         MenuItem otaUpdatesItem = menu.findItem(R.id.ota_updates);
         MenuItem otaVersionItem = menu.findItem(R.id.ota_versions);
@@ -130,56 +126,51 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         MenuItem appGithubItem = menu.findItem(R.id.app_github);
         MenuItem appAboutItem = menu.findItem(R.id.app_about);
 
-        otaUpdatesItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_refresh)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        otaVersionItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_file_archive_o)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        otaAddonsItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_puzzle_piece)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
+        otaUpdatesItem.setIcon(getNavigationViewIcon(R.string.fa_refresh));
 
-        romWebsiteItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_globe)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        romDonateItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_money)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        romInfoItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_info)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
+        otaVersionItem.setIcon(getNavigationViewIcon(R.string.fa_file_archive_o));
+        otaAddonsItem.setIcon(getNavigationViewIcon(R.string.fa_puzzle_piece));
 
-        appSettingsItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_cog)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        appProItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_heart)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        appLicencesItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_file_text_o)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        appGithubItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_github)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
-        appAboutItem.setIcon(new IconDrawable(this, Iconify.IconValue.fa_question)
-                .colorRes(typedArray.getResourceId(0, Color.BLACK))
-                .sizeDp(16));
+        romWebsiteItem.setIcon(getNavigationViewIcon(R.string.fa_globe));
+        romDonateItem.setIcon(getNavigationViewIcon(R.string.fa_money));
+        romInfoItem.setIcon(getNavigationViewIcon(R.string.fa_info));
 
-        typedArray.recycle();
+        appSettingsItem.setIcon(getNavigationViewIcon(R.string.fa_cog));
+        appProItem.setIcon(getNavigationViewIcon(R.string.fa_heart));
+        appLicencesItem.setIcon(getNavigationViewIcon(R.string.fa_file_text_o));
+        appGithubItem.setIcon(getNavigationViewIcon(R.string.fa_github));
+        appAboutItem.setIcon(getNavigationViewIcon(R.string.fa_question));
     }
 
     /**
-     * Creates the onItemSelected logic for the Navigation Icon
+     * Creates an DrawableAwesome based on the string input given
+     * Will also be coloured as per the drawerIconColors attribute
+     * @param icon the R.string that is requested
+     * @return DrawableAwesome
      */
-    private void setupNavigationViewOnItemSelected() {
+    private DrawableAwesome getNavigationViewIcon(int icon) {
+        int[] attrs = {R.attr.drawerIconColors};
+        TypedArray typedArray = this.obtainStyledAttributes(attrs);
+        DrawableAwesome drawableAwesome = new DrawableAwesome(icon, 28, typedArray.getColor(0, Color.BLACK),
+                true, false, 0, 0, 0, 0, mContext);
+        typedArray.recycle();
+        return drawableAwesome;
+    }
+
+    /**
+     * Setup listeners for the NavigationView drawer so that when items are selected some actions
+     * can be take
+     *
+     * @param navigationView The NavigationView we are listening for
+     * @param drawerLayout   The Drawer Layout containing the items
+     */
+    private void setupNavigationViewOnItemSelected(NavigationView navigationView, final DrawerLayout drawerLayout) {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-
 
                 //Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) {
@@ -189,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                 }
 
                 //Closing drawer on item click
-                mDrawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();
 
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {

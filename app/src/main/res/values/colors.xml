@@ -45,5 +45,7 @@
     <!-- Drawer colors -->
     <color name="drawer_header_background">?attr/colorAccent</color>
     <color name="drawer_title_background">#80222222</color>
+    <color name="drawer_icon_color_dark">#80ffffff</color>
+    <color name="drawer_icon_color_light">#80333333</color>
 
 </resources>

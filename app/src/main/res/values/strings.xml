@@ -22,9 +22,5 @@
     <string name="md5_sum" translatable="false">MD5</string>
     <string name="filehost">Host</string>
     <string name="changelog">Changelog</string>
-    <string name="fa_filename">{fa-file-archive-o}</string>
-    <string name="fa_filesize">{fa-arrows-h}</string>
-    <string name="fa_md5_sum">{fa-check-circle-o}</string>
-    <string name="fa_filehost">{fa-globe}</string>
 
 </resources>
