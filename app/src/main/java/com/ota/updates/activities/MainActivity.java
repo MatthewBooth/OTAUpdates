@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,17 +24,26 @@ import android.widget.Toast;
 import com.ota.updates.R;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
+import com.ota.updates.json.AddonJSONParser;
+import com.ota.updates.json.VersionJSONParser;
+import com.ota.updates.tasks.AsyncResponse;
+import com.ota.updates.tasks.DownloadJSON;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
+import com.ota.updates.utils.Utils;
 import com.ota.updates.utils.fontawesome.DrawableAwesome;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity implements Constants, FragmentInteractionListener {
+    public static final String TAG = MainActivity.class.getName();
 
-    Context mContext;
+    private Context mContext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
@@ -43,6 +53,33 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             Window w = getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+
+        new DownloadJSON(this, new AsyncResponse() {
+            @Override
+            public void processFinish(Boolean output) {
+                if (DEBUGGING) {
+                    Log.d(TAG, "Json File finished downloading properly");
+                }
+                File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), "aosp-jf.json");
+
+                String json = null;
+                try {
+                    json = Utils.getFileContents(jsonFile);
+                } catch (IOException ex) {
+                    Log.e(TAG, ex.getMessage());
+                } finally {
+                    if (json != null) {
+                        new VersionJSONParser(mContext, json).parse();
+                        new AddonJSONParser(mContext, json).parse();
+                        if (DEBUGGING) {
+                            Log.d(TAG, "JSON data parsed and database updated");
+                        }
+
+                        loadFragment(savedInstanceState);
+                    }
+                }
+            }
+        }).execute();
 
         // Initializing Toolbar and setting it as the actionbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,6 +112,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
 
+        setupNavigationViewIcons(navigationView.getMenu());
+
+        setupNavigationViewOnItemSelected(navigationView, drawerLayout);
+    }
+
+    private boolean loadFragment(Bundle savedInstanceState) {
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment) != null) {
@@ -83,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             // then we don't need to do anything and should return or else
             // we could end up with overlapping fragments.
             if (savedInstanceState != null) {
-                return;
+                return true;
             }
 
             // Get the fragment manager
@@ -100,10 +143,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             fragmentManager.beginTransaction()
                     .add(R.id.fragment, availableFragment).commit();
         }
-
-        setupNavigationViewIcons(navigationView.getMenu());
-
-        setupNavigationViewOnItemSelected(navigationView, drawerLayout);
+        return false;
     }
 
     /**

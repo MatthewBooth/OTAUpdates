@@ -13,8 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ota.updates.R;
+import com.ota.updates.db.helpers.UploadSQLiteHelper;
+import com.ota.updates.db.helpers.VersionSQLiteHelper;
+import com.ota.updates.items.UploadItem;
+import com.ota.updates.items.VersionItem;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
+import com.ota.updates.utils.Utils;
 
 import in.uncod.android.bypass.Bypass;
 
@@ -35,6 +40,8 @@ public class AvailableFragment extends Fragment implements Constants {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Context mContext;
 
     private FragmentInteractionListener mListener;
 
@@ -77,6 +84,8 @@ public class AvailableFragment extends Fragment implements Constants {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
+        mContext = activity;
+
         setupUpdateIconsText(view);
 
         setupChangelog(view, activity);
@@ -90,24 +99,41 @@ public class AvailableFragment extends Fragment implements Constants {
      * @param view The root view for the fragment
      */
     private void setupUpdateIconsText(View view) {
+        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+        VersionItem version = versionSQLiteHelper.getLastVersion();
+
+        UploadSQLiteHelper uploadHelper = new UploadSQLiteHelper(mContext);
+        int fullId = version.getFullUploadId();
+        UploadItem uploadItem = uploadHelper.getUpload(fullId);
+
         View fileNameView = view.findViewById(R.id.filename);
         if (fileNameView != null) {
             TextView fileNameTV = (TextView) fileNameView;
+            String text = version.getFullName();
+            fileNameTV.setText(text);
         }
 
         View fileSizeView = view.findViewById(R.id.filesize);
         if (fileSizeView != null) {
             TextView fileSizeTV = (TextView) fileSizeView;
+            String size = Utils.formatDataFromBytes(uploadItem.getSize());
+            fileSizeTV.setText(size);
         }
 
         View fileHostView = view.findViewById(R.id.filehost);
         if (fileHostView != null) {
             TextView fileHostTV = (TextView) fileHostView;
+            String url = uploadItem.getDownloadLink();
+            String host = Utils.getUrlHost(url);
+            fileHostTV.setText(host);
         }
 
         View fileHashView = view.findViewById(R.id.filehash);
         if (fileHashView != null) {
             TextView fileHashTV = (TextView) fileHashView;
+
+            String text = uploadItem.getMd5();
+            fileHashTV.setText(text);
         }
     }
 
@@ -116,18 +142,9 @@ public class AvailableFragment extends Fragment implements Constants {
         if (changelog != null) {
             TextView tv = (TextView) changelog;
             Bypass byPass = new Bypass(context);
-            String changelogStr = "* ROM \n" +
-                    "    * Fixed tethering\n" +
-                    "    * Added ipv6 tethering\n" +
-                    "    * Launcher3: Optimisation and some Materialize\n" +
-                    "    * Fixed back/menu keys wake up the device\n" +
-                    "    * A lot of optimisation to build enviroment\n" +
-                    "    * Updated translation for AOSP Settings and Power menu\n" +
-                    "    * Updated stagefright/av with latest cm changes\n" +
-                    "    * Fixed OTA Updates\n" +
-                    "    * Added clear recents app button\n" +
-                    "    * Make \"SD Card removed\" notification dismissible\n" +
-                    "    * Various frameworks improvements";
+            VersionSQLiteHelper helper = new VersionSQLiteHelper(mContext);
+            VersionItem versionItem = helper.getLastVersion();
+            String changelogStr = versionItem.getChangelog();
             CharSequence string = byPass.markdownToSpannable(changelogStr);
             tv.setText(string);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
