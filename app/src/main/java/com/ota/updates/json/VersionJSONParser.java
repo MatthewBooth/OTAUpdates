@@ -3,19 +3,24 @@ package com.ota.updates.json;
 import android.content.Context;
 import android.util.Log;
 
-import com.ota.updates.db.access.VersionAccess;
+import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.items.VersionItem;
+import com.ota.updates.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VersionJSONParser extends BaseJSONParser {
+public class VersionJSONParser implements Constants {
 
-    public static String TAG = VersionJSONParser.class.getName();
+    private static String TAG = VersionJSONParser.class.getName();
+
+    private String mJSONString;
+    private Context mContext;
 
     public VersionJSONParser(Context context, String jsonString) {
-        super(context, jsonString);
+        mJSONString = jsonString;
+        mContext = context;
     }
 
     public void parse() {
@@ -26,10 +31,12 @@ public class VersionJSONParser extends BaseJSONParser {
 
             JSONArray versionsArray = romObj.getJSONArray(NAME_VERSIONS);
 
-            VersionAccess access = new VersionAccess(mContext);
+            VersionSQLiteHelper helper = new VersionSQLiteHelper(mContext);
 
             for (int i = 0; i < versionsArray.length(); i++) {
-                JSONObject versionObj = versionsArray.getJSONObject(i);
+                JSONObject arrayObj = versionsArray.getJSONObject(i);
+
+                JSONObject versionObj = arrayObj.getJSONObject(NAME_VERSION);
 
                 VersionItem versionItem = new VersionItem();
                 versionItem.setId(versionObj.getInt(NAME_ID));
@@ -43,17 +50,20 @@ public class VersionJSONParser extends BaseJSONParser {
                 versionItem.setPublishedAt(versionObj.getString(NAME_PUBLISHED_AT));
                 versionItem.setVersionNumber(versionObj.getInt(NAME_VERSION_NUMBER));
 
-                JSONObject deltaObj = versionObj.getJSONObject(NAME_DELTA_UPLOAD);
+
+                JSONObject deltaObj = versionObj.optJSONObject(NAME_DELTA_UPLOAD);
+                if (deltaObj != null) {
+                    versionItem.setDeltaUploadId(deltaObj.getInt(NAME_ID));
+                    new UploadJSONParser(mContext, deltaObj.toString(), UploadJSONParser.Type.DELTA).parse();
+                } else {
+                    versionItem.setDeltaUploadId(-1);
+                }
+
                 JSONObject fullObj = versionObj.getJSONObject(NAME_FULL_UPLOAD);
-
-                versionItem.setDeltaUploadId(deltaObj.getInt(NAME_ID));
                 versionItem.setFullUploadId(fullObj.getInt(NAME_ID));
+                new UploadJSONParser(mContext, fullObj.toString(), UploadJSONParser.Type.FULL).parse();
 
-                new UploadJSONParser(mContext, deltaObj.toString());
-
-                new UploadJSONParser(mContext, fullObj.toString());
-
-                addToDatabase(versionItem, access);
+                helper.addVersion(versionItem);
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());

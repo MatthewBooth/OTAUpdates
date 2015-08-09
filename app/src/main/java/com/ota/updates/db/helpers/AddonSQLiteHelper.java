@@ -1,41 +1,75 @@
 package com.ota.updates.db.helpers;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 
-import com.ota.updates.utils.Constants;
+import com.ota.updates.items.AddonItem;
 
-public class AddonSQLiteHelper extends SQLiteOpenHelper implements Constants {
+public class AddonSQLiteHelper extends BaseSQLiteHelper {
+
 
     public AddonSQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        // SQL statement to create addon table
-        String CREATE_ADDON_TABLE = "CREATE TABLE IF NOT EXISTS " + ADDON_TABLE_NAME + " (" +
-                NAME_ID + " int(11) PRIMARY KEY NOT NULL," +
-                NAME_NAME + " text NOT NULL," +
-                NAME_SLUG + " text NOT NULL," +
-                NAME_DESCRIPTION + " text NOT NULL," +
-                NAME_UPDATED_AT + " updated_at text NOT NULL," +
-                NAME_CREATED_AT + " text NOT NULL," +
-                NAME_PUBLISHED_AT + " text NOT NULL," +
-                NAME_DOWNLOADS + " int(11) NOT NULL," +
-                NAME_SIZE + " int(32) NOT NULL," +
-                NAME_MD5 + " text(32) NOT NULL," +
-                NAME_DOWNLOAD_LINK + " text NOT NULL" +
-                ")";
+    public void addAddon(AddonItem item) {
+        ContentValues values = new ContentValues();
+        values.put(NAME_ID, item.getId());
+        values.put(NAME_DOWNLOADS, item.getDownloads());
+        values.put(NAME_NAME, item.getName());
+        values.put(NAME_SLUG, item.getSlug());
+        values.put(NAME_DESCRIPTION, item.getDescription());
+        values.put(NAME_UPDATED_AT, item.getUpdatedAt());
+        values.put(NAME_CREATED_AT, item.getCreatedAt());
+        values.put(NAME_PUBLISHED_AT, item.getPublishedAt());
+        values.put(NAME_SIZE, item.getSize());
+        values.put(NAME_MD5, item.getMd5());
+        values.put(NAME_DOWNLOAD_LINK, item.getDownloadLink());
 
-        // create addon table
-        db.execSQL(CREATE_ADDON_TABLE);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insertWithOnConflict(ADDON_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.close();
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ADDON_TABLE_NAME);
-        this.onCreate(db);
+    public AddonItem getAddon(int id) {
+        String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
+        return getAddonItem(query);
+    }
+
+    public AddonItem getLastAddon() {
+        String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
+        return getAddonItem(query);
+    }
+
+    @Nullable
+    private AddonItem getAddonItem(String query) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        AddonItem addonItem = new AddonItem();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            addonItem.setId(Integer.parseInt(cursor.getString(0)));
+            addonItem.setName(cursor.getString(1));
+            addonItem.setSlug(cursor.getString(2));
+            addonItem.setDescription(cursor.getString(3));
+            addonItem.setUpdatedAt(cursor.getString(4));
+            addonItem.setCreatedAt(cursor.getString(5));
+            addonItem.setPublishedAt(cursor.getString(6));
+            addonItem.setDownloads(Integer.parseInt(cursor.getString(7)));
+            addonItem.setSize(Integer.parseInt(cursor.getString(8)));
+            addonItem.setMd5(cursor.getString(9));
+            addonItem.setDownloadLink(cursor.getString(10));
+            cursor.close();
+        } else {
+            addonItem = null;
+        }
+        db.close();
+        return addonItem;
     }
 }

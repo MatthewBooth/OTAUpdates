@@ -3,18 +3,23 @@ package com.ota.updates.json;
 import android.content.Context;
 import android.util.Log;
 
+import com.ota.updates.utils.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ROMJSONParser extends BaseJSONParser {
+public class ROMJSONParser implements Constants {
 
-    public static String TAG = ROMJSONParser.class.getName();
+    private static final String TAG = ROMJSONParser.class.getName();
+
+    private String mJSONString;
+    private Context mContext;
 
     public ROMJSONParser(Context context, String jsonString) {
-        super(context, jsonString);
+        mJSONString = jsonString;
+        mContext = context;
     }
 
-    @Override
     public void parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);

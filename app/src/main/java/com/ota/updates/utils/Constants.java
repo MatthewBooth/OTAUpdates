@@ -12,7 +12,7 @@ public interface Constants {
      String NAME_ANDROID_VERSION = "android_version";
      String NAME_CHANGELOG = "changelog";
      String NAME_UPDATED_AT = "updated_at";
-     String NAME_CREATED_AT = "created_At";
+    String NAME_CREATED_AT = "created_at";
      String NAME_PUBLISHED_AT = "published_at";
      String NAME_DOWNLOADS = "downloads";
      String NAME_VERSION_NUMBER = "version_number";
@@ -27,9 +27,15 @@ public interface Constants {
      String ADDON_TABLE_NAME = "addon";
      String UPLOAD_TABLE_NAME = "upload";
      String VERSION_TABLE_NAME = "version";
+    String NAME_ROM = "rom";
+    String NAME_VERSIONS = "versions";
+    String NAME_ADDONS = "addons";
+    String NAME_DELTA_UPLOAD = "delta_upload";
+    String NAME_FULL_UPLOAD = "full_upload";
+    String NAME_VERSION = "version";
+    String NAME_ADDON = "addon";
 
     // Font Awesome ttf
     String FONT_AWESOME = "fontawesome-webfont-4.4.0.ttf";
 
-    int UPDATE_CHECK_ACTIVITY = 1;
 }
