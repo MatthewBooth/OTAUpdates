@@ -62,6 +62,10 @@ public class Utils implements Constants{
 
 	public static Boolean doesPropExist(String propName) {
 		boolean valid = false;
+		
+		if (DEBUGGING) {
+			return true;
+		}
 
 		try {
 			Process process = Runtime.getRuntime().exec("getprop");

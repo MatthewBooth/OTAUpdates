@@ -56,9 +56,9 @@ public class AddonsSaxHandler extends DefaultHandler implements Constants {
             tempAddon.setDesc(tempVal);
             if (DEBUGGING)
 				Log.d(TAG, "Desc = " + tempVal);
-        } else if (qName.equalsIgnoreCase("updated-at")) {
+        } else if (qName.equalsIgnoreCase("published-at")) {
         	String[] splitInput = tempVal.split("T");
-            tempAddon.setUpdatedOn(splitInput[0]);
+            tempAddon.setPublishedAt(splitInput[0]);
             if (DEBUGGING)
 				Log.d(TAG, "Updated On = " + tempVal);
         } else if (qName.equalsIgnoreCase("download-link")) {
