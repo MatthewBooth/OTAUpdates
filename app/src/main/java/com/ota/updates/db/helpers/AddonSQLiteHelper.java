@@ -31,6 +31,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_SIZE, item.getSize());
         values.put(NAME_MD5, item.getMd5());
         values.put(NAME_DOWNLOAD_LINK, item.getDownloadLink());
+        values.put(NAME_CATEGORY, item.getCategory());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insertWithOnConflict(ADDON_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
@@ -82,6 +83,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
             addonItem.setSize(Integer.parseInt(cursor.getString(8)));
             addonItem.setMd5(cursor.getString(9));
             addonItem.setDownloadLink(cursor.getString(10));
+            addonItem.setCategory(cursor.getString(11));
             cursor.close();
         } else {
             addonItem = null;

@@ -37,6 +37,7 @@ public interface Constants {
     String NAME_FULL_UPLOAD = "full_upload";
     String NAME_VERSION = "version";
     String NAME_ADDON = "addon";
+    String NAME_CATEGORY = "category";
 
     // Font Awesome ttf
     String FONT_AWESOME = "fontawesome-webfont-4.4.0.ttf";

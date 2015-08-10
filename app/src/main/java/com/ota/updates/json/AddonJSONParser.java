@@ -53,6 +53,7 @@ public class AddonJSONParser implements Constants {
                 addonItem.setSize(versionObj.getInt(NAME_SIZE));
                 addonItem.setMd5(versionObj.getString(NAME_MD5));
                 addonItem.setDownloadLink(versionObj.getString(NAME_DOWNLOAD_LINK));
+                addonItem.setCategory(versionObj.getString(NAME_CATEGORY));
                 helper.addAddon(addonItem);
             }
         } catch (JSONException e) {

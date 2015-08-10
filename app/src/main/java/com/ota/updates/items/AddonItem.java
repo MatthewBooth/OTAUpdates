@@ -13,6 +13,15 @@ public class AddonItem extends BaseItem {
     private int size;
     private String md5;
     private String downloadLink;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     private ArrayList<UploadItem> fileUploads;
 
