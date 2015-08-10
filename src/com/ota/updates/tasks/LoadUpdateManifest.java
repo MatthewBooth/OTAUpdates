@@ -73,7 +73,12 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
     	try {
             InputStream input = null;
 
-            URL url = new URL(Utils.getProp("ro.ota.manifest"));
+            URL url;
+            if (DEBUGGING) {
+            	url = new URL("https://romhut.com/roms/aosp-jf/ota.xml");
+            } else {
+            	url = new URL(Utils.getProp("ro.ota.manifest"));
+            }
             URLConnection connection = url.openConnection();
             connection.connect();
             // download the file

@@ -20,8 +20,8 @@ import android.os.Environment;
 
 public interface Constants {
 	// Developer
-	public static final boolean DEBUGGING 								= false;
-	public static final boolean DEBUG_NOTIFICATIONS 					= false;
+	public static final boolean DEBUGGING 								= true;
+	public static final boolean DEBUG_NOTIFICATIONS 					= true;
 	
 	// Props
 	public static final String OTA_ROMNAME 								= "ro.ota.romname";
