@@ -77,7 +77,7 @@ public  class LoadUpdateManifest extends AsyncTask<Void, Void, Void> implements 
             if (DEBUGGING) {
             	url = new URL("https://romhut.com/roms/aosp-jf/ota.xml");
             } else {
-            	url = new URL(Utils.getProp("ro.ota.manifest"));
+            	url = new URL(Utils.getProp("ro.ota.manifest").trim());
             }
             URLConnection connection = url.openConnection();
             connection.connect();
