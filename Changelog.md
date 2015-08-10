@@ -1,3 +1,9 @@
+#### v2.5.3
+##### 10th August 2015
+* Fixed the Addons page crashing. This only affected RomHut users...  but the fix will affect users who's developers manually host their ROMs. I'm knee deep in the middle of work and a rewrite that will resolve these kinds of issues for good.
+* Fixed the OpenREcoveryScript InstallAfterFlash generation so that it generates properly and will install files as intended
+* Stripped whitespace from the OTA Urls just in case developers put some in there (they shouldn't, but it's happening :| )
+
 #### v2.5.2
 ##### 11th July 2015
 * Fixed download location bug. It's a back and forth with this one. I think each device is handling it differently.
