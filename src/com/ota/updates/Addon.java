@@ -4,7 +4,7 @@ public class Addon {
 	
 	private String mTitle;
 	private String mDesc;
-	private String mUpdatedOn;
+	private String mPublishedAt;
 	private int mFilesize;
 	private String mDownloadLink;
 	private int mId;
@@ -17,8 +17,8 @@ public class Addon {
 		mDesc = input;		
 	}
 
-	public void setUpdatedOn(String input) {
-		mUpdatedOn = input;		
+	public void setPublishedAt(String input) {
+		mPublishedAt = input;		
 	}
 	
 	public void setFilesize(int input) {
@@ -41,8 +41,8 @@ public class Addon {
 		return mDesc;
 	}
 	
-	public String getUpdatedOn() {
-		return mUpdatedOn;
+	public String getPublishedAt() {
+		return mPublishedAt;
 	}
 	
 	public String getDownloadLink() {
