@@ -20,6 +20,9 @@ public class ROMJSONParser implements Constants {
         mContext = context;
     }
 
+    /**
+     * Parse the Rom object within the selected JSON string
+     */
     public void parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);

@@ -23,6 +23,9 @@ public class VersionJSONParser implements Constants {
         mContext = context;
     }
 
+    /**
+     * Parse the Versions array within the selected JSON string
+     */
     public void parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);
@@ -54,14 +57,14 @@ public class VersionJSONParser implements Constants {
                 JSONObject deltaObj = versionObj.optJSONObject(NAME_DELTA_UPLOAD);
                 if (deltaObj != null) {
                     versionItem.setDeltaUploadId(deltaObj.getInt(NAME_ID));
-                    new UploadJSONParser(mContext, deltaObj.toString(), UploadJSONParser.Type.DELTA).parse();
+                    new UploadJSONParser(mContext, deltaObj.toString()).parse();
                 } else {
                     versionItem.setDeltaUploadId(-1);
                 }
 
                 JSONObject fullObj = versionObj.getJSONObject(NAME_FULL_UPLOAD);
                 versionItem.setFullUploadId(fullObj.getInt(NAME_ID));
-                new UploadJSONParser(mContext, fullObj.toString(), UploadJSONParser.Type.FULL).parse();
+                new UploadJSONParser(mContext, fullObj.toString()).parse();
 
                 helper.addVersion(versionItem);
             }

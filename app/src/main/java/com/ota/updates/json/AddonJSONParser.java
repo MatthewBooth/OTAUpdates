@@ -22,6 +22,9 @@ public class AddonJSONParser implements Constants {
         mContext = context;
     }
 
+    /**
+     * Parse the Addons array within the selected JSON string
+     */
     public void parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);

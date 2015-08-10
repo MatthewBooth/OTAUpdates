@@ -14,6 +14,10 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         super(context);
     }
 
+    /**
+     * Adds an VersionItem to the database
+     * @param item  the VersionItem to be added
+     */
     public void addVersion(VersionItem item) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, item.getId());
@@ -34,16 +38,30 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         db.close();
     }
 
+    /**
+     * Get a single VersionItem from the database
+     * @param id  the ID of the item to be retrieved
+     * @return the selected VersionItem
+     */
     public VersionItem getVersion(int id) {
         String query = "SELECT * FROM " + VERSION_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
         return getVersionItem(query);
     }
 
+    /**
+     * Gets the lastest VersionItem in the database
+     * @return the VersionItem that was requested
+     */
     public VersionItem getLastVersion() {
         String query = "SELECT * FROM " + VERSION_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getVersionItem(query);
     }
 
+    /**
+     * Runs a query on the Version table in the database
+     * @param query  The query to be executed
+     * @return The resulting VersionItem
+     */
     @Nullable
     private VersionItem getVersionItem(String query) {
         SQLiteDatabase db = this.getWritableDatabase();

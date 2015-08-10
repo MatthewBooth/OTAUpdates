@@ -16,14 +16,15 @@ public class UploadJSONParser implements Constants {
 
     private String mJSONString;
     private Context mContext;
-    private Type mType;
 
-    public UploadJSONParser(Context context, String jsonString, Type type) {
+    public UploadJSONParser(Context context, String jsonString) {
         mJSONString = jsonString;
         mContext = context;
-        mType = type;
     }
 
+    /**
+     * Parse the Upload object within the selected JSON string
+     */
     public void parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);
@@ -43,6 +44,4 @@ public class UploadJSONParser implements Constants {
         }
 
     }
-
-    public enum Type {DELTA, FULL}
 }

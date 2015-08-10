@@ -10,11 +10,14 @@ import com.ota.updates.items.AddonItem;
 
 public class AddonSQLiteHelper extends BaseSQLiteHelper {
 
-
     public AddonSQLiteHelper(Context context) {
         super(context);
     }
 
+    /**
+     * Adds an AddonItem to the database
+     * @param item  the AddonItem to be added
+     */
     public void addAddon(AddonItem item) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, item.getId());
@@ -34,16 +37,30 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         db.close();
     }
 
+    /**
+     * Get a single AddonItem from the database
+     * @param id  the ID of the item to be retrieved
+     * @return the selected AddonItem
+     */
     public AddonItem getAddon(int id) {
         String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
         return getAddonItem(query);
     }
 
+    /**
+     * Gets the lastest AddonItem in the database
+     * @return the AddonItem that was requested
+     */
     public AddonItem getLastAddon() {
         String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getAddonItem(query);
     }
 
+    /**
+     * Runs a query on the Addon table in the database
+     * @param query  The query to be executed
+     * @return The resulting AddonItem
+     */
     @Nullable
     private AddonItem getAddonItem(String query) {
         SQLiteDatabase db = this.getWritableDatabase();

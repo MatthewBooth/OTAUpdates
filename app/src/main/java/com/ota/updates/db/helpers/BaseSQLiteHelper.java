@@ -27,6 +27,10 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
         this.onCreate(db);
     }
 
+    /**
+     * Crates the Addon table in the database
+     * @param db  The database to create the table in
+     */
     private void createAddonTable(SQLiteDatabase db) {
         // SQL statement to create addon table
         String CREATE_ADDON_TABLE = "CREATE TABLE IF NOT EXISTS " + ADDON_TABLE_NAME + " (" +
@@ -46,6 +50,10 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
         db.execSQL(CREATE_ADDON_TABLE);
     }
 
+    /**
+     * Creates the Upload table in the database
+     * @param db  The database to create the table in
+     */
     private void createUploadTable(SQLiteDatabase db) {
         // SQL statement to create upload table
         String CREATE_UPLOAD_TABLE = "CREATE TABLE IF NOT EXISTS " + UPLOAD_TABLE_NAME + " (" +
@@ -60,6 +68,10 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
         db.execSQL(CREATE_UPLOAD_TABLE);
     }
 
+    /**
+     * Creates the Version table in the database
+     * @param db  The database to create the table in
+     */
     private void createVersionTable(SQLiteDatabase db) {
         // SQL statement to create version table
         String CREATE_VERSION_TABLE = "CREATE TABLE IF NOT EXISTS " + VERSION_TABLE_NAME + " (" +

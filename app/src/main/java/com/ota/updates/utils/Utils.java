@@ -17,6 +17,7 @@ public class Utils {
     private static int KB = KILOBYTE;
     private static int MB = KB * KB;
     private static int GB = MB * KB;
+
     private static DecimalFormat decimalFormat = new DecimalFormat("##0.#");
 
     static {
@@ -24,6 +25,12 @@ public class Utils {
         decimalFormat.setMaximumFractionDigits(1);
     }
 
+    /**
+     * Returns the contents of a file as a String
+     * @param file  The file to parse into a String
+     * @return the returned String
+     * @throws IOException An input output exception, usually if the file cannot be found
+     */
     public static String getFileContents(final File file) throws IOException {
         final InputStream inputStream = new FileInputStream(file);
         final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -46,6 +53,11 @@ public class Utils {
         return stringBuilder.toString();
     }
 
+    /**
+     * Convert from bytes to megabytes
+     * @param size  The size in bytes
+     * @return The size in megabytes
+     */
     public static String formatDataFromBytes(long size) {
 
         String symbol;
@@ -61,6 +73,12 @@ public class Utils {
         return decimalFormat.format(size / (float) GB) + 'G' + symbol;
     }
 
+    /**
+     * Returns the hostname of a URL
+     * Will strip out "www." if it is found
+     * @param url  The url we wish to use
+     * @return a String with just the hostname
+     */
     public static String getUrlHost(String url) {
         URI uri;
         String result = null;

@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
     /**
      * Sets up the NavigationView (drawer) icons
-     * @param menu The menu item that relates to NavigationView (use getMenu() )
+     * @param menu  The menu item that relates to NavigationView (use getMenu() )
      */
     private void setupNavigationViewIcons(Menu menu) {
 
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     /**
      * Creates an DrawableAwesome based on the string input given
      * Will also be coloured as per the drawerIconColors attribute
-     * @param icon the R.string that is requested
+     * @param icon  the R.string that is requested
      * @return DrawableAwesome
      */
     private DrawableAwesome getNavigationViewIcon(int icon) {
@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
      * Setup listeners for the NavigationView drawer so that when items are selected some actions
      * can be take
      *
-     * @param navigationView The NavigationView we are listening for
-     * @param drawerLayout   The Drawer Layout containing the items
+     * @param navigationView  The NavigationView we are listening for
+     * @param drawerLayout  The Drawer Layout containing the items
      */
     private void setupNavigationViewOnItemSelected(NavigationView navigationView, final DrawerLayout drawerLayout) {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
@@ -252,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
-
                 }
             }
         });
