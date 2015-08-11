@@ -47,7 +47,6 @@ public class AddonJSONParser implements Constants {
                 addonItem.setName(versionObj.getString(NAME_NAME));
                 addonItem.setSlug(versionObj.getString(NAME_SLUG));
                 addonItem.setDescription(versionObj.getString(NAME_DESCRIPTION));
-                addonItem.setUpdatedAt(versionObj.getString(NAME_UPDATED_AT));
                 addonItem.setCreatedAt(versionObj.getString(NAME_CREATED_AT));
                 addonItem.setPublishedAt(versionObj.getString(NAME_PUBLISHED_AT));
                 addonItem.setSize(versionObj.getInt(NAME_SIZE));

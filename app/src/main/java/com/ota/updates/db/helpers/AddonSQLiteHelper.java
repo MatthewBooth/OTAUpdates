@@ -25,7 +25,6 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_NAME, item.getName());
         values.put(NAME_SLUG, item.getSlug());
         values.put(NAME_DESCRIPTION, item.getDescription());
-        values.put(NAME_UPDATED_AT, item.getUpdatedAt());
         values.put(NAME_CREATED_AT, item.getCreatedAt());
         values.put(NAME_PUBLISHED_AT, item.getPublishedAt());
         values.put(NAME_SIZE, item.getSize());
@@ -76,14 +75,13 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
             addonItem.setName(cursor.getString(1));
             addonItem.setSlug(cursor.getString(2));
             addonItem.setDescription(cursor.getString(3));
-            addonItem.setUpdatedAt(cursor.getString(4));
-            addonItem.setCreatedAt(cursor.getString(5));
-            addonItem.setPublishedAt(cursor.getString(6));
-            addonItem.setDownloads(Integer.parseInt(cursor.getString(7)));
-            addonItem.setSize(Integer.parseInt(cursor.getString(8)));
-            addonItem.setMd5(cursor.getString(9));
-            addonItem.setDownloadLink(cursor.getString(10));
-            addonItem.setCategory(cursor.getString(11));
+            addonItem.setCreatedAt(cursor.getString(4));
+            addonItem.setPublishedAt(cursor.getString(5));
+            addonItem.setDownloads(Integer.parseInt(cursor.getString(6)));
+            addonItem.setSize(Integer.parseInt(cursor.getString(7)));
+            addonItem.setMd5(cursor.getString(8));
+            addonItem.setDownloadLink(cursor.getString(9));
+            addonItem.setCategory(cursor.getString(10));
             cursor.close();
         } else {
             addonItem = null;
