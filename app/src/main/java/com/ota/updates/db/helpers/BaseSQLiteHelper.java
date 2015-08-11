@@ -38,7 +38,6 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
                 NAME_NAME + " TEXT," +
                 NAME_SLUG + " TEXT," +
                 NAME_DESCRIPTION + " TEXT," +
-                NAME_UPDATED_AT + " updated_at TEXT," +
                 NAME_CREATED_AT + " TEXT," +
                 NAME_PUBLISHED_AT + " TEXT," +
                 NAME_DOWNLOADS + " INTEGER," +
@@ -81,7 +80,6 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
                 NAME_SLUG + " TEXT," +
                 NAME_ANDROID_VERSION + " TEXT," +
                 NAME_CHANGELOG + " TEXT," +
-                NAME_UPDATED_AT + " TEXT," +
                 NAME_CREATED_AT + " TEXT," +
                 NAME_PUBLISHED_AT + " TEXT," +
                 NAME_DOWNLOADS + " INTEGER," +
