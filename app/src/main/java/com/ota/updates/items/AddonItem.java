@@ -7,7 +7,6 @@ public class AddonItem extends BaseItem {
     private String name;
     private String slug;
     private String description;
-    private String updatedAt;
     private String createdAt;
     private String publishedAt;
     private int size;
@@ -47,14 +46,6 @@ public class AddonItem extends BaseItem {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getCreatedAt() {

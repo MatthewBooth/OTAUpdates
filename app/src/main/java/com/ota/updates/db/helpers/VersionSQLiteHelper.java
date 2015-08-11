@@ -25,7 +25,6 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_SLUG, item.getSlug());
         values.put(NAME_ANDROID_VERSION, item.getAndroidVersion());
         values.put(NAME_CHANGELOG, item.getChangelog());
-        values.put(NAME_UPDATED_AT, item.getUpdatedAt());
         values.put(NAME_CREATED_AT, item.getCreatedAt());
         values.put(NAME_PUBLISHED_AT, item.getPublishedAt());
         values.put(NAME_DOWNLOADS, item.getDownloads());
@@ -77,13 +76,12 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
             versionItem.setSlug(cursor.getString(2));
             versionItem.setAndroidVersion(cursor.getString(3));
             versionItem.setChangelog(cursor.getString(4));
-            versionItem.setUpdatedAt(cursor.getString(5));
-            versionItem.setCreatedAt(cursor.getString(6));
-            versionItem.setPublishedAt(cursor.getString(7));
-            versionItem.setDownloads(Integer.parseInt(cursor.getString(8)));
-            versionItem.setVersionNumber(Integer.parseInt(cursor.getString(9)));
-            versionItem.setFullUploadId(Integer.parseInt(cursor.getString(10)));
-            versionItem.setDeltaUploadId(Integer.parseInt(cursor.getString(11)));
+            versionItem.setCreatedAt(cursor.getString(5));
+            versionItem.setPublishedAt(cursor.getString(6));
+            versionItem.setDownloads(Integer.parseInt(cursor.getString(7)));
+            versionItem.setVersionNumber(Integer.parseInt(cursor.getString(8)));
+            versionItem.setFullUploadId(Integer.parseInt(cursor.getString(9)));
+            versionItem.setDeltaUploadId(Integer.parseInt(cursor.getString(10)));
             cursor.close();
         } else {
             versionItem = null;

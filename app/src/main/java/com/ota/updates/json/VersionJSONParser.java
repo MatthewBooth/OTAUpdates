@@ -48,7 +48,6 @@ public class VersionJSONParser implements Constants {
                 versionItem.setSlug(versionObj.getString(NAME_SLUG));
                 versionItem.setAndroidVersion(versionObj.getString(NAME_ANDROID_VERSION));
                 versionItem.setChangelog(versionObj.getString(NAME_CHANGELOG));
-                versionItem.setUpdatedAt(versionObj.getString(NAME_UPDATED_AT));
                 versionItem.setCreatedAt(versionObj.getString(NAME_CREATED_AT));
                 versionItem.setPublishedAt(versionObj.getString(NAME_PUBLISHED_AT));
                 versionItem.setVersionNumber(versionObj.getInt(NAME_VERSION_NUMBER));

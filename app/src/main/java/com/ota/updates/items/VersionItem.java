@@ -5,7 +5,6 @@ public class VersionItem extends BaseItem {
     private String slug;
     private String androidVersion;
     private String changelog;
-    private String updatedAt;
     private String createdAt;
     private String publishedAt;
     private int versionNumber;
@@ -42,14 +41,6 @@ public class VersionItem extends BaseItem {
 
     public void setChangelog(String changelog) {
         this.changelog = changelog;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getCreatedAt() {
