@@ -44,7 +44,8 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
                 NAME_DOWNLOADS + " INTEGER," +
                 NAME_SIZE + " INTEGER," +
                 NAME_MD5 + " TEXT," +
-                NAME_DOWNLOAD_LINK + " TEXT" +
+                NAME_DOWNLOAD_LINK + " TEXT," +
+                NAME_CATEGORY + " TEXT" +
                 ")";
         // create addon table
         db.execSQL(CREATE_ADDON_TABLE);
