@@ -3,5 +3,7 @@
 
     <attr name="dividerColor" format="color" />
     <attr name="drawerIconColors" format="color" />
+    <attr name="cardStyle" format="reference" />
+    <attr name="cardBackground" format="color" />
 
 </resources>

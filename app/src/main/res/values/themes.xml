@@ -6,6 +6,8 @@
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="dividerColor">@color/divider_color</item>
         <item name="drawerIconColors">@color/drawer_icon_color_light</item>
+        <item name="cardBackground">@color/cardview_light_background</item>
+        <item name="cardStyle">@style/CardStyle.Dark</item>
     </style>
 
     <style name="OtaUpdates.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -13,6 +15,8 @@
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="dividerColor">@color/divider_color_dark</item>
         <item name="drawerIconColors">@color/drawer_icon_color_dark</item>
+        <item name="cardBackground">@color/cardview_dark_background</item>
+        <item name="cardStyle">@style/CardStyle.Dark</item>
     </style>
 
 </resources>

@@ -18,4 +18,9 @@
     <dimen name="update_icon_offset">3dp</dimen>
     <dimen name="update_icon_type_offset">24dp</dimen>
     <dimen name="update_icon_type_text">12sp</dimen>
+
+    <!-- Cardview -->
+    <dimen name="shadow_height">2dp</dimen>
+    <dimen name="card_view_radius">3dp</dimen>
+
 </resources>

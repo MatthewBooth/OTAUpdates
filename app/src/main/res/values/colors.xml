@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Default colors -->
+    <color name="white">#ffffffff</color>
+
     <!-- Material DEFAULT colors -->
     <color name="color_primary">@color/material_blue_grey_900</color>
     <color name="color_primary_dark">@color/material_blue_grey_950</color>
@@ -47,5 +50,9 @@
     <color name="drawer_title_background">#80222222</color>
     <color name="drawer_icon_color_dark">#80ffffff</color>
     <color name="drawer_icon_color_light">#80333333</color>
+
+    <!-- Ccard colors -->
+    <color name="card_background_material_dark">@color/material_blue_grey_800</color>
+    <color name="card_background_material_light">@color/white</color>
 
 </resources>
