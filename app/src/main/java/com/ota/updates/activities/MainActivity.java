@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ota.updates.R;
+import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.json.AddonJSONParser;
@@ -248,6 +249,13 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         return true;
                     case R.id.rom_donate:
                         Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+
+                    case R.id.app_about:
+                        AboutFragment aboutFragment = new AboutFragment();
+                        FragmentTransaction aboutFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        aboutFragmentTransaction.replace(R.id.fragment, aboutFragment);
+                        aboutFragmentTransaction.commit();
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
