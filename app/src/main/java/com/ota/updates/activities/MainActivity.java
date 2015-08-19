@@ -1,5 +1,6 @@
 package com.ota.updates.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -55,9 +56,15 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
+        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCancelable(false);
+        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
+        loadingDialog.show();
         new DownloadJSON(this, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
+                loadingDialog.cancel();
                 if (DEBUGGING) {
                     Log.d(TAG, "Json File finished downloading properly");
                 }
@@ -75,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         if (DEBUGGING) {
                             Log.d(TAG, "JSON data parsed and database updated");
                         }
-
                         loadFragment(savedInstanceState);
                     }
                 }

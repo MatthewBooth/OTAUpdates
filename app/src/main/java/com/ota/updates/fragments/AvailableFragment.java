@@ -3,7 +3,6 @@ package com.ota.updates.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -175,14 +174,4 @@ public class AvailableFragment extends Fragment implements Constants {
         super.onDetach();
         mListener = null;
     }
-
-    public class ChangelogAsyncTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return true;
-        }
-    }
-
-
 }

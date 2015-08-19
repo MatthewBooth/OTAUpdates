@@ -1,11 +1,8 @@
 package com.ota.updates.tasks;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.ota.updates.R;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -19,20 +16,10 @@ public class DownloadJSON extends AsyncTask<String, Integer, Boolean> {
     public AsyncResponse mResponse;
     String URL = "https://romhut.com/roms/";
     private Context mContext;
-    private ProgressDialog mLoadingDialog;
 
     public DownloadJSON(Context context, AsyncResponse response) {
         mContext = context;
         mResponse = response;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        mLoadingDialog = new ProgressDialog(mContext);
-        mLoadingDialog.setIndeterminate(true);
-        mLoadingDialog.setCancelable(false);
-        mLoadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
-        mLoadingDialog.show();
     }
 
     @Override
@@ -68,7 +55,6 @@ public class DownloadJSON extends AsyncTask<String, Integer, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        mLoadingDialog.cancel();
         mResponse.processFinish(result);
     }
 }
