@@ -1,10 +1,8 @@
 package com.ota.updates.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,30 +25,28 @@ public class Utils {
 
     /**
      * Returns the contents of a file as a String
-     * @param file  The file to parse into a String
+     *
+     * @param file The file to parse into a String
      * @return the returned String
      * @throws IOException An input output exception, usually if the file cannot be found
      */
     public static String getFileContents(final File file) throws IOException {
-        final InputStream inputStream = new FileInputStream(file);
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        InputStreamReader inputReader = null;
+        String text;
 
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        boolean done = false;
-
-        while (!done) {
-            final String line = reader.readLine();
-            done = (line == null);
-
-            if (line != null) {
-                stringBuilder.append(line);
-            }
+        StringBuilder data = new StringBuilder();
+        char tmp[] = new char[2048];
+        int numRead;
+        inputReader = new FileReader(file);
+        while ((numRead = inputReader.read(tmp)) >= 0) {
+            data.append(tmp, 0, numRead);
         }
-        reader.close();
-        inputStream.close();
+        text = data.toString();
 
-        return stringBuilder.toString();
+        if (inputReader != null) {
+            inputReader.close();
+        }
+        return text;
     }
 
     /**

@@ -84,11 +84,12 @@ public class AboutFragment extends Fragment implements Constants {
         }
         TextView changelogTV = (TextView) view.findViewById(R.id.changelog);
         Bypass bypass = new Bypass(mContext);
-        String changelogString = "";
+        String changelogString;
         try {
             changelogString = Utils.getFileContents(file);
 
         } catch (IOException e) {
+            changelogString = getResources().getString(R.string.changelog_error);
             e.printStackTrace();
         }
         CharSequence changelogText = bypass.markdownToSpannable(changelogString);
@@ -124,14 +125,15 @@ public class AboutFragment extends Fragment implements Constants {
 
     public class ChangelogAsyncTask extends AsyncTask<Void, Void, Boolean> {
         private static final String CHANGELOG = "Changelog.md";
-        private static final String URL = "https://raw.githubusercontent.com/MatthewBooth/OTAUpdates/stable/";
         public final String TAG = this.getClass().getSimpleName();
+        private final String mUrl;
         private AsyncResponse mResponse;
         private Context mContext;
 
         public ChangelogAsyncTask(Context context, AsyncResponse response) {
             mContext = context;
             mResponse = response;
+            mUrl = context.getResources().getString(R.string.changelog_url);
         }
 
         @Override
@@ -139,7 +141,7 @@ public class AboutFragment extends Fragment implements Constants {
             try {
                 InputStream input;
 
-                java.net.URL url = new URL(URL + CHANGELOG);
+                URL url = new URL(mUrl + CHANGELOG);
                 URLConnection connection = url.openConnection();
                 connection.connect();
                 // download the file
