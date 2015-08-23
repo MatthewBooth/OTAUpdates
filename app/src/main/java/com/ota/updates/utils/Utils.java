@@ -1,11 +1,18 @@
 package com.ota.updates.utils;
 
+import android.content.Context;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 
 public class Utils {
@@ -86,5 +93,38 @@ public class Utils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * Downloads a file to the private storage for the app in /data/data/com.ota.updates/files
+     *
+     * @param context
+     * @param fileUrl  The URL of the file to download, not including the filename
+     * @param fileName The name of the file to download
+     * @throws IOException
+     */
+    public static void downloadFile(Context context, String fileUrl, String fileName) throws IOException {
+        // An InputStream object
+        InputStream input;
+
+        // A new connection to a remote file
+        URL url = new URL(fileUrl + fileName);
+        URLConnection connection = url.openConnection();
+        connection.connect();
+
+        // Downloading the file
+        input = new BufferedInputStream(url.openStream());
+        OutputStream output = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+
+        byte data[] = new byte[KILOBYTE];
+        int count;
+        while ((count = input.read(data)) != -1) {
+            output.write(data, 0, count);
+        }
+
+        // Flush the buffers and close the streams
+        output.flush();
+        output.close();
+        input.close();
     }
 }

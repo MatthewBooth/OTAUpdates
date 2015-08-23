@@ -19,20 +19,15 @@ import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 import in.uncod.android.bypass.Bypass;
 
 public class AboutFragment extends Fragment implements Constants {
 
+    private static final String CHANGELOG = "Changelog.md";
     private String TAG = this.getClass().getName();
-
     private FragmentInteractionListener mListener;
     private Context mContext;
 
@@ -60,12 +55,10 @@ public class AboutFragment extends Fragment implements Constants {
             @Override
             public void processFinish(Boolean output) {
                 if (DEBUGGING) {
-                    Log.d(TAG, "Json File finished downloading properly");
+                    Log.d(TAG, "App changelog file finished downloading properly");
                 }
-                File changelogFile = new File(mContext.getApplicationContext().getFilesDir(), "Changelog.md");
-
+                File changelogFile = new File(mContext.getApplicationContext().getFilesDir(), CHANGELOG);
                 setupChangelog(view, changelogFile);
-
             }
         }).execute();
 
@@ -95,10 +88,8 @@ public class AboutFragment extends Fragment implements Constants {
         CharSequence changelogText = bypass.markdownToSpannable(changelogString);
         changelogTV.setText(changelogText);
         changelogTV.setMovementMethod(LinkMovementMethod.getInstance());
-
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -124,7 +115,6 @@ public class AboutFragment extends Fragment implements Constants {
     }
 
     public class ChangelogAsyncTask extends AsyncTask<Void, Void, Boolean> {
-        private static final String CHANGELOG = "Changelog.md";
         public final String TAG = this.getClass().getSimpleName();
         private final String mUrl;
         private AsyncResponse mResponse;
@@ -139,27 +129,7 @@ public class AboutFragment extends Fragment implements Constants {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                InputStream input;
-
-                URL url = new URL(mUrl + CHANGELOG);
-                URLConnection connection = url.openConnection();
-                connection.connect();
-                // download the file
-                input = new BufferedInputStream(url.openStream());
-
-                OutputStream output = mContext.openFileOutput(
-                        CHANGELOG, Context.MODE_PRIVATE);
-
-                byte data[] = new byte[1024];
-                int count;
-                while ((count = input.read(data)) != -1) {
-                    output.write(data, 0, count);
-                }
-
-                output.flush();
-                output.close();
-                input.close();
-
+                Utils.downloadFile(mContext, mUrl, CHANGELOG);
                 return true;
             } catch (Exception e) {
                 Log.d(TAG, "Exception: " + e.getMessage());
