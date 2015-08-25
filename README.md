@@ -3,6 +3,10 @@
 
 A useful tool to help ROM developers provide OTA updates to their users. It's free to use, you can build from source or use the APK provided.
 
+# Issues
+Please report and track any issues using the following button: [![Stories in Ready](https://badge.waffle.io/MatthewBooth/OTAUpdates.svg?label=ready&title=Ready)](http://waffle.io/MatthewBooth/OTAUpdates)
+[![Throughput Graph](https://graphs.waffle.io/MatthewBooth/OTAUpdates/throughput.svg)](https://waffle.io/MatthewBooth/OTAUpdates/metrics)
+
 # Requirements
 
 

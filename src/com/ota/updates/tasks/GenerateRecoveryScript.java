@@ -75,12 +75,14 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 				+ OTA_DOWNLOAD_DIR 
 				+ File.separator 
 				+ INSTALL_AFTER_FLASH_DIR);
+		
 		File[] filesArr = installAfterFlashDir.listFiles();
 		if(filesArr != null && filesArr.length > 0) {
 			for(int i = 0; i < filesArr.length; i++) {
 				mScript.append(NEW_LINE
 						+ "install " 
-						+ "/sdcard" 
+						+ "/sdcard"
+						+ File.separator
 						+ OTA_DOWNLOAD_DIR 
 						+ File.separator 
 						+ INSTALL_AFTER_FLASH_DIR 
@@ -88,7 +90,8 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 						+ filesArr[i].getName());
 				if(DEBUGGING)
 					Log.d(TAG, "install " 
-							+ "/sdcard/" 
+							+ "/sdcard"
+							+ File.separator
 							+ OTA_DOWNLOAD_DIR 
 							+ File.separator 
 							+ INSTALL_AFTER_FLASH_DIR 
@@ -100,7 +103,8 @@ public class GenerateRecoveryScript extends AsyncTask<Void, String, Boolean> imp
 		if (Preferences.getDeleteAfterInstall(mContext)) {
 			mScript.append(NEW_LINE
 					+ "cmd rm -rf " 
-					+ "/sdcard/" 
+					+ "/sdcard"
+					+ File.separator
 					+ OTA_DOWNLOAD_DIR 
 					+ File.separator 
 					+ INSTALL_AFTER_FLASH_DIR 
