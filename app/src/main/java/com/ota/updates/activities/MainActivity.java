@@ -56,37 +56,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
-        loadingDialog.setIndeterminate(true);
-        loadingDialog.setCancelable(false);
-        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
-        loadingDialog.show();
-        new DownloadJSON(this, new AsyncResponse() {
-            @Override
-            public void processFinish(Boolean output) {
-                loadingDialog.cancel();
-                if (DEBUGGING) {
-                    Log.d(TAG, "Json File finished downloading properly");
-                }
-                File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), "aosp-jf.json");
-
-                String json = null;
-                try {
-                    json = Utils.getFileContents(jsonFile);
-                } catch (IOException ex) {
-                    Log.e(TAG, ex.getMessage());
-                } finally {
-                    if (json != null) {
-                        new VersionJSONParser(mContext, json).parse();
-                        new AddonJSONParser(mContext, json).parse();
-                        if (DEBUGGING) {
-                            Log.d(TAG, "JSON data parsed and database updated");
-                        }
-                        loadFragment(savedInstanceState);
-                    }
-                }
-            }
-        }).execute();
+        downloadAndParseJSONManifest(savedInstanceState);
 
         // Initializing Toolbar and setting it as the actionbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,6 +92,40 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         setupNavigationViewIcons(navigationView.getMenu());
 
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
+    }
+
+    private void downloadAndParseJSONManifest(final Bundle savedInstanceState) {
+        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCancelable(false);
+        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
+        loadingDialog.show();
+        new DownloadJSON(this, new AsyncResponse() {
+            @Override
+            public void processFinish(Boolean output) {
+                loadingDialog.cancel();
+                if (DEBUGGING) {
+                    Log.d(TAG, "Json File finished downloading properly");
+                }
+                File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), "aosp-jf.json");
+
+                String json = null;
+                try {
+                    json = Utils.getFileContents(jsonFile);
+                } catch (IOException ex) {
+                    Log.e(TAG, ex.getMessage());
+                } finally {
+                    if (json != null) {
+                        new VersionJSONParser(mContext, json).parse();
+                        new AddonJSONParser(mContext, json).parse();
+                        if (DEBUGGING) {
+                            Log.d(TAG, "JSON data parsed and database updated");
+                        }
+                        loadFragment(savedInstanceState);
+                    }
+                }
+            }
+        }).execute();
     }
 
     private boolean loadFragment(Bundle savedInstanceState) {
