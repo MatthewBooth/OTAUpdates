@@ -3,6 +3,7 @@ package com.ota.updates.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -64,10 +65,10 @@ public class Utils {
      * @return The size in megabytes
      */
     public static String formatDataFromBytes(long size) {
-
         String symbol;
         KB = KILOBYTE;
         symbol = "B";
+
         if (size < KB) {
             return decimalFormat.format(size) + symbol;
         } else if (size < MB) {
@@ -85,14 +86,18 @@ public class Utils {
      * @return a String with just the hostname
      */
     public static String getUrlHost(String url) {
-        URI uri;
+        if (url == null || url.isEmpty()) {
+            return null;
+        }
+
         String result = null;
+
         try {
-            uri = new URI(url);
+            URI uri = new URI(url);
             String domain = uri.getHost();
             result = domain.startsWith("www.") ? domain.substring(4) : domain;
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
         return result;
     }
@@ -136,7 +141,13 @@ public class Utils {
      * @param url  The URL to open
      */
     public static void openWebsite(Context context, String url) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        context.startActivity(browserIntent);
+        if (context == null) {
+            Log.e(TAG, "openWebsite: Context is null. Can't open website");
+        } else if (url == null || url.isEmpty()) {
+            Log.e(TAG, "openWebsite: URL is null or empty. Can't open website");
+        } else {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            context.startActivity(browserIntent);
+        }
     }
 }

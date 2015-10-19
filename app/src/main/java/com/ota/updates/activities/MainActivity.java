@@ -249,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     // For rest of the options we just show a toast on click
 
                     case R.id.ota_versions:
-                        Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
                         CheckFragment checkFragment = new CheckFragment();
                         FragmentTransaction checkFragmentTransaction = getSupportFragmentManager().beginTransaction();
                         checkFragmentTransaction.replace(R.id.fragment, checkFragment);
