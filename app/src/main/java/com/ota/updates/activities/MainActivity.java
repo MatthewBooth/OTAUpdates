@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Download and parse our manifest
         if (doesRomSupportApp) {
-            parseManifestAndCheckVersion(savedInstanceState);
+            downloadManifest(savedInstanceState);
         }
 
         // Initializing Toolbar and setting it as the actionbar
@@ -137,56 +137,68 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
     }
 
-    private void parseManifestAndCheckVersion(final Bundle savedInstanceState) {
+    private void downloadManifest(final Bundle savedInstanceState) {
+
+        // Create the loading dialog that is shown while we check and download the manifest
         final ProgressDialog loadingDialog = new ProgressDialog(mContext);
         loadingDialog.setIndeterminate(true);
         loadingDialog.setCancelable(false);
         loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
         loadingDialog.show();
+
         new DownloadJSON(this, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
+                // The loading has finished. Stop the dialog
                 loadingDialog.cancel();
                 if (DEBUGGING) {
                     Log.d(TAG, "Json File finished downloading properly");
                 }
 
-                final String manifestFilename = Utils.getManifestFilename();
-                File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), manifestFilename);
-
-                String json = null;
-                try {
-                    json = Utils.getFileContents(jsonFile);
-                } catch (IOException ex) {
-                    Log.e(TAG, ex.getMessage());
-                } finally {
-                    if (json != null) {
-                        new VersionJSONParser(mContext, json).parse();
-                        new AddonJSONParser(mContext, json).parse();
-
-                        if (DEBUGGING) {
-                            Log.d(TAG, "JSON data parsed and database updated");
-                        }
-
-                        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
-                        Integer lastVersionNumber = versionSQLiteHelper.getLastVersionNumber();
-                        String remoteVersion = Integer.toString(lastVersionNumber);
-                        Boolean updateAvailability = Utils.getUpdateAvailability(mContext, remoteVersion);
-
-                        if (updateAvailability) {
-                            loadFragment(savedInstanceState, new AvailableFragment());
-                        } else {
-                            loadFragment(savedInstanceState, new CheckFragment());
-                        }
-                    }
-                }
+                // Parse the downloaded manifest
+                parseManifestXML(savedInstanceState);
             }
         }).execute();
     }
 
-    private void checkUpdateAvailablility() {
-        VersionSQLiteHelper versionHelper = new VersionSQLiteHelper(mContext);
-        Integer remoteRomVersionNumber = versionHelper.getLastVersionNumber();
+    private void parseManifestXML(Bundle savedInstanceState) {
+        // So, where's that file we just downloaded?
+        final String manifestFilename = Utils.getManifestFilename();
+        File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), manifestFilename);
+
+        String json = null;
+        try {
+            // Load the Contents of the JSON we downloaded into a variable
+            json = Utils.getFileContents(jsonFile);
+        } catch (IOException ex) {
+            Log.e(TAG, ex.getMessage());
+        } finally {
+            if (json != null) {
+
+                // Parse and populate our Database
+                new VersionJSONParser(mContext, json).parse();
+                new AddonJSONParser(mContext, json).parse();
+
+                if (DEBUGGING) {
+                    Log.d(TAG, "JSON data parsed and database updated");
+                }
+
+                checkUpdateAndLoadFragment(savedInstanceState);
+            }
+        }
+    }
+
+    private void checkUpdateAndLoadFragment(Bundle savedInstanceState) {
+        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+        Integer lastVersionNumber = versionSQLiteHelper.getLastVersionNumber();
+        String remoteVersion = Integer.toString(lastVersionNumber);
+        Boolean updateAvailability = Utils.getUpdateAvailability(mContext, remoteVersion);
+
+        if (updateAvailability) {
+            loadFragment(savedInstanceState, new AvailableFragment());
+        } else {
+            loadFragment(savedInstanceState, new CheckFragment());
+        }
     }
 
     private boolean loadFragment(Bundle savedInstanceState, Fragment fragment) {
@@ -210,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
             // Add the fragment to the 'fragment_container' FrameLayout
             fragmentManager.beginTransaction()
-                    .add(R.id.fragment, fragment).commit();
+                    .replace(R.id.fragment, fragment).commit();
         }
         return false;
     }
@@ -296,11 +308,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.ota_updates:
-                        Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
-                        AvailableFragment AvailableFragment = new AvailableFragment();
-                        FragmentTransaction availableFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        availableFragmentTransaction.replace(R.id.fragment, AvailableFragment);
-                        availableFragmentTransaction.commit();
+                        downloadManifest(null);
                         return true;
 
                     // For rest of the options we just show a toast on click
