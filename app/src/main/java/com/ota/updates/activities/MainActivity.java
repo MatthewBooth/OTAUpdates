@@ -270,8 +270,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         return true;
                     case R.id.app_github:
                         String appGitHubUrl = mContext.getResources().getString(R.string.app_github_url);
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(appGitHubUrl));
-                        startActivity(browserIntent);
+                        Utils.openWebsite(mContext, appGitHubUrl);
                     default:
                         return true;
                 }

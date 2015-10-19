@@ -1,6 +1,8 @@
 package com.ota.updates.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -126,5 +128,15 @@ public class Utils {
         output.flush();
         output.close();
         input.close();
+    }
+
+    /**
+     * Opens a given URL
+     * @param context  The context that will open the URL
+     * @param url  The URL to open
+     */
+    public static void openWebsite(Context context, String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        context.startActivity(browserIntent);
     }
 }
