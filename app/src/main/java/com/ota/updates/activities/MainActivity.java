@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         //Initializing NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
+        // Default selected drawer item
+        navigationView.getMenu().getItem(0).setChecked(true);
+
         // Initializing Drawer Layout and ActionBarToggle
         initialisingDrawerLayout(mToolbar, navigationView);
     }
