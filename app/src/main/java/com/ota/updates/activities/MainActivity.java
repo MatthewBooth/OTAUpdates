@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -13,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -28,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ota.updates.R;
+import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Download and parse our manifest
         if (doesRomSupportApp) {
-            downloadAndParseJSONManifest(savedInstanceState);
+            parseManifestAndCheckVersion(savedInstanceState);
         }
 
         // Initializing Toolbar and setting it as the actionbar
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
     }
 
-    private void downloadAndParseJSONManifest(final Bundle savedInstanceState) {
+    private void parseManifestAndCheckVersion(final Bundle savedInstanceState) {
         final ProgressDialog loadingDialog = new ProgressDialog(mContext);
         loadingDialog.setIndeterminate(true);
         loadingDialog.setCancelable(false);
@@ -149,7 +150,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                 if (DEBUGGING) {
                     Log.d(TAG, "Json File finished downloading properly");
                 }
-                File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), "aosp-jf.json");
+
+                final String manifestFilename = Utils.getManifestFilename();
+                File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), manifestFilename);
 
                 String json = null;
                 try {
@@ -160,17 +163,33 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     if (json != null) {
                         new VersionJSONParser(mContext, json).parse();
                         new AddonJSONParser(mContext, json).parse();
+
                         if (DEBUGGING) {
                             Log.d(TAG, "JSON data parsed and database updated");
                         }
-                        loadFragment(savedInstanceState);
+
+                        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+                        Integer lastVersionNumber = versionSQLiteHelper.getLastVersionNumber();
+                        String remoteVersion = Integer.toString(lastVersionNumber);
+                        Boolean updateAvailability = Utils.getUpdateAvailability(mContext, remoteVersion);
+
+                        if (updateAvailability) {
+                            loadFragment(savedInstanceState, new AvailableFragment());
+                        } else {
+                            loadFragment(savedInstanceState, new CheckFragment());
+                        }
                     }
                 }
             }
         }).execute();
     }
 
-    private boolean loadFragment(Bundle savedInstanceState) {
+    private void checkUpdateAvailablility() {
+        VersionSQLiteHelper versionHelper = new VersionSQLiteHelper(mContext);
+        Integer remoteRomVersionNumber = versionHelper.getLastVersionNumber();
+    }
+
+    private boolean loadFragment(Bundle savedInstanceState, Fragment fragment) {
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment) != null) {
@@ -185,16 +204,13 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             // Get the fragment manager
             FragmentManager fragmentManager = getSupportFragmentManager();
 
-            // Create a new Fragment to be placed in the activity layout
-            AvailableFragment availableFragment = new AvailableFragment();
-
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
-            availableFragment.setArguments(getIntent().getExtras());
+            fragment.setArguments(getIntent().getExtras());
 
             // Add the fragment to the 'fragment_container' FrameLayout
             fragmentManager.beginTransaction()
-                    .add(R.id.fragment, availableFragment).commit();
+                    .add(R.id.fragment, fragment).commit();
         }
         return false;
     }

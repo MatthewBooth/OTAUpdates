@@ -216,4 +216,40 @@ public class Utils implements Constants {
         }
         return result;
     }
+
+    public static String getManifestFilename() {
+        String url = Utils.getProp(PROP_MANIFEST);
+        String[] urlSplit = url.split("/");
+        int lastSplit = urlSplit.length - 1;
+        return urlSplit[lastSplit];
+    }
+
+    private static boolean versionBiggerThan(String current, String manifest) {
+        // returns true if current > manifest, false otherwise
+        if (current.length() > manifest.length()) {
+            for (int i = 0; i < current.length() - manifest.length(); i++) {
+                manifest += "0";
+            }
+        } else if (manifest.length() > current.length()) {
+            for (int i = 0; i < manifest.length() - current.length(); i++) {
+                current += "0";
+            }
+        }
+
+        if (DEBUGGING)
+            Log.d(TAG, "Current: " + current + " Manifest: " + manifest);
+
+        return Integer.parseInt(current) < Integer.parseInt(manifest);
+    }
+
+    public static Boolean getUpdateAvailability(Context context, String remoteVersion) {
+        // Grab the data from the device and manifest
+        String currentVer = getProp(PROP_VERSION);
+        boolean currentVersionValid = currentVer.isEmpty() || currentVer == null;
+        boolean remoteVersionValid = remoteVersion.isEmpty() || remoteVersion == null;
+        if (currentVersionValid || remoteVersionValid) {
+            return false;
+        }
+        return versionBiggerThan(currentVer, remoteVersion);
+    }
 }

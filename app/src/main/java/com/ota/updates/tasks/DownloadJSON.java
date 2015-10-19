@@ -25,13 +25,7 @@ public class DownloadJSON extends AsyncTask<String, Integer, Boolean> implements
         mContext = context;
         mResponse = response;
         mUrl = Utils.getProp(PROP_MANIFEST);
-        mManifestFilename = getManifestFilename();
-    }
-
-    private String getManifestFilename() {
-        String[] urlSplit = mUrl.split("/");
-        int lastSplit = urlSplit.length - 1;
-        return urlSplit[lastSplit];
+        mManifestFilename = Utils.getManifestFilename();
     }
 
     @Override
