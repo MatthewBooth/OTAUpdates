@@ -273,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(appGitHubUrl));
                         startActivity(browserIntent);
                     default:
-                        Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
                 }
             }
