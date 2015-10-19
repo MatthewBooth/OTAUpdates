@@ -42,4 +42,8 @@ public interface Constants {
     // Font Awesome ttf
     String FONT_AWESOME = "fontawesome-webfont-4.4.0.ttf";
 
+    // Build properties
+    String PROP_MANIFEST = "ro.ota.manifest";
+    String PROP_VERSION = "ro.ota.version";
+    String PROP_DEFAULT_THEME = "ro.ota.default_theme";
 }

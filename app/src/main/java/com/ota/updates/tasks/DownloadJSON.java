@@ -4,22 +4,34 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.Utils;
+
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class DownloadJSON extends AsyncTask<String, Integer, Boolean> {
-    private static final String MANIFEST = "aosp-jf.json";
+public class DownloadJSON extends AsyncTask<String, Integer, Boolean> implements Constants {
     public final String TAG = this.getClass().getSimpleName();
     public AsyncResponse mResponse;
-    String URL = "https://romhut.com/roms/";
     private Context mContext;
+
+    private String mUrl;
+    private String mManifestFilename;
 
     public DownloadJSON(Context context, AsyncResponse response) {
         mContext = context;
         mResponse = response;
+        mUrl = Utils.getProp(PROP_MANIFEST);
+        mManifestFilename = getManifestFilename();
+    }
+
+    private String getManifestFilename() {
+        String[] urlSplit = mUrl.split("/");
+        int lastSplit = urlSplit.length - 1;
+        return urlSplit[lastSplit];
     }
 
     @Override
@@ -27,14 +39,14 @@ public class DownloadJSON extends AsyncTask<String, Integer, Boolean> {
         try {
             InputStream input;
 
-            URL url = new URL(URL + MANIFEST);
+            URL url = new URL(mUrl);
             URLConnection connection = url.openConnection();
             connection.connect();
             // download the file
             input = new BufferedInputStream(url.openStream());
 
             OutputStream output = mContext.openFileOutput(
-                    MANIFEST, Context.MODE_PRIVATE);
+                    mManifestFilename, Context.MODE_PRIVATE);
 
             byte data[] = new byte[1024];
             int count;

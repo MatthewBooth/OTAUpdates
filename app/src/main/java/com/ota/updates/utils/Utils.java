@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 
-public class Utils {
+public class Utils implements Constants {
     public final static String TAG = "Utils";
 
     private static final int KILOBYTE = 1024;
@@ -149,5 +150,70 @@ public class Utils {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             context.startActivity(browserIntent);
         }
+    }
+
+    /**
+     * Checks to see if the necessary build.prop values are inserted into the build.prop
+     * @param propName  Our build.prop value we are checking
+     * @return  Whether or not is is present.
+     */
+    public static Boolean doesPropExist(String propName) {
+        boolean valid = false;
+
+        if (DEBUGGING) {
+            return true;
+        }
+
+        try {
+            Process process = Runtime.getRuntime().exec("getprop");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                if (line.contains("[" + propName +"]")) {
+                    valid = true;
+                }
+            }
+            bufferedReader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return valid;
+    }
+
+    /**
+     * Gets a property value from the build.prop
+     * @param propName  The property to return
+     * @return  The value of the returned property
+     */
+    public static String getProp(String propName) {
+        if (DEBUGGING) {
+            switch (propName) {
+                case PROP_VERSION:
+                    return "20150916";
+                case PROP_MANIFEST:
+                    return "https://romhut.com/roms/aosp-jf.json";
+                case PROP_DEFAULT_THEME:
+                    return "0";
+            }
+        }
+
+        Process p = null;
+        String result = "";
+        try {
+            p = new ProcessBuilder("/system/bin/getprop", propName).redirectErrorStream(true).start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = "";
+            while ((line=br.readLine()) != null) {
+                result = line;
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
