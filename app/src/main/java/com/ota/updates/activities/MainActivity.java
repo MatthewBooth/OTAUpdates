@@ -1,8 +1,12 @@
 package com.ota.updates.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
@@ -57,7 +61,14 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        downloadAndParseJSONManifest(savedInstanceState);
+        // All important compatibility check
+        // Kills the app if not compatible
+        Boolean doesRomSupportApp = checkRomIsCompatible();
+
+        // Download and parse our manifest
+        if (doesRomSupportApp) {
+            downloadAndParseJSONManifest(savedInstanceState);
+        }
 
         // Initializing Toolbar and setting it as the actionbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -67,6 +78,36 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         // Initializing Drawer Layout and ActionBarToggle
+        initialisingDrawerLayout(mToolbar, navigationView);
+    }
+
+    private Boolean checkRomIsCompatible() {
+        boolean doesRomSupportApp =  Utils.doesPropExist(PROP_MANIFEST);
+        if (!doesRomSupportApp) {
+            final Activity activity = this;
+            final Resources resources = getResources();
+            String title = resources.getString(R.string.no_support_title);
+            String message = resources.getString(R.string.no_support_message);
+            String findOutMore = resources.getString(R.string.no_support_find_out_more);
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+            alert.setTitle(title);
+            alert.setMessage(message);
+            alert.setCancelable(false);
+            alert.setPositiveButton(findOutMore, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String findOutMoreLink = resources.getString(R.string.no_support_find_out_more_link);
+                    Utils.openWebsite(mContext, findOutMoreLink);
+                    activity.finish(); // This is very bad. But I need to end the app here
+                }
+            });
+            alert.show();
+        }
+        return doesRomSupportApp;
+    }
+
+    private void initialisingDrawerLayout(final Toolbar mToolbar, NavigationView navigationView) {
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.openDrawer, R.string.closeDrawer) {
 

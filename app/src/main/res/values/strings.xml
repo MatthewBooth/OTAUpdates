@@ -8,6 +8,12 @@
     <string name="openDrawer">Navigation View Closed</string>
 
     <string name="app_github_url">https://github.com/MatthewBooth/OTAUpdates</string>
+    <string name="no_support_title">Uh Oh!</string>
+    <string name="no_support_message">Your ROM does not support this app.
+
+In order to use this app you MUST be running a custom ROM which has specifically added support</string>
+    <string name="no_support_find_out_more">Find out more</string>
+    <string name="no_support_find_out_more_link">https://github.com/MatthewBooth/OTAUpdates</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
