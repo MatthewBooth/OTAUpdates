@@ -2,6 +2,7 @@ package com.ota.updates.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
@@ -267,6 +268,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         aboutFragmentTransaction.replace(R.id.fragment, aboutFragment);
                         aboutFragmentTransaction.commit();
                         return true;
+                    case R.id.app_github:
+                        String appGitHubUrl = mContext.getResources().getString(R.string.app_github_url);
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(appGitHubUrl));
+                        startActivity(browserIntent);
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
