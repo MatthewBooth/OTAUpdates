@@ -83,7 +83,7 @@ public class AvailableFragment extends Fragment implements Constants {
      */
     private void setupUpdateIconsText(View view) {
         VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
-        VersionItem version = versionSQLiteHelper.getLastVersion();
+        VersionItem version = versionSQLiteHelper.getLastVersionItem();
 
         UploadSQLiteHelper uploadHelper = new UploadSQLiteHelper(mContext);
         int fullId = version.getFullUploadId();
@@ -126,7 +126,7 @@ public class AvailableFragment extends Fragment implements Constants {
             TextView tv = (TextView) changelog;
             Bypass byPass = new Bypass(context);
             VersionSQLiteHelper helper = new VersionSQLiteHelper(mContext);
-            VersionItem versionItem = helper.getLastVersion();
+            VersionItem versionItem = helper.getLastVersionItem();
             String changelogStr = versionItem.getChangelog();
             CharSequence string = byPass.markdownToSpannable(changelogStr);
             tv.setText(string);

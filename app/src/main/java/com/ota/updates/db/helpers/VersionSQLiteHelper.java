@@ -51,9 +51,21 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * Gets the lastest VersionItem in the database
      * @return the VersionItem that was requested
      */
-    public VersionItem getLastVersion() {
+    public VersionItem getLastVersionItem() {
         String query = "SELECT * FROM " + VERSION_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getVersionItem(query);
+    }
+
+    /**
+     * This should be the latest version
+     * @return  The last version item's version number
+     */
+    public Integer getLastVersionNumber() {
+        int versionNumber = 0;
+        String query = "SELECT " + NAME_VERSION_NUMBER + " FROM " + VERSION_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
+        String versionString = getSingleVersionColumn(query);
+        versionNumber = Integer.parseInt(versionString);
+        return versionNumber;
     }
 
     /**
@@ -88,5 +100,22 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         }
         db.close();
         return versionItem;
+    }
+
+    private String getSingleVersionColumn(String query) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        String columnItem = "";
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            columnItem = cursor.getString(0);
+            cursor.close();
+        }
+        db.close();
+
+        return columnItem;
     }
 }
