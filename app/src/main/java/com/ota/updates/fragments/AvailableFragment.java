@@ -23,14 +23,6 @@ import com.ota.updates.utils.Utils;
 
 import in.uncod.android.bypass.Bypass;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AvailableFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AvailableFragment extends Fragment implements Constants {
     private Context mContext;
 
@@ -38,20 +30,6 @@ public class AvailableFragment extends Fragment implements Constants {
 
     public AvailableFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AvailableFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AvailableFragment newInstance(String param1, String param2) {
-        AvailableFragment fragment = new AvailableFragment();
-        return fragment;
     }
 
     @Override

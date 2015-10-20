@@ -159,12 +159,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                 }
 
                 // Parse the downloaded manifest
-                parseManifestXML(savedInstanceState);
+                parseManifestJson(savedInstanceState);
             }
         }).execute();
     }
 
-    private void parseManifestXML(Bundle savedInstanceState) {
+    private void parseManifestJson(Bundle savedInstanceState) {
         // So, where's that file we just downloaded?
         final String manifestFilename = Utils.getManifestFilename();
         File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), manifestFilename);
