@@ -15,4 +15,6 @@ import android.net.Uri;
 public interface FragmentInteractionListener {
 
     void onFragmentInteraction(Uri uri);
+
+    void onRefreshClickInteraction();
 }

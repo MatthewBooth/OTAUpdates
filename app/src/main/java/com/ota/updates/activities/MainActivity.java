@@ -349,4 +349,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void onRefreshClickInteraction() {
+        downloadManifest(null);
+    }
 }

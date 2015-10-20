@@ -82,15 +82,7 @@ public class CheckFragment extends Fragment implements Constants {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Snackbar snackBar = Snackbar.make(view.findViewById(R.id.content), R.string.refreshing, Snackbar.LENGTH_LONG);
-
-                    snackBar.setAction(R.string.dismiss, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            snackBar.dismiss();
-                        }
-                    });
-                    snackBar.show();
+                    mListener.onRefreshClickInteraction();
                 }
             });
         }
