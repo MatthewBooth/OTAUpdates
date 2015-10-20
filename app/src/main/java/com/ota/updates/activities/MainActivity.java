@@ -35,6 +35,7 @@ import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.json.AddonJSONParser;
 import com.ota.updates.json.VersionJSONParser;
 import com.ota.updates.tasks.AsyncResponse;
+import com.ota.updates.tasks.CheckForUpdate;
 import com.ota.updates.tasks.DownloadJSON;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Download and parse our manifest
         if (doesRomSupportApp) {
-            downloadManifest(savedInstanceState);
+            checkForUpdate(savedInstanceState);
         }
 
         // Initializing Toolbar and setting it as the actionbar
@@ -138,70 +139,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         setupNavigationViewIcons(navigationView.getMenu());
 
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
-    }
-
-    private void downloadManifest(final Bundle savedInstanceState) {
-
-        // Create the loading dialog that is shown while we check and download the manifest
-        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
-        loadingDialog.setIndeterminate(true);
-        loadingDialog.setCancelable(false);
-        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
-        loadingDialog.show();
-
-        new DownloadJSON(this, new AsyncResponse() {
-            @Override
-            public void processFinish(Boolean output) {
-                // The loading has finished. Stop the dialog
-                loadingDialog.cancel();
-                if (DEBUGGING) {
-                    Log.d(TAG, "Json File finished downloading properly");
-                }
-
-                // Parse the downloaded manifest
-                parseManifestJson(savedInstanceState);
-            }
-        }).execute();
-    }
-
-    private void parseManifestJson(Bundle savedInstanceState) {
-        // So, where's that file we just downloaded?
-        final String manifestFilename = Utils.getManifestFilename();
-        File jsonFile = new File(mContext.getApplicationContext().getFilesDir(), manifestFilename);
-
-        String json = null;
-        try {
-            // Load the Contents of the JSON we downloaded into a variable
-            json = Utils.getFileContents(jsonFile);
-        } catch (IOException ex) {
-            Log.e(TAG, ex.getMessage());
-        } finally {
-            if (json != null) {
-
-                // Parse and populate our Database
-                new VersionJSONParser(mContext, json).parse();
-                new AddonJSONParser(mContext, json).parse();
-
-                if (DEBUGGING) {
-                    Log.d(TAG, "JSON data parsed and database updated");
-                }
-
-                checkUpdateAndLoadFragment(savedInstanceState);
-            }
-        }
-    }
-
-    private void checkUpdateAndLoadFragment(Bundle savedInstanceState) {
-        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
-        Integer lastVersionNumber = versionSQLiteHelper.getLastVersionNumber();
-        String remoteVersion = Integer.toString(lastVersionNumber);
-        Boolean updateAvailability = Utils.getUpdateAvailability(mContext, remoteVersion);
-
-        if (updateAvailability) {
-            loadFragment(savedInstanceState, new AvailableFragment());
-        } else {
-            loadFragment(savedInstanceState, new CheckFragment());
-        }
     }
 
     private boolean loadFragment(Bundle savedInstanceState, Fragment fragment) {
@@ -311,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.ota_updates:
-                        downloadManifest(null);
+                       checkForUpdate(null);
                         return true;
 
                     // For rest of the options we just show a toast on click
@@ -345,6 +282,19 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         });
     }
 
+    private void checkForUpdate(final Bundle savedInstanceState) {
+        new CheckForUpdate(mContext, new AsyncResponse() {
+            @Override
+            public void processFinish(Boolean updateAvailability) {
+                if (updateAvailability) {
+                    loadFragment(savedInstanceState, new AvailableFragment());
+                } else {
+                    loadFragment(savedInstanceState, new CheckFragment());
+                }
+            }
+        }).execute();
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -352,6 +302,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
     @Override
     public void onRefreshClickInteraction() {
-        downloadManifest(null);
+        checkForUpdate(null);
     }
 }

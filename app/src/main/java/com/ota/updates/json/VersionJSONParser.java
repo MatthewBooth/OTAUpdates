@@ -26,7 +26,7 @@ public class VersionJSONParser implements Constants {
     /**
      * Parse the Versions array within the selected JSON string
      */
-    public void parse() {
+    public boolean parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);
 
@@ -69,6 +69,8 @@ public class VersionJSONParser implements Constants {
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 }

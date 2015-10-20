@@ -25,7 +25,7 @@ public class AddonJSONParser implements Constants {
     /**
      * Parse the Addons array within the selected JSON string
      */
-    public void parse() {
+    public boolean parse() {
         try {
             JSONObject jObj = new JSONObject(mJSONString);
 
@@ -57,6 +57,8 @@ public class AddonJSONParser implements Constants {
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 }
