@@ -14,7 +14,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class DownloadJSON extends AsyncTask<String, Integer, Boolean> implements Constants {
+public class DownloadJson extends AsyncTask<String, Integer, Boolean> implements Constants {
     public final String TAG = this.getClass().getSimpleName();
     public AsyncResponse mResponse;
     private Context mContext;
@@ -22,7 +22,7 @@ public class DownloadJSON extends AsyncTask<String, Integer, Boolean> implements
     private String mUrl;
     private String mManifestFilename;
 
-    public DownloadJSON(Context context, AsyncResponse response) {
+    public DownloadJson(Context context, AsyncResponse response) {
         mContext = context;
         mResponse = response;
         mUrl = Utils.getProp(PROP_MANIFEST);
