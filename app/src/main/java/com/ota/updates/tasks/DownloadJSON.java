@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.ota.updates.utils.AsyncResponse;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Utils;
 

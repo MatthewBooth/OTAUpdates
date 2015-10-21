@@ -2,7 +2,6 @@ package com.ota.updates.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -19,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,22 +26,15 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ota.updates.R;
-import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
-import com.ota.updates.json.AddonJSONParser;
-import com.ota.updates.json.VersionJSONParser;
-import com.ota.updates.tasks.AsyncResponse;
+import com.ota.updates.utils.AsyncResponse;
 import com.ota.updates.tasks.CheckForUpdate;
-import com.ota.updates.tasks.DownloadJSON;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
 import com.ota.updates.utils.fontawesome.DrawableAwesome;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity implements Constants, FragmentInteractionListener {
