@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +31,7 @@ import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.callbacks.AsyncResponse;
+import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.tasks.CheckForUpdate;
 import com.ota.updates.tasks.DownloadJson;
 import com.ota.updates.tasks.ParseJson;
@@ -242,13 +242,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     // For rest of the options we just show a toast on click
 
                     case R.id.ota_versions:
-                        CheckFragment checkFragment = new CheckFragment();
-                        FragmentTransaction checkFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        checkFragmentTransaction.replace(R.id.fragment, checkFragment);
-                        checkFragmentTransaction.commit();
+                        loadFragment(new AddonsFragment());
                         return true;
                     case R.id.ota_addons:
-                        Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
+                        loadFragment(new AddonsFragment());
                         return true;
                     case R.id.rom_donate:
                         Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();

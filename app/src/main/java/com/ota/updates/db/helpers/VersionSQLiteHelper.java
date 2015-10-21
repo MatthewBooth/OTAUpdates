@@ -61,7 +61,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * @return  The last version item's version number
      */
     public Integer getLastVersionNumber() {
-        int versionNumber = 0;
+        int versionNumber;
         String query = "SELECT " + NAME_VERSION_NUMBER + " FROM " + VERSION_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         String versionString = getSingleVersionColumn(query);
         versionNumber = Integer.parseInt(versionString);
@@ -117,5 +117,24 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         db.close();
 
         return columnItem;
+    }
+
+    public int getCountOfVersions() {
+        String query = "SELECT COUNT(*) FROM " + VERSION_TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        int result = 0;
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            result =  Integer.parseInt(cursor.getString(0));
+            cursor.close();
+        }
+        db.close();
+
+        return result;
     }
 }

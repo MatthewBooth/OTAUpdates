@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 
 import com.ota.updates.items.AddonItem;
+import com.ota.updates.items.VersionItem;
+
+import java.util.ArrayList;
 
 public class AddonSQLiteHelper extends BaseSQLiteHelper {
 
@@ -43,7 +46,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
      * @return the selected AddonItem
      */
     public AddonItem getAddon(int id) {
-        String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
+        String query = "SELECT * FROM " + ADDON_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
         return getAddonItem(query);
     }
 
@@ -52,7 +55,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
      * @return the AddonItem that was requested
      */
     public AddonItem getLastAddon() {
-        String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
+        String query = "SELECT * FROM " + ADDON_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getAddonItem(query);
     }
 
@@ -88,5 +91,38 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         }
         db.close();
         return addonItem;
+    }
+
+    public Cursor getAllAddons() {
+        String query = "SELECT * FROM " + ADDON_TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery(query, null);
+    }
+
+    public ArrayList<AddonItem> getListOfAddons() {
+        ArrayList<AddonItem> list = new ArrayList<>();
+
+        Cursor cursor = getAllAddons();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                AddonItem addonItem = new AddonItem();
+                addonItem.setId(Integer.parseInt(cursor.getString(0)));
+                addonItem.setName(cursor.getString(1));
+                addonItem.setSlug(cursor.getString(2));
+                addonItem.setDescription(cursor.getString(3));
+                addonItem.setCreatedAt(cursor.getString(4));
+                addonItem.setPublishedAt(cursor.getString(5));
+                addonItem.setDownloads(Integer.parseInt(cursor.getString(6)));
+                addonItem.setSize(Integer.parseInt(cursor.getString(7)));
+                addonItem.setMd5(cursor.getString(8));
+                addonItem.setDownloadLink(cursor.getString(9));
+                addonItem.setCategory(cursor.getString(10));
+                list.add(addonItem);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return list;
     }
 }
