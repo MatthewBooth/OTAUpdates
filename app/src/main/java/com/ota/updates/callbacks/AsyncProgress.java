@@ -1,4 +1,4 @@
-package com.ota.updates.tasks;
+package com.ota.updates.callbacks;
 
 
 public interface AsyncProgress {

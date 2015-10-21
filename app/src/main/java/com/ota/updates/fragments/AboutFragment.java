@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ota.updates.R;
-import com.ota.updates.utils.AsyncResponse;
+import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;

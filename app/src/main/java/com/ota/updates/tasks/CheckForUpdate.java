@@ -7,7 +7,7 @@ import android.util.Log;
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.json.AddonJSONParser;
 import com.ota.updates.json.VersionJSONParser;
-import com.ota.updates.utils.AsyncResponse;
+import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Utils;
 

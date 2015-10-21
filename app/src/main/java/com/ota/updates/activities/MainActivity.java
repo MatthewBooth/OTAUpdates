@@ -29,7 +29,7 @@ import com.ota.updates.R;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
-import com.ota.updates.utils.AsyncResponse;
+import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.tasks.CheckForUpdate;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
