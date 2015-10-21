@@ -255,10 +255,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         return true;
 
                     case R.id.app_about:
-                        AboutFragment aboutFragment = new AboutFragment();
-                        FragmentTransaction aboutFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        aboutFragmentTransaction.replace(R.id.fragment, aboutFragment);
-                        aboutFragmentTransaction.commit();
+                        loadFragment(new AboutFragment());
                         return true;
                     case R.id.app_github:
                         String appGitHubUrl = mContext.getResources().getString(R.string.app_github_url);
