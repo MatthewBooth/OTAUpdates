@@ -2,6 +2,7 @@ package com.ota.updates.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -18,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +33,8 @@ import com.ota.updates.fragments.AvailableFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.tasks.CheckForUpdate;
+import com.ota.updates.tasks.DownloadJson;
+import com.ota.updates.tasks.ParseJson;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Download and parse our manifest
         if (doesRomSupportApp) {
-            checkForUpdate(savedInstanceState);
+            checkForUpdate();
         }
 
         // Initializing Toolbar and setting it as the actionbar
@@ -132,17 +136,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
     }
 
-    private boolean loadFragment(Bundle savedInstanceState, Fragment fragment) {
+    private boolean loadFragment(Fragment fragment) {
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment) != null) {
-
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
-            if (savedInstanceState != null) {
-                return true;
-            }
 
             // Get the fragment manager
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -239,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.ota_updates:
-                       checkForUpdate(null);
+                       checkForUpdate();
                         return true;
 
                     // For rest of the options we just show a toast on click
@@ -273,14 +270,44 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         });
     }
 
-    private void checkForUpdate(final Bundle savedInstanceState) {
-        new CheckForUpdate(mContext, new AsyncResponse() {
+    private void checkForUpdate() {
+        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCancelable(false);
+        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
+        loadingDialog.show();
+
+        new DownloadJson(mContext, new AsyncResponse() {
             @Override
-            public void processFinish(Boolean updateAvailability) {
-                if (updateAvailability) {
-                    loadFragment(savedInstanceState, new AvailableFragment());
+            public void processFinish(Boolean output) {
+                if (output) {
+                    new ParseJson(mContext, new AsyncResponse() {
+                        @Override
+                        public void processFinish(Boolean output) {
+                            if (output) {
+                                new CheckForUpdate(mContext, new AsyncResponse() {
+                                    @Override
+                                    public void processFinish(Boolean updateAvailability) {
+                                        if (DEBUGGING) {
+                                            Log.d(TAG, "Update availability is " + updateAvailability);
+                                        }
+
+                                        if (updateAvailability) {
+                                            loadFragment(new AvailableFragment());
+                                        } else {
+                                            loadFragment(new CheckFragment());
+                                        }
+
+                                        loadingDialog.cancel();
+                                    }
+                                }).execute();
+                            } else {
+                                loadingDialog.cancel();
+                            }
+                        }
+                    }).execute();
                 } else {
-                    loadFragment(savedInstanceState, new CheckFragment());
+                    loadingDialog.cancel();
                 }
             }
         }).execute();
@@ -293,6 +320,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
     @Override
     public void onRefreshClickInteraction() {
-        checkForUpdate(null);
+        checkForUpdate();
     }
 }
