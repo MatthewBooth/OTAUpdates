@@ -73,19 +73,19 @@ public class AddonsFragment extends Fragment implements Constants {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onStart() {
+        super.onStart();
         try {
-            mListener = (FragmentInteractionListener) activity;
+            mListener = (FragmentInteractionListener) mContext;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(mContext.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
+        super.onStop();
         mListener = null;
     }
 
@@ -100,12 +100,12 @@ public class AddonsFragment extends Fragment implements Constants {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_addons_list_item, viewGroup, false);
-
             return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
+            // Addon Item at latest position in the list
             AddonItem item = mItems.get(position);
 
             // Title
@@ -123,7 +123,7 @@ public class AddonsFragment extends Fragment implements Constants {
             viewHolder.mFilesize.setText(formattedSize);
 
             // Date
-            //String UpdatedOnStr = convertView.getResources().getString(R.string.addons_updated_on);
+            String updatedOnStr = getResources().getString(R.string.updated_on);
             String date = item.getPublishedAt();
 
             Locale locale = Locale.getDefault();
@@ -136,7 +136,7 @@ public class AddonsFragment extends Fragment implements Constants {
                 e.printStackTrace();
             }
 
-            viewHolder.mUpdatedOn.setText("Updated On" + " " + date);
+            viewHolder.mUpdatedOn.setText(updatedOnStr + " " + date);
         }
 
         @Override

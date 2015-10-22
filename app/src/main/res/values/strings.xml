@@ -15,15 +15,11 @@ In order to use this app you MUST be running a custom ROM which has specifically
     <string name="no_support_find_out_more">Find out more</string>
     <string name="no_support_find_out_more_link">https://github.com/MatthewBooth/OTAUpdates</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <!-- Update Check -->
     <string name="no_update_available">No updates are available</string>
     <string name="last_checked_for_update">Last checked for an update</string>
+
+    <string name="updated_on">Updated on: </string>
 
     <!--Update Available -->
     <string name="update_available">Update available</string>
