@@ -3,6 +3,8 @@ package com.ota.updates.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -18,6 +20,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Utils implements Constants {
     public final static String TAG = "Utils";
@@ -251,5 +256,19 @@ public class Utils implements Constants {
             return false;
         }
         return versionBiggerThan(currentVer, remoteVersion);
+    }
+
+    public static String getTimeNow(Context context) {
+        boolean is24 = DateFormat.is24HourFormat(context);
+        Date now = new Date();
+        Locale locale = Locale.getDefault();
+        String time;
+
+        if (is24) {
+            time = new SimpleDateFormat("d, MMMM HH:mm", locale).format(now);
+        } else {
+            time = new SimpleDateFormat("d, MMMM hh:mm a", locale).format(now);
+        }
+        return time;
     }
 }

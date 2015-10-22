@@ -37,6 +37,7 @@ import com.ota.updates.tasks.DownloadJson;
 import com.ota.updates.tasks.ParseJson;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
+import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
 import com.ota.updates.utils.fontawesome.DrawableAwesome;
 
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.ota_updates:
-                       checkForUpdate();
+                        checkForUpdate();
                         return true;
 
                     // For rest of the options we just show a toast on click
@@ -291,6 +292,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                                         } else {
                                             loadFragment(new CheckFragment());
                                         }
+
+                                        String time = Utils.getTimeNow(mContext);
+                                        Preferences.setUpdateLastChecked(mContext, time);
 
                                         loadingDialog.cancel();
                                     }

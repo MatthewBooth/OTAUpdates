@@ -46,4 +46,7 @@ public interface Constants {
     String PROP_MANIFEST = "ro.ota.manifest";
     String PROP_VERSION = "ro.ota.version";
     String PROP_DEFAULT_THEME = "ro.ota.default_theme";
+
+    // Preferences
+    String LAST_CHECKED_FOR_UPDATE = "last_checked_for_update";
 }
