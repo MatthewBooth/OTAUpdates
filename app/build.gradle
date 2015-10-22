@@ -26,6 +26,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:cardview-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.commit451:bypasses:1.0.1'
-    compile(group: 'it.sephiroth.android.library.fork.slideexpandable', name: 'slideexpandable', version: '1.0.3.1', ext: 'aar')
 }

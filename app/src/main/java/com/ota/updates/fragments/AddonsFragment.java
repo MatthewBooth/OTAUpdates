@@ -3,13 +3,20 @@ package com.ota.updates.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ota.updates.R;
@@ -18,17 +25,18 @@ import com.ota.updates.items.AddonItem;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
-import com.tjerkw.slideexpandable.library.SlideExpandableListAdapter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import in.uncod.android.bypass.Bypass;
 
-public class AddonsFragment extends ListFragment implements Constants {
+public class AddonsFragment extends Fragment implements Constants {
     private FragmentInteractionListener mListener;
     private Context mContext;
 
@@ -57,8 +65,9 @@ public class AddonsFragment extends ListFragment implements Constants {
         ArrayList<AddonItem> addonsList = addonSQLiteHelper.getListOfAddons();
 
         if (!addonsList.isEmpty()) {
-            final AddonsArrayAdapter adapter = new AddonsArrayAdapter(mContext, addonsList);
-            setListAdapter(new SlideExpandableListAdapter(adapter, R.id.download_button, R.id.expandable));
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            recyclerView.setAdapter(new RecyclerAdapter(addonsList));
         }
         return view;
     }
@@ -80,34 +89,38 @@ public class AddonsFragment extends ListFragment implements Constants {
         mListener = null;
     }
 
-    public class AddonsArrayAdapter extends ArrayAdapter<AddonItem> {
+    public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-        public AddonsArrayAdapter(Context context, ArrayList<AddonItem> addons) {
-            super(context, 0, addons);
+        private ArrayList<AddonItem> mItems;
+
+        RecyclerAdapter(ArrayList<AddonItem> items) {
+            mItems = items;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final AddonItem item = getItem(position);
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_addons_list_item, parent, false);
-            }
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_addons_list_item, viewGroup, false);
 
-            // Normal
-            TextView title = (TextView) convertView.findViewById(R.id.title);
-            TextView updatedOn = (TextView) convertView.findViewById(R.id.updatedOn);
-            TextView filesize = (TextView) convertView.findViewById(R.id.size);
-            TextView description = (TextView) convertView.findViewById(R.id.description);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+            AddonItem item = mItems.get(position);
 
             // Title
-            title.setText(item.getName());
+            viewHolder.mTitle.setText(item.getName());
 
             // Description
             Bypass byPass = new Bypass(mContext);
             String descriptionStr = item.getDescription();
             CharSequence string = byPass.markdownToSpannable(descriptionStr);
-            description.setText(string);
-            description.setMovementMethod(LinkMovementMethod.getInstance());
+            viewHolder.mDescription.setText(string);
+            viewHolder.mDescription.setMovementMethod(LinkMovementMethod.getInstance());
+
+            // Filesize
+            String formattedSize = Utils.formatDataFromBytes(item.getSize());
+            viewHolder.mFilesize.setText(formattedSize);
 
             // Date
             //String UpdatedOnStr = convertView.getResources().getString(R.string.addons_updated_on);
@@ -123,13 +136,31 @@ public class AddonsFragment extends ListFragment implements Constants {
                 e.printStackTrace();
             }
 
-            updatedOn.setText("Updated On" + " " + date);
-
-            // Filesize
-            String formattedSize = Utils.formatDataFromBytes(item.getSize());
-            filesize.setText(formattedSize);
-
-            return convertView;
+            viewHolder.mUpdatedOn.setText("Updated On" + " " + date);
         }
+
+        @Override
+        public int getItemCount() {
+            return mItems.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            private final TextView mTitle;
+            private final TextView mUpdatedOn;
+            private final TextView mFilesize;
+            private final TextView mDescription;
+            private final Button mButtons;
+
+            ViewHolder(View view) {
+                super(view);
+                mTitle = (TextView) view.findViewById(R.id.title);
+                mUpdatedOn = (TextView) view.findViewById(R.id.updatedOn);
+                mFilesize = (TextView) view.findViewById(R.id.size);
+                mDescription = (TextView) view.findViewById(R.id.description);
+                mButtons = (Button) view.findViewById(R.id.download_button);
+            }
+        }
+
     }
 }
