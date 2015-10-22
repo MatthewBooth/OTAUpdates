@@ -1,4 +1,7 @@
 package com.ota.updates.utils.fontawesome;
+/**
+ * https://github.com/bperin/FontAwesomeAndroid
+ */
 
 import android.content.Context;
 import android.graphics.Canvas;
