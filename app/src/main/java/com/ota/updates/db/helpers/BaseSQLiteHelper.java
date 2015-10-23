@@ -16,6 +16,7 @@ package com.ota.updates.db.helpers;
  */
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -104,5 +105,16 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
                 ")";
         // create version table
         db.execSQL(CREATE_VERSION_TABLE);
+    }
+
+    /**
+     * Gets all the entries in the supplied table name
+     * @param tableName  The table to collect the entries from
+     * @return  A Cursor object with the entries in
+     */
+    public Cursor getAllEntries(String tableName) {
+        String query = "SELECT * FROM " + tableName;
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery(query, null);
     }
 }

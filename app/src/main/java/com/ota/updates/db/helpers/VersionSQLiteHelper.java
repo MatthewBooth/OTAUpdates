@@ -19,9 +19,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.ota.updates.items.VersionItem;
+
+import java.util.ArrayList;
 
 public class VersionSQLiteHelper extends BaseSQLiteHelper {
 
@@ -98,17 +101,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            versionItem.setId(Integer.parseInt(cursor.getString(0)));
-            versionItem.setFullName(cursor.getString(1));
-            versionItem.setSlug(cursor.getString(2));
-            versionItem.setAndroidVersion(cursor.getString(3));
-            versionItem.setChangelog(cursor.getString(4));
-            versionItem.setCreatedAt(cursor.getString(5));
-            versionItem.setPublishedAt(cursor.getString(6));
-            versionItem.setDownloads(Integer.parseInt(cursor.getString(7)));
-            versionItem.setVersionNumber(Integer.parseInt(cursor.getString(8)));
-            versionItem.setFullUploadId(Integer.parseInt(cursor.getString(9)));
-            versionItem.setDeltaUploadId(Integer.parseInt(cursor.getString(10)));
+            versionItem = getVersionItemFromCursor(cursor);
             cursor.close();
         } else {
             versionItem = null;
@@ -151,5 +144,38 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         db.close();
 
         return result;
+    }
+
+    public ArrayList<VersionItem> getListOfVersions() {
+        ArrayList<VersionItem> list = new ArrayList<>();
+
+        Cursor cursor = getAllEntries(VERSION_TABLE_NAME);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                VersionItem versionItem = getVersionItemFromCursor(cursor);
+                list.add(versionItem);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return list;
+    }
+
+    @NonNull
+    private VersionItem getVersionItemFromCursor(Cursor cursor) {
+        VersionItem versionItem = new VersionItem();
+        versionItem.setId(Integer.parseInt(cursor.getString(0)));
+        versionItem.setFullName(cursor.getString(1));
+        versionItem.setSlug(cursor.getString(2));
+        versionItem.setAndroidVersion(cursor.getString(3));
+        versionItem.setChangelog(cursor.getString(4));
+        versionItem.setCreatedAt(cursor.getString(5));
+        versionItem.setPublishedAt(cursor.getString(6));
+        versionItem.setDownloads(Integer.parseInt(cursor.getString(7)));
+        versionItem.setVersionNumber(Integer.parseInt(cursor.getString(8)));
+        versionItem.setFullUploadId(Integer.parseInt(cursor.getString(9)));
+        versionItem.setDeltaUploadId(Integer.parseInt(cursor.getString(10)));
+        return versionItem;
     }
 }
