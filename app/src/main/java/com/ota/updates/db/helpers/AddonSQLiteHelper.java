@@ -19,6 +19,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.ota.updates.items.AddonItem;
@@ -84,21 +85,11 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        AddonItem addonItem = new AddonItem();
+        AddonItem addonItem;
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            addonItem.setId(Integer.parseInt(cursor.getString(0)));
-            addonItem.setName(cursor.getString(1));
-            addonItem.setSlug(cursor.getString(2));
-            addonItem.setDescription(cursor.getString(3));
-            addonItem.setCreatedAt(cursor.getString(4));
-            addonItem.setPublishedAt(cursor.getString(5));
-            addonItem.setDownloads(Integer.parseInt(cursor.getString(6)));
-            addonItem.setSize(Integer.parseInt(cursor.getString(7)));
-            addonItem.setMd5(cursor.getString(8));
-            addonItem.setDownloadLink(cursor.getString(9));
-            addonItem.setCategory(cursor.getString(10));
+            addonItem = getAddonItemFromCursor(cursor);
             cursor.close();
         } else {
             addonItem = null;
@@ -107,36 +98,36 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         return addonItem;
     }
 
-    public Cursor getAllAddons() {
-        String query = "SELECT * FROM " + ADDON_TABLE_NAME;
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery(query, null);
-    }
-
     public ArrayList<AddonItem> getListOfAddons() {
         ArrayList<AddonItem> list = new ArrayList<>();
 
-        Cursor cursor = getAllAddons();
+        Cursor cursor = getAllEntries(ADDON_TABLE_NAME);
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                AddonItem addonItem = new AddonItem();
-                addonItem.setId(Integer.parseInt(cursor.getString(0)));
-                addonItem.setName(cursor.getString(1));
-                addonItem.setSlug(cursor.getString(2));
-                addonItem.setDescription(cursor.getString(3));
-                addonItem.setCreatedAt(cursor.getString(4));
-                addonItem.setPublishedAt(cursor.getString(5));
-                addonItem.setDownloads(Integer.parseInt(cursor.getString(6)));
-                addonItem.setSize(Integer.parseInt(cursor.getString(7)));
-                addonItem.setMd5(cursor.getString(8));
-                addonItem.setDownloadLink(cursor.getString(9));
-                addonItem.setCategory(cursor.getString(10));
+                AddonItem addonItem = getAddonItemFromCursor(cursor);
                 list.add(addonItem);
                 cursor.moveToNext();
             }
             cursor.close();
         }
         return list;
+    }
+
+    @NonNull
+    private AddonItem getAddonItemFromCursor(Cursor cursor) {
+        AddonItem addonItem = new AddonItem();
+        addonItem.setId(Integer.parseInt(cursor.getString(0)));
+        addonItem.setName(cursor.getString(1));
+        addonItem.setSlug(cursor.getString(2));
+        addonItem.setDescription(cursor.getString(3));
+        addonItem.setCreatedAt(cursor.getString(4));
+        addonItem.setPublishedAt(cursor.getString(5));
+        addonItem.setDownloads(Integer.parseInt(cursor.getString(6)));
+        addonItem.setSize(Integer.parseInt(cursor.getString(7)));
+        addonItem.setMd5(cursor.getString(8));
+        addonItem.setDownloadLink(cursor.getString(9));
+        addonItem.setCategory(cursor.getString(10));
+        return addonItem;
     }
 }
