@@ -113,7 +113,7 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
      * @return  A Cursor object with the entries in
      */
     public Cursor getAllEntries(String tableName) {
-        String query = "SELECT * FROM " + tableName;
+        String query = "SELECT * FROM " + tableName + " ORDER BY " + NAME_ID + " DESC";
         SQLiteDatabase db = this.getWritableDatabase();
         return db.rawQuery(query, null);
     }
