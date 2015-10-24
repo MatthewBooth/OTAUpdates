@@ -11,6 +11,7 @@
 
         <!-- Icons -->
         <item name="ic_refresh">@drawable/ic_refresh_black</item>
+        <item name="ic_chevron_right">@drawable/ic_chevron_right_black</item>
     </style>
 
     <style name="OtaUpdates.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -23,6 +24,7 @@
 
         <!-- Icons -->
         <item name="ic_refresh">@drawable/ic_refresh_white</item>
+        <item name="ic_chevron_right">@drawable/ic_chevron_right_white</item>
     </style>
 
 </resources>

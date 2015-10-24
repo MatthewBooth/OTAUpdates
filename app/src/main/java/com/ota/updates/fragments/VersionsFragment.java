@@ -105,7 +105,7 @@ public class VersionsFragment extends Fragment implements Constants {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_addons_list_item, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_list_items, viewGroup, false);
             return new ViewHolder(v);
         }
 
@@ -157,9 +157,9 @@ public class VersionsFragment extends Fragment implements Constants {
             ViewHolder(View view) {
                 super(view);
                 mTitle = (TextView) view.findViewById(R.id.title);
-                mUpdatedOn = (TextView) view.findViewById(R.id.updatedOn);
+                mUpdatedOn = (TextView) view.findViewById(R.id.updated_on);
                 mFilesize = (TextView) view.findViewById(R.id.size);
-                mButtons = (Button) view.findViewById(R.id.download_button);
+                mButtons = (Button) view.findViewById(R.id.open);
             }
         }
 

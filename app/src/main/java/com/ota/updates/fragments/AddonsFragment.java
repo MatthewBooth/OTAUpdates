@@ -21,7 +21,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +39,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import in.uncod.android.bypass.Bypass;
 
 public class AddonsFragment extends Fragment implements Constants {
     private FragmentInteractionListener mListener;
@@ -106,7 +103,7 @@ public class AddonsFragment extends Fragment implements Constants {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_addons_list_item, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_list_items, viewGroup, false);
             return new ViewHolder(v);
         }
 
@@ -117,13 +114,6 @@ public class AddonsFragment extends Fragment implements Constants {
 
             // Title
             viewHolder.mTitle.setText(item.getName());
-
-            // Description
-            Bypass byPass = new Bypass(mContext);
-            String descriptionStr = item.getDescription();
-            CharSequence string = byPass.markdownToSpannable(descriptionStr);
-            viewHolder.mDescription.setText(string);
-            viewHolder.mDescription.setMovementMethod(LinkMovementMethod.getInstance());
 
             // Filesize
             String formattedSize = Utils.formatDataFromBytes(item.getSize());
@@ -156,16 +146,14 @@ public class AddonsFragment extends Fragment implements Constants {
             private final TextView mTitle;
             private final TextView mUpdatedOn;
             private final TextView mFilesize;
-            private final TextView mDescription;
             private final Button mButtons;
 
             ViewHolder(View view) {
                 super(view);
                 mTitle = (TextView) view.findViewById(R.id.title);
-                mUpdatedOn = (TextView) view.findViewById(R.id.updatedOn);
+                mUpdatedOn = (TextView) view.findViewById(R.id.updated_on);
                 mFilesize = (TextView) view.findViewById(R.id.size);
-                mDescription = (TextView) view.findViewById(R.id.description);
-                mButtons = (Button) view.findViewById(R.id.download_button);
+                mButtons = (Button) view.findViewById(R.id.open);
             }
         }
 

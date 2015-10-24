@@ -8,5 +8,6 @@
 
     <!-- Icons -->
     <attr name="ic_refresh" format="reference" />
+    <attr name="ic_chevron_right" format="reference" />
 
 </resources>
