@@ -22,9 +22,9 @@ public class Preferences implements Constants {
 
     public static final String TAG = "Preferences";
 
-    public static String PREF_NAME = "OTAUpdateSettings";
+    public static final String PREF_NAME = "OTAUpdateSettings";
 
-    private static String mDefaultString = "";
+    private static final String mDefaultString = "";
 
     private Preferences() {
     }
