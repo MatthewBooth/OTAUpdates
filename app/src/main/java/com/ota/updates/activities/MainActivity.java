@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
 
         mContext = this;
 
