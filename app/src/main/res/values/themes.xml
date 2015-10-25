@@ -8,6 +8,8 @@
         <item name="drawerIconColors">@color/drawer_icon_color_light</item>
         <item name="cardBackground">@color/cardview_light_background</item>
         <item name="cardStyle">@style/CardStyle.Light</item>
+
+        <item name="drawerSelectedTextColor">@color/material_deep_teal_500</item>
     </style>
 
     <style name="OtaUpdates.Dark.Common" parent="Theme.AppCompat.NoActionBar">
@@ -18,10 +20,7 @@
         <item name="cardBackground">@color/cardview_dark_background</item>
         <item name="cardStyle">@style/CardStyle.Dark</item>
 
-        <!-- Icons -->
-        <item name="ic_refresh">@drawable/ic_refresh_white</item>
-        <item name="ic_chevron_right">@drawable/ic_chevron_right_white</item>
-        <item name="ic_file_download">@drawable/ic_file_download_white</item>
+        <item name="drawerSelectedTextColor">@color/material_deep_teal_200</item>
     </style>
 
     <style name="OtaUpdates.Light" parent="OtaUpdates.Light.Common">
