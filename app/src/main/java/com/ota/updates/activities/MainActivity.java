@@ -23,7 +23,6 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -42,12 +41,12 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ota.updates.R;
+import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.fragments.AboutFragment;
-import com.ota.updates.fragments.FileDownloadFragment;
-import com.ota.updates.fragments.CheckFragment;
-import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.fragments.AddonsFragment;
+import com.ota.updates.fragments.CheckFragment;
+import com.ota.updates.fragments.FileDownloadFragment;
 import com.ota.updates.fragments.VersionsFragment;
 import com.ota.updates.tasks.CheckForUpdate;
 import com.ota.updates.tasks.DownloadJson;
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Download and parse our manifest
         if (doesRomSupportApp) {
-            checkForUpdate();
+            syncManifestWithDatabase();
         }
 
         // Initializing Toolbar and setting it as the actionbar
@@ -250,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.ota_updates:
-                        checkForUpdate();
+                        syncManifestWithDatabase();
                         return true;
 
                     // For rest of the options we just show a toast on click
@@ -278,47 +277,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         });
     }
 
-    private void checkForUpdate() {
-        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
-        loadingDialog.setIndeterminate(true);
-        loadingDialog.setCancelable(false);
-        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
-        loadingDialog.show();
-
+    private void downloadJson(final ProgressDialog loadingDialog) {
         new DownloadJson(mContext, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
                 if (output) {
-                    new ParseJson(mContext, new AsyncResponse() {
-                        @Override
-                        public void processFinish(Boolean output) {
-                            if (output) {
-                                new CheckForUpdate(mContext, new AsyncResponse() {
-                                    @Override
-                                    public void processFinish(Boolean updateAvailability) {
-                                        if (DEBUGGING) {
-                                            Log.d(TAG, "Update availability is " + updateAvailability);
-                                        }
-
-                                        if (updateAvailability) {
-                                            VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
-                                            int fileId = versionSQLiteHelper.getLastVersionItem().getId();
-                                            loadFragment(FileDownloadFragment.newInstance(FILE_TYPE_VERSION, fileId));
-                                        } else {
-                                            loadFragment(new CheckFragment());
-                                        }
-
-                                        String time = Utils.getTimeNow(mContext);
-                                        Preferences.setUpdateLastChecked(mContext, time);
-
-                                        loadingDialog.cancel();
-                                    }
-                                }).execute();
-                            } else {
-                                loadingDialog.cancel();
-                            }
-                        }
-                    }).execute();
+                    parseJson(loadingDialog);
                 } else {
                     loadingDialog.cancel();
                 }
@@ -326,13 +290,60 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }).execute();
     }
 
-    @Override
-    public void onRefreshClickInteraction() {
-        checkForUpdate();
+    private void parseJson(final ProgressDialog loadingDialog) {
+        new ParseJson(mContext, new AsyncResponse() {
+            @Override
+            public void processFinish(Boolean output) {
+                if (output) {
+                    checkForUpdate(loadingDialog);
+                } else {
+                    loadingDialog.cancel();
+                }
+            }
+        }).execute();
+    }
+
+    private void checkForUpdate(final ProgressDialog loadingDialog) {
+        new CheckForUpdate(mContext, new AsyncResponse() {
+            @Override
+            public void processFinish(Boolean output) {
+                if (DEBUGGING) {
+                    Log.d(TAG, "Update availability is " + output);
+                }
+
+                if (output) {
+                    VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+                    int fileId = versionSQLiteHelper.getLastVersionItem().getId();
+                    loadFragment(FileDownloadFragment.newInstance(FILE_TYPE_VERSION, fileId));
+                } else {
+                    loadFragment(new CheckFragment());
+                }
+
+                String time = Utils.getTimeNow(mContext);
+                Preferences.setUpdateLastChecked(mContext, time);
+
+                loadingDialog.cancel();
+            }
+        }).execute();
+    }
+
+    private void syncManifestWithDatabase() {
+        final ProgressDialog loadingDialog = new ProgressDialog(mContext);
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCancelable(false);
+        loadingDialog.setMessage(mContext.getResources().getString(R.string.loading));
+        loadingDialog.show();
+
+        downloadJson(loadingDialog);
     }
 
     @Override
-    public void onOpenFileDownloadRequest(int fileType, int fileId) {
+    public void onRefreshClickInteraction() {
+        syncManifestWithDatabase();
+    }
+
+    @Override
+    public void onOpenFileDownloadView(int fileType, int fileId) {
         loadFragment(FileDownloadFragment.newInstance(fileType, fileId));
     }
 }

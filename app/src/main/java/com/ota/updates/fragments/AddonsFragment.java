@@ -135,7 +135,7 @@ public class AddonsFragment extends Fragment implements Constants {
             viewHolder.mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onOpenFileDownloadRequest(FILE_TYPE_ADDON, item.getId());
+                    mListener.onOpenFileDownloadView(FILE_TYPE_ADDON, item.getId());
                 }
             });
         }
