@@ -23,7 +23,7 @@
             android:title="@string/drawer_section_rom">
             <menu>
                 <item
-                    android:id="@+id/rom_webite"
+                    android:id="@+id/rom_website"
                     android:title="@string/drawer_primary_rom_website" />
                 <item
                     android:id="@+id/rom_donate"

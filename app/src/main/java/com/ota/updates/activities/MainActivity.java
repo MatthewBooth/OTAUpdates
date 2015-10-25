@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         MenuItem otaVersionItem = menu.findItem(R.id.ota_versions);
         MenuItem otaAddonsItem = menu.findItem(R.id.ota_addons);
 
-        MenuItem romWebsiteItem = menu.findItem(R.id.rom_webite);
+        MenuItem romWebsiteItem = menu.findItem(R.id.rom_website);
         MenuItem romDonateItem = menu.findItem(R.id.rom_donate);
         MenuItem romInfoItem = menu.findItem(R.id.rom_information);
 
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
      * @param navigationView  The NavigationView we are listening for
      * @param drawerLayout  The Drawer Layout containing the items
      */
-    private void setupNavigationViewOnItemSelected(NavigationView navigationView, final DrawerLayout drawerLayout) {
+    private void setupNavigationViewOnItemSelected(final NavigationView navigationView, final DrawerLayout drawerLayout) {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -234,6 +234,17 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                 //Checking if the item is in checked state or not, if not make it in checked state
+                Menu menu = navigationView.getMenu();
+                for (int i = 0; i < menu.size(); i++) {
+                    MenuItem menuItem1 = menu.getItem(i);
+
+                    if ((menuItem1.getItemId() != menuItem.getItemId())) {
+                        menuItem1.setCheckable(false);
+                    }
+                }
+
+                menuItem.setCheckable(true);
+
                 if (menuItem.isChecked()) {
                     menuItem.setChecked(false);
                 } else {
@@ -256,15 +267,26 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     case R.id.ota_addons:
                         loadFragment(new AddonsFragment());
                         return true;
+                    case R.id.rom_website:
+                        return true;
                     case R.id.rom_donate:
+                        return true;
+                    case R.id.rom_information:
                         Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.app_about:
-                        loadFragment(new AboutFragment());
+                    case R.id.app_settings:
+                        return true;
+                    case R.id.app_pro:
+                        return true;
+                    case R.id.app_licences:
                         return true;
                     case R.id.app_github:
                         String appGitHubUrl = mContext.getResources().getString(R.string.app_github_url);
                         Utils.openWebsite(mContext, appGitHubUrl);
+                        return true;
+                    case R.id.app_about:
+                        loadFragment(new AboutFragment());
+                        return true;
                     default:
                         return true;
                 }
