@@ -66,7 +66,7 @@ public class AboutFragment extends Fragment implements Constants {
             @Override
             public void processFinish(Boolean output) {
                 if (DEBUGGING) {
-                    Log.d(TAG, "App changelog_or_description file finished downloading properly");
+                    Log.d(TAG, "App changelog file finished downloading properly");
                 }
                 File changelogFile = new File(mActivity.getApplicationContext().getFilesDir(), CHANGELOG);
                 setupChangelog(view, changelogFile);
@@ -84,11 +84,13 @@ public class AboutFragment extends Fragment implements Constants {
 
     private void setupChangelog(View view, File file) {
         if (DEBUGGING) {
-            Log.d(TAG, "Setting up changelog_or_description");
+            Log.d(TAG, "Setting up changelog");
         }
+
         TextView changelogTV = (TextView) view.findViewById(R.id.changelog_or_description);
         Bypass bypass = new Bypass(mActivity);
         String changelogString;
+
         try {
             changelogString = Utils.getFileContents(file);
 
@@ -96,6 +98,7 @@ public class AboutFragment extends Fragment implements Constants {
             changelogString = getResources().getString(R.string.changelog_error);
             e.printStackTrace();
         }
+
         CharSequence changelogText = bypass.markdownToSpannable(changelogString);
         changelogTV.setText(changelogText);
         changelogTV.setMovementMethod(LinkMovementMethod.getInstance());

@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             @Override
             public void onDrawerOpened(View drawerView) {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -251,9 +250,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     case R.id.ota_updates:
                         syncManifestWithDatabase();
                         return true;
-
-                    // For rest of the options we just show a toast on click
-
                     case R.id.ota_versions:
                         loadFragment(new VersionsFragment());
                         return true;
@@ -263,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     case R.id.rom_donate:
                         Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
                         return true;
-
                     case R.id.app_about:
                         loadFragment(new AboutFragment());
                         return true;
