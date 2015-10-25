@@ -15,8 +15,6 @@ package com.ota.updates.utils;
  * limitations under the License.
  */
 
-import android.net.Uri;
-
 /**
  * This interface must be implemented by activities that contain this
  * fragment to allow an interaction in this fragment to be communicated
@@ -29,7 +27,7 @@ import android.net.Uri;
  */
 public interface FragmentInteractionListener {
 
-    void onFragmentInteraction(Uri uri);
-
     void onRefreshClickInteraction();
+
+    void onOpenFileDownloadRequest(int fileType, int fileId);
 }

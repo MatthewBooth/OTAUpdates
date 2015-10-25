@@ -58,7 +58,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/changelog_title"
+                    android:id="@+id/subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/changelog"
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/changelog"
+                        android:id="@+id/changelog_or_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"

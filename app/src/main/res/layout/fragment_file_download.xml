@@ -16,24 +16,24 @@
             android:layout_height="@dimen/update_available_upper_seam_size">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="16dp"
-                android:text="@string/update_available"
+                android:text="@string/headline"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <com.ota.updates.utils.fontawesome.TextAwesome
                 android:id="@+id/filename_icon"
                 style="@style/UpdateIconStyle"
-                android:layout_below="@+id/title"
+                android:layout_below="@+id/headline"
                 android:text="@string/fa_file_archive_o" />
 
             <TextView
                 android:id="@+id/filename"
                 style="@style/UpdateIconTextStyle"
-                android:layout_below="@+id/title"
+                android:layout_below="@+id/headline"
                 android:text="@string/filename" />
 
             <com.ota.updates.utils.fontawesome.TextAwesome
@@ -104,20 +104,20 @@
             android:layout_below="@+id/divider">
 
             <TextView
-                android:id="@+id/changelog_title"
+                android:id="@+id/subtitle"
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/changelog" />
+                android:text="@string/subtitle" />
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/changelog_title">
+                android:layout_below="@id/subtitle">
 
                 <TextView
-                    android:id="@+id/changelog"
+                    android:id="@+id/changelog_or_description"
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -131,7 +131,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         style="@style/FabStyle"
-        android:src="@drawable/ic_refresh_white"
+        android:src="@drawable/vector_file_download_white"
         app:layout_anchor="@id/upper_seam"
         app:layout_anchorGravity="bottom|right|end" />
 

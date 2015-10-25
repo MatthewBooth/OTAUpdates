@@ -42,8 +42,9 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ota.updates.R;
+import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.fragments.AboutFragment;
-import com.ota.updates.fragments.AvailableFragment;
+import com.ota.updates.fragments.FileDownloadFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.fragments.AddonsFragment;
@@ -160,10 +161,6 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
             // Get the fragment manager
             FragmentManager fragmentManager = getSupportFragmentManager();
-
-            // In case this activity was started with special instructions from an
-            // Intent, pass the Intent's extras to the fragment as arguments
-            fragment.setArguments(getIntent().getExtras());
 
             // Add the fragment to the 'fragment_container' FrameLayout
             fragmentManager.beginTransaction()
@@ -304,7 +301,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                                         }
 
                                         if (updateAvailability) {
-                                            loadFragment(new AvailableFragment());
+                                            VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+                                            int fileId = versionSQLiteHelper.getLastVersionItem().getId();
+                                            loadFragment(FileDownloadFragment.newInstance(FILE_TYPE_VERSION, fileId));
                                         } else {
                                             loadFragment(new CheckFragment());
                                         }
@@ -328,12 +327,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onRefreshClickInteraction() {
+        checkForUpdate();
     }
 
     @Override
-    public void onRefreshClickInteraction() {
-        checkForUpdate();
+    public void onOpenFileDownloadRequest(int fileType, int fileId) {
+        loadFragment(FileDownloadFragment.newInstance(fileType, fileId));
     }
 }

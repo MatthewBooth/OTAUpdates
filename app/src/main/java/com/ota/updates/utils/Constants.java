@@ -64,4 +64,8 @@ public interface Constants {
 
     // Preferences
     String LAST_CHECKED_FOR_UPDATE = "last_checked_for_update";
+
+    // File Types
+    Integer FILE_TYPE_VERSION = 0;
+    Integer FILE_TYPE_ADDON = 1;
 }

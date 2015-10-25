@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OtaUpdates.Light" parent="OtaUpdates.Light.Common">
+        <!-- Icons -->
+        <item name="ic_refresh">@drawable/vector_refresh_black</item>
+        <item name="ic_chevron_right">@drawable/vector_chevron_right_black</item>
+        <item name="ic_file_download">@drawable/vector_file_download_black</item>
+    </style>
+
+    <style name="OtaUpdates.Dark" parent="OtaUpdates.Dark.Common">
+        <!-- Icons -->
+        <item name="ic_refresh">@drawable/vector_refresh_white</item>
+        <item name="ic_chevron_right">@drawable/vector_chevron_right_white</item>
+        <item name="ic_file_download">@drawable/vector_file_download_white</item>
+    </style>
+
+</resources>

@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,13 +51,10 @@ public class AboutFragment extends Fragment implements Constants {
         // Required empty public constructor
     }
 
-    public static AboutFragment newInstance(String param1, String param2) {
-        return new AboutFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getActivity();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class AboutFragment extends Fragment implements Constants {
             @Override
             public void processFinish(Boolean output) {
                 if (DEBUGGING) {
-                    Log.d(TAG, "App changelog file finished downloading properly");
+                    Log.d(TAG, "App changelog_or_description file finished downloading properly");
                 }
                 File changelogFile = new File(mContext.getApplicationContext().getFilesDir(), CHANGELOG);
                 setupChangelog(view, changelogFile);
@@ -88,9 +86,9 @@ public class AboutFragment extends Fragment implements Constants {
 
     private void setupChangelog(View view, File file) {
         if (DEBUGGING) {
-            Log.d(TAG, "Setting up changelog");
+            Log.d(TAG, "Setting up changelog_or_description");
         }
-        TextView changelogTV = (TextView) view.findViewById(R.id.changelog);
+        TextView changelogTV = (TextView) view.findViewById(R.id.changelog_or_description);
         Bypass bypass = new Bypass(mContext);
         String changelogString;
         try {
@@ -105,27 +103,20 @@ public class AboutFragment extends Fragment implements Constants {
         changelogTV.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mContext = activity.getApplicationContext();
+    public void onStart() {
+        super.onStart();
         try {
-            mListener = (FragmentInteractionListener) activity;
+            mListener = (FragmentInteractionListener) mContext;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(mContext.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
+        super.onStop();
         mListener = null;
     }
 

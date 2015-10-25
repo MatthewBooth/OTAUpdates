@@ -112,7 +112,7 @@ public class VersionsFragment extends Fragment implements Constants {
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             // Addon Item at latest position in the list
-            VersionItem item = mItems.get(position);
+            final VersionItem item = mItems.get(position);
 
             // Title
             viewHolder.mTitle.setText(item.getFullName());
@@ -140,6 +140,13 @@ public class VersionsFragment extends Fragment implements Constants {
             }
 
             viewHolder.mUpdatedOn.setText(updatedOnStr + " " + date);
+
+            viewHolder.mButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onOpenFileDownloadRequest(FILE_TYPE_VERSION, item.getId());
+                }
+            });
         }
 
         @Override
@@ -152,14 +159,14 @@ public class VersionsFragment extends Fragment implements Constants {
             private final TextView mTitle;
             private final TextView mUpdatedOn;
             private final TextView mFilesize;
-            private final Button mButtons;
+            private final Button mButton;
 
             ViewHolder(View view) {
                 super(view);
-                mTitle = (TextView) view.findViewById(R.id.title);
+                mTitle = (TextView) view.findViewById(R.id.headline);
                 mUpdatedOn = (TextView) view.findViewById(R.id.updated_on);
                 mFilesize = (TextView) view.findViewById(R.id.size);
-                mButtons = (Button) view.findViewById(R.id.open);
+                mButton = (Button) view.findViewById(R.id.open);
             }
         }
 

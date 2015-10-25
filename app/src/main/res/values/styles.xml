@@ -14,11 +14,13 @@
         <item name="android:layout_marginTop">24dp</item>
     </style>
 
-    <style name="FabStyle">
+    <style name="FabStyle.Common">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">@dimen/fab_button_margin_right</item>
     </style>
+
+    <style name="FabStyle" parent="FabStyle.Common" />
 
     <style name="UpdateIconStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -33,13 +35,15 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
     </style>
 
-    <style name="UpdateIconTextStyle">
+    <style name="UpdateIconTextStyle.Common">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_marginLeft">@dimen/update_icon_type_offset</item>
     </style>
+
+    <style name="UpdateIconTextStyle" parent="UpdateIconTextStyle.Common" />
 
     <style name="MainListElement">
         <item name="android:clickable">true</item>

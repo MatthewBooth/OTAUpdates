@@ -11,7 +11,7 @@
         android:layout_height="144dp">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/title"
+            android:layout_below="@+id/headline"
             android:text="@string/last_checked_for_update"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -38,7 +38,7 @@
         style="@style/FabStyle"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_refresh_white"
+        android:src="@drawable/vector_refresh_white"
         app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

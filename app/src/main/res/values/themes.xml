@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="OtaUpdates.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="OtaUpdates.Light.Common" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="dividerColor">@color/divider_color</item>
         <item name="drawerIconColors">@color/drawer_icon_color_light</item>
         <item name="cardBackground">@color/cardview_light_background</item>
         <item name="cardStyle">@style/CardStyle.Light</item>
-
-        <!-- Icons -->
-        <item name="ic_refresh">@drawable/ic_refresh_black</item>
-        <item name="ic_chevron_right">@drawable/ic_chevron_right_black</item>
     </style>
 
-    <style name="OtaUpdates.Dark" parent="Theme.AppCompat.NoActionBar">
+    <style name="OtaUpdates.Dark.Common" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="dividerColor">@color/divider_color_dark</item>
@@ -25,6 +21,21 @@
         <!-- Icons -->
         <item name="ic_refresh">@drawable/ic_refresh_white</item>
         <item name="ic_chevron_right">@drawable/ic_chevron_right_white</item>
+        <item name="ic_file_download">@drawable/ic_file_download_white</item>
+    </style>
+
+    <style name="OtaUpdates.Light" parent="OtaUpdates.Light.Common">
+        <!-- Icons -->
+        <item name="ic_refresh">@drawable/ic_refresh_black</item>
+        <item name="ic_chevron_right">@drawable/ic_chevron_right_black</item>
+        <item name="ic_file_download">@drawable/ic_file_download_black</item>
+    </style>
+
+    <style name="OtaUpdates.Dark" parent="OtaUpdates.Dark.Common">
+        <!-- Icons -->
+        <item name="ic_refresh">@drawable/ic_refresh_white</item>
+        <item name="ic_chevron_right">@drawable/ic_chevron_right_white</item>
+        <item name="ic_file_download">@drawable/ic_file_download_white</item>
     </style>
 
 </resources>
