@@ -6,7 +6,7 @@
     <attr name="cardStyle" format="reference" />
     <attr name="cardBackground" format="color" />
 
-    <attr name="drawerSelectedTextColor" format="color" />
+    <attr name="drawerTextColor" format="color" />
 
     <!-- Icons -->
     <attr name="ic_refresh" format="reference" />

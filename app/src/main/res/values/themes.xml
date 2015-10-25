@@ -9,7 +9,7 @@
         <item name="cardBackground">@color/cardview_light_background</item>
         <item name="cardStyle">@style/CardStyle.Light</item>
 
-        <item name="drawerSelectedTextColor">@color/material_deep_teal_500</item>
+        <item name="drawerTextColor">@color/drawer_item_text_light</item>
     </style>
 
     <style name="OtaUpdates.Dark.Common" parent="Theme.AppCompat.NoActionBar">
@@ -20,7 +20,7 @@
         <item name="cardBackground">@color/cardview_dark_background</item>
         <item name="cardStyle">@style/CardStyle.Dark</item>
 
-        <item name="drawerSelectedTextColor">@color/material_deep_teal_200</item>
+        <item name="drawerTextColor">@color/drawer_item_text_dark</item>
     </style>
 
     <style name="OtaUpdates.Light" parent="OtaUpdates.Light.Common">
