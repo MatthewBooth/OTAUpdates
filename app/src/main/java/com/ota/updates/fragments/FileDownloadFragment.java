@@ -83,11 +83,6 @@ public class FileDownloadFragment extends Fragment implements Constants {
 
         mActivity = (AppCompatActivity) getActivity();
 
-        if (DEBUGGING) {
-            Log.d(TAG, "File ID = " + mFileId);
-            Log.d(TAG, "File Type ID = " + mFileType);
-        }
-
         if (mFileType >= 0 && mFileId >= 0) {
             if (FILE_TYPE_VERSION == mFileType) {
                 setupVersionFile(view, mFileId);
