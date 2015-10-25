@@ -15,9 +15,7 @@ package com.ota.updates.fragments;
  * limitations under the License.
  */
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,7 +43,7 @@ public class AboutFragment extends Fragment implements Constants {
     private static final String CHANGELOG = "Changelog.md";
     private String TAG = this.getClass().getName();
     private FragmentInteractionListener mListener;
-    private Context mContext;
+    private AppCompatActivity mActivity;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -54,7 +52,7 @@ public class AboutFragment extends Fragment implements Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
+        mActivity = (AppCompatActivity) getActivity();
     }
 
     @Override
@@ -64,13 +62,13 @@ public class AboutFragment extends Fragment implements Constants {
 
         setupAppVersion(view);
 
-        new ChangelogAsyncTask(mContext, new AsyncResponse() {
+        new ChangelogAsyncTask(mActivity, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
                 if (DEBUGGING) {
                     Log.d(TAG, "App changelog_or_description file finished downloading properly");
                 }
-                File changelogFile = new File(mContext.getApplicationContext().getFilesDir(), CHANGELOG);
+                File changelogFile = new File(mActivity.getApplicationContext().getFilesDir(), CHANGELOG);
                 setupChangelog(view, changelogFile);
             }
         }).execute();
@@ -89,7 +87,7 @@ public class AboutFragment extends Fragment implements Constants {
             Log.d(TAG, "Setting up changelog_or_description");
         }
         TextView changelogTV = (TextView) view.findViewById(R.id.changelog_or_description);
-        Bypass bypass = new Bypass(mContext);
+        Bypass bypass = new Bypass(mActivity);
         String changelogString;
         try {
             changelogString = Utils.getFileContents(file);
@@ -107,9 +105,9 @@ public class AboutFragment extends Fragment implements Constants {
     public void onStart() {
         super.onStart();
         try {
-            mListener = (FragmentInteractionListener) mContext;
+            mListener = (FragmentInteractionListener) mActivity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(mContext.toString()
+            throw new ClassCastException(mActivity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

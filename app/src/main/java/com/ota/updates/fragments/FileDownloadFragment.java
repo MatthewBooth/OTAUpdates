@@ -15,8 +15,6 @@ package com.ota.updates.fragments;
  * limitations under the License.
  */
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -41,13 +39,11 @@ import com.ota.updates.utils.Utils;
 import in.uncod.android.bypass.Bypass;
 
 public class FileDownloadFragment extends Fragment implements Constants {
-    private String TAG = this.getClass().getName();
-    private Context mContext;
-    private FragmentInteractionListener mListener;
-
     public static final String FILE_ID = "fileId";
     public static final String FILE_TYPE = "fileType";
-
+    private String TAG = this.getClass().getName();
+    private AppCompatActivity mActivity;
+    private FragmentInteractionListener mListener;
     private int mFileType;
     private int mFileId;
 
@@ -85,7 +81,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_file_download, container, false);
 
-        mContext = getActivity();
+        mActivity = (AppCompatActivity) getActivity();
 
         if (DEBUGGING) {
             Log.d(TAG, "File ID = " + mFileId);
@@ -112,7 +108,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
      * @param view The root view for the fragment
      */
     private void setupVersionFile(View view, int fileId) {
-        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mActivity);
         VersionItem versionItem = versionSQLiteHelper.getVersion(fileId);
 
         TextView headline = (TextView) view.findViewById(R.id.headline);
@@ -121,7 +117,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
         headline.setText(getResources().getString(R.string.file_information));
         subtitle.setText(getResources().getString(R.string.changelog));
 
-        UploadSQLiteHelper uploadHelper = new UploadSQLiteHelper(mContext);
+        UploadSQLiteHelper uploadHelper = new UploadSQLiteHelper(mActivity);
         int fullId = versionItem.getFullUploadId();
         UploadItem uploadItem = uploadHelper.getUpload(fullId);
 
@@ -158,7 +154,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
         View changelog = view.findViewById(R.id.changelog_or_description);
         if (changelog != null) {
             TextView tv = (TextView) changelog;
-            Bypass byPass = new Bypass(mContext);
+            Bypass byPass = new Bypass(mActivity);
             String changelogStr = versionItem.getChangelog();
             CharSequence string = byPass.markdownToSpannable(changelogStr);
             tv.setText(string);
@@ -172,7 +168,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
      * @param view The root view for the fragment
      */
     private void setupAddonFile(View view, int fileId) {
-        AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mContext);
+        AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mActivity);
         AddonItem addonItem = addonSQLiteHelper.getAddon(fileId);
 
         TextView headline = (TextView) view.findViewById(R.id.headline);
@@ -214,7 +210,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
         View changelog = view.findViewById(R.id.changelog_or_description);
         if (changelog != null) {
             TextView tv = (TextView) changelog;
-            Bypass byPass = new Bypass(mContext);
+            Bypass byPass = new Bypass(mActivity);
             String changelogStr = addonItem.getDescription();
             CharSequence string = byPass.markdownToSpannable(changelogStr);
             tv.setText(string);
@@ -272,9 +268,9 @@ public class FileDownloadFragment extends Fragment implements Constants {
     public void onStart() {
         super.onStart();
         try {
-            mListener = (FragmentInteractionListener) mContext;
+            mListener = (FragmentInteractionListener) mActivity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(mContext.toString()
+            throw new ClassCastException(mActivity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

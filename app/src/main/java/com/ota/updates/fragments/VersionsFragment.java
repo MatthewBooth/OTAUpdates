@@ -15,7 +15,6 @@ package com.ota.updates.fragments;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +43,7 @@ import java.util.Locale;
 
 public class VersionsFragment extends Fragment implements Constants {
     private FragmentInteractionListener mListener;
-    private Context mContext;
+    private AppCompatActivity mActivity;
 
     public VersionsFragment() {
         // Required empty public constructor
@@ -59,20 +58,18 @@ public class VersionsFragment extends Fragment implements Constants {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        mContext = activity;
+        mActivity = (AppCompatActivity) getActivity();
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_versions, container, false);
 
-       VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mActivity);
 
         ArrayList<VersionItem> listOfVersions = versionSQLiteHelper.getListOfVersions();
 
         if (!listOfVersions.isEmpty()) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
             recyclerView.setAdapter(new RecyclerAdapter(listOfVersions));
         }
         return view;
@@ -82,9 +79,9 @@ public class VersionsFragment extends Fragment implements Constants {
     public void onStart() {
         super.onStart();
         try {
-            mListener = (FragmentInteractionListener) mContext;
+            mListener = (FragmentInteractionListener) mActivity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(mContext.toString()
+            throw new ClassCastException(mActivity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -118,7 +115,7 @@ public class VersionsFragment extends Fragment implements Constants {
             viewHolder.mTitle.setText(item.getFullName());
 
             // Filesize
-            UploadSQLiteHelper uploadSQLiteHelper = new UploadSQLiteHelper(mContext);
+            UploadSQLiteHelper uploadSQLiteHelper = new UploadSQLiteHelper(mActivity);
             int fullUploadId = item.getFullUploadId();
             UploadItem uploadItem = uploadSQLiteHelper.getUpload(fullUploadId);
             int size = uploadItem.getSize();

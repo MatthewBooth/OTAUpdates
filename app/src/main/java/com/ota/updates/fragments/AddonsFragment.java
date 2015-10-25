@@ -15,7 +15,6 @@ package com.ota.updates.fragments;
  * limitations under the License.
  */
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +41,7 @@ import java.util.Locale;
 
 public class AddonsFragment extends Fragment implements Constants {
     private FragmentInteractionListener mListener;
-    private Context mContext;
+    private AppCompatActivity mActivity;
 
     public AddonsFragment() {
         // Required empty public constructor
@@ -57,20 +56,18 @@ public class AddonsFragment extends Fragment implements Constants {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        mContext = activity;
+        mActivity = (AppCompatActivity) getActivity();
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_versions, container, false);
 
-        AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mContext);
+        AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mActivity);
 
         ArrayList<AddonItem> addonsList = addonSQLiteHelper.getListOfAddons();
 
         if (!addonsList.isEmpty()) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
             recyclerView.setAdapter(new RecyclerAdapter(addonsList));
         }
         return view;
@@ -80,9 +77,9 @@ public class AddonsFragment extends Fragment implements Constants {
     public void onStart() {
         super.onStart();
         try {
-            mListener = (FragmentInteractionListener) mContext;
+            mListener = (FragmentInteractionListener) mActivity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(mContext.toString()
+            throw new ClassCastException(mActivity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

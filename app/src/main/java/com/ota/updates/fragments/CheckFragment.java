@@ -15,8 +15,6 @@ package com.ota.updates.fragments;
  * limitations under the License.
  */
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -33,7 +31,7 @@ import com.ota.updates.utils.Preferences;
 
 public class CheckFragment extends Fragment implements Constants {
     private FragmentInteractionListener mListener;
-    private Context mContext;
+    private AppCompatActivity mActivity;
 
     public CheckFragment() {
         // Required empty public constructor
@@ -50,13 +48,11 @@ public class CheckFragment extends Fragment implements Constants {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_check, container, false);
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        mContext = activity;
+        mActivity = (AppCompatActivity) getActivity();
 
         TextView time = (TextView) view.findViewById(R.id.subtitle);
         String lastChecked = getResources().getString(R.string.last_checked_for_update);
-        String timeChecked = Preferences.getUpdateLastChecked(mContext);
+        String timeChecked = Preferences.getUpdateLastChecked(mActivity);
         time.setText(lastChecked + " " + timeChecked);
 
         View fabView = view.findViewById(R.id.fab);
@@ -76,19 +72,19 @@ public class CheckFragment extends Fragment implements Constants {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onStart() {
+        super.onStart();
         try {
-            mListener = (FragmentInteractionListener) activity;
+            mListener = (FragmentInteractionListener) mActivity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(mActivity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
+        super.onStop();
         mListener = null;
     }
 }
