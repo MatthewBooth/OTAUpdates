@@ -49,6 +49,7 @@ public class RomJsonParser implements Constants {
             JSONObject romObj = jObj.getJSONObject(NAME_ROM);
 
             romItem.setId(romObj.getInt(NAME_ID));
+            romItem.setName(romObj.getString(NAME_NAME));
             romItem.setSlug(romObj.getString(NAME_SLUG));
             romItem.setDescription(romObj.getString(NAME_DESCRIPTION));
             romItem.setPublishedAt(romObj.getString(NAME_PUBLISHED_AT));

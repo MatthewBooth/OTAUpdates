@@ -28,6 +28,10 @@ In order to use this app you MUST be running a custom ROM which has specifically
     <string name="description">Description</string>
     <string name="error">Error!</string>
 
+    <!-- Information -->
+    <string name="name">Name</string>
+    <string name="downloads">Downloads</string>
+
     <!--Update Available -->
     <string name="update_available">Update available</string>
     <string name="filename">Filename</string>

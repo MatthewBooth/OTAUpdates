@@ -38,7 +38,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.ota.updates.R;
 import com.ota.updates.callbacks.AsyncResponse;
@@ -48,6 +47,7 @@ import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.fragments.FileDownloadFragment;
+import com.ota.updates.fragments.InfoFragment;
 import com.ota.updates.fragments.VersionsFragment;
 import com.ota.updates.items.RomItem;
 import com.ota.updates.tasks.CheckForUpdateTask;
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         Utils.openWebsite(mContext, romItem.getDonateUrl());
                         return true;
                     case R.id.rom_information:
-                        Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
+                        loadFragment(InfoFragment.newInstance());
                         return true;
                     case R.id.app_settings:
                         return true;
