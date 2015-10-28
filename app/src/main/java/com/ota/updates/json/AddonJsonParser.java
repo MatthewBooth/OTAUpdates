@@ -26,13 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AddonJSONParser implements Constants {
-    private static String TAG = AddonJSONParser.class.getName();
+public class AddonJsonParser implements Constants {
+    private static String TAG = AddonJsonParser.class.getName();
 
     private String mJSONString;
     private Context mContext;
 
-    public AddonJSONParser(Context context, String jsonString) {
+    public AddonJsonParser(Context context, String jsonString) {
         mJSONString = jsonString;
         mContext = context;
     }

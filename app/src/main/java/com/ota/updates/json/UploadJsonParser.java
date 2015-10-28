@@ -25,14 +25,14 @@ import com.ota.updates.utils.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UploadJSONParser implements Constants {
+public class UploadJsonParser implements Constants {
 
-    private static String TAG = UploadJSONParser.class.getName();
+    private static String TAG = UploadJsonParser.class.getName();
 
     private String mJSONString;
     private Context mContext;
 
-    public UploadJSONParser(Context context, String jsonString) {
+    public UploadJsonParser(Context context, String jsonString) {
         mJSONString = jsonString;
         mContext = context;
     }

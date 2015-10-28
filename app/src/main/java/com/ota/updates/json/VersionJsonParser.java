@@ -26,14 +26,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VersionJSONParser implements Constants {
+public class VersionJsonParser implements Constants {
 
-    private static String TAG = VersionJSONParser.class.getName();
+    private static String TAG = VersionJsonParser.class.getName();
 
     private String mJSONString;
     private Context mContext;
 
-    public VersionJSONParser(Context context, String jsonString) {
+    public VersionJsonParser(Context context, String jsonString) {
         mJSONString = jsonString;
         mContext = context;
     }
@@ -71,14 +71,14 @@ public class VersionJSONParser implements Constants {
                 JSONObject deltaObj = versionObj.optJSONObject(NAME_DELTA_UPLOAD);
                 if (deltaObj != null) {
                     versionItem.setDeltaUploadId(deltaObj.getInt(NAME_ID));
-                    new UploadJSONParser(mContext, deltaObj.toString()).parse();
+                    new UploadJsonParser(mContext, deltaObj.toString()).parse();
                 } else {
                     versionItem.setDeltaUploadId(-1);
                 }
 
                 JSONObject fullObj = versionObj.getJSONObject(NAME_FULL_UPLOAD);
                 versionItem.setFullUploadId(fullObj.getInt(NAME_ID));
-                new UploadJSONParser(mContext, fullObj.toString()).parse();
+                new UploadJsonParser(mContext, fullObj.toString()).parse();
 
                 helper.addVersion(versionItem);
             }

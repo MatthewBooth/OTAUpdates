@@ -25,14 +25,14 @@ import com.ota.updates.utils.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RomJSONParser implements Constants {
+public class RomJsonParser implements Constants {
 
-    private static final String TAG = RomJSONParser.class.getName();
+    private static final String TAG = RomJsonParser.class.getName();
 
     private String mJSONString;
     private Context mContext;
 
-    public RomJSONParser(Context context, String jsonString) {
+    public RomJsonParser(Context context, String jsonString) {
         mJSONString = jsonString;
         mContext = context;
     }
