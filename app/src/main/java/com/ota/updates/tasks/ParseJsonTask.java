@@ -61,10 +61,10 @@ public class ParseJsonTask extends AsyncTask<String, Integer, Boolean> implement
             boolean addonParsed = new AddonJsonParser(mContext, json).parse();
 
             if (DEBUGGING) {
-                Log.d(TAG, "JSON data parsed status = " + (versionParsed && addonParsed));
+                Log.d(TAG, "JSON data parsed status = " + (versionParsed && addonParsed && romParsed));
             }
 
-            return versionParsed && addonParsed;
+            return versionParsed && addonParsed && romParsed;
         }
         return false;
     }
