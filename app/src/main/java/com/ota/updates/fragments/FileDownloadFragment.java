@@ -70,7 +70,7 @@ public class FileDownloadFragment extends Fragment implements Constants {
 
             if (DEBUGGING) {
                 Log.d(TAG, "File ID = " + mFileId);
-                Log.d(TAG, "File Type ID" + mFileType);
+                Log.d(TAG, "File Type ID = " + mFileType);
             }
         }
     }
