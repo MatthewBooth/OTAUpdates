@@ -24,6 +24,13 @@ public interface Constants {
     int DATABASE_VERSION = 1;
     String DATABASE_NAME = "OtaUpdates.db";
 
+    // Table names
+    String ADDON_TABLE_NAME = "addon";
+    String UPLOAD_TABLE_NAME = "upload";
+    String VERSION_TABLE_NAME = "version";
+    String ROM_TABLE_NAME = "rom";
+
+    // Column/Field names
     String NAME_ID = "id";
     String NAME_FULL_NAME = "full_name";
     String NAME_SLUG = "slug";
@@ -41,9 +48,6 @@ public interface Constants {
     String NAME_NAME = "name";
     String NAME_DESCRIPTION = "description";
     String NAME_DOWNLOAD_LINK = "download_link";
-    String ADDON_TABLE_NAME = "addon";
-    String UPLOAD_TABLE_NAME = "upload";
-    String VERSION_TABLE_NAME = "version";
     String NAME_ROM = "rom";
     String NAME_VERSIONS = "versions";
     String NAME_ADDONS = "addons";
@@ -52,6 +56,8 @@ public interface Constants {
     String NAME_VERSION = "version";
     String NAME_ADDON = "addon";
     String NAME_CATEGORY = "category";
+    String NAME_WEBSITE_URL = "website_url";
+    String NAME_DONATE_URL = "donate_url";
 
     // Font Awesome ttf
     String FONT_AWESOME = "fontawesome-webfont-4.4.0.ttf";

@@ -18,19 +18,21 @@ package com.ota.updates.json;
 import android.content.Context;
 import android.util.Log;
 
+import com.ota.updates.db.helpers.RomSQLiteHelper;
+import com.ota.updates.items.RomItem;
 import com.ota.updates.utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ROMJSONParser implements Constants {
+public class RomJSONParser implements Constants {
 
-    private static final String TAG = ROMJSONParser.class.getName();
+    private static final String TAG = RomJSONParser.class.getName();
 
     private String mJSONString;
     private Context mContext;
 
-    public ROMJSONParser(Context context, String jsonString) {
+    public RomJSONParser(Context context, String jsonString) {
         mJSONString = jsonString;
         mContext = context;
     }
@@ -40,9 +42,22 @@ public class ROMJSONParser implements Constants {
      */
     public void parse() {
         try {
+            RomItem romItem = new RomItem();
             JSONObject jObj = new JSONObject(mJSONString);
+            RomSQLiteHelper helper = new RomSQLiteHelper(mContext);
 
             JSONObject romObj = jObj.getJSONObject(NAME_ROM);
+
+            romItem.setId(romObj.getInt(NAME_ID));
+            romItem.setSlug(romObj.getString(NAME_SLUG));
+            romItem.setDescription(romObj.getString(NAME_DESCRIPTION));
+            romItem.setPublishedAt(romObj.getString(NAME_PUBLISHED_AT));
+            romItem.setCreatedAt(romObj.getString(NAME_CREATED_AT));
+            romItem.setDownloads(romObj.getInt(NAME_DOWNLOADS));
+            romItem.setWebsiteUrl(romObj.getString(NAME_WEBSITE_URL));
+            romItem.setDonateUrl(romObj.getString(NAME_DONATE_URL));
+
+            helper.addRom(romItem);
 
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());

@@ -15,7 +15,7 @@ package com.ota.updates.items;
  * limitations under the License.
  */
 
-public class ROMItem extends BaseItem {
+public class RomItem extends BaseItem {
     private String name;
     private String slug;
     private String description;
