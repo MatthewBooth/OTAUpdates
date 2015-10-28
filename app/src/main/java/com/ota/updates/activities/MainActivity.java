@@ -48,9 +48,9 @@ import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.fragments.FileDownloadFragment;
 import com.ota.updates.fragments.VersionsFragment;
-import com.ota.updates.tasks.CheckForUpdate;
-import com.ota.updates.tasks.DownloadJson;
-import com.ota.updates.tasks.ParseJson;
+import com.ota.updates.tasks.CheckForUpdateTask;
+import com.ota.updates.tasks.DownloadJsonTask;
+import com.ota.updates.tasks.ParseJsonTask;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Preferences;
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     }
 
     private void downloadJson(final ProgressDialog loadingDialog) {
-        new DownloadJson(mContext, new AsyncResponse() {
+        new DownloadJsonTask(mContext, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
                 if (output) {
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     }
 
     private void parseJson(final ProgressDialog loadingDialog) {
-        new ParseJson(mContext, new AsyncResponse() {
+        new ParseJsonTask(mContext, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
                 if (output) {
@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     }
 
     private void checkForUpdate(final ProgressDialog loadingDialog) {
-        new CheckForUpdate(mContext, new AsyncResponse() {
+        new CheckForUpdateTask(mContext, new AsyncResponse() {
             @Override
             public void processFinish(Boolean output) {
                 if (DEBUGGING) {

@@ -18,17 +18,17 @@ package com.ota.updates.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.callbacks.AsyncResponse;
+import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Utils;
 
-public class CheckForUpdate extends AsyncTask<String, Integer, Boolean> implements Constants {
+public class CheckForUpdateTask extends AsyncTask<String, Integer, Boolean> implements Constants {
     public final String TAG = this.getClass().getSimpleName();
-    private Context mContext;
     public AsyncResponse mResponse;
+    private Context mContext;
 
-    public CheckForUpdate(Context context, AsyncResponse response) {
+    public CheckForUpdateTask(Context context, AsyncResponse response) {
         mContext = context;
         mResponse = response;
     }

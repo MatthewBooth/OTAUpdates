@@ -28,14 +28,13 @@ import com.ota.updates.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 
-public class ParseJson extends AsyncTask<String, Integer, Boolean> implements Constants {
+public class ParseJsonTask extends AsyncTask<String, Integer, Boolean> implements Constants {
 
     public final String TAG = this.getClass().getSimpleName();
-
-    private Context mContext;
     public AsyncResponse mResponse;
+    private Context mContext;
 
-    public ParseJson(Context context, AsyncResponse response) {
+    public ParseJsonTask(Context context, AsyncResponse response) {
         mContext = context;
         mResponse = response;
     }
