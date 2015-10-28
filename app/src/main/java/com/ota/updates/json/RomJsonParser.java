@@ -40,7 +40,7 @@ public class RomJsonParser implements Constants {
     /**
      * Parse the Rom object within the selected JSON string
      */
-    public void parse() {
+    public boolean parse() {
         try {
             RomItem romItem = new RomItem();
             JSONObject jObj = new JSONObject(mJSONString);
@@ -61,6 +61,8 @@ public class RomJsonParser implements Constants {
 
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
+            return false;
         }
+        return true;
     }
 }

@@ -33,6 +33,7 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
         createVersionTable(db);
         createUploadTable(db);
         createAddonTable(db);
+        createRomTable(db);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
         db.execSQL("DROP TABLE IF EXISTS " + VERSION_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UPLOAD_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ADDON_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ROM_TABLE_NAME);
         this.onCreate(db);
     }
 
@@ -105,6 +107,28 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
                 ")";
         // create version table
         db.execSQL(CREATE_VERSION_TABLE);
+    }
+
+    /**
+     * Creates the Rom table in the database
+     *
+     * @param db The database to create the table in
+     */
+    private void createRomTable(SQLiteDatabase db) {
+        // SQL statement to create version table
+        String CREATE_ROM_TABLE = "CREATE TABLE IF NOT EXISTS " + ROM_TABLE_NAME + " (" +
+                NAME_ID + " INTEGER PRIMARY KEY," +
+                NAME_NAME + " TEXT," +
+                NAME_SLUG + " TEXT," +
+                NAME_DESCRIPTION + " TEXT," +
+                NAME_PUBLISHED_AT + " TEXT," +
+                NAME_CREATED_AT + " TEXT," +
+                NAME_DOWNLOADS + " INTEGER," +
+                NAME_WEBSITE_URL + " TEXT," +
+                NAME_DONATE_URL + " TEXT" +
+                ")";
+        // create version table
+        db.execSQL(CREATE_ROM_TABLE);
     }
 
     /**

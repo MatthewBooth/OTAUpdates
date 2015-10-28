@@ -21,6 +21,7 @@ import android.util.Log;
 
 import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.json.AddonJsonParser;
+import com.ota.updates.json.RomJsonParser;
 import com.ota.updates.json.VersionJsonParser;
 import com.ota.updates.utils.Constants;
 import com.ota.updates.utils.Utils;
@@ -55,6 +56,7 @@ public class ParseJsonTask extends AsyncTask<String, Integer, Boolean> implement
 
         if (json != null) {
             // Parse and populate our Database
+            boolean romParsed = new RomJsonParser(mContext, json).parse();
             boolean versionParsed = new VersionJsonParser(mContext, json).parse();
             boolean addonParsed = new AddonJsonParser(mContext, json).parse();
 

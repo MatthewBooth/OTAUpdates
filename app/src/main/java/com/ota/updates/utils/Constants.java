@@ -21,7 +21,7 @@ public interface Constants {
     boolean DEBUGGING = true;
 
     // Database Version
-    int DATABASE_VERSION = 1;
+    int DATABASE_VERSION = 2;
     String DATABASE_NAME = "OtaUpdates.db";
 
     // Table names

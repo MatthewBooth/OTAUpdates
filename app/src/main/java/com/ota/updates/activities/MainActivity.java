@@ -42,12 +42,14 @@ import android.widget.Toast;
 
 import com.ota.updates.R;
 import com.ota.updates.callbacks.AsyncResponse;
+import com.ota.updates.db.helpers.RomSQLiteHelper;
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.fragments.CheckFragment;
 import com.ota.updates.fragments.FileDownloadFragment;
 import com.ota.updates.fragments.VersionsFragment;
+import com.ota.updates.items.RomItem;
 import com.ota.updates.tasks.CheckForUpdateTask;
 import com.ota.updates.tasks.DownloadJsonTask;
 import com.ota.updates.tasks.ParseJsonTask;
@@ -147,9 +149,38 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
 
+        disableDrawerItems(navigationView.getMenu());
+
         setupNavigationViewIcons(navigationView.getMenu());
 
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
+    }
+
+    private void disableDrawerItems(Menu menu) {
+
+        RomSQLiteHelper romSQLiteHelper = new RomSQLiteHelper(mContext);
+        RomItem romItem = romSQLiteHelper.getRom();
+        MenuItem item;
+
+        if (romItem != null) {
+            if (romItem.getDonateUrl().isEmpty() || romItem.getDonateUrl() == null) {
+                item = menu.findItem(R.id.rom_donate);
+                item.setVisible(false);
+
+                if (DEBUGGING) {
+                    Log.d(TAG, "Removed Donate URL");
+                }
+            }
+
+            if (romItem.getWebsiteUrl().isEmpty() || romItem.getWebsiteUrl() == null) {
+                item = menu.findItem(R.id.rom_website);
+                item.setVisible(false);
+
+                if (DEBUGGING) {
+                    Log.d(TAG, "Removed Website URL");
+                }
+            }
+        }
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -254,6 +285,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
 
+                RomSQLiteHelper romSQLiteHelper = new RomSQLiteHelper(mContext);
+                RomItem romItem = romSQLiteHelper.getRom();
+
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
 
@@ -268,8 +302,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                         loadFragment(new AddonsFragment());
                         return true;
                     case R.id.rom_website:
+                        Utils.openWebsite(mContext, romItem.getWebsiteUrl());
                         return true;
                     case R.id.rom_donate:
+                        Utils.openWebsite(mContext, romItem.getDonateUrl());
                         return true;
                     case R.id.rom_information:
                         Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
