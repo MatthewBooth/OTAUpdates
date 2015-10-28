@@ -29,7 +29,6 @@ public interface Constants {
     String NAME_SLUG = "slug";
     String NAME_ANDROID_VERSION = "android_version";
     String NAME_CHANGELOG = "changelog";
-    String NAME_UPDATED_AT = "updated_at";
     String NAME_CREATED_AT = "created_at";
     String NAME_PUBLISHED_AT = "published_at";
     String NAME_DOWNLOADS = "downloads";
