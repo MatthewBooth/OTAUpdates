@@ -217,6 +217,8 @@ public class Utils implements Constants {
                     return "https://romhut.com/roms/aosp-jf.json";
                 case PROP_DEFAULT_THEME:
                     return "0";
+                case PROP_DOWNLOAD_LOC:
+                    return "";
             }
         }
 
