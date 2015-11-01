@@ -95,4 +95,38 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
 
         return downloadItem;
     }
+
+    /**
+     * Retrieve an entry from the database
+     *
+     * @param downloadId the download id to retrieve
+     * @return a DownloadItem
+     */
+    public DownloadItem getDownloadEntry(long downloadId) {
+        String query = "SELECT * FROM "
+                + DOWNLOAD_TABLE_NAME
+                + "WHERE "
+                + NAME_DOWNLOAD_ID
+                + " = "
+                + Long.toString(downloadId);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        DownloadItem downloadItem = new DownloadItem();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            downloadItem.setFileId(Integer.parseInt(cursor.getString(0)));
+            downloadItem.setDownloadId(Long.parseLong(cursor.getString(1)));
+            cursor.close();
+        } else {
+            downloadItem = null;
+        }
+
+        db.close();
+
+        return downloadItem;
+    }
 }
