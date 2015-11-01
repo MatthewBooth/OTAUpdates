@@ -29,6 +29,7 @@ public interface Constants {
     String UPLOAD_TABLE_NAME = "upload";
     String VERSION_TABLE_NAME = "version";
     String ROM_TABLE_NAME = "rom";
+    String DOWNLOAD_TABLE_NAME = "download";
 
     // Column/Field names
     String NAME_ID = "id";
@@ -58,6 +59,7 @@ public interface Constants {
     String NAME_CATEGORY = "category";
     String NAME_WEBSITE_URL = "website_url";
     String NAME_DONATE_URL = "donate_url";
+    String NAME_DOWNLOAD_ID = "download_id";
 
     // Font Awesome ttf
     String FONT_AWESOME = "fontawesome-webfont-4.4.0.ttf";
@@ -66,6 +68,7 @@ public interface Constants {
     String PROP_MANIFEST = "ro.ota.manifest";
     String PROP_VERSION = "ro.ota.version";
     String PROP_DEFAULT_THEME = "ro.ota.default_theme";
+    String PROP_DOWNLOAD_LOC = "ro.ota.download_loc";
 
     // Preferences
     String LAST_CHECKED_FOR_UPDATE = "last_checked_for_update";
@@ -73,4 +76,9 @@ public interface Constants {
     // File Types
     Integer FILE_TYPE_VERSION = 0;
     Integer FILE_TYPE_ADDON = 1;
+
+    // Download directory
+    String OTA_DOWNLOAD_DIR = Utils.doesPropExist(PROP_DOWNLOAD_LOC)
+            ? Utils.getProp(PROP_DOWNLOAD_LOC)
+            : "OTAUpdates";
 }

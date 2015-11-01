@@ -34,14 +34,17 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
         createUploadTable(db);
         createAddonTable(db);
         createRomTable(db);
+        createDownloadTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + VERSION_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + UPLOAD_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ADDON_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ROM_TABLE_NAME);
+        String dropTables = "DROP TABLE IF EXISTS ";
+        db.execSQL(dropTables + VERSION_TABLE_NAME);
+        db.execSQL(dropTables + UPLOAD_TABLE_NAME);
+        db.execSQL(dropTables + ADDON_TABLE_NAME);
+        db.execSQL(dropTables + ROM_TABLE_NAME);
+        db.execSQL(dropTables + DOWNLOAD_TABLE_NAME);
         this.onCreate(db);
     }
 
@@ -129,6 +132,21 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
                 ")";
         // create version table
         db.execSQL(CREATE_ROM_TABLE);
+    }
+
+    /**
+     * Creates the Download table in the database
+     *
+     * @param db The database to create the table in
+     */
+    private void createDownloadTable(SQLiteDatabase db) {
+        // SQL statement to create version table
+        String CREATE_DOWNLOAD_TABLE = "CREATE TABLE IF NOT EXISTS " + DOWNLOAD_TABLE_NAME + " (" +
+                NAME_ID + " INTEGER UNIQUE PRIMARY KEY," +
+                NAME_DOWNLOAD_ID + " INTEGER UNIQUE" +
+                ")";
+        // create version table
+        db.execSQL(CREATE_DOWNLOAD_TABLE);
     }
 
     /**

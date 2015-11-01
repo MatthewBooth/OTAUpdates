@@ -59,7 +59,6 @@ public class CheckFragment extends Fragment implements Constants {
         if (fabView != null) {
             FloatingActionButton fab = (FloatingActionButton) fabView;
 
-            // TODO: Don't need an action on this Snackbar thing.
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
