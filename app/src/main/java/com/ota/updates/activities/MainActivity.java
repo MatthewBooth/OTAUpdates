@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +99,19 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Initializing Drawer Layout and ActionBarToggle
         initialisingDrawerLayout(mToolbar, navigationView);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 1) {
+            Log.i(TAG, "popping backstack");
+            fm.popBackStack();
+        } else {
+            Log.i(TAG, "nothing on backstack, calling super");
+            super.onBackPressed();
+            super.onBackPressed(); // Bit of a hack to force the app to close, but without using finish()
+        }
     }
 
     private Boolean checkRomIsCompatible() {
@@ -191,9 +205,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             // Get the fragment manager
             FragmentManager fragmentManager = getSupportFragmentManager();
 
-            // Add the fragment to the 'fragment_container' FrameLayout
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment, fragment).commit();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment, fragment);
+            fragmentTransaction.addToBackStack(fragment.getTag());
+            fragmentTransaction.commit();
         }
         return false;
     }
