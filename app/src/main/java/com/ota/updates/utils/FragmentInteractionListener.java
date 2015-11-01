@@ -30,4 +30,6 @@ public interface FragmentInteractionListener {
     void onRefreshClickInteraction();
 
     void onOpenFileDownloadView(int fileType, int fileId);
+
+    void startDownload(String url, String fileName, int fileId);
 }

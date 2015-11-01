@@ -44,6 +44,7 @@ import com.ota.updates.R;
 import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.db.helpers.RomSQLiteHelper;
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
+import com.ota.updates.download.FileDownload;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.fragments.CheckFragment;
@@ -413,5 +414,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
     @Override
     public void onOpenFileDownloadView(int fileType, int fileId) {
         loadFragment(FileDownloadFragment.newInstance(fileType, fileId));
+    }
+
+    @Override
+    public void startDownload(String url, String fileName, int fileId) {
+        FileDownload.startDownload(mContext, url, fileName, fileId);
     }
 }

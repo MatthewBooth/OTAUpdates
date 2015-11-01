@@ -16,6 +16,7 @@ package com.ota.updates.fragments;
  */
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
@@ -155,6 +156,8 @@ public class FileDownloadFragment extends Fragment implements Constants {
             tv.setText(string);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
         }
+
+        setupFloatingActionButton(view, uploadItem.getDownloadLink(), versionItem.getFullName(), versionItem.getId());
     }
 
     /**
@@ -211,6 +214,8 @@ public class FileDownloadFragment extends Fragment implements Constants {
             tv.setText(string);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
         }
+
+        setupFloatingActionButton(view, addonItem.getDownloadLink(), addonItem.getName(), addonItem.getId());
     }
 
     /**
@@ -256,6 +261,20 @@ public class FileDownloadFragment extends Fragment implements Constants {
             TextView tv = (TextView) changelog;
             tv.setText(error);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+    }
+
+    private void setupFloatingActionButton(View view, final String url, final String fileName, final int fileId) {
+        View fabView = view.findViewById(R.id.fab);
+        if (fabView != null) {
+            FloatingActionButton fab = (FloatingActionButton) fabView;
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.startDownload(url, fileName, fileId);
+                }
+            });
         }
     }
 
