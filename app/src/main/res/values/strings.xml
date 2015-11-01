@@ -1,19 +1,19 @@
 <resources>
-    <string name="app_name">OTA Updates</string>
-    <string name="app_version">v3.0b</string>
+    <string name="app_name" translatable="false">OTA Updates</string>
+    <string name="app_version" translatable="false">v3.0b</string>
     <string name="refreshing">Refreshing&#8230;</string>
     <string name="loading">Loading&#8230;</string>
     <string name="dismiss">Dismiss</string>
     <string name="closeDrawer">Navigation View</string>
     <string name="openDrawer">Navigation View Closed</string>
 
-    <string name="app_github_url">https://github.com/MatthewBooth/OTAUpdates</string>
+    <string name="app_github_url" translatable="false">https://github.com/MatthewBooth/OTAUpdates</string>
     <string name="no_support_title">Uh Oh!</string>
     <string name="no_support_message">Your ROM does not support this app.
 
 In order to use this app you MUST be running a custom ROM which has specifically added support</string>
     <string name="no_support_find_out_more">Find out more</string>
-    <string name="no_support_find_out_more_link">https://github.com/MatthewBooth/OTAUpdates</string>
+    <string name="no_support_find_out_more_link" translatable="false">https://github.com/MatthewBooth/OTAUpdates</string>
 
     <!-- Update Check -->
     <string name="no_update_available">No updates are available</string>

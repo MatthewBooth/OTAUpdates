@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="fa_refresh">&#xf021;</string>
-    <string name="fa_file_archive_o">&#xf1c6;</string>
-    <string name="fa_puzzle_piece">&#xf12e;</string>
-    <string name="fa_globe">&#xf0ac;</string>
-    <string name="fa_money">&#xf0d6;</string>
-    <string name="fa_info">&#xf129;</string>
-    <string name="fa_cog">&#xf013;</string>
-    <string name="fa_heart">&#xf004;</string>
-    <string name="fa_file_text_o">&#xf0f6;</string>
-    <string name="fa_github">&#xf09b;</string>
-    <string name="fa_question">&#xf128;</string>
-    <string name="fa_arrows_h">&#xf07e;</string>
-    <string name="fa_check_circle_o">&#xf05d;</string>
+    <string name="fa_refresh" translatable="false">&#xf021;</string>
+    <string name="fa_file_archive_o" translatable="false">&#xf1c6;</string>
+    <string name="fa_puzzle_piece" translatable="false">&#xf12e;</string>
+    <string name="fa_globe" translatable="false">&#xf0ac;</string>
+    <string name="fa_money" translatable="false">&#xf0d6;</string>
+    <string name="fa_info" translatable="false">&#xf129;</string>
+    <string name="fa_cog" translatable="false">&#xf013;</string>
+    <string name="fa_heart" translatable="false">&#xf004;</string>
+    <string name="fa_file_text_o" translatable="false">&#xf0f6;</string>
+    <string name="fa_github" translatable="false">&#xf09b;</string>
+    <string name="fa_question" translatable="false">&#xf128;</string>
+    <string name="fa_arrows_h" translatable="false">&#xf07e;</string>
+    <string name="fa_check_circle_o" translatable="false">&#xf05d;</string>
 </resources>
