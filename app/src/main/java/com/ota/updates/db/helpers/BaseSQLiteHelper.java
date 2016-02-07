@@ -21,8 +21,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.Fields;
 
-public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants {
+public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants, Fields {
 
     public BaseSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

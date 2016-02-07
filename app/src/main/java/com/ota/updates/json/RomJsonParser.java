@@ -20,12 +20,12 @@ import android.util.Log;
 
 import com.ota.updates.db.helpers.RomSQLiteHelper;
 import com.ota.updates.items.RomItem;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.Fields;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RomJsonParser implements Constants {
+public class RomJsonParser implements Fields {
 
     private static final String TAG = RomJsonParser.class.getName();
 

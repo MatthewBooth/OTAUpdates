@@ -20,13 +20,13 @@ import android.util.Log;
 
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.items.VersionItem;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.Fields;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VersionJsonParser implements Constants {
+public class VersionJsonParser implements Fields {
 
     private static String TAG = VersionJsonParser.class.getName();
 
