@@ -4,8 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.ota.updates.items.DownloadItem;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /*
  * Copyright (C) 2015 Matt Booth.
@@ -33,15 +41,30 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
      *
      * @param fileId     File id to add to the database
      * @param downloadId Download id to add to the database
+     * @param downloadType  The type of download to store
      */
-    public void addDownload(int fileId, long downloadId) {
+    public void addDownload(int fileId, long downloadId, int downloadType, Timestamp downloadStarted) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, fileId);
         values.put(NAME_DOWNLOAD_ID, (int) downloadId);
+        values.put(NAME_DOWNLOAD_TYPE, downloadType);
+        values.put(NAME_DOWNLOAD_STARTED, downloadStarted.toString());
+        values.put(NAME_DOWNLOAD_FINISHED, new Timestamp(System.currentTimeMillis() - 100000).toString());
+        values.put(NAME_DOWNLOAD_STATUS, DOWNLOAD_STATUS_RUNNING);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.insertWithOnConflict(DOWNLOAD_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.close();
+    }
+
+    public void updateFinishedTime(int fileId, Timestamp downloadFinished) {
+        ContentValues values = new ContentValues();
+        values.put(NAME_DOWNLOAD_FINISHED, downloadFinished.toString());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.update(DOWNLOAD_TABLE_NAME, values, NAME_ID + " = ?", new String[]{String.valueOf(fileId)});
         db.close();
     }
 
@@ -55,6 +78,9 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
             db.delete(DOWNLOAD_TABLE_NAME, NAME_DOWNLOAD_ID + " = ?", new String[]{Long.toString(downloadId)});
+            if (DEBUGGING) {
+                Log.d(this.getClass().getName(), "Download with ID " + downloadId + " removed");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -68,10 +94,10 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
      * @param fileId the file id to retrieve
      * @return a DownloadItem
      */
-    public DownloadItem getDownloadEntry(int fileId) {
+    public DownloadItem getDownloadEntryByFileId(int fileId) {
         String query = "SELECT * FROM "
                 + DOWNLOAD_TABLE_NAME
-                + "WHERE "
+                + " WHERE "
                 + NAME_ID
                 + " = "
                 + Integer.toString(fileId);
@@ -80,12 +106,11 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        DownloadItem downloadItem = new DownloadItem();
+        DownloadItem downloadItem;
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            downloadItem.setFileId(Integer.parseInt(cursor.getString(0)));
-            downloadItem.setDownloadId(Long.parseLong(cursor.getString(1)));
+            downloadItem = getDownloadItemFromCursor(cursor);
             cursor.close();
         } else {
             downloadItem = null;
@@ -102,10 +127,10 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
      * @param downloadId the download id to retrieve
      * @return a DownloadItem
      */
-    public DownloadItem getDownloadEntry(long downloadId) {
+    public DownloadItem getDownloadEntryByDownloadId(long downloadId) {
         String query = "SELECT * FROM "
                 + DOWNLOAD_TABLE_NAME
-                + "WHERE "
+                + " WHERE "
                 + NAME_DOWNLOAD_ID
                 + " = "
                 + Long.toString(downloadId);
@@ -114,12 +139,11 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        DownloadItem downloadItem = new DownloadItem();
+        DownloadItem downloadItem;
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            downloadItem.setFileId(Integer.parseInt(cursor.getString(0)));
-            downloadItem.setDownloadId(Long.parseLong(cursor.getString(1)));
+            downloadItem = getDownloadItemFromCursor(cursor);
             cursor.close();
         } else {
             downloadItem = null;
@@ -127,6 +151,33 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
 
         db.close();
 
+        return downloadItem;
+    }
+
+    public ArrayList<DownloadItem> getListOfDownloads() {
+        ArrayList<DownloadItem> list = new ArrayList<>();
+
+        Cursor cursor = getAllEntries(DOWNLOAD_TABLE_NAME);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                DownloadItem downloadItem = getDownloadItemFromCursor(cursor);
+                list.add(downloadItem);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return list;
+    }
+    @NonNull
+    private DownloadItem getDownloadItemFromCursor(Cursor cursor) {
+        DownloadItem downloadItem = new DownloadItem();
+        downloadItem.setFileId(Integer.parseInt(cursor.getString(0)));
+        downloadItem.setDownloadId(cursor.getLong(1));
+        downloadItem.setDownloadType(Integer.parseInt(cursor.getString(2)));
+        downloadItem.setDownloadStarted(Timestamp.valueOf(cursor.getString(3)));
+        downloadItem.setDownloadFinished(Timestamp.valueOf(cursor.getString(4)));
+        downloadItem.setDownloadStatus(Integer.parseInt(cursor.getString(5)));
         return downloadItem;
     }
 }

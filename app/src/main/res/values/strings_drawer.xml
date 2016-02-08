@@ -8,6 +8,7 @@
     <string name="drawer_primary_updates">Updates</string>
     <string name="drawer_primary_versions">Versions</string>
     <string name="drawer_primary_addons">Addons</string>
+    <string name="drawer_primary_downloads">Downloads</string>
     <string name="drawer_primary_rom_website">Website</string>
     <string name="drawer_primary_rom_donate">Donate</string>
     <string name="drawer_primary_rom_information">Information</string>

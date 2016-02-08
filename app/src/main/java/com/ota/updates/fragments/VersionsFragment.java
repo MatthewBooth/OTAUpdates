@@ -31,7 +31,7 @@ import com.ota.updates.db.helpers.UploadSQLiteHelper;
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.items.UploadItem;
 import com.ota.updates.items.VersionItem;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
 
@@ -41,7 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class VersionsFragment extends Fragment implements Constants {
+public class VersionsFragment extends Fragment implements App {
     private FragmentInteractionListener mListener;
     private AppCompatActivity mActivity;
 
@@ -102,7 +102,7 @@ public class VersionsFragment extends Fragment implements Constants {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_list_items, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_file_list_items, viewGroup, false);
             return new ViewHolder(v);
         }
 

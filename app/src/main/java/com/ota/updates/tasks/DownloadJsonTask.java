@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.ota.updates.callbacks.AsyncResponse;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.Utils;
 
 import java.io.BufferedInputStream;
@@ -29,7 +29,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class DownloadJsonTask extends AsyncTask<String, Integer, Boolean> implements Constants {
+public class DownloadJsonTask extends AsyncTask<String, Integer, Boolean> implements App {
     public final String TAG = this.getClass().getSimpleName();
     public AsyncResponse mResponse;
     private Context mContext;

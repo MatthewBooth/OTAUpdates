@@ -20,13 +20,13 @@ import android.util.Log;
 
 import com.ota.updates.db.helpers.AddonSQLiteHelper;
 import com.ota.updates.items.AddonItem;
-import com.ota.updates.utils.Fields;
+import com.ota.updates.utils.constants.DatabaseFields;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AddonJsonParser implements Fields {
+public class AddonJsonParser implements DatabaseFields {
     private static String TAG = AddonJsonParser.class.getName();
 
     private String mJSONString;

@@ -21,6 +21,8 @@ import android.net.Uri;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.ota.updates.utils.constants.App;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Utils implements Constants {
+public class Utils implements App {
     public final static String TAG = "Utils";
 
     private static final int KILOBYTE = 1024;
@@ -214,7 +216,7 @@ public class Utils implements Constants {
                 case PROP_VERSION:
                     return "20150916";
                 case PROP_MANIFEST:
-                    return "https://romhut.com/roms/aosp-jf.json";
+                    return "https://romhut.com/roms/aosp-jf.json?token=cb5a95e552f3d3e580d7377001ad8fa0";
                 case PROP_DEFAULT_THEME:
                     return "0";
                 case PROP_DOWNLOAD_LOC:

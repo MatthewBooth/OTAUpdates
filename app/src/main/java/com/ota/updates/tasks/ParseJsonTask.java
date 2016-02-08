@@ -23,13 +23,13 @@ import com.ota.updates.callbacks.AsyncResponse;
 import com.ota.updates.json.AddonJsonParser;
 import com.ota.updates.json.RomJsonParser;
 import com.ota.updates.json.VersionJsonParser;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ParseJsonTask extends AsyncTask<String, Integer, Boolean> implements Constants {
+public class ParseJsonTask extends AsyncTask<String, Integer, Boolean> implements App {
 
     public final String TAG = this.getClass().getSimpleName();
     public AsyncResponse mResponse;

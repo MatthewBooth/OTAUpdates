@@ -20,10 +20,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ota.updates.utils.Constants;
-import com.ota.updates.utils.Fields;
+import com.ota.updates.utils.constants.App;
+import com.ota.updates.utils.constants.DatabaseFields;
 
-public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants, Fields {
+public class BaseSQLiteHelper extends SQLiteOpenHelper implements App, DatabaseFields {
 
     public BaseSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,8 +60,8 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants, Fie
                 NAME_NAME + " TEXT," +
                 NAME_SLUG + " TEXT," +
                 NAME_DESCRIPTION + " TEXT," +
-                NAME_CREATED_AT + " TEXT," +
-                NAME_PUBLISHED_AT + " TEXT," +
+                NAME_CREATED_AT + " DATETIME," +
+                NAME_PUBLISHED_AT + " DATETIME," +
                 NAME_DOWNLOADS + " INTEGER," +
                 NAME_SIZE + " INTEGER," +
                 NAME_MD5 + " TEXT," +
@@ -142,9 +142,15 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements Constants, Fie
      */
     private void createDownloadTable(SQLiteDatabase db) {
         // SQL statement to create version table
-        String CREATE_DOWNLOAD_TABLE = "CREATE TABLE IF NOT EXISTS " + DOWNLOAD_TABLE_NAME + " (" +
+        String CREATE_DOWNLOAD_TABLE = "CREATE TABLE IF NOT EXISTS " +
+                DOWNLOAD_TABLE_NAME +
+                " (" +
                 NAME_ID + " INTEGER UNIQUE PRIMARY KEY," +
-                NAME_DOWNLOAD_ID + " INTEGER UNIQUE" +
+                NAME_DOWNLOAD_ID + " INTEGER UNIQUE," +
+                NAME_DOWNLOAD_TYPE + " INTEGER," +
+                NAME_DOWNLOAD_STARTED + " DATETIME," +
+                NAME_DOWNLOAD_FINISHED + " DATETIME," +
+                NAME_DOWNLOAD_STATUS + " INTEGER" +
                 ")";
         // create version table
         db.execSQL(CREATE_DOWNLOAD_TABLE);

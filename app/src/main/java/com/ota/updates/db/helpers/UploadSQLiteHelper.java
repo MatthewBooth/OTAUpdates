@@ -78,21 +78,27 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        UploadItem uploadItem = new UploadItem();
+        UploadItem uploadItem;
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            uploadItem.setId(Integer.parseInt(cursor.getString(0)));
-            uploadItem.setSize(Integer.parseInt(cursor.getString(1)));
-            uploadItem.setMd5(cursor.getString(2));
-            uploadItem.setStatus(cursor.getString(3));
-            uploadItem.setDownloads(Integer.parseInt(cursor.getString(4)));
-            uploadItem.setDownloadLink(cursor.getString(5));
+            uploadItem = getUploadItemFromCursor(cursor);
             cursor.close();
         } else {
             uploadItem = null;
         }
         db.close();
+        return uploadItem;
+    }
+
+    private UploadItem getUploadItemFromCursor(Cursor cursor) {
+        UploadItem uploadItem = new UploadItem();
+        uploadItem.setId(Integer.parseInt(cursor.getString(0)));
+        uploadItem.setSize(Integer.parseInt(cursor.getString(1)));
+        uploadItem.setMd5(cursor.getString(2));
+        uploadItem.setStatus(cursor.getString(3));
+        uploadItem.setDownloads(Integer.parseInt(cursor.getString(4)));
+        uploadItem.setDownloadLink(cursor.getString(5));
         return uploadItem;
     }
 }

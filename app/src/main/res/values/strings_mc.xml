@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mc_close" translatable="false">&#xe5cd;</string>
+    <string name="mc_refresh" translatable="false">&#xe5d5;</string>
+    <string name="mc_file_download" translatable="false">&#xe2c4;</string>
+    <string name="mc_chevron_right" translatable="false">&#xe5cc;</string>
+    <string name="mc_insert_drive_file" translatable="false">&#xe24d;</string>
+    <string name="mc_public" translatable="false">&#xe80b;</string>
+    <string name="mc_checkbox" translatable="false">&#xe834;</string>
+    <string name="mc_settings" translatable="false">&#xe8b8;</string>
+    <string name="mc_favourite" translatable="false">&#xe87d;</string>
+    <string name="mc_info" translatable="false">&#xe88e;</string>
+    <string name="mc_attach_money" translatable="false">&#xe227;</string>
+    <string name="mc_copyright" translatable="false">&#xe90c;</string>
+    <string name="mc_whats_hot" translatable="false">&#xe80e;</string>
+    <string name="mc_delete" translatable="false">&#xe872;</string>
+</resources>

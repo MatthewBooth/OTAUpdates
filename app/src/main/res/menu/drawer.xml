@@ -15,6 +15,10 @@
             android:id="@+id/ota_addons"
             android:title="@string/drawer_primary_addons" />
 
+        <item
+            android:id="@+id/ota_downloads"
+            android:title="@string/drawer_primary_downloads" />
+
     </group>
 
     <group android:checkableBehavior="single">

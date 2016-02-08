@@ -1,4 +1,4 @@
-package com.ota.updates.utils;
+package com.ota.updates.callbacks;
 /*
  * Copyright (C) 2015 Matt Booth.
  *
@@ -15,13 +15,6 @@ package com.ota.updates.utils;
  * limitations under the License.
  */
 
-public interface FragmentInteractionListener {
-
-    void onRefreshClickInteraction();
-
-    void onOpenFileDownloadView(int fileType, int fileId);
-
-    Long startDownload(String url, String fileName, int fileId, int downloadType);
-
-    void stopDownload(int fileId);
+public interface Progress {
+    int progressUpdate(int progress);
 }

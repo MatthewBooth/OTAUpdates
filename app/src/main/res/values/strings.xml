@@ -3,7 +3,7 @@
     <string name="app_version" translatable="false">v3.0b</string>
     <string name="refreshing">Refreshing&#8230;</string>
     <string name="loading">Loading&#8230;</string>
-    <string name="downloading">Loading&#8230;</string>
+    <string name="downloading">Downloading&#8230;</string>
     <string name="dismiss">Dismiss</string>
     <string name="closeDrawer">Navigation View</string>
     <string name="openDrawer">Navigation View Closed</string>
@@ -21,6 +21,8 @@ In order to use this app you MUST be running a custom ROM which has specifically
     <string name="last_checked_for_update">Last checked for an update</string>
 
     <string name="updated_on">Updated on: </string>
+    <string name="added_on">Added: </string>
+    <string name="finished_on">Finished: </string>
 
     <string name="headline">Headline</string>
     <string name="subtitle">Subtitle</string>
@@ -42,5 +44,8 @@ In order to use this app you MUST be running a custom ROM which has specifically
     <string name="changelog">Changelog</string>
     <string name="changelog_error">Changelog error!</string>
     <string name="changelog_url">https://raw.githubusercontent.com/MatthewBooth/OTAUpdates/stable/</string>
+
+    <!-- Download Manager -->
+    <string name="clear_all_downloads">Clear all</string>
 
 </resources>

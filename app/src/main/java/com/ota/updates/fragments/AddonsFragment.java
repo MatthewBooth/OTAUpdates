@@ -29,7 +29,7 @@ import android.widget.TextView;
 import com.ota.updates.R;
 import com.ota.updates.db.helpers.AddonSQLiteHelper;
 import com.ota.updates.items.AddonItem;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
 
@@ -39,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class AddonsFragment extends Fragment implements Constants {
+public class AddonsFragment extends Fragment implements App {
     private FragmentInteractionListener mListener;
     private AppCompatActivity mActivity;
 
@@ -100,7 +100,7 @@ public class AddonsFragment extends Fragment implements Constants {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_list_items, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_file_list_items, viewGroup, false);
             return new ViewHolder(v);
         }
 

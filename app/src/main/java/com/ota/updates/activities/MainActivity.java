@@ -15,20 +15,24 @@ package com.ota.updates.activities;
  * limitations under the License.
  */
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -48,24 +52,43 @@ import com.ota.updates.download.FileDownload;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.fragments.CheckFragment;
-import com.ota.updates.fragments.FileDownloadFragment;
+import com.ota.updates.fragments.DownloadManagerFragment;
+import com.ota.updates.fragments.FileViewerFragment;
 import com.ota.updates.fragments.InfoFragment;
 import com.ota.updates.fragments.VersionsFragment;
 import com.ota.updates.items.RomItem;
 import com.ota.updates.tasks.CheckForUpdateTask;
 import com.ota.updates.tasks.DownloadJsonTask;
 import com.ota.updates.tasks.ParseJsonTask;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Preferences;
 import com.ota.updates.utils.Utils;
-import com.ota.updates.utils.fontawesome.DrawableAwesome;
+import com.ota.updates.utils.fontdrawing.FontAwesomeDrawable;
+import com.ota.updates.utils.fontdrawing.MaterialIconsDrawable;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements Constants, FragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements App, FragmentInteractionListener {
     public static final String TAG = MainActivity.class.getName();
 
     private Context mContext;
+    private Activity mActivity;
+
+    /**
+     * Used in case we were not given write access initially and needed to request it
+     * The URL, filename and file ID are added to this map and retrieved upon a successful
+     * access request
+     */
+    private Map<String, Object> mStartDownload = new HashMap<>();
+
+//    /**
+//     * ATTENTION: This was auto-generated to implement the App Indexing API.
+//     * See https://g.co/AppIndexing/AndroidStudio for more information.
+//     */
+//    private GoogleApiClient client;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -73,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         setContentView(R.layout.activity_main);
 
         mContext = this;
+        mActivity = this;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getWindow(); // in Activity's onCreate() for instance
@@ -100,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
         // Initializing Drawer Layout and ActionBarToggle
         initialisingDrawerLayout(mToolbar, navigationView);
+
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -115,8 +143,69 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }
     }
 
+    /**
+     * Handle the result from the permissions request. Shows an error message if any of them have
+     * been declined and informs the user as to why such permissions are necessary.
+     *
+     * @param requestCode  The permissions individual code
+     * @param permissions  The permissions that were checked
+     * @param grantResults The result of the request
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        // Checking Write Access for external storage
+        if (requestCode == PERMISSIONS_REQUEST_STORAGE) {
+            // If enabled then set the value in preferences and if necessary, relaunch the download
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Sets the preference
+                Preferences.setWritePermissionGranted(mContext, true);
+
+                // Checks if the map was used, and relaunches the download if it is
+                if (mStartDownload.size() > 0) {
+                    String url = (String) mStartDownload.get("url");
+                    String fileName = (String) mStartDownload.get("fileName");
+                    Integer fileId = (Integer) mStartDownload.get("fileId");
+                    Integer type = (Integer) mStartDownload.get("type");
+                    startDownload(url, fileName, fileId, type);
+                }
+            }
+            // Not enabled, set the preference accordingly and show a helpful dialog message
+            else {
+                Preferences.setWritePermissionGranted(mContext, false);
+                AlertDialog.Builder mNoPermDialog = new AlertDialog.Builder(mContext).
+                        setTitle("No write to external access").
+                        setMessage("We need to access the external storage to download files " +
+                                "to your phone.\n\nPlease enable it and restart the app.")
+                        .setPositiveButton("Ok", null);
+                mNoPermDialog.show();
+            }
+        }
+    }
+
+    /**
+     * Request permissions from the system
+     */
+    private void requestWritePermissions() {
+        if (ContextCompat.checkSelfPermission(mActivity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(mActivity,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSIONS_REQUEST_STORAGE);
+        }
+    }
+
+    /**
+     * Check if the phone's current ROM is compatible with this app
+     *
+     * @return Whether or not this ROM is compatible with the app.
+     */
     private Boolean checkRomIsCompatible() {
-        boolean doesRomSupportApp =  Utils.doesPropExist(PROP_MANIFEST);
+        boolean doesRomSupportApp = Utils.doesPropExist(PROP_MANIFEST);
         if (!doesRomSupportApp) {
             final Activity activity = this;
             final Resources resources = getResources();
@@ -141,6 +230,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         return doesRomSupportApp;
     }
 
+    /**
+     * Create the Drawer Layout and initialise it
+     *
+     * @param mToolbar       An instance of the Toolbar
+     * @param navigationView An instance of the navigation view
+     */
     private void initialisingDrawerLayout(final Toolbar mToolbar, NavigationView navigationView) {
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.openDrawer, R.string.closeDrawer) {
@@ -164,13 +259,21 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
 
+        // Disable any drawer items that should ot be available
         disableDrawerItems(navigationView.getMenu());
 
+        // Create the icons from Font Awesome
         setupNavigationViewIcons(navigationView.getMenu());
 
+        // Setup the onselected listeners
         setupNavigationViewOnItemSelected(navigationView, drawerLayout);
     }
 
+    /**
+     * Disables any drawer items that we don't need or shouldn't be running
+     *
+     * @param menu The menu
+     */
     private void disableDrawerItems(Menu menu) {
 
         RomSQLiteHelper romSQLiteHelper = new RomSQLiteHelper(mContext);
@@ -198,6 +301,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }
     }
 
+    /**
+     * Loads a fragement into the activity
+     *
+     * @param fragment The fragment to load
+     * @return The state after attempting to load the fragment. False did not load correctly.
+     */
     private boolean loadFragment(Fragment fragment) {
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
@@ -210,19 +319,22 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
             fragmentTransaction.replace(R.id.fragment, fragment);
             fragmentTransaction.addToBackStack(fragment.getTag());
             fragmentTransaction.commit();
+            return true;
         }
         return false;
     }
 
     /**
      * Sets up the NavigationView (drawer) icons
-     * @param menu  The menu item that relates to NavigationView (use getMenu() )
+     *
+     * @param menu The menu item that relates to NavigationView (use getMenu() )
      */
     private void setupNavigationViewIcons(Menu menu) {
 
         MenuItem otaUpdatesItem = menu.findItem(R.id.ota_updates);
         MenuItem otaVersionItem = menu.findItem(R.id.ota_versions);
         MenuItem otaAddonsItem = menu.findItem(R.id.ota_addons);
+        MenuItem otaDownloadsItem = menu.findItem(R.id.ota_downloads);
 
         MenuItem romWebsiteItem = menu.findItem(R.id.rom_website);
         MenuItem romDonateItem = menu.findItem(R.id.rom_donate);
@@ -234,43 +346,61 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         MenuItem appGithubItem = menu.findItem(R.id.app_github);
         MenuItem appAboutItem = menu.findItem(R.id.app_about);
 
-        otaUpdatesItem.setIcon(getNavigationViewIcon(R.string.fa_refresh));
+        otaUpdatesItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_refresh));
 
-        otaVersionItem.setIcon(getNavigationViewIcon(R.string.fa_file_archive_o));
-        otaAddonsItem.setIcon(getNavigationViewIcon(R.string.fa_puzzle_piece));
+        otaVersionItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_insert_drive_file));
+        otaAddonsItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_whats_hot));
+        otaDownloadsItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_file_download));
 
-        romWebsiteItem.setIcon(getNavigationViewIcon(R.string.fa_globe));
-        romDonateItem.setIcon(getNavigationViewIcon(R.string.fa_money));
-        romInfoItem.setIcon(getNavigationViewIcon(R.string.fa_info));
+        romWebsiteItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_public));
+        romDonateItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_attach_money));
+        romInfoItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_info));
 
-        appSettingsItem.setIcon(getNavigationViewIcon(R.string.fa_cog));
-        appProItem.setIcon(getNavigationViewIcon(R.string.fa_heart));
-        appLicencesItem.setIcon(getNavigationViewIcon(R.string.fa_file_text_o));
-        appGithubItem.setIcon(getNavigationViewIcon(R.string.fa_github));
-        appAboutItem.setIcon(getNavigationViewIcon(R.string.fa_question));
+        appSettingsItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_settings));
+        appProItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_favourite));
+        appLicencesItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_copyright));
+        appGithubItem.setIcon(getFontAwesomeNavigationViewIcon(R.string.fa_github));
+        appAboutItem.setIcon(getFontAwesomeNavigationViewIcon(R.string.fa_question));
     }
 
     /**
-     * Creates an DrawableAwesome based on the string input given
+     * Creates an FontAwesomeDrawable based on the string input given
      * Will also be coloured as per the drawerIconColors attribute
-     * @param icon  the R.string that is requested
-     * @return DrawableAwesome
+     *
+     * @param icon the R.string that is requested
+     * @return FontAwesomeDrawable
      */
-    private DrawableAwesome getNavigationViewIcon(int icon) {
+    private FontAwesomeDrawable getFontAwesomeNavigationViewIcon(int icon) {
         int[] attrs = {R.attr.drawerIconColors};
         TypedArray typedArray = this.obtainStyledAttributes(attrs);
-        DrawableAwesome drawableAwesome = new DrawableAwesome(icon, 28, typedArray.getColor(0, Color.BLACK),
+        FontAwesomeDrawable fontAwesomeDrawable = new FontAwesomeDrawable(icon, 28, typedArray.getColor(0, Color.BLACK),
                 true, false, 0, 0, 0, 0, mContext);
         typedArray.recycle();
-        return drawableAwesome;
+        return fontAwesomeDrawable;
+    }
+
+    /**
+     * Creates an FontAwesomeDrawable based on the string input given
+     * Will also be coloured as per the drawerIconColors attribute
+     *
+     * @param icon the R.string that is requested
+     * @return FontAwesomeDrawable
+     */
+    private MaterialIconsDrawable getMaterialNavigationViewIcon(int icon) {
+        int[] attrs = {R.attr.drawerIconColors};
+        TypedArray typedArray = this.obtainStyledAttributes(attrs);
+        MaterialIconsDrawable materialIconsDrawable = new MaterialIconsDrawable(icon, 28, typedArray.getColor(0, Color.BLACK),
+                true, false, 0, 0, 0, 0, mContext);
+        typedArray.recycle();
+        return materialIconsDrawable;
     }
 
     /**
      * Setup listeners for the NavigationView drawer so that when items are selected some actions
      * can be take
      *
-     * @param navigationView  The NavigationView we are listening for
-     * @param drawerLayout  The Drawer Layout containing the items
+     * @param navigationView The NavigationView we are listening for
+     * @param drawerLayout   The Drawer Layout containing the items
      */
     private void setupNavigationViewOnItemSelected(final NavigationView navigationView, final DrawerLayout drawerLayout) {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
@@ -317,6 +447,9 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                     case R.id.ota_addons:
                         loadFragment(new AddonsFragment());
                         return true;
+                    case R.id.ota_downloads:
+                        loadFragment(new DownloadManagerFragment());
+                        return true;
                     case R.id.rom_website:
                         Utils.openWebsite(mContext, romItem.getWebsiteUrl());
                         return true;
@@ -346,6 +479,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         });
     }
 
+    /**
+     * Download the JSON from the provided location in the manifest
+     *
+     * @param loadingDialog The loading dialog to show to let the user know there is a background
+     *                      process occurring
+     */
     private void downloadJson(final ProgressDialog loadingDialog) {
         new DownloadJsonTask(mContext, new AsyncResponse() {
             @Override
@@ -359,6 +498,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }).execute();
     }
 
+    /**
+     * Parse a downloaded JSON and add it's entries into the database
+     *
+     * @param loadingDialog The loading dialog to show to let the user know there is a background
+     *                      process occurring
+     */
     private void parseJson(final ProgressDialog loadingDialog) {
         new ParseJsonTask(mContext, new AsyncResponse() {
             @Override
@@ -372,6 +517,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }).execute();
     }
 
+    /**
+     * Check for an update
+     *
+     * @param loadingDialog The loading dialog to show to let the user know there is a background
+     *                      process occurring
+     */
     private void checkForUpdate(final ProgressDialog loadingDialog) {
         new CheckForUpdateTask(mContext, new AsyncResponse() {
             @Override
@@ -383,7 +534,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
                 if (output) {
                     VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
                     int fileId = versionSQLiteHelper.getLastVersionItem().getId();
-                    loadFragment(FileDownloadFragment.newInstance(FILE_TYPE_VERSION, fileId));
+                    loadFragment(FileViewerFragment.newInstance(FILE_TYPE_VERSION, fileId));
                 } else {
                     loadFragment(new CheckFragment());
                 }
@@ -396,6 +547,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
         }).execute();
     }
 
+    /**
+     * Starts a download of the JSON and starts the process of parsing it and adding the data to
+     * the database
+     */
     private void syncManifestWithDatabase() {
         final ProgressDialog loadingDialog = new ProgressDialog(mContext);
         loadingDialog.setIndeterminate(true);
@@ -413,11 +568,76 @@ public class MainActivity extends AppCompatActivity implements Constants, Fragme
 
     @Override
     public void onOpenFileDownloadView(int fileType, int fileId) {
-        loadFragment(FileDownloadFragment.newInstance(fileType, fileId));
+        loadFragment(FileViewerFragment.newInstance(fileType, fileId));
     }
 
     @Override
-    public void startDownload(String url, String fileName, int fileId) {
-        FileDownload.startDownload(mContext, url, fileName, fileId);
+    public Long startDownload(String url, String fileName, int fileId, int downloadType) {
+        // Gets the status of the current access level for write permissions to storage
+        Boolean writePermissionsGranted = Preferences.getWritePermissionGranted(mContext);
+
+        // If we have access, then start the download
+        if (writePermissionsGranted) {
+            return FileDownload.startDownload(mContext, url, fileName, fileId, downloadType);
+        }
+        // If we do not have access, then add the values to a map and request access again
+        // If granted, the permissions request response method will refire this method using the
+        // details from the map
+        else {
+            if (mStartDownload.size() > 0) {
+                mStartDownload.clear();
+            }
+            mStartDownload.put("url", url);
+            mStartDownload.put("fileName", fileName);
+            mStartDownload.put("fileId", fileId);
+            mStartDownload.put("type", downloadType);
+            requestWritePermissions();
+            return -1L;
+        }
+    }
+
+    @Override
+    public void stopDownload(int fileId) {
+        FileDownload.stopDownload(mContext, fileId);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        client.connect();
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "Main Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app deep link URI is correct.
+//                Uri.parse("android-app://com.ota.updates.activities/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "Main Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app deep link URI is correct.
+//                Uri.parse("android-app://com.ota.updates.activities/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.end(client, viewAction);
+//        client.disconnect();
     }
 }

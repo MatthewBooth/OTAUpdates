@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.ota.updates.items.DownloadItem;
 import com.ota.updates.items.RomItem;
 
 /*
@@ -74,24 +76,31 @@ public class RomSQLiteHelper extends BaseSQLiteHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        RomItem romItem = new RomItem();
+        RomItem romItem;
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            romItem.setId(Integer.parseInt(cursor.getString(0)));
-            romItem.setName(cursor.getString(1));
-            romItem.setSlug(cursor.getString(2));
-            romItem.setDescription(cursor.getString(3));
-            romItem.setPublishedAt(cursor.getString(4));
-            romItem.setCreatedAt(cursor.getString(5));
-            romItem.setDownloads(Integer.parseInt(cursor.getString(6)));
-            romItem.setWebsiteUrl(cursor.getString(7));
-            romItem.setDonateUrl(cursor.getString(8));
+            romItem = getRomItemFromCursor(cursor);
             cursor.close();
         } else {
             romItem = null;
         }
         db.close();
+        return romItem;
+    }
+
+    @NonNull
+    private RomItem getRomItemFromCursor(Cursor cursor) {
+        RomItem romItem = new RomItem();
+        romItem.setId(Integer.parseInt(cursor.getString(0)));
+        romItem.setName(cursor.getString(1));
+        romItem.setSlug(cursor.getString(2));
+        romItem.setDescription(cursor.getString(3));
+        romItem.setPublishedAt(cursor.getString(4));
+        romItem.setCreatedAt(cursor.getString(5));
+        romItem.setDownloads(Integer.parseInt(cursor.getString(6)));
+        romItem.setWebsiteUrl(cursor.getString(7));
+        romItem.setDonateUrl(cursor.getString(8));
         return romItem;
     }
 }

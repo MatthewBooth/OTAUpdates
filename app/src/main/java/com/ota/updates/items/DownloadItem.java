@@ -1,5 +1,7 @@
 package com.ota.updates.items;
 
+import java.sql.Timestamp;
+
 /*
  * Copyright (C) 2015 Matt Booth.
  *
@@ -21,6 +23,14 @@ public class DownloadItem {
 
     private long mDownloadId;
 
+    private Integer mDownloadType;
+
+    private Timestamp mDownloadStarted;
+
+    private Timestamp mDownloadFinished;
+
+    private Integer mDownloadStatus;
+
     public DownloadItem() {
 
     }
@@ -41,4 +51,35 @@ public class DownloadItem {
         mDownloadId = downloadId;
     }
 
+    public Integer getDownloadType() {
+        return mDownloadType;
+    }
+
+    public void setDownloadType(Integer mDownloadType) {
+        this.mDownloadType = mDownloadType;
+    }
+
+    public Timestamp getDownloadStarted() {
+        return mDownloadStarted;
+    }
+
+    public void setDownloadStarted(Timestamp mDownloadStarted) {
+        this.mDownloadStarted = mDownloadStarted;
+    }
+
+    public Timestamp getDownloadFinished() {
+        return mDownloadFinished;
+    }
+
+    public void setDownloadFinished(Timestamp mDownloadFinished) {
+        this.mDownloadFinished = mDownloadFinished;
+    }
+
+    public Integer getDownloadStatus() {
+        return mDownloadStatus;
+    }
+
+    public void setDownloadStatus(Integer mDownloadStatus) {
+        this.mDownloadStatus = mDownloadStatus;
+    }
 }

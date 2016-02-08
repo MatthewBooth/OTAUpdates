@@ -18,13 +18,12 @@ package com.ota.updates.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Preferences implements Constants {
+import com.ota.updates.utils.constants.App;
+import com.ota.updates.utils.constants.Prefs;
+
+public class Preferences implements App, Prefs {
 
     public static final String TAG = "Preferences";
-
-    public static final String PREF_NAME = "OTAUpdateSettings";
-
-    private static final String mDefaultString = "";
 
     private Preferences() {
     }
@@ -34,12 +33,22 @@ public class Preferences implements Constants {
     }
 
     public static String getUpdateLastChecked(Context context) {
-        return getPrefs(context).getString(LAST_CHECKED_FOR_UPDATE, mDefaultString);
+        return getPrefs(context).getString(LAST_CHECKED_FOR_UPDATE, DEFAULT_STRING);
     }
 
     public static void setUpdateLastChecked(Context context, String time) {
         SharedPreferences.Editor editor = getPrefs(context).edit();
         editor.putString(LAST_CHECKED_FOR_UPDATE, time);
-        editor.commit();
+        editor.apply();
+    }
+
+    public static boolean getWritePermissionGranted(Context context) {
+        return getPrefs(context).getBoolean(WRITE_PERMISSION_ENABLED, DEFAULT_BOOLEAN);
+    }
+
+    public static void setWritePermissionGranted(Context context, Boolean granted) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putBoolean(WRITE_PERMISSION_ENABLED, granted);
+        editor.apply();
     }
 }

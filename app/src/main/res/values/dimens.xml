@@ -11,7 +11,7 @@
 
     <!-- Floating Action Button -->
     <dimen name="fab_button_margin_bottom">56dp</dimen>
-    <dimen name="fab_button_margin_right">24dp</dimen>
+    <dimen name="fab_button_margin_right">56dp</dimen>
 
     <!-- Update Available -->
     <dimen name="update_available_upper_seam_size">212dp</dimen>

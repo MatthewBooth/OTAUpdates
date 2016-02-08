@@ -20,12 +20,12 @@ import android.util.Log;
 
 import com.ota.updates.db.helpers.UploadSQLiteHelper;
 import com.ota.updates.items.UploadItem;
-import com.ota.updates.utils.Fields;
+import com.ota.updates.utils.constants.DatabaseFields;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UploadJsonParser implements Fields {
+public class UploadJsonParser implements DatabaseFields {
 
     private static String TAG = UploadJsonParser.class.getName();
 

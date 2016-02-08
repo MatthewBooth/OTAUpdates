@@ -19,17 +19,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ota.updates.R;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Preferences;
+import com.ota.updates.utils.fontdrawing.MaterialIconsDrawable;
 
-public class CheckFragment extends Fragment implements Constants {
+public class CheckFragment extends Fragment implements App {
     private FragmentInteractionListener mListener;
     private AppCompatActivity mActivity;
 
@@ -58,6 +60,10 @@ public class CheckFragment extends Fragment implements Constants {
         View fabView = view.findViewById(R.id.fab);
         if (fabView != null) {
             FloatingActionButton fab = (FloatingActionButton) fabView;
+
+            MaterialIconsDrawable.Builder build = new MaterialIconsDrawable.Builder(mActivity, R.string.mc_refresh);
+            build.setSize(24);
+            fab.setImageDrawable(build.build());
 
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override

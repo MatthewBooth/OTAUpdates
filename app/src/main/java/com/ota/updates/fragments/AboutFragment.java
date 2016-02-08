@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import com.ota.updates.R;
 import com.ota.updates.callbacks.AsyncResponse;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.FragmentInteractionListener;
 import com.ota.updates.utils.Utils;
 
@@ -38,7 +38,7 @@ import java.io.IOException;
 
 import in.uncod.android.bypass.Bypass;
 
-public class AboutFragment extends Fragment implements Constants {
+public class AboutFragment extends Fragment implements App {
 
     private static final String CHANGELOG = "Changelog.md";
     private String TAG = this.getClass().getName();

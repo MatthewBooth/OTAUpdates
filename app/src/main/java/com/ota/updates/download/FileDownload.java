@@ -6,7 +6,10 @@ import android.net.Uri;
 
 import com.ota.updates.R;
 import com.ota.updates.db.helpers.DownloadsSQLiteHelper;
-import com.ota.updates.utils.Constants;
+import com.ota.updates.items.DownloadItem;
+import com.ota.updates.utils.constants.App;
+
+import java.sql.Timestamp;
 
 /*
  * Copyright (C) 2015 Matt Booth.
@@ -23,13 +26,13 @@ import com.ota.updates.utils.Constants;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class FileDownload implements Constants {
+public class FileDownload implements App {
 
     public FileDownload() {
 
     }
 
-    public static void startDownload(Context context, String url, String fileName, int fileId) {
+    public static Long startDownload(Context context, String url, String fileName, int fileId, Integer downloadType) {
         String description = context.getResources().getString(R.string.downloading);
 
         String zipExtension = ".zip";
@@ -50,15 +53,19 @@ public class FileDownload implements Constants {
         long downloadId = downloadManager.enqueue(downloadRequest);
 
         DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
-        downloadsSQLiteHelper.addDownload(fileId, downloadId);
+        downloadsSQLiteHelper.addDownload(fileId, downloadId, downloadType, new Timestamp(System.currentTimeMillis()));
 
+        return downloadId;
     }
 
-    public static void stopDownload(Context context, long downloadId) {
+    public static void stopDownload(Context context, int fileId) {
+        DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
+        DownloadItem downloadItem = downloadsSQLiteHelper.getDownloadEntryByFileId(fileId);
+        long downloadId = downloadItem.getDownloadId();
+
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         downloadManager.remove(downloadId);
 
-        DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
         downloadsSQLiteHelper.removeDownload(downloadId);
     }
 }
