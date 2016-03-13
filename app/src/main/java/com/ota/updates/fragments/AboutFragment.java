@@ -45,6 +45,8 @@ public class AboutFragment extends Fragment implements App {
     private FragmentInteractionListener mListener;
     private AppCompatActivity mActivity;
 
+    private TextView mChangelogTV;
+
     public AboutFragment() {
         // Required empty public constructor
     }
@@ -61,6 +63,9 @@ public class AboutFragment extends Fragment implements App {
         final View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         setupAppVersion(view);
+
+        mChangelogTV = (TextView) view.findViewById(R.id.changelog_or_description);
+        mChangelogTV.setText(R.string.about_loading_changelog);
 
         new ChangelogAsyncTask(mActivity, new AsyncResponse() {
             @Override
@@ -87,7 +92,7 @@ public class AboutFragment extends Fragment implements App {
             Log.d(TAG, "Setting up changelog");
         }
 
-        TextView changelogTV = (TextView) view.findViewById(R.id.changelog_or_description);
+        mChangelogTV = (TextView) view.findViewById(R.id.changelog_or_description);
         Bypass bypass = new Bypass(mActivity);
         String changelogString;
 
@@ -100,8 +105,8 @@ public class AboutFragment extends Fragment implements App {
         }
 
         CharSequence changelogText = bypass.markdownToSpannable(changelogString);
-        changelogTV.setText(changelogText);
-        changelogTV.setMovementMethod(LinkMovementMethod.getInstance());
+        mChangelogTV.setText(changelogText);
+        mChangelogTV.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override

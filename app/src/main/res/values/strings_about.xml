@@ -27,4 +27,5 @@
     <string name="about_version_title">Version</string>
     <string name="about_version_number">App version:</string>
     <string name="changelog_summary">View the app\'s changelog</string>
+    <string name="about_loading_changelog">Loading changelog&#8230;</string>
 </resources>
