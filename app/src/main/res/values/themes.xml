@@ -4,29 +4,16 @@
     <style name="OtaUpdates.Light.Common" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="dividerColor">@color/divider_color</item>
+        <item name="dividerColor">@color/color_divider</item>
         <item name="drawerIconColors">@color/drawer_icon_color_light</item>
         <item name="cardBackground">@color/cardview_light_background</item>
         <item name="cardStyle">@style/CardStyle.Light</item>
+        <item name="colorAccent">@color/color_accent</item>
 
         <item name="drawerTextColor">@color/drawer_item_text_light</item>
     </style>
 
-    <style name="OtaUpdates.Dark.Common" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="dividerColor">@color/divider_color_dark</item>
-        <item name="drawerIconColors">@color/drawer_icon_color_dark</item>
-        <item name="cardBackground">@color/cardview_dark_background</item>
-        <item name="cardStyle">@style/CardStyle.Dark</item>
-
-        <item name="drawerTextColor">@color/drawer_item_text_dark</item>
-    </style>
-
     <style name="OtaUpdates.Light" parent="OtaUpdates.Light.Common">
-    </style>
-
-    <style name="OtaUpdates.Dark" parent="OtaUpdates.Dark.Common">
     </style>
 
 </resources>

@@ -14,8 +14,6 @@
 
         <include layout="@layout/toolbar" />
 
-        <include layout="@layout/toolbar_shadow" />
-
         <FrameLayout
             android:id="@+id/fragment"
             android:layout_width="match_parent"

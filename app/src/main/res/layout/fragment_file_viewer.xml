@@ -13,7 +13,8 @@
             android:id="@+id/upper_seam"
             style="@style/LayoutBase"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/update_available_upper_seam_size">
+            android:layout_height="@dimen/update_available_upper_seam_size"
+            android:background="@color/color_primary">
 
             <TextView
                 android:id="@+id/headline"
@@ -22,7 +23,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="16dp"
                 android:text="@string/headline"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/color_icons"/>
 
             <com.ota.updates.utils.fontdrawing.MaterialIconsText
                 android:id="@+id/filename_icon"

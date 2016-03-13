@@ -5,7 +5,6 @@
     <attr name="drawerIconColors" format="color" />
     <attr name="cardStyle" format="reference" />
     <attr name="cardBackground" format="color" />
-
     <attr name="drawerTextColor" format="color" />
 
 </resources>

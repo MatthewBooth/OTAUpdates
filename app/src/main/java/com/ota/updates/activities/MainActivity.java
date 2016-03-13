@@ -27,6 +27,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -115,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
         // Initializing Toolbar and setting it as the actionbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        //noinspection ConstantConditions
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //Initializing NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);

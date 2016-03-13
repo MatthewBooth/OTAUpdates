@@ -4,7 +4,4 @@
     <style name="OtaUpdates.Light" parent="OtaUpdates.Light.Common">
     </style>
 
-    <style name="OtaUpdates.Dark" parent="OtaUpdates.Dark.Common">
-    </style>
-
 </resources>

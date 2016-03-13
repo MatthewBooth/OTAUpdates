@@ -5,6 +5,5 @@
     android:layout_height="?attr/actionBarSize"
     android:layout_alignParentTop="true"
     android:background="?attr/colorPrimary"
-    android:elevation="@dimen/toolbar_elevation"
     android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
