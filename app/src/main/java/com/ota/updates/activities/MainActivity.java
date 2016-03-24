@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
         MenuItem otaUpdatesItem = menu.findItem(R.id.ota_updates);
         MenuItem otaVersionItem = menu.findItem(R.id.ota_versions);
         MenuItem otaAddonsItem = menu.findItem(R.id.ota_addons);
-        MenuItem otaDownloadsItem = menu.findItem(R.id.ota_downloads);
+        //MenuItem otaDownloadsItem = menu.findItem(R.id.ota_downloads);
 
         MenuItem romWebsiteItem = menu.findItem(R.id.rom_website);
         MenuItem romDonateItem = menu.findItem(R.id.rom_donate);
@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
         otaVersionItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_insert_drive_file));
         otaAddonsItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_whats_hot));
-        otaDownloadsItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_file_download));
+        //otaDownloadsItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_file_download));
 
         romWebsiteItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_public));
         romDonateItem.setIcon(getMaterialNavigationViewIcon(R.string.mc_attach_money));
@@ -450,9 +450,9 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                     case R.id.ota_addons:
                         loadFragment(new AddonsFragment());
                         return true;
-                    case R.id.ota_downloads:
-                        loadFragment(new DownloadManagerFragment());
-                        return true;
+//                    case R.id.ota_downloads:
+//                        loadFragment(new DownloadManagerFragment());
+//                        return true;
                     case R.id.rom_website:
                         Utils.openWebsite(mContext, romItem.getWebsiteUrl());
                         return true;
