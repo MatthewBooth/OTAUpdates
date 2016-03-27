@@ -55,6 +55,9 @@ public class ParseJsonTask extends AsyncTask<String, Integer, Boolean> implement
         }
 
         if (json != null) {
+            if (DEBUGGING) {
+                Log.d(TAG, json);
+            }
             // Parse and populate our Database
             boolean romParsed = new RomJsonParser(mContext, json).parse();
             boolean versionParsed = new VersionJsonParser(mContext, json).parse();

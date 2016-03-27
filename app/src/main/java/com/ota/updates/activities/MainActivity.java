@@ -311,7 +311,12 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment, fragment);
             fragmentTransaction.addToBackStack(fragment.getTag());
-            fragmentTransaction.commit();
+            try {
+                fragmentTransaction.commit();
+            } catch (IllegalStateException ex) {
+                // Not much I can do about this, just ignore this warning.
+                Log.w(TAG, ex.getMessage());
+            }
             return true;
         }
         return false;
@@ -483,6 +488,9 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
             @Override
             public void processFinish(Boolean output) {
                 if (output) {
+                    if (DEBUGGING) {
+                        Log.d(TAG, "Json Downloaded");
+                    }
                     parseJson(loadingDialog);
                 } else {
                     loadingDialog.cancel();
@@ -502,6 +510,9 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
             @Override
             public void processFinish(Boolean output) {
                 if (output) {
+                    if (DEBUGGING) {
+                        Log.d(TAG, "Json Parsed");
+                    }
                     checkForUpdate(loadingDialog);
                 } else {
                     loadingDialog.cancel();
@@ -527,7 +538,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                 if (output) {
                     VersionSQLiteHelper versionSQLiteHelper = VersionSQLiteHelper.getInstance(mContext);
                     int fileId = versionSQLiteHelper.getLastVersionItem().getId();
-                    loadFragment(FileViewerFragment.newInstance(FILE_TYPE_VERSION, fileId));
+                    loadFragment(FileViewerFragment.getInstance(FILE_TYPE_VERSION, fileId));
                 } else {
                     loadFragment(new CheckFragment());
                 }
@@ -561,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
     @Override
     public void onOpenFileDownloadView(int fileType, int fileId) {
-        loadFragment(FileViewerFragment.newInstance(fileType, fileId));
+        loadFragment(FileViewerFragment.getInstance(fileType, fileId));
     }
 
     @Override

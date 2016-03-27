@@ -174,6 +174,7 @@ public abstract class BaseSQLiteHelper extends SQLiteOpenHelper implements App, 
         SQLiteDatabase db = getReadableDb();
         db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
+        db.setTransactionSuccessful();
         db.endTransaction();
         return cursor;
     }

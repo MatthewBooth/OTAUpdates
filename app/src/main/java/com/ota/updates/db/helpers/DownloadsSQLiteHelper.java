@@ -67,7 +67,10 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.beginTransaction();
-        db.insertWithOnConflict(DOWNLOAD_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        Long result = db.insertWithOnConflict(DOWNLOAD_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (result != -1) {
+            db.setTransactionSuccessful();
+        }
         db.endTransaction();
     }
 
@@ -80,6 +83,7 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
 
         db.beginTransaction();
         db.update(DOWNLOAD_TABLE_NAME, values, NAME_ID + " = ?", new String[]{String.valueOf(fileId)});
+        db.setTransactionSuccessful();
         db.endTransaction();
     }
 
@@ -97,6 +101,7 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
             if (DEBUGGING) {
                 Log.d(this.getClass().getName(), "Download with ID " + downloadId + " removed");
             }
+            db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -129,6 +134,7 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
             cursor.moveToFirst();
             downloadItem = getDownloadItemFromCursor(cursor);
             cursor.close();
+            db.setTransactionSuccessful();
         } else {
             downloadItem = null;
         }
@@ -163,6 +169,7 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
             cursor.moveToFirst();
             downloadItem = getDownloadItemFromCursor(cursor);
             cursor.close();
+            db.setTransactionSuccessful();
         } else {
             downloadItem = null;
         }

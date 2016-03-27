@@ -56,7 +56,10 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
 
         SQLiteDatabase db = getWritableDb();
         db.beginTransaction();
-        db.insertWithOnConflict(UPLOAD_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        Long result = db.insertWithOnConflict(UPLOAD_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (result != -1) {
+            db.setTransactionSuccessful();
+        }
         db.endTransaction();
     }
 
@@ -97,6 +100,7 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
             cursor.moveToFirst();
             uploadItem = getUploadItemFromCursor(cursor);
             cursor.close();
+            db.setTransactionSuccessful();
         } else {
             uploadItem = null;
         }

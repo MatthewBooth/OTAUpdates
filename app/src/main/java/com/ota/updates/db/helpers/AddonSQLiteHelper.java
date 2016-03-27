@@ -64,7 +64,10 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
 
         SQLiteDatabase db = getWritableDb();
         db.beginTransaction();
-        db.insertWithOnConflict(ADDON_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        Long result = db.insertWithOnConflict(ADDON_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (result != -1) {
+            db.setTransactionSuccessful();
+        }
         db.endTransaction();
     }
 
@@ -105,6 +108,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
             cursor.moveToFirst();
             addonItem = getAddonItemFromCursor(cursor);
             cursor.close();
+            db.setTransactionSuccessful();
         } else {
             addonItem = null;
         }

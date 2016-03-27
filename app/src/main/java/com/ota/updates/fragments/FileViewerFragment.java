@@ -51,9 +51,13 @@ import in.uncod.android.bypass.Bypass;
 
 public class FileViewerFragment extends Fragment implements App {
 
+    private static String TAG = FileViewerFragment.class.getSimpleName();
+
+    private static FileViewerFragment mInstance =  null;
+
     public static final String FILE_ID = "fileId";
     public static final String FILE_TYPE = "fileType";
-    private String TAG = this.getClass().getSimpleName();
+
     private AppCompatActivity mActivity;
     private FragmentInteractionListener mListener;
     private int mFileType;
@@ -74,13 +78,26 @@ public class FileViewerFragment extends Fragment implements App {
         // Required empty public constructor
     }
 
-    public static FileViewerFragment newInstance(int FileType, int fileId) {
-        FileViewerFragment fragment = new FileViewerFragment();
-        Bundle args = new Bundle();
-        args.putInt(FILE_TYPE, FileType);
-        args.putInt(FILE_ID, fileId);
-        fragment.setArguments(args);
-        return fragment;
+    public static FileViewerFragment getInstance(int FileType, int fileId) {
+
+        if (mInstance != null && mInstance.mFileId == fileId) {
+            if (DEBUGGING) {
+                Log.d(TAG, "Existing instance of fragment returned");
+            }
+            return mInstance;
+        } else {
+           mInstance = new FileViewerFragment();
+            Bundle args = new Bundle();
+            args.putInt(FILE_TYPE, FileType);
+            args.putInt(FILE_ID, fileId);
+            mInstance.setArguments(args);
+
+            if (DEBUGGING) {
+                Log.d(TAG, "New instance of fragment returned");
+            }
+
+            return mInstance;
+        }
     }
 
     @Override
@@ -355,6 +372,13 @@ public class FileViewerFragment extends Fragment implements App {
         fabDownload.setVisibility(View.GONE);
         fabCancel.setVisibility(View.VISIBLE);
         new DownloadProgress().execute();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(FILE_TYPE, mFileType);
+        outState.putInt(FILE_ID, mFileId);
     }
 
     @Override

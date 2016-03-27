@@ -64,7 +64,10 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
 
         SQLiteDatabase db = getWritableDb();
         db.beginTransaction();
-        db.insertWithOnConflict(VERSION_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        Long result = db.insertWithOnConflict(VERSION_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        if (result != -1) {
+            db.setTransactionSuccessful();
+        }
         db.endTransaction();
     }
 
@@ -111,12 +114,13 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
-        VersionItem versionItem = new VersionItem();
+        VersionItem versionItem;
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             versionItem = getVersionItemFromCursor(cursor);
             cursor.close();
+            db.setTransactionSuccessful();
         } else {
             versionItem = null;
         }
@@ -136,6 +140,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
             cursor.moveToFirst();
             columnItem = cursor.getString(0);
             cursor.close();
+            db.setTransactionSuccessful();
         }
         db.endTransaction();
 
@@ -156,6 +161,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
             cursor.moveToFirst();
             result =  Integer.parseInt(cursor.getString(0));
             cursor.close();
+            db.setTransactionSuccessful();
         }
         db.endTransaction();
 

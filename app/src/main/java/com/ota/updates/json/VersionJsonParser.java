@@ -67,7 +67,6 @@ public class VersionJsonParser implements DatabaseFields {
                 versionItem.setPublishedAt(versionObj.getString(NAME_PUBLISHED_AT));
                 versionItem.setVersionNumber(versionObj.getInt(NAME_VERSION_NUMBER));
 
-
                 JSONObject deltaObj = versionObj.optJSONObject(NAME_DELTA_UPLOAD);
                 if (deltaObj != null) {
                     versionItem.setDeltaUploadId(deltaObj.getInt(NAME_ID));
