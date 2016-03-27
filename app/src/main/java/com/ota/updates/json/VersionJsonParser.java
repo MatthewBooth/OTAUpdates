@@ -49,7 +49,7 @@ public class VersionJsonParser implements DatabaseFields {
 
             JSONArray versionsArray = romObj.getJSONArray(NAME_VERSIONS);
 
-            VersionSQLiteHelper helper = new VersionSQLiteHelper(mContext);
+            VersionSQLiteHelper helper = VersionSQLiteHelper.getInstance(mContext);
 
             for (int i = 0; i < versionsArray.length(); i++) {
                 JSONObject arrayObj = versionsArray.getJSONObject(i);

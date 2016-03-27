@@ -61,7 +61,7 @@ public class AddonsFragment extends Fragment implements App {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_versions, container, false);
 
-        AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mActivity);
+        AddonSQLiteHelper addonSQLiteHelper = AddonSQLiteHelper.getInstance(mActivity);
 
         ArrayList<AddonItem> addonsList = addonSQLiteHelper.getListOfAddons();
 

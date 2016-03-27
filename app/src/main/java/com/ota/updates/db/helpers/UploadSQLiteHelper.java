@@ -25,6 +25,18 @@ import com.ota.updates.items.UploadItem;
 
 public class UploadSQLiteHelper extends BaseSQLiteHelper {
 
+    private static UploadSQLiteHelper mInstance = null;
+
+    public static synchronized UploadSQLiteHelper getInstance(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (mInstance == null) {
+            mInstance = new UploadSQLiteHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
     public UploadSQLiteHelper(Context context) {
         super(context);
     }
@@ -33,7 +45,7 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
      * Adds an UploadItem to the database
      * @param item  the UploadItem to be added
      */
-    public void addUpload(UploadItem item) {
+    public synchronized void addUpload(UploadItem item) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, item.getId());
         values.put(NAME_SIZE, item.getSize());
@@ -42,10 +54,10 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_DOWNLOADS, item.getDownloads());
         values.put(NAME_DOWNLOAD_LINK, item.getDownloadLink());
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
         db.insertWithOnConflict(UPLOAD_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-        db.close();
+        db.endTransaction();
     }
 
     /**
@@ -53,7 +65,7 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
      * @param id  the ID of the item to be retrieved
      * @return the selected UploadItem
      */
-    public UploadItem getUpload(int id) {
+    public synchronized UploadItem getUpload(int id) {
         String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
         return getUploadItem(query);
     }
@@ -62,7 +74,7 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
      * Gets the lastest UploadItem in the database
      * @return the UploadItem item that was requested
      */
-    public UploadItem getLastUpload() {
+    public synchronized UploadItem getLastUpload() {
         String query = "SELECT * FROM " + UPLOAD_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getUploadItem(query);
     }
@@ -73,9 +85,10 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
      * @return The resulting UploadItem
      */
     @Nullable
-    private UploadItem getUploadItem(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    private synchronized UploadItem getUploadItem(String query) {
+        SQLiteDatabase db = getReadableDb();
 
+        db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
         UploadItem uploadItem;
@@ -87,11 +100,11 @@ public class UploadSQLiteHelper extends BaseSQLiteHelper {
         } else {
             uploadItem = null;
         }
-        db.close();
+        db.endTransaction();
         return uploadItem;
     }
 
-    private UploadItem getUploadItemFromCursor(Cursor cursor) {
+    private synchronized UploadItem getUploadItemFromCursor(Cursor cursor) {
         UploadItem uploadItem = new UploadItem();
         uploadItem.setId(Integer.parseInt(cursor.getString(0)));
         uploadItem.setSize(Integer.parseInt(cursor.getString(1)));

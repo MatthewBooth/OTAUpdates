@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
      */
     private void disableDrawerItems(Menu menu) {
 
-        RomSQLiteHelper romSQLiteHelper = new RomSQLiteHelper(mContext);
+        RomSQLiteHelper romSQLiteHelper = RomSQLiteHelper.getInstance(mContext);
         RomItem romItem = romSQLiteHelper.getRom();
         MenuItem item;
 
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
     }
 
     /**
-     * Loads a fragement into the activity
+     * Loads a fragment into the activity
      *
      * @param fragment The fragment to load
      * @return The state after attempting to load the fragment. False did not load correctly.
@@ -434,7 +434,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
 
-                RomSQLiteHelper romSQLiteHelper = new RomSQLiteHelper(mContext);
+                RomSQLiteHelper romSQLiteHelper = RomSQLiteHelper.getInstance(mContext);
                 RomItem romItem = romSQLiteHelper.getRom();
 
                 //Check to see which item was being clicked and perform appropriate action
@@ -535,7 +535,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                 }
 
                 if (output) {
-                    VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+                    VersionSQLiteHelper versionSQLiteHelper = VersionSQLiteHelper.getInstance(mContext);
                     int fileId = versionSQLiteHelper.getLastVersionItem().getId();
                     loadFragment(FileViewerFragment.newInstance(FILE_TYPE_VERSION, fileId));
                 } else {

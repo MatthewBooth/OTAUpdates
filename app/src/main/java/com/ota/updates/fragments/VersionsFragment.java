@@ -63,7 +63,7 @@ public class VersionsFragment extends Fragment implements App {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_versions, container, false);
 
-        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mActivity);
+        VersionSQLiteHelper versionSQLiteHelper = VersionSQLiteHelper.getInstance(mActivity);
 
         ArrayList<VersionItem> listOfVersions = versionSQLiteHelper.getListOfVersions();
 
@@ -115,7 +115,7 @@ public class VersionsFragment extends Fragment implements App {
             viewHolder.mTitle.setText(item.getFullName());
 
             // Filesize
-            UploadSQLiteHelper uploadSQLiteHelper = new UploadSQLiteHelper(mActivity);
+            UploadSQLiteHelper uploadSQLiteHelper = UploadSQLiteHelper.getInstance(mActivity);
             int fullUploadId = item.getFullUploadId();
             UploadItem uploadItem = uploadSQLiteHelper.getUpload(fullUploadId);
             int size = uploadItem.getSize();

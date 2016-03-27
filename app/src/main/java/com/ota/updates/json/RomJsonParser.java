@@ -44,7 +44,7 @@ public class RomJsonParser implements DatabaseFields {
         try {
             RomItem romItem = new RomItem();
             JSONObject jObj = new JSONObject(mJSONString);
-            RomSQLiteHelper helper = new RomSQLiteHelper(mContext);
+            RomSQLiteHelper helper = RomSQLiteHelper.getInstance(mContext);
 
             JSONObject romObj = jObj.getJSONObject(NAME_ROM);
 

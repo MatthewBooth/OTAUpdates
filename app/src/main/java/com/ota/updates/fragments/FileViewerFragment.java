@@ -106,7 +106,7 @@ public class FileViewerFragment extends Fragment implements App {
         mDownloadInProgress = false;
 
         // Get the DB helper
-        mDownloadsSQLiteHelper = new DownloadsSQLiteHelper(mActivity);
+        mDownloadsSQLiteHelper = DownloadsSQLiteHelper.getInstance(mActivity);
 
         // Check to see if the download is ongoing currently
         DownloadItem downloadItem = mDownloadsSQLiteHelper.getDownloadEntryByFileId(mFileId);
@@ -146,7 +146,7 @@ public class FileViewerFragment extends Fragment implements App {
      * @param view The root view for the fragment
      */
     private void setupVersionFile(View view, int fileId) {
-        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mActivity);
+        VersionSQLiteHelper versionSQLiteHelper = VersionSQLiteHelper.getInstance(mActivity);
         VersionItem versionItem = versionSQLiteHelper.getVersion(fileId);
 
         TextView headline = (TextView) view.findViewById(R.id.headline);
@@ -155,7 +155,7 @@ public class FileViewerFragment extends Fragment implements App {
         headline.setText(getResources().getString(R.string.file_information));
         subtitle.setText(getResources().getString(R.string.changelog));
 
-        UploadSQLiteHelper uploadHelper = new UploadSQLiteHelper(mActivity);
+        UploadSQLiteHelper uploadHelper = UploadSQLiteHelper.getInstance(mActivity);
         int fullId = versionItem.getFullUploadId();
         UploadItem uploadItem = uploadHelper.getUpload(fullId);
 
@@ -208,7 +208,7 @@ public class FileViewerFragment extends Fragment implements App {
      * @param view The root view for the fragment
      */
     private void setupAddonFile(View view, int fileId) {
-        AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mActivity);
+        AddonSQLiteHelper addonSQLiteHelper = AddonSQLiteHelper.getInstance(mActivity);
         AddonItem addonItem = addonSQLiteHelper.getAddon(fileId);
 
         TextView headline = (TextView) view.findViewById(R.id.headline);

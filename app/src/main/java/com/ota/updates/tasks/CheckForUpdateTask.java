@@ -36,7 +36,7 @@ public class CheckForUpdateTask extends AsyncTask<String, Integer, Boolean> impl
     @Override
     protected Boolean doInBackground(String[] params) {
 
-        VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mContext);
+        VersionSQLiteHelper versionSQLiteHelper = VersionSQLiteHelper.getInstance(mContext);
         Integer lastVersionNumber = versionSQLiteHelper.getLastVersionNumber();
         String remoteVersion = Integer.toString(lastVersionNumber);
 

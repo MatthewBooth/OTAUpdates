@@ -27,6 +27,18 @@ import com.ota.updates.items.RomItem;
  */
 public class RomSQLiteHelper extends BaseSQLiteHelper {
 
+    private static RomSQLiteHelper mInstance = null;
+
+    public static synchronized RomSQLiteHelper getInstance(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (mInstance == null) {
+            mInstance = new RomSQLiteHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
     public RomSQLiteHelper(Context context) {
         super(context);
     }
@@ -36,7 +48,7 @@ public class RomSQLiteHelper extends BaseSQLiteHelper {
      *
      * @param item the RomItem to be added
      */
-    public void addRom(RomItem item) {
+    public synchronized void addRom(RomItem item) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, item.getId());
         values.put(NAME_NAME, item.getName());
@@ -48,10 +60,10 @@ public class RomSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_WEBSITE_URL, item.getWebsiteUrl());
         values.put(NAME_DONATE_URL, item.getDonateUrl());
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
         db.insertWithOnConflict(ROM_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-        db.close();
+        db.endTransaction();
     }
 
     /**
@@ -59,7 +71,7 @@ public class RomSQLiteHelper extends BaseSQLiteHelper {
      *
      * @return the selected RomItem
      */
-    public RomItem getRom() {
+    public synchronized RomItem getRom() {
         String query = "SELECT * FROM " + ROM_TABLE_NAME + " LIMIT 1";
         return getRomItem(query);
     }
@@ -71,9 +83,9 @@ public class RomSQLiteHelper extends BaseSQLiteHelper {
      * @return The resulting UploadItem
      */
     @Nullable
-    private RomItem getRomItem(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
+    private synchronized RomItem getRomItem(String query) {
+        SQLiteDatabase db = getReadableDb();
+        db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
         RomItem romItem;
@@ -85,12 +97,12 @@ public class RomSQLiteHelper extends BaseSQLiteHelper {
         } else {
             romItem = null;
         }
-        db.close();
+        db.endTransaction();
         return romItem;
     }
 
     @NonNull
-    private RomItem getRomItemFromCursor(Cursor cursor) {
+    private synchronized RomItem getRomItemFromCursor(Cursor cursor) {
         RomItem romItem = new RomItem();
         romItem.setId(Integer.parseInt(cursor.getString(0)));
         romItem.setName(cursor.getString(1));

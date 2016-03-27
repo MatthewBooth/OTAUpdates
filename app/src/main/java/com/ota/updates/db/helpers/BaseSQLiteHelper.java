@@ -23,10 +23,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.ota.updates.utils.constants.App;
 import com.ota.updates.utils.constants.DatabaseFields;
 
-public class BaseSQLiteHelper extends SQLiteOpenHelper implements App, DatabaseFields {
+public abstract class BaseSQLiteHelper extends SQLiteOpenHelper implements App, DatabaseFields {
 
     public BaseSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    protected synchronized SQLiteDatabase getWritableDb() {
+        return getWritableDatabase();
+    }
+
+    protected synchronized SQLiteDatabase getReadableDb() {
+        return getReadableDatabase();
     }
 
     @Override
@@ -161,9 +169,12 @@ public class BaseSQLiteHelper extends SQLiteOpenHelper implements App, DatabaseF
      * @param tableName  The table to collect the entries from
      * @return  A Cursor object with the entries in
      */
-    public Cursor getAllEntries(String tableName) {
+    public synchronized Cursor getAllEntries(String tableName) {
         String query = "SELECT * FROM " + tableName + " ORDER BY " + NAME_ID + " DESC";
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery(query, null);
+        SQLiteDatabase db = getReadableDb();
+        db.beginTransaction();
+        Cursor cursor = db.rawQuery(query, null);
+        db.endTransaction();
+        return cursor;
     }
 }

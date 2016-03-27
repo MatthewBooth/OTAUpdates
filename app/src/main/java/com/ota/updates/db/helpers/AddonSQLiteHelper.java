@@ -28,6 +28,18 @@ import java.util.ArrayList;
 
 public class AddonSQLiteHelper extends BaseSQLiteHelper {
 
+    private static AddonSQLiteHelper mInstance = null;
+
+    public static synchronized AddonSQLiteHelper getInstance(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (mInstance == null) {
+            mInstance = new AddonSQLiteHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
     public AddonSQLiteHelper(Context context) {
         super(context);
     }
@@ -36,7 +48,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
      * Adds an AddonItem to the database
      * @param item  the AddonItem to be added
      */
-    public void addAddon(AddonItem item) {
+    public synchronized void addAddon(AddonItem item) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, item.getId());
         values.put(NAME_DOWNLOADS, item.getDownloads());
@@ -50,9 +62,10 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_DOWNLOAD_LINK, item.getDownloadLink());
         values.put(NAME_CATEGORY, item.getCategory());
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
         db.insertWithOnConflict(ADDON_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-        db.close();
+        db.endTransaction();
     }
 
     /**
@@ -60,7 +73,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
      * @param id  the ID of the item to be retrieved
      * @return the selected AddonItem
      */
-    public AddonItem getAddon(int id) {
+    public synchronized AddonItem getAddon(int id) {
         String query = "SELECT * FROM " + ADDON_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
         return getAddonItem(query);
     }
@@ -69,7 +82,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
      * Gets the lastest AddonItem in the database
      * @return the AddonItem that was requested
      */
-    public AddonItem getLastAddon() {
+    public synchronized AddonItem getLastAddon() {
         String query = "SELECT * FROM " + ADDON_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getAddonItem(query);
     }
@@ -80,9 +93,10 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
      * @return The resulting AddonItem
      */
     @Nullable
-    private AddonItem getAddonItem(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    private synchronized AddonItem getAddonItem(String query) {
+        SQLiteDatabase db = getReadableDb();
 
+        db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
         AddonItem addonItem;
@@ -94,11 +108,11 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
         } else {
             addonItem = null;
         }
-        db.close();
+        db.endTransaction();
         return addonItem;
     }
 
-    public ArrayList<AddonItem> getListOfAddons() {
+    public synchronized ArrayList<AddonItem> getListOfAddons() {
         ArrayList<AddonItem> list = new ArrayList<>();
 
         Cursor cursor = getAllEntries(ADDON_TABLE_NAME);
@@ -115,7 +129,7 @@ public class AddonSQLiteHelper extends BaseSQLiteHelper {
     }
 
     @NonNull
-    private AddonItem getAddonItemFromCursor(Cursor cursor) {
+    private synchronized AddonItem getAddonItemFromCursor(Cursor cursor) {
         AddonItem addonItem = new AddonItem();
         addonItem.setId(Integer.parseInt(cursor.getString(0)));
         addonItem.setName(cursor.getString(1));

@@ -28,6 +28,18 @@ import java.util.ArrayList;
 
 public class VersionSQLiteHelper extends BaseSQLiteHelper {
 
+    private static VersionSQLiteHelper mInstance = null;
+
+    public static synchronized VersionSQLiteHelper getInstance(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (mInstance == null) {
+            mInstance = new VersionSQLiteHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
     public VersionSQLiteHelper(Context context) {
         super(context);
     }
@@ -36,7 +48,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * Adds an VersionItem to the database
      * @param item  the VersionItem to be added
      */
-    public void addVersion(VersionItem item) {
+    public synchronized void addVersion(VersionItem item) {
         ContentValues values = new ContentValues();
         values.put(NAME_ID, item.getId());
         values.put(NAME_FULL_NAME, item.getFullName());
@@ -50,9 +62,10 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         values.put(NAME_FULL_ID, item.getFullUploadId());
         values.put(NAME_DELTA_ID, item.getDeltaUploadId());
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDb();
+        db.beginTransaction();
         db.insertWithOnConflict(VERSION_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-        db.close();
+        db.endTransaction();
     }
 
     /**
@@ -60,7 +73,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * @param id  the ID of the item to be retrieved
      * @return the selected VersionItem
      */
-    public VersionItem getVersion(int id) {
+    public synchronized VersionItem getVersion(int id) {
         String query = "SELECT * FROM " + VERSION_TABLE_NAME + " WHERE " + NAME_ID + " =  \"" + id + "\"";
         return getVersionItem(query);
     }
@@ -69,7 +82,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * Gets the lastest VersionItem in the database
      * @return the VersionItem that was requested
      */
-    public VersionItem getLastVersionItem() {
+    public synchronized VersionItem getLastVersionItem() {
         String query = "SELECT * FROM " + VERSION_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         return getVersionItem(query);
     }
@@ -78,7 +91,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * This should be the latest version
      * @return  The last version item's version number
      */
-    public Integer getLastVersionNumber() {
+    public synchronized Integer getLastVersionNumber() {
         int versionNumber;
         String query = "SELECT " + NAME_VERSION_NUMBER + " FROM " + VERSION_TABLE_NAME + " ORDER BY " + NAME_ID + " DESC LIMIT 1";
         String versionString = getSingleVersionColumn(query);
@@ -92,9 +105,10 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
      * @return The resulting VersionItem
      */
     @Nullable
-    private VersionItem getVersionItem(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    private synchronized VersionItem getVersionItem(String query) {
+        SQLiteDatabase db = getReadableDb();
 
+        db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
         VersionItem versionItem = new VersionItem();
@@ -106,13 +120,14 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
         } else {
             versionItem = null;
         }
-        db.close();
+        db.endTransaction();
         return versionItem;
     }
 
-    private String getSingleVersionColumn(String query) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    private synchronized String getSingleVersionColumn(String query) {
+        SQLiteDatabase db = getReadableDb();
 
+        db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
         String columnItem = "";
@@ -122,16 +137,17 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
             columnItem = cursor.getString(0);
             cursor.close();
         }
-        db.close();
+        db.endTransaction();
 
         return columnItem;
     }
 
-    public int getCountOfVersions() {
+    public synchronized int getCountOfVersions() {
         String query = "SELECT COUNT(*) FROM " + VERSION_TABLE_NAME;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getReadableDb();
 
+        db.beginTransaction();
         Cursor cursor = db.rawQuery(query, null);
 
         int result = 0;
@@ -141,12 +157,12 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
             result =  Integer.parseInt(cursor.getString(0));
             cursor.close();
         }
-        db.close();
+        db.endTransaction();
 
         return result;
     }
 
-    public ArrayList<VersionItem> getListOfVersions() {
+    public synchronized ArrayList<VersionItem> getListOfVersions() {
         ArrayList<VersionItem> list = new ArrayList<>();
 
         Cursor cursor = getAllEntries(VERSION_TABLE_NAME);
@@ -163,7 +179,7 @@ public class VersionSQLiteHelper extends BaseSQLiteHelper {
     }
 
     @NonNull
-    private VersionItem getVersionItemFromCursor(Cursor cursor) {
+    private synchronized VersionItem getVersionItemFromCursor(Cursor cursor) {
         VersionItem versionItem = new VersionItem();
         versionItem.setId(Integer.parseInt(cursor.getString(0)));
         versionItem.setFullName(cursor.getString(1));

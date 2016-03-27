@@ -64,7 +64,7 @@ public class DownloadManagerFragment extends Fragment implements App {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_download_manager, container, false);
 
-        DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(mActivity);
+        DownloadsSQLiteHelper downloadsSQLiteHelper = DownloadsSQLiteHelper.getInstance(mActivity);
 
         ArrayList<DownloadItem> listOfDownloads = downloadsSQLiteHelper.getListOfDownloads();
 
@@ -124,11 +124,11 @@ public class DownloadManagerFragment extends Fragment implements App {
             final DownloadItem downloadItem = mItems.get(position);
 
             if (downloadItem.getDownloadType() == DOWNLOAD_TYPE_VERSION) {
-                VersionSQLiteHelper versionSQLiteHelper = new VersionSQLiteHelper(mActivity);
+                VersionSQLiteHelper versionSQLiteHelper = VersionSQLiteHelper.getInstance(mActivity);
                 VersionItem item = versionSQLiteHelper.getVersion(downloadItem.getFileId());
                 setupVersionItem(viewHolder, item, downloadItem);
             } else {
-                AddonSQLiteHelper addonSQLiteHelper = new AddonSQLiteHelper(mActivity);
+                AddonSQLiteHelper addonSQLiteHelper = AddonSQLiteHelper.getInstance(mActivity);
                 AddonItem item = addonSQLiteHelper.getAddon(downloadItem.getFileId());
                 setupAddonItem(viewHolder, item, downloadItem);
             }
@@ -181,7 +181,7 @@ public class DownloadManagerFragment extends Fragment implements App {
             viewHolder.mTitle.setText(item.getFullName());
 
             // Filesize
-            UploadSQLiteHelper uploadSQLiteHelper = new UploadSQLiteHelper(mActivity);
+            UploadSQLiteHelper uploadSQLiteHelper = UploadSQLiteHelper.getInstance(mActivity);
             int fullUploadId = item.getFullUploadId();
             UploadItem uploadItem = uploadSQLiteHelper.getUpload(fullUploadId);
             int size = uploadItem.getSize();

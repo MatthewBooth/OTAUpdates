@@ -41,7 +41,7 @@ public class FileDownload implements App {
     public FileDownload(Context context) {
         mContext = context;
         mDownloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        mDownloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
+        mDownloadsSQLiteHelper = DownloadsSQLiteHelper.getInstance(context);
     }
 
     public Long addDownload(String url, String fileName, int fileId, Integer downloadType) {

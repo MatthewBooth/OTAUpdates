@@ -52,7 +52,7 @@ public class UploadJsonParser implements DatabaseFields {
             uploadItem.setMd5(jObj.getString(NAME_MD5));
             uploadItem.setDownloadLink(jObj.getString(NAME_DOWNLOAD_LINK));
 
-            UploadSQLiteHelper helper = new UploadSQLiteHelper(mContext);
+            UploadSQLiteHelper helper = UploadSQLiteHelper.getInstance(mContext);
             helper.addUpload(uploadItem);
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());

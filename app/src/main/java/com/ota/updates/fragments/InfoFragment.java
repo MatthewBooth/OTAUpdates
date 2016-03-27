@@ -60,7 +60,7 @@ public class InfoFragment extends Fragment {
         TextView downloadsTv = (TextView) view.findViewById(R.id.downloads);
         TextView descriptionTv = (TextView) view.findViewById(R.id.changelog_or_description);
 
-        RomSQLiteHelper helper = new RomSQLiteHelper(mActivity);
+        RomSQLiteHelper helper = RomSQLiteHelper.getInstance(mActivity);
         RomItem romItem = helper.getRom();
 
         nameTv.setText(romItem.getName());

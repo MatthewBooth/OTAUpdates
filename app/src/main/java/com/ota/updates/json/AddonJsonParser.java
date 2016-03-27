@@ -48,7 +48,7 @@ public class AddonJsonParser implements DatabaseFields {
 
             JSONArray addonsArr = romObj.getJSONArray(NAME_ADDONS);
 
-            AddonSQLiteHelper helper = new AddonSQLiteHelper(mContext);
+            AddonSQLiteHelper helper = AddonSQLiteHelper.getInstance(mContext);
 
             for (int i = 0; i < addonsArr.length(); i++) {
                 JSONObject arrayObj = addonsArr.getJSONObject(i);
