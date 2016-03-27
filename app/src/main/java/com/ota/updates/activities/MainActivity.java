@@ -27,7 +27,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -53,7 +52,6 @@ import com.ota.updates.download.FileDownload;
 import com.ota.updates.fragments.AboutFragment;
 import com.ota.updates.fragments.AddonsFragment;
 import com.ota.updates.fragments.CheckFragment;
-import com.ota.updates.fragments.DownloadManagerFragment;
 import com.ota.updates.fragments.FileViewerFragment;
 import com.ota.updates.fragments.InfoFragment;
 import com.ota.updates.fragments.VersionsFragment;
@@ -68,7 +66,6 @@ import com.ota.updates.utils.Utils;
 import com.ota.updates.utils.fontdrawing.FontAwesomeDrawable;
 import com.ota.updates.utils.fontdrawing.MaterialIconsDrawable;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
     private Context mContext;
     private Activity mActivity;
+    private FileDownload mFileDownload;
 
     /**
      * Used in case we were not given write access initially and needed to request it
@@ -98,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
         mContext = this;
         mActivity = this;
+
+        mFileDownload =  new FileDownload(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window w = getWindow(); // in Activity's onCreate() for instance
@@ -581,7 +581,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
         // If we have access, then start the download
         if (writePermissionsGranted) {
-            return FileDownload.startDownload(mContext, url, fileName, fileId, downloadType);
+            return mFileDownload.addDownload(url, fileName, fileId, downloadType);
         }
         // If we do not have access, then add the values to a map and request access again
         // If granted, the permissions request response method will refire this method using the
@@ -601,7 +601,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
     @Override
     public void stopDownload(int fileId) {
-        FileDownload.stopDownload(mContext, fileId);
+        mFileDownload.removeDownload(fileId);
     }
 
     @Override

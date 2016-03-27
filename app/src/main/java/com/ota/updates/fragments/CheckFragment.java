@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,7 @@ public class CheckFragment extends Fragment implements App {
         String timeChecked = Preferences.getUpdateLastChecked(mActivity);
         time.setText(lastChecked + " " + timeChecked);
 
-        View fabView = view.findViewById(R.id.fab);
+        View fabView = view.findViewById(R.id.fabDownload);
         if (fabView != null) {
             FloatingActionButton fab = (FloatingActionButton) fabView;
 

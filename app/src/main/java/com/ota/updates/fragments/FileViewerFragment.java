@@ -15,7 +15,12 @@ package com.ota.updates.fragments;
  * limitations under the License.
  */
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -53,7 +58,15 @@ public class FileViewerFragment extends Fragment implements App {
     private FragmentInteractionListener mListener;
     private int mFileType;
     private int mFileId;
+
     private Long mDownloadId;
+
+    private DownloadsSQLiteHelper mDownloadsSQLiteHelper;
+
+    private Boolean mDownloadInProgress;
+    private Boolean mMonitorProgress;
+
+    private DownloadManager mDownloadManager;
 
     private ProgressBar mProgressBar;
 
@@ -86,11 +99,22 @@ public class FileViewerFragment extends Fragment implements App {
             }
         }
 
-        DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(mActivity);
-        DownloadItem downloadItem = downloadsSQLiteHelper.getDownloadEntryByFileId(mFileId);
-        mDownloadId = downloadItem != null ? downloadItem.getDownloadId() : -1;
-        if (DEBUGGING) {
-            Log.d(TAG, "Download ID = " + mDownloadId);
+        // Setup the DownloadManager
+        mDownloadManager = (DownloadManager) mActivity.getSystemService(Context.DOWNLOAD_SERVICE);
+
+        // Initial state of the download. Assume it's not ongoing
+        mDownloadInProgress = false;
+
+        // Get the DB helper
+        mDownloadsSQLiteHelper = new DownloadsSQLiteHelper(mActivity);
+
+        // Check to see if the download is ongoing currently
+        DownloadItem downloadItem = mDownloadsSQLiteHelper.getDownloadEntryByFileId(mFileId);
+        if (downloadItem != null) {
+            if (downloadItem.getDownloadStatus().equals(DOWNLOAD_STATUS_RUNNING)) {
+                mDownloadInProgress = true;
+                mDownloadId = downloadItem.getDownloadId();
+            }
         }
     }
 
@@ -283,21 +307,54 @@ public class FileViewerFragment extends Fragment implements App {
     }
 
     private void setupFloatingActionButton(View view, final String url, final String fileName, final int fileId, final int type) {
-        View fabView = view.findViewById(R.id.fab);
-        if (fabView != null) {
-            FloatingActionButton fab = (FloatingActionButton) fabView;
-            MaterialIconsDrawable.Builder build = new MaterialIconsDrawable.Builder(mActivity, R.string.mc_file_download);
-            build.setSize(32);
-            build.setColor(Color.WHITE);
-            fab.setImageDrawable(build.build());
+        final View fabViewDownload = view.findViewById(R.id.fabDownload);
+        final View fabViewCancel = view.findViewById(R.id.fabCancel);
 
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mDownloadId = mListener.startDownload(url, fileName, fileId, type);
-                }
-            });
-        }
+        // Start Download button
+        final FloatingActionButton fabDownload = (FloatingActionButton) fabViewDownload;
+        MaterialIconsDrawable.Builder buildDownload = new MaterialIconsDrawable.Builder(mActivity, R.string.mc_file_download);
+        buildDownload.setSize(32);
+        buildDownload.setColor(Color.WHITE);
+        fabDownload.setImageDrawable(buildDownload.build());
+        fabDownload.setVisibility(mDownloadInProgress ? View.GONE : View.VISIBLE);
+
+        // Cancel Download button
+        final FloatingActionButton fabCancel = (FloatingActionButton) fabViewCancel;
+        MaterialIconsDrawable.Builder buildCancel = new MaterialIconsDrawable.Builder(mActivity, R.string.mc_close);
+        buildCancel.setSize(32);
+        buildCancel.setColor(Color.WHITE);
+        fabCancel.setImageDrawable(buildCancel.build());
+        fabCancel.setVisibility(mDownloadInProgress ? View.VISIBLE : View.GONE);
+
+        // Click listeners
+        fabDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDownload(url, fileName, fileId, type, fabDownload, fabCancel);
+            }
+        });
+        fabCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopDownload(fileId, fabCancel, fabDownload);
+            }
+        });
+    }
+
+    private void stopDownload(int fileId, FloatingActionButton fabCancel, FloatingActionButton fabDownload) {
+        mListener.stopDownload(fileId);
+        mDownloadInProgress = false;
+        fabCancel.setVisibility(View.GONE);
+        fabDownload.setVisibility(View.VISIBLE);
+        mProgressBar.setProgress(0);
+    }
+
+    private void startDownload(String url, String fileName, int fileId, int type, FloatingActionButton fabDownload, FloatingActionButton fabCancel) {
+        mDownloadId = mListener.startDownload(url, fileName, fileId, type);
+        mDownloadInProgress = true;
+        fabDownload.setVisibility(View.GONE);
+        fabCancel.setVisibility(View.VISIBLE);
+        new DownloadProgress().execute();
     }
 
     @Override
@@ -309,21 +366,72 @@ public class FileViewerFragment extends Fragment implements App {
             throw new ClassCastException(mActivity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        mMonitorProgress = true;
+
+        if (mDownloadInProgress) {
+            new DownloadProgress().execute();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
         mListener = null;
+        mMonitorProgress = false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mMonitorProgress = true;
+        if (mDownloadInProgress) {
+            new DownloadProgress().execute();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        mMonitorProgress = false;
+    }
+
+    private class DownloadProgress extends AsyncTask<Long, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Long... params) {
+            int previousValue = 0;
+            while(mDownloadInProgress && mMonitorProgress) {
+                DownloadManager.Query q = new DownloadManager.Query();
+                q.setFilterById(mDownloadId);
+
+                Cursor cursor = mDownloadManager.query(q);
+                cursor.moveToFirst();
+                try {
+                    final int bytesDownloaded = cursor.getInt(cursor
+                            .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                    final int bytesInTotal = cursor.getInt(cursor
+                            .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+
+                    final int progressPercent = (int) ((bytesDownloaded * 100l) / bytesInTotal);
+
+                    if (progressPercent != previousValue) {
+                        // Only publish every 1%, to reduce the amount of work being done.
+                        publishProgress(progressPercent, bytesDownloaded, bytesInTotal);
+                        previousValue = progressPercent;
+                    }
+                } catch (CursorIndexOutOfBoundsException | ArithmeticException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+                cursor.close();
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            if (DEBUGGING) {
+                Log.d(TAG, "Updating Progress - " + progress[0] + "%");
+            }
+            mProgressBar.setProgress(progress[0]);
+        }
     }
 }

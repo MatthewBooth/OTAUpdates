@@ -58,9 +58,10 @@ public class DownloadsSQLiteHelper extends BaseSQLiteHelper {
         db.close();
     }
 
-    public void updateFinishedTime(int fileId, Timestamp downloadFinished) {
+    public void updateFinishedDownload(int fileId, Timestamp downloadFinished, Integer status) {
         ContentValues values = new ContentValues();
         values.put(NAME_DOWNLOAD_FINISHED, downloadFinished.toString());
+        values.put(NAME_DOWNLOAD_STATUS, status);
 
         SQLiteDatabase db = this.getWritableDatabase();
 

@@ -1,13 +1,19 @@
 package com.ota.updates.download;
 
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.ota.updates.R;
 import com.ota.updates.db.helpers.DownloadsSQLiteHelper;
 import com.ota.updates.items.DownloadItem;
 import com.ota.updates.utils.constants.App;
+import com.ota.updates.utils.constants.BroadcastActions;
 
 import java.sql.Timestamp;
 
@@ -28,12 +34,18 @@ import java.sql.Timestamp;
  */
 public class FileDownload implements App {
 
-    public FileDownload() {
+    private Context mContext;
+    private DownloadManager mDownloadManager;
+    private DownloadsSQLiteHelper mDownloadsSQLiteHelper;
 
+    public FileDownload(Context context) {
+        mContext = context;
+        mDownloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        mDownloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
     }
 
-    public static Long startDownload(Context context, String url, String fileName, int fileId, Integer downloadType) {
-        String description = context.getResources().getString(R.string.downloading);
+    public Long addDownload(String url, String fileName, int fileId, Integer downloadType) {
+        String description = mContext.getResources().getString(R.string.downloading);
 
         String zipExtension = ".zip";
         if (!fileName.contains(zipExtension)) {
@@ -49,23 +61,21 @@ public class FileDownload implements App {
         downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         downloadRequest.setDestinationInExternalPublicDir(OTA_DOWNLOAD_DIR, fileName);
 
-        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        long downloadId = downloadManager.enqueue(downloadRequest);
+        long downloadId = mDownloadManager.enqueue(downloadRequest);
 
-        DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
-        downloadsSQLiteHelper.addDownload(fileId, downloadId, downloadType, new Timestamp(System.currentTimeMillis()));
+        mDownloadsSQLiteHelper.addDownload(fileId, downloadId, downloadType, new Timestamp(System.currentTimeMillis()));
 
         return downloadId;
     }
 
-    public static void stopDownload(Context context, int fileId) {
-        DownloadsSQLiteHelper downloadsSQLiteHelper = new DownloadsSQLiteHelper(context);
-        DownloadItem downloadItem = downloadsSQLiteHelper.getDownloadEntryByFileId(fileId);
-        long downloadId = downloadItem.getDownloadId();
+    public void removeDownload(int fileId) {
+        DownloadItem downloadItem = mDownloadsSQLiteHelper.getDownloadEntryByFileId(fileId);
+        if (downloadItem != null) {
+            long downloadId = downloadItem.getDownloadId();
 
-        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        downloadManager.remove(downloadId);
+            mDownloadManager.remove(downloadId);
 
-        downloadsSQLiteHelper.removeDownload(downloadId);
+            mDownloadsSQLiteHelper.removeDownload(downloadId);
+        }
     }
 }
