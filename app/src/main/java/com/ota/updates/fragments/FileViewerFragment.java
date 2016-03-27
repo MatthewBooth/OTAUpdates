@@ -34,6 +34,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ota.updates.R;
+import com.ota.updates.callbacks.DownloadProgressCallback;
 import com.ota.updates.db.helpers.AddonSQLiteHelper;
 import com.ota.updates.db.helpers.DownloadsSQLiteHelper;
 import com.ota.updates.db.helpers.UploadSQLiteHelper;
@@ -359,19 +360,24 @@ public class FileViewerFragment extends Fragment implements App {
     }
 
     private void stopDownload(int fileId, FloatingActionButton fabCancel, FloatingActionButton fabDownload) {
-        mListener.stopDownload(fileId);
         mDownloadInProgress = false;
+        mListener.stopDownload(fileId);
         fabCancel.setVisibility(View.GONE);
         fabDownload.setVisibility(View.VISIBLE);
         mProgressBar.setProgress(0);
     }
 
-    private void startDownload(String url, String fileName, int fileId, int type, FloatingActionButton fabDownload, FloatingActionButton fabCancel) {
-        mDownloadId = mListener.startDownload(url, fileName, fileId, type);
-        mDownloadInProgress = true;
-        fabDownload.setVisibility(View.GONE);
-        fabCancel.setVisibility(View.VISIBLE);
-        new DownloadProgress().execute();
+    private void startDownload(String url, String fileName, int fileId, int type, final FloatingActionButton fabDownload, final FloatingActionButton fabCancel) {
+        mListener.startDownload(url, fileName, fileId, type, new DownloadProgressCallback() {
+            @Override
+            public void startMonitoring(Long output) {
+                mDownloadId = output;
+                startDownloadProgressMonitoring();
+                mDownloadInProgress = true;
+                fabDownload.setVisibility(View.GONE);
+                fabCancel.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -393,7 +399,7 @@ public class FileViewerFragment extends Fragment implements App {
         mMonitorProgress = true;
 
         if (mDownloadInProgress) {
-            new DownloadProgress().execute();
+            startDownloadProgressMonitoring();
         }
     }
 
@@ -409,8 +415,12 @@ public class FileViewerFragment extends Fragment implements App {
         super.onResume();
         mMonitorProgress = true;
         if (mDownloadInProgress) {
-            new DownloadProgress().execute();
+            startDownloadProgressMonitoring();
         }
+    }
+
+    private void startDownloadProgressMonitoring() {
+        new DownloadProgress().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

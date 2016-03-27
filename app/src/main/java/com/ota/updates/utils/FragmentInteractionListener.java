@@ -15,13 +15,15 @@ package com.ota.updates.utils;
  * limitations under the License.
  */
 
+import com.ota.updates.callbacks.DownloadProgressCallback;
+
 public interface FragmentInteractionListener {
 
     void onRefreshClickInteraction();
 
     void onOpenFileDownloadView(int fileType, int fileId);
 
-    Long startDownload(String url, String fileName, int fileId, int downloadType);
+    void startDownload(String url, String fileName, int fileId, int downloadType, DownloadProgressCallback callback);
 
     void stopDownload(int fileId);
 }

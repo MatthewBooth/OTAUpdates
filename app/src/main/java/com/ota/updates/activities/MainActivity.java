@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -46,6 +47,7 @@ import android.view.WindowManager;
 
 import com.ota.updates.R;
 import com.ota.updates.callbacks.AsyncResponse;
+import com.ota.updates.callbacks.DownloadProgressCallback;
 import com.ota.updates.db.helpers.RomSQLiteHelper;
 import com.ota.updates.db.helpers.VersionSQLiteHelper;
 import com.ota.updates.download.FileDownload;
@@ -162,7 +164,8 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                     String fileName = (String) mStartDownload.get("fileName");
                     Integer fileId = (Integer) mStartDownload.get("fileId");
                     Integer type = (Integer) mStartDownload.get("type");
-                    startDownload(url, fileName, fileId, type);
+                    DownloadProgressCallback callback = (DownloadProgressCallback) mStartDownload.get("callback");
+                    startDownload(url, fileName, fileId, type, callback);
                 }
             }
             // Not enabled, set the preference accordingly and show a helpful dialog message
@@ -181,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
     /**
      * Request permissions from the system
      */
-    private void requestWritePermissions() {
+    private void requestWritePermissions(DownloadProgressCallback callback) {
         if (ContextCompat.checkSelfPermission(mActivity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -496,7 +499,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                     loadingDialog.cancel();
                 }
             }
-        }).execute();
+        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -518,7 +521,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
                     loadingDialog.cancel();
                 }
             }
-        }).execute();
+        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -548,7 +551,7 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
 
                 loadingDialog.cancel();
             }
-        }).execute();
+        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -576,13 +579,13 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
     }
 
     @Override
-    public Long startDownload(String url, String fileName, int fileId, int downloadType) {
+    public void startDownload(String url, String fileName, int fileId, int downloadType, DownloadProgressCallback callback) {
         // Gets the status of the current access level for write permissions to storage
         Boolean writePermissionsGranted = Preferences.getWritePermissionGranted(mContext);
 
         // If we have access, then start the download
         if (writePermissionsGranted) {
-            return mFileDownload.addDownload(url, fileName, fileId, downloadType);
+            callback.startMonitoring(mFileDownload.addDownload(url, fileName, fileId, downloadType));
         }
         // If we do not have access, then add the values to a map and request access again
         // If granted, the permissions request response method will refire this method using the
@@ -595,8 +598,8 @@ public class MainActivity extends AppCompatActivity implements App, FragmentInte
             mStartDownload.put("fileName", fileName);
             mStartDownload.put("fileId", fileId);
             mStartDownload.put("type", downloadType);
-            requestWritePermissions();
-            return -1L;
+            mStartDownload.put("callback", callback);
+            requestWritePermissions(callback);
         }
     }
 
