@@ -7,7 +7,7 @@ If you are aiming to build this with an AOSP-based ROM (such as AOSP, CyanogenMo
 To include this in your AOSP based ROM, you need to add it to your room_service.xml
 
 ```XML
-<project path="packages/apps/OTAUpdates" name="MatthewBooth/OTAUpdates" revision="aosp" />
+<project path="packages/apps/OTAUpdates" name="MatthewBooth/OTAUpdates" revision="github" />
 ```
 
 ### Including in your config files
